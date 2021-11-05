@@ -32,16 +32,19 @@ extension MVVM {
         container.register() { CatalogViewModel() }
         container.register() { TitleViewModel() }
         container.register() { ReaderViewModel() }
+        container.register() { SearchViewModel() }
 
         // Register ViewControllers
         container.register() { CatalogViewController() }
         container.register() { TitleViewController() }
         container.register() { ReaderViewController() }
+        container.register() { SearchViewController() }
     }
 
     func registerRouting() {
         router.register(viewModel: CatalogViewModel.self, viewController: CatalogViewController.self)
         router.register(viewModel: TitleViewModel.self, viewController: TitleViewController.self)
         router.register(viewModel: ReaderViewModel.self, viewController: ReaderViewController.self)
+        router.register(viewModel: SearchViewModel.self, viewController: SearchViewController.self)
     }
 }

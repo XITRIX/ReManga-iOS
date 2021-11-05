@@ -29,7 +29,7 @@ class CatalogCellView: UICollectionViewCell {
         subTitle.text = model.enName
         score.text = model.avgRating
         status.text = model.bookmarkType
-        status.superview?.isHidden = model.bookmarkType == nil
+        status.superview?.superview?.isHidden = model.bookmarkType == nil
         imageView.kf.setImage(with: URL(string: ReClient.baseUrl + (model.img?.mid ?? "")))
     }
 }

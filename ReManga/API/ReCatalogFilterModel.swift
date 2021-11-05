@@ -7,13 +7,12 @@
 
 import Foundation
 
-enum CatalogSorting: String {
+enum ReCatalogSortingFilter: String {
     case rating = "-rating"
 }
 
-struct CatalogModel {
-    var title: String?
-    var ordering: CatalogSorting? = .rating
+struct ReCatalogFilterModel {
+    var ordering: ReCatalogSortingFilter? = .rating
     var genres: [Int] = []
     var categories: [Int] = []
 }

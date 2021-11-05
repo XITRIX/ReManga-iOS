@@ -2,12 +2,20 @@
 //  UIViewControllerExtensions.swift
 //  ReManga
 //
-//  Created by Даниил Виноградов on 05.11.2021.
+//  Created by Даниил Виноградов on 06.11.2021.
 //
 
 import UIKit
 
 extension UIViewController {
+    var isModal: Bool {
+        let presentingIsModal = presentingViewController != nil
+        let presentingIsNavigation = navigationController?.presentingViewController?.presentedViewController == navigationController
+        let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
+
+        return presentingIsModal || presentingIsNavigation || presentingIsTabBar
+    }
+    
     func smoothlyDeselectRows(in tableView: UITableView?) {
         // Get the initially selected index paths, if any
         let selectedIndexPaths = tableView?.indexPathsForSelectedRows ?? []

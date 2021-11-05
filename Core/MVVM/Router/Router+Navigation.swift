@@ -51,10 +51,14 @@ extension Router {
         }
     }
 
-    func dismiss<FVM: MvvmViewModel>(from fromViewModel: FVM) {
+    func dismiss<FVM: MvvmViewModel>(from fromViewModel: FVM, completion: (() -> ())? = nil) {
         guard let fvc = fromViewModel.attachedView
         else { return }
 
-        fvc.dismiss(animated: true)
+        if fvc.isModal {
+            fvc.dismiss(animated: true, completion: completion)
+        } else {
+            fvc.navigationController?.popViewController(animated: true)
+        }
     }
 }

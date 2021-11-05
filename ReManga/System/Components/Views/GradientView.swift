@@ -7,13 +7,30 @@
 
 import UIKit
 
+@IBDesignable
 class GradientView: UIView {
+    @IBInspectable
+    var firstColor: UIColor = .white
+
+    @IBInspectable
+    var secondColor: UIColor = .white
+
     override public class var layerClass: Swift.AnyClass {
         return CAGradientLayer.self
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    init() {
+        super.init(frame: .zero)
+        updateColor()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        updateColor()
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         updateColor()
     }
 
@@ -27,8 +44,8 @@ class GradientView: UIView {
             return
         }
         gradientLayer.colors = [
-            UIColor.clear.cgColor,
-            UIColor.systemBackground.cgColor
+            firstColor.cgColor,
+            secondColor.cgColor
         ]
     }
 }

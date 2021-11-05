@@ -125,7 +125,6 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="coO-XH-l2s"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="vkA-He-gAf" firstAttribute="leading" secondItem="Thg-ai-cga" secondAttribute="leading" id="7wH-UC-HRt"/>
                 <constraint firstAttribute="trailing" secondItem="pjz-8a-15H" secondAttribute="trailing" id="DlC-2O-BRr"/>
@@ -154,9 +153,6 @@
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

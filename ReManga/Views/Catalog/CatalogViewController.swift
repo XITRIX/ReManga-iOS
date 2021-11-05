@@ -18,6 +18,11 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if viewModel.allowSearching {
+            let search = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search))
+            navigationItem.setRightBarButtonItems([search], animated: false)
+        }
+
         navigationItem.largeTitleDisplayMode = .always
         collectionView.register(cell: CatalogCellView.self)
         collectionView.delegate = self
@@ -27,6 +32,18 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
             cell.setModel(content[indexPath.item])
             return cell
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Large title dirty fix
+        navigationController?.view.setNeedsLayout()
+        navigationController?.view.layoutIfNeeded()
+    }
+
+    @objc func search() {
+        viewModel.navigateSearch()
     }
 }
 
