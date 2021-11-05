@@ -30,6 +30,7 @@
 		7C2EF80C273362FA002BADC4 /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF80A273362FA002BADC4 /* TitleViewController.swift */; };
 		7C2EF80D273362FA002BADC4 /* TitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C2EF80B273362FA002BADC4 /* TitleViewController.xib */; };
 		7C2EF80F27336304002BADC4 /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF80E27336304002BADC4 /* TitleViewModel.swift */; };
+		7C53B3342734B609007814F0 /* CatalogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B3332734B609007814F0 /* CatalogModel.swift */; };
 		7C6D10C4273491FA0039230F /* TitleTranslatersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6D10C2273491F90039230F /* TitleTranslatersCell.swift */; };
 		7C6D10C5273491FA0039230F /* TitleTranslatersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D10C3273491F90039230F /* TitleTranslatersCell.xib */; };
 		7C6D10C8273492D10039230F /* TitleTranslatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6D10C7273492D10039230F /* TitleTranslatorView.swift */; };
@@ -110,6 +111,7 @@
 		7C2EF80A273362FA002BADC4 /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		7C2EF80B273362FA002BADC4 /* TitleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleViewController.xib; sourceTree = "<group>"; };
 		7C2EF80E27336304002BADC4 /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
+		7C53B3332734B609007814F0 /* CatalogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogModel.swift; sourceTree = "<group>"; };
 		7C6D10C2273491F90039230F /* TitleTranslatersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTranslatersCell.swift; sourceTree = "<group>"; };
 		7C6D10C3273491F90039230F /* TitleTranslatersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTranslatersCell.xib; sourceTree = "<group>"; };
 		7C6D10C7273492D10039230F /* TitleTranslatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTranslatorView.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		7C2EF7EA2733476A002BADC4 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				7C53B3332734B609007814F0 /* CatalogModel.swift */,
 				7C2EF7EB2733476A002BADC4 /* ReCommentsModel.swift */,
 				7C2EF7EC2733476A002BADC4 /* ReTitleModel.swift */,
 				7C2EF7ED2733476A002BADC4 /* ReSearchModel.swift */,
@@ -763,6 +766,7 @@
 				7CA9AC83273435F9009FF259 /* GradientView.swift in Sources */,
 				7CA9AC792734128E009FF259 /* NibLoadable.swift in Sources */,
 				7CA9ACA727348A1C009FF259 /* TitleTagsCell.swift in Sources */,
+				7C53B3342734B609007814F0 /* CatalogModel.swift in Sources */,
 				7C2EF80C273362FA002BADC4 /* TitleViewController.swift in Sources */,
 				7CA9AC7B273413A6009FF259 /* NibLoadableView.swift in Sources */,
 				7C2EF7CF2733441E002BADC4 /* MVVM.swift in Sources */,

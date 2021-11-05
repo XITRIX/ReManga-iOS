@@ -139,12 +139,21 @@ extension TitleViewController: UITableViewDataSource {
                     style.backgroundColor = .tertiarySystemBackground
                     style.extraSpace = CGSize(width: 24, height: 12)
 
-                    let content = TTGTextTagStringContent(text: $0.name ?? "")
+                    let content = TTGTextTagStringContent(text: $0.name)
                     content.textColor = .label
                     content.textFont = .systemFont(ofSize: 14)
 
                     return TTGTextTag(content: content, style: style)
                 })
+                cell.tagSelected = { [weak self] index in
+                    guard let self = self else { return }
+
+                    let tag = self.viewModel.categories.collection[index]
+                    var model = CatalogModel()
+                    model.title = tag.name
+                    model.categories = [tag.id]
+                    self.viewModel.navigateCatalog(model)
+                }
             }.dispose(in: cell.bag)
             return cell
         case 3:

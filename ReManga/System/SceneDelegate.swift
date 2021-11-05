@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let root = MVVM.shared.router.resolve(viewModel: CatalogViewModel.self)
+            root.viewModel.prepare(with: CatalogModel(title: "Каталог", ordering: .rating))
             let nvc = UINavigationController(rootViewController: root)
             nvc.navigationBar.prefersLargeTitles = true
             window.rootViewController = nvc

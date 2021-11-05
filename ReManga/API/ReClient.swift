@@ -40,8 +40,17 @@ class ReClient {
     }
 
     @discardableResult
-    func getCatalog(page: Int, count: Int = 30, completionHandler: @escaping (Result<ReCatalogModel, HttpClientError>) -> ()) -> DataRequest? {
-        let api = "api/search/catalog/?ordering=-rating&page=\(page)&count=\(count)"
+    func getCatalog(page: Int, count: Int = 30, model: CatalogModel, completionHandler: @escaping (Result<ReCatalogModel, HttpClientError>) -> ()) -> DataRequest? {
+        var api = "api/search/catalog/?"
+
+        if let ordering = model.ordering {
+            api.append(contentsOf: "&ordering=\(ordering.rawValue)")
+        }
+
+        model.genres.forEach { api.append(contentsOf: "&genres=\($0)") }
+        model.categories.forEach { api.append(contentsOf: "&categories=\($0)") }
+        api.append(contentsOf: "&page=\(page)&count=\(count)")
+
         return baseRequest(api, completionHandler: completionHandler)
     }
 

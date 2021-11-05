@@ -8,15 +8,13 @@
 import Foundation
 import Bond
 
-class CatalogViewModel: MvvmViewModel {
+class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     let collection = MutableObservableArray<ReCatalogContent>()
 
-    required init() {
-        super.init()
+    override func prepare(with item: CatalogModel) {
+        title.value = item.title
 
-        title.value = "Каталог"
-        
-        ReClient.shared.getCatalog(page: 1) { result in
+        ReClient.shared.getCatalog(page: 1, model: item) { result in
             switch result {
             case .success(let model):
                 model.content.forEach { self.collection.append($0) }
@@ -26,6 +24,8 @@ class CatalogViewModel: MvvmViewModel {
             }
         }
     }
+
+    
 
     func titleSelected(at index: Int) {
         guard let _ = collection[index].dir

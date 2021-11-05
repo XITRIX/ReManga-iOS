@@ -128,4 +128,8 @@ class TitleViewModel: MvvmViewModelWith<String> {
         let params = ReaderViewModelParams(chapterId: id, chapters: chapters.collection)
         navigate(to: ReaderViewModel.self, prepare: params)
     }
+
+    func navigateCatalog(_ model: CatalogModel) {
+        navigate(to: CatalogViewModel.self, prepare: model)
+    }
 }

@@ -121,8 +121,8 @@ struct ReTitlePublisher: Codable {
 
 // MARK: - ReTitleStatus
 struct ReTitleStatus: Codable {
-    let id: Int?
-    let name: String?
+    let id: Int
+    let name: String
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
