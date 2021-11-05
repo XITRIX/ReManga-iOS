@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TitleViewController" customModule="ReManga" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="TzD-fN-vF2" id="H4f-Bl-t7G"/>
+                <outlet property="backButtonConstraint" destination="v4T-6Y-vE4" id="TyC-To-Ha7"/>
                 <outlet property="headerView" destination="cJ9-0c-QGK" id="7G2-nF-XFs"/>
                 <outlet property="sectionSelectorView" destination="GbG-PB-1Bg" id="KsV-ps-d3U"/>
                 <outlet property="tableView" destination="6fG-jf-mtX" id="ypf-GE-Z6q"/>
@@ -25,6 +27,15 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TzD-fN-vF2">
+                    <rect key="frame" x="16" y="6.5" width="32" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="ABp-6r-bRv"/>
+                        <constraint firstAttribute="height" constant="32" id="tCS-5o-K58"/>
+                    </constraints>
+                    <color key="tintColor" systemColor="labelColor"/>
+                    <state key="normal" backgroundImage="chevron.left.circle.fill" catalog="system"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -33,6 +44,8 @@
                 <constraint firstAttribute="bottom" secondItem="6fG-jf-mtX" secondAttribute="bottom" id="L4C-w3-XBB"/>
                 <constraint firstItem="6fG-jf-mtX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="k42-yo-ebd"/>
                 <constraint firstItem="6fG-jf-mtX" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="uk0-rU-ewf"/>
+                <constraint firstItem="TzD-fN-vF2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="6" id="v4T-6Y-vE4"/>
+                <constraint firstItem="TzD-fN-vF2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="w4e-pu-p9u"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="97.767857142857139"/>
         </view>
@@ -227,6 +240,10 @@
         </view>
     </objects>
     <resources>
+        <image name="chevron.left.circle.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

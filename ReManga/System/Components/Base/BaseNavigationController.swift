@@ -7,6 +7,4 @@
 
 import Foundation
 
-class BaseNavigationController: SANavigationController {
-    
-}
+class BaseNavigationController: SANavigationController { }

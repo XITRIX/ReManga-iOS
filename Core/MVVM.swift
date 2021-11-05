@@ -15,7 +15,7 @@ class MVVM {
         container.resolve(type: Router.self)
     }
 
-    init() {
+    private init() {
         container = Container()
 
         registerContainer()

@@ -11,7 +11,7 @@ import UIKit
 protocol NavigationProtocol {
     var swipeAnywhereDisabled: Bool { get }
     var toolBarIsHidden: Bool? { get }
-    var navigationBarIsHidden: Bool? { get }
+    var navigationBarIsHidden: Bool? { get set }
 
     func updateNavigationControllerState(animated: Bool)
 }
@@ -21,6 +21,7 @@ extension NavigationProtocol {
 }
 
 class SAViewController: UIViewController, NavigationProtocol {
+    private var isPresented: Bool = false
     var swipeAnywhereDisabled: Bool {
         false
     }
@@ -29,8 +30,12 @@ class SAViewController: UIViewController, NavigationProtocol {
         nil
     }
 
-    var navigationBarIsHidden: Bool? {
-        false
+    var navigationBarIsHidden: Bool? = false {
+        didSet {
+            if isPresented {
+                updateNavigationControllerState(animated: true)
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +50,13 @@ class SAViewController: UIViewController, NavigationProtocol {
         {
             nav.locker = false
         }
+        isPresented = true
         updateNavigationControllerState(animated: false)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isPresented = false
     }
 
     func updateNavigationControllerState(animated: Bool = true) {
@@ -72,9 +83,7 @@ class SATableViewController: UITableViewController, NavigationProtocol {
         nil
     }
 
-    var navigationBarIsHidden: Bool? {
-        nil
-    }
+    var navigationBarIsHidden: Bool? = false
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

@@ -9,7 +9,7 @@ import Bond
 import Foundation
 
 class TitleViewModel: MvvmViewModelWith<String> {
-    var sectionSelected = Observable<Int>(0)
+    var sectionSelected = Observable<SectionItem>(.about)
 
     var props: ReTitleProps?
 
@@ -48,6 +48,30 @@ class TitleViewModel: MvvmViewModelWith<String> {
         loadSimilar(item)
     }
 
+    //MARK: - Public
+    func navigateTitle(_ title: String) {
+        navigate(to: TitleViewModel.self, prepare: title)
+    }
+
+    func navigateChapter(_ id: Int) {
+        let params = ReaderViewModelParams(chapterId: id, chapters: chapters.collection)
+        navigate(to: ReaderViewModel.self, prepare: params)
+    }
+
+    func navigateCatalog(_ model: CatalogModel) {
+        navigate(to: CatalogViewModel.self, prepare: model)
+    }
+}
+
+extension TitleViewModel {
+    enum SectionItem: Int {
+        case about
+        case chapters
+        case comments
+    }
+}
+
+private extension TitleViewModel {
     func loadTitle(_ title: String) {
         ReClient.shared.getTitle(title: title) { [weak self] result in
             guard let self = self else { return }
@@ -88,7 +112,7 @@ class TitleViewModel: MvvmViewModelWith<String> {
         }
     }
 
-    private func setModel(_ model: ReTitleContent) {
+    func setModel(_ model: ReTitleContent) {
         descriptionShorten.value = true
 
         id.value = model.id
@@ -118,18 +142,5 @@ class TitleViewModel: MvvmViewModelWith<String> {
         if let _branch = model.activeBranch ?? model.branches?.first?.id {
             branch.value = _branch
         }
-    }
-
-    func navigateTitle(_ title: String) {
-        navigate(to: TitleViewModel.self, prepare: title)
-    }
-
-    func navigateChapter(_ id: Int) {
-        let params = ReaderViewModelParams(chapterId: id, chapters: chapters.collection)
-        navigate(to: ReaderViewModel.self, prepare: params)
-    }
-
-    func navigateCatalog(_ model: CatalogModel) {
-        navigate(to: CatalogViewModel.self, prepare: model)
     }
 }

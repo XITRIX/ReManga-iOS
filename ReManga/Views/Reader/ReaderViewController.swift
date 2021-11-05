@@ -28,10 +28,6 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
         true
     }
 
-    override var navigationBarIsHidden: Bool? {
-        true
-    }
-
     override var hidesBottomBarWhenPushed: Bool {
         get { true }
         set {}
@@ -45,6 +41,8 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
     }
 
     func setView() {
+        navigationBarIsHidden = true
+        
         tableView.contentInset.top = view.safeAreaInsets.top
         tableView.register(cell: ReaderPageCell.self)
         tableView.delegate = self
@@ -56,7 +54,6 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
         tableView.minimumZoomScale = 0.5
         tableView.maximumZoomScale = 4
         tableView.bouncesZoom = true
-//        tableView.zoom
     }
 
     func binding() {

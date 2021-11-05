@@ -50,4 +50,11 @@ extension Router {
             }
         }
     }
+
+    func dismiss<FVM: MvvmViewModel>(from fromViewModel: FVM) {
+        guard let fvc = fromViewModel.attachedView
+        else { return }
+
+        fvc.dismiss(animated: true)
+    }
 }

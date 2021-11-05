@@ -31,18 +31,10 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
 }
 
 extension CatalogViewController: UICollectionViewDelegateFlowLayout {
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-//        !overlayView.presented
-        true
-    }
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if (bottomReachedTrigger) { return }
-//
-//        if scrollView.contentOffset.y + scrollView.frame.height > scrollView.contentSize.height - 200 {
-//            bottomReachedTrigger = true
-//            viewModel.loadNext()
-//        }
+        if scrollView.contentOffset.y + scrollView.frame.height > scrollView.contentSize.height - 200 {
+            viewModel.loadNext()
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -17,6 +17,6 @@ extension MvvmViewModel {
     }
 
     func dismiss() {
-        attachedView.dismiss(animated: true)
+        MVVM.shared.router.dismiss(from: self)
     }
 }

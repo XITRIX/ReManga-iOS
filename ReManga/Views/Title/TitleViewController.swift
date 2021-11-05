@@ -8,15 +8,41 @@
 import UIKit
 import Kingfisher
 import TTGTags
+import MarqueeLabel
 
 class TitleViewController: BaseViewController<TitleViewModel> {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var headerView: TitleHeaderView!
     @IBOutlet var sectionSelectorView: TitleSectionSelectorView!
+    @IBOutlet var backButton: UIButton!
+    @IBOutlet var backButtonConstraint: NSLayoutConstraint!
+    var titleView: MarqueeLabel!
+
+    override var navigationBarIsHidden: Bool? {
+        didSet {
+            UIView.animate(withDuration: 0.3) { [unowned self] in
+                backButton.alpha = (navigationBarIsHidden ?? true) ? 1 : 0
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setView()
+        binding()
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        smoothlyDeselectRows(in: tableView)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        backButtonConstraint.constant = (UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0) + 6
+    }
+
+    func setView() {
         navigationItem.largeTitleDisplayMode = .never
 
         let navAppearance = UINavigationBarAppearance()
@@ -39,18 +65,25 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         tableView.delegate = self
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
-        } 
+        }
 
-        binding()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        smoothlyDeselectRows(in: tableView)
+        titleView = MarqueeLabel(frame: .zero, rate: 80, fadeLength: 10)
+        titleView.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        titleView.trailingBuffer = 44
+        navigationItem.titleView = titleView
     }
 
     func binding() {
-        viewModel.sectionSelected.bidirectionalBind(to: sectionSelectorView.segment.reactive.selectedSegmentIndex).dispose(in: bag)
+        viewModel.rusName.observeNext { [unowned self] in
+            titleView.text = $0
+            titleView.sizeToFit()
+        }.dispose(in: bag)
+
+        viewModel.sectionSelected.bidirectionalMap(to: { item in
+            item.rawValue
+        }, from: { value in
+            TitleViewModel.SectionItem(rawValue: value) ?? .about
+        }).bidirectionalBind(to: sectionSelectorView.segment.reactive.selectedSegmentIndex).dispose(in: bag)
 
         viewModel.sectionSelected.observeNext { [unowned self] _ in
             UIView.performWithoutAnimation {
@@ -72,19 +105,31 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         }.dispose(in: bag)
 
         tableView.reactive.selectedRowIndexPath.observeNext { [unowned self] indexPath in
-            if viewModel.sectionSelected.value == 1 {
+            if viewModel.sectionSelected.value == .chapters {
                 viewModel.navigateChapter(viewModel.chapters.collection[indexPath.row].id)
             }
         }.dispose(in: bag)
+
+        backButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
+    }
+}
+
+extension TitleViewController {
+    enum Item: Int, CaseIterable {
+        case metrics
+        case description
+        case tags
+        case translaters
+        case similar
     }
 }
 
 extension TitleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch viewModel.sectionSelected.value {
-        case 0:
-            return 5
-        case 1:
+        case .about:
+            return Item.allCases.count
+        case .chapters:
             return viewModel.chapters.count
         default:
             return 0
@@ -93,9 +138,9 @@ extension TitleViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewModel.sectionSelected.value {
-        case 0:
+        case .about:
             return configureAboutCell(tableView, at: indexPath)
-        case 1:
+        case .chapters:
             return configureChaptersCell(tableView, at: indexPath)
         default:
             return UITableViewCell()
@@ -109,14 +154,14 @@ extension TitleViewController: UITableViewDataSource {
     }
 
     func configureAboutCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
+        switch Item(rawValue: indexPath.row) {
+        case .metrics:
             let cell = tableView.dequeue(for: indexPath) as TitleMetricsCell
             viewModel.totalVotes.bind(to: cell.likesLabel).dispose(in: cell.bag)
             viewModel.totalViews.bind(to: cell.viewsLabel).dispose(in: cell.bag)
             viewModel.countBookmarks.bind(to: cell.bookmarksLabel).dispose(in: cell.bag)
             return cell
-        case 1:
+        case .description:
             let cell = tableView.dequeue(for: indexPath) as TitleDescriptionCell
             viewModel.description.bind(to: cell.descriptionLabel.reactive.attributedText).dispose(in: cell.bag)
             viewModel.descriptionShorten.observeNext { shorten in
@@ -127,7 +172,7 @@ extension TitleViewController: UITableViewDataSource {
             }.dispose(in: cell.bag)
             cell.showMoreButton.reactive.tap.map { false }.bind(to: viewModel.descriptionShorten).dispose(in: cell.bag)
             return cell
-        case 2:
+        case .tags:
             let cell = tableView.dequeue(for: indexPath) as TitleTagsCell
             viewModel.categories.observeNext {
                 cell.tagsView.add($0.collection.compactMap {
@@ -156,13 +201,13 @@ extension TitleViewController: UITableViewDataSource {
                 }
             }.dispose(in: cell.bag)
             return cell
-        case 3:
+        case .translaters:
             let cell = tableView.dequeue(for: indexPath) as TitleTranslatersCell
             viewModel.publishers.observeNext { models in
                 cell.configure(with: models.collection)
             }.dispose(in: cell.bag)
             return cell
-        case 4:
+        case .similar:
             let cell = tableView.dequeue(for: indexPath) as TitleSimilarCell
             viewModel.similar.bind(to: cell.collectionView) { models, indexPath, collectionView in
                 let cell = collectionView.dequeue(for: indexPath) as TitleSimilarCollectionCell
@@ -188,5 +233,6 @@ extension TitleViewController: UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         headerView.imageTopConstraint.constant = scrollView.contentOffset.y
+        navigationBarIsHidden = scrollView.contentOffset.y < 200
     }
 }

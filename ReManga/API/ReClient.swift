@@ -106,7 +106,7 @@ class ReClient {
                 do {
                     let title = try JSONDecoder().decode(T.self, from: res)
                     completionHandler?(.success(title))
-                    print(title)
+//                    print(title)
                 } catch {
                     completionHandler?(.failure(.error(error)))
                     print(error)
