@@ -31,6 +31,7 @@
 		7C2EF80D273362FA002BADC4 /* TitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C2EF80B273362FA002BADC4 /* TitleViewController.xib */; };
 		7C2EF80F27336304002BADC4 /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF80E27336304002BADC4 /* TitleViewModel.swift */; };
 		7C53B3342734B609007814F0 /* CatalogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B3332734B609007814F0 /* CatalogModel.swift */; };
+		7C53B3372734C10B007814F0 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B3362734C10B007814F0 /* BaseNavigationController.swift */; };
 		7C6D10C4273491FA0039230F /* TitleTranslatersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6D10C2273491F90039230F /* TitleTranslatersCell.swift */; };
 		7C6D10C5273491FA0039230F /* TitleTranslatersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D10C3273491F90039230F /* TitleTranslatersCell.xib */; };
 		7C6D10C8273492D10039230F /* TitleTranslatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6D10C7273492D10039230F /* TitleTranslatorView.swift */; };
@@ -112,6 +113,7 @@
 		7C2EF80B273362FA002BADC4 /* TitleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleViewController.xib; sourceTree = "<group>"; };
 		7C2EF80E27336304002BADC4 /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
 		7C53B3332734B609007814F0 /* CatalogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogModel.swift; sourceTree = "<group>"; };
+		7C53B3362734C10B007814F0 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		7C6D10C2273491F90039230F /* TitleTranslatersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTranslatersCell.swift; sourceTree = "<group>"; };
 		7C6D10C3273491F90039230F /* TitleTranslatersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTranslatersCell.xib; sourceTree = "<group>"; };
 		7C6D10C7273492D10039230F /* TitleTranslatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTranslatorView.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 			children = (
 				7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */,
 				7CF21BB72734AC3500806F4D /* BaseViewController.swift */,
+				7C53B3362734C10B007814F0 /* BaseNavigationController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -732,6 +735,7 @@
 				7CA9AC692733EB62009FF259 /* MvvmCollectionViewController.swift in Sources */,
 				7CA9AC7227341193009FF259 /* TitleHeaderView.swift in Sources */,
 				7CA9AC9927348244009FF259 /* TitleMetricsCell.swift in Sources */,
+				7C53B3372734C10B007814F0 /* BaseNavigationController.swift in Sources */,
 				7CA9AC632733EB62009FF259 /* HttpClient.swift in Sources */,
 				7CF21BB82734AC3500806F4D /* BaseViewController.swift in Sources */,
 				7CA9AC6F2733EB62009FF259 /* BaseViewModel+Router.swift in Sources */,
@@ -798,6 +802,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -859,6 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

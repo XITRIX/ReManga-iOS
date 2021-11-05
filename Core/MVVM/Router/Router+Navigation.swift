@@ -43,7 +43,7 @@ extension Router {
             fvc.showDetailViewController(vc, sender: fvc)
         case .modal(let wrapInNavigation):
             if wrapInNavigation {
-                let nvc = UINavigationController(rootViewController: vc)
+                let nvc = BaseNavigationController(rootViewController: vc)
                 fvc.present(nvc, animated: true)
             } else {
                 fvc.present(vc, animated: true)
