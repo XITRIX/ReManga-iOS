@@ -8,9 +8,27 @@
 import Bond
 import Foundation
 
+enum ReCatalogSortingFilter: String {
+    case rating = "-rating"
+}
+
+struct CatalogFilterModel {
+    var ordering: ReCatalogSortingFilter?
+
+    var genres: [ReCatalogFilterItem]?
+    var categories: [ReCatalogFilterItem]?
+    var types: [ReCatalogFilterItem]?
+    var status: [ReCatalogFilterItem]?
+    var ageLimit: [ReCatalogFilterItem]?
+
+    var excludedGenres: [ReCatalogFilterItem]?
+    var excludedCategories: [ReCatalogFilterItem]?
+    var excludedTypes: [ReCatalogFilterItem]?
+}
+
 struct CatalogModel {
     var title: String?
-    var filter: ReCatalogFilterModel
+    var filter: CatalogFilterModel
     var allowSearching: Bool = false
     var allowFiltering: Bool = false
 }
@@ -25,7 +43,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
 
     required init() {
         super.init()
-        prepare(with: CatalogModel(title: "Каталог", filter: ReCatalogFilterModel(ordering: .rating), allowSearching: true))
+        prepare(with: CatalogModel(title: "Каталог", filter: CatalogFilterModel(ordering: .rating), allowSearching: true))
     }
 
     override func prepare(with item: CatalogModel) {

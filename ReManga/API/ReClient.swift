@@ -40,17 +40,30 @@ class ReClient {
     }
 
     @discardableResult
-    func getCatalog(page: Int, count: Int = 30, filter: ReCatalogFilterModel, completionHandler: @escaping (Result<ReCatalogModel, HttpClientError>) -> ()) -> DataRequest? {
+    func getCatalog(page: Int, count: Int = 30, filter: CatalogFilterModel, completionHandler: @escaping (Result<ReCatalogModel, HttpClientError>) -> ()) -> DataRequest? {
         var api = "api/search/catalog/?"
 
         if let ordering = filter.ordering {
             api.append(contentsOf: "&ordering=\(ordering.rawValue)")
         }
 
-        filter.genres.forEach { api.append(contentsOf: "&genres=\($0)") }
-        filter.categories.forEach { api.append(contentsOf: "&categories=\($0)") }
+        filter.genres?.forEach { api.append(contentsOf: "&genres=\($0)") }
+        filter.categories?.forEach { api.append(contentsOf: "&categories=\($0)") }
+        filter.types?.forEach { api.append(contentsOf: "&types=\($0)") }
+        filter.status?.forEach { api.append(contentsOf: "&genres=\($0)") }
+        filter.ageLimit?.forEach { api.append(contentsOf: "&age_limit=\($0)") }
+        
+        filter.excludedGenres?.forEach { api.append(contentsOf: "&exclude_genres=\($0)") }
+        filter.excludedCategories?.forEach { api.append(contentsOf: "&exclude_categories=\($0)") }
+        filter.excludedTypes?.forEach { api.append(contentsOf: "&exclude_types=\($0)") }
         api.append(contentsOf: "&page=\(page)&count=\(count)")
 
+        return baseRequest(api, completionHandler: completionHandler)
+    }
+
+    @discardableResult
+    func getCatalogFilters(completionHandler: @escaping (Result<ReCatalogFilterModel, HttpClientError>) -> ()) -> DataRequest? {
+        let api = "api/forms/titles/?get=genres&get=categories&get=types&get=status&get=age_limit"
         return baseRequest(api, completionHandler: completionHandler)
     }
 

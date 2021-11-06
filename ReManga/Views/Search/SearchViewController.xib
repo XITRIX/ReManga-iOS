@@ -12,13 +12,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="ReManga" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundView" destination="qgj-tl-vit" id="FEj-PN-Dzk"/>
-                <outlet property="bottomConstraint" destination="PPE-4a-xZ8" id="U2u-fB-iTq"/>
+                <outlet property="bottomConstraint" destination="iwh-Uc-iLg" id="Iwd-dU-IGo"/>
                 <outlet property="collectionView" destination="EMC-r0-0Sj" id="lGb-eS-dtc"/>
                 <outlet property="searchBar" destination="MBD-sM-GWb" id="zO4-mT-ttb"/>
-                <outlet property="topConstraint" destination="yLh-Ls-PYr" id="TeW-Ap-ei8"/>
+                <outlet property="topConstraint" destination="SPk-Oj-f5u" id="Arf-cm-Dba"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outletCollection property="sideConstraints" destination="AOW-Mc-5JE" collectionClass="NSMutableArray" id="BbH-yi-SAr"/>
-                <outletCollection property="sideConstraints" destination="3C5-nY-SjI" collectionClass="NSMutableArray" id="u9d-FH-VM3"/>
+                <outletCollection property="sideConstraints" destination="Tfy-Wi-Zkz" collectionClass="NSMutableArray" id="hOd-N5-bIB"/>
+                <outletCollection property="sideConstraints" destination="hDF-Ot-THo" collectionClass="NSMutableArray" id="pEb-7Z-ddC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -26,79 +26,91 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-tl-vit">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kib-tH-BkO">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="3JT-hR-RTo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <blurEffect style="regular"/>
-                </visualEffectView>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipu-Gh-AyH">
-                    <rect key="frame" x="28" y="72" width="358" height="752"/>
                     <subviews>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="EMC-r0-0Sj">
-                            <rect key="frame" x="0.0" y="0.0" width="358" height="752"/>
-                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                            <inset key="scrollIndicatorInsets" minX="0.0" minY="56" maxX="0.0" maxY="0.0"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Grd-KD-RGc">
-                                <size key="itemSize" width="100" height="185"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="12" minY="68" maxX="12" maxY="12"/>
-                            </collectionViewFlowLayout>
-                        </collectionView>
-                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="251-7b-uMS">
-                            <rect key="frame" x="0.0" y="0.0" width="358" height="51"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Bzr-ua-UZH">
-                                <rect key="frame" x="0.0" y="0.0" width="358" height="51"/>
+                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-tl-vit">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="3JT-hR-RTo">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" placeholder="Что ищем, семпай?" translatesAutoresizingMaskIntoConstraints="NO" id="MBD-sM-GWb">
-                                        <rect key="frame" x="0.0" y="0.0" width="358" height="51"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <scopeButtonTitles>
-                                            <string>Title</string>
-                                            <string>Title</string>
-                                        </scopeButtonTitles>
-                                    </searchBar>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="MBD-sM-GWb" firstAttribute="top" secondItem="Bzr-ua-UZH" secondAttribute="top" id="UBB-wW-bI9"/>
-                                    <constraint firstAttribute="bottom" secondItem="MBD-sM-GWb" secondAttribute="bottom" id="VX2-IX-C4v"/>
-                                    <constraint firstAttribute="trailing" secondItem="MBD-sM-GWb" secondAttribute="trailing" id="VbN-I6-Nsb"/>
-                                    <constraint firstItem="MBD-sM-GWb" firstAttribute="leading" secondItem="Bzr-ua-UZH" secondAttribute="leading" id="e57-H6-084"/>
-                                </constraints>
                             </view>
-                            <blurEffect style="systemThickMaterial"/>
+                            <blurEffect style="regular"/>
                         </visualEffectView>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipu-Gh-AyH">
+                            <rect key="frame" x="28" y="72" width="358" height="752"/>
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="EMC-r0-0Sj">
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="752"/>
+                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                    <inset key="scrollIndicatorInsets" minX="0.0" minY="56" maxX="0.0" maxY="0.0"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Grd-KD-RGc">
+                                        <size key="itemSize" width="100" height="185"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="12" minY="68" maxX="12" maxY="12"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="251-7b-uMS">
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="51"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Bzr-ua-UZH">
+                                        <rect key="frame" x="0.0" y="0.0" width="358" height="51"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <searchBar contentMode="redraw" placeholder="Что ищем, семпай?" translatesAutoresizingMaskIntoConstraints="NO" id="MBD-sM-GWb">
+                                                <rect key="frame" x="0.0" y="0.0" width="358" height="51"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <scopeButtonTitles>
+                                                    <string>Title</string>
+                                                    <string>Title</string>
+                                                </scopeButtonTitles>
+                                            </searchBar>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="MBD-sM-GWb" firstAttribute="top" secondItem="Bzr-ua-UZH" secondAttribute="top" id="UBB-wW-bI9"/>
+                                            <constraint firstAttribute="bottom" secondItem="MBD-sM-GWb" secondAttribute="bottom" id="VX2-IX-C4v"/>
+                                            <constraint firstAttribute="trailing" secondItem="MBD-sM-GWb" secondAttribute="trailing" id="VbN-I6-Nsb"/>
+                                            <constraint firstItem="MBD-sM-GWb" firstAttribute="leading" secondItem="Bzr-ua-UZH" secondAttribute="leading" id="e57-H6-084"/>
+                                        </constraints>
+                                    </view>
+                                    <blurEffect style="systemThickMaterial"/>
+                                </visualEffectView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="EMC-r0-0Sj" firstAttribute="leading" secondItem="Ipu-Gh-AyH" secondAttribute="leading" id="31x-Zo-K3f"/>
+                                <constraint firstItem="251-7b-uMS" firstAttribute="top" secondItem="Ipu-Gh-AyH" secondAttribute="top" id="8jO-PW-Et9"/>
+                                <constraint firstAttribute="trailing" secondItem="251-7b-uMS" secondAttribute="trailing" id="RVn-lu-4bt"/>
+                                <constraint firstItem="EMC-r0-0Sj" firstAttribute="top" secondItem="Ipu-Gh-AyH" secondAttribute="top" id="hWf-wD-H8H"/>
+                                <constraint firstItem="251-7b-uMS" firstAttribute="leading" secondItem="Ipu-Gh-AyH" secondAttribute="leading" id="x7d-hA-wjq"/>
+                                <constraint firstAttribute="bottom" secondItem="EMC-r0-0Sj" secondAttribute="bottom" id="xUK-7U-Tjg"/>
+                                <constraint firstAttribute="trailing" secondItem="EMC-r0-0Sj" secondAttribute="trailing" id="ydI-GR-pbL"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="EMC-r0-0Sj" firstAttribute="leading" secondItem="Ipu-Gh-AyH" secondAttribute="leading" id="31x-Zo-K3f"/>
-                        <constraint firstItem="251-7b-uMS" firstAttribute="top" secondItem="Ipu-Gh-AyH" secondAttribute="top" id="8jO-PW-Et9"/>
-                        <constraint firstAttribute="trailing" secondItem="251-7b-uMS" secondAttribute="trailing" id="RVn-lu-4bt"/>
-                        <constraint firstItem="EMC-r0-0Sj" firstAttribute="top" secondItem="Ipu-Gh-AyH" secondAttribute="top" id="hWf-wD-H8H"/>
-                        <constraint firstItem="251-7b-uMS" firstAttribute="leading" secondItem="Ipu-Gh-AyH" secondAttribute="leading" id="x7d-hA-wjq"/>
-                        <constraint firstAttribute="bottom" secondItem="EMC-r0-0Sj" secondAttribute="bottom" id="xUK-7U-Tjg"/>
-                        <constraint firstAttribute="trailing" secondItem="EMC-r0-0Sj" secondAttribute="trailing" id="ydI-GR-pbL"/>
+                        <constraint firstAttribute="bottom" secondItem="qgj-tl-vit" secondAttribute="bottom" id="9ai-EQ-wcR"/>
+                        <constraint firstItem="qgj-tl-vit" firstAttribute="top" secondItem="Kib-tH-BkO" secondAttribute="top" id="PZ2-WW-DvX"/>
+                        <constraint firstItem="Ipu-Gh-AyH" firstAttribute="top" secondItem="Kib-tH-BkO" secondAttribute="top" constant="72" id="SPk-Oj-f5u"/>
+                        <constraint firstItem="Ipu-Gh-AyH" firstAttribute="leading" secondItem="Kib-tH-BkO" secondAttribute="leading" constant="28" id="Tfy-Wi-Zkz"/>
+                        <constraint firstAttribute="trailing" secondItem="qgj-tl-vit" secondAttribute="trailing" id="bsP-cZ-Asm"/>
+                        <constraint firstItem="qgj-tl-vit" firstAttribute="leading" secondItem="Kib-tH-BkO" secondAttribute="leading" id="dQQ-KC-zxT"/>
+                        <constraint firstAttribute="trailing" secondItem="Ipu-Gh-AyH" secondAttribute="trailing" constant="28" id="hDF-Ot-THo"/>
+                        <constraint firstAttribute="bottom" secondItem="Ipu-Gh-AyH" secondAttribute="bottom" constant="72" id="iwh-Uc-iLg"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="12"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <constraints>
-                <constraint firstItem="Ipu-Gh-AyH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="3C5-nY-SjI"/>
-                <constraint firstItem="qgj-tl-vit" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9pl-3t-Vwg"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ipu-Gh-AyH" secondAttribute="trailing" constant="28" id="AOW-Mc-5JE"/>
-                <constraint firstItem="qgj-tl-vit" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="D4b-DU-UQO"/>
-                <constraint firstAttribute="bottom" secondItem="Ipu-Gh-AyH" secondAttribute="bottom" constant="72" id="PPE-4a-xZ8"/>
-                <constraint firstAttribute="bottom" secondItem="qgj-tl-vit" secondAttribute="bottom" id="fJ1-KP-n8r"/>
-                <constraint firstAttribute="trailing" secondItem="qgj-tl-vit" secondAttribute="trailing" id="x9V-XK-73X"/>
-                <constraint firstItem="Ipu-Gh-AyH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="72" id="yLh-Ls-PYr"/>
+                <constraint firstAttribute="bottom" secondItem="Kib-tH-BkO" secondAttribute="bottom" id="6do-Sl-ijO"/>
+                <constraint firstItem="Kib-tH-BkO" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="GJR-1t-5xo"/>
+                <constraint firstItem="Kib-tH-BkO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yp8-jE-dkE"/>
+                <constraint firstItem="Kib-tH-BkO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bSH-gL-7VO"/>
             </constraints>
             <point key="canvasLocation" x="27.536231884057973" y="-75"/>
         </view>
@@ -106,6 +118,9 @@
     <resources>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

@@ -44,14 +44,14 @@ extension MVVM {
     }
 
     func registerRouting() {
+        // Register root ViewModel
         router.registerRoot(RootTabsViewModel.self)
 
+        // Register navigation routing
         router.register(viewModel: CatalogViewModel.self, viewController: CatalogViewController.self)
         router.register(viewModel: TitleViewModel.self, viewController: TitleViewController.self)
         router.register(viewModel: ReaderViewModel.self, viewController: ReaderViewController.self)
         router.register(viewModel: SearchViewModel.self, viewController: SearchViewController.self)
         router.register(viewModel: RootTabsViewModel.self, viewController: RootTabsViewController.self)
-
-//        let a: [MvvmViewControllerProtocol] = [CatalogViewController()]
     }
 }

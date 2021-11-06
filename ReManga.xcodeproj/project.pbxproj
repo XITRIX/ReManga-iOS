@@ -50,6 +50,9 @@
 		7C962DB32735F83600425798 /* MvvmTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DB22735F83600425798 /* MvvmTabsViewController.swift */; };
 		7C962DB62735FC8000425798 /* RootTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DB52735FC8000425798 /* RootTabsViewController.swift */; };
 		7C962DB82735FCB000425798 /* RootTabsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DB72735FCB000425798 /* RootTabsViewModel.swift */; };
+		7C962DBC2736C79900425798 /* CatalogFilerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DBA2736C79900425798 /* CatalogFilerViewController.swift */; };
+		7C962DBD2736C79900425798 /* CatalogFilerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C962DBB2736C79900425798 /* CatalogFilerViewController.xib */; };
+		7C962DBF2736C7A800425798 /* CatalogFilerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DBE2736C7A800425798 /* CatalogFilerViewModel.swift */; };
 		7CA9AC632733EB62009FF259 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC4F2733EB62009FF259 /* HttpClient.swift */; };
 		7CA9AC642733EB62009FF259 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC512733EB62009FF259 /* Container.swift */; };
 		7CA9AC652733EB62009FF259 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC532733EB62009FF259 /* Holder.swift */; };
@@ -141,6 +144,9 @@
 		7C962DB22735F83600425798 /* MvvmTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmTabsViewController.swift; sourceTree = "<group>"; };
 		7C962DB52735FC8000425798 /* RootTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabsViewController.swift; sourceTree = "<group>"; };
 		7C962DB72735FCB000425798 /* RootTabsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabsViewModel.swift; sourceTree = "<group>"; };
+		7C962DBA2736C79900425798 /* CatalogFilerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilerViewController.swift; sourceTree = "<group>"; };
+		7C962DBB2736C79900425798 /* CatalogFilerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogFilerViewController.xib; sourceTree = "<group>"; };
+		7C962DBE2736C7A800425798 /* CatalogFilerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilerViewModel.swift; sourceTree = "<group>"; };
 		7CA9AC4F2733EB62009FF259 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		7CA9AC512733EB62009FF259 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		7CA9AC532733EB62009FF259 /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
@@ -265,6 +271,7 @@
 		7C2EF7DA2733447C002BADC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7C962DB92736C76600425798 /* CatalogFilter */,
 				7C962DB42735FC6E00425798 /* RootTabs */,
 				7C53B33827359200007814F0 /* Search */,
 				7C2EF7DB27334487002BADC4 /* Catalog */,
@@ -394,6 +401,16 @@
 				7C962DB52735FC8000425798 /* RootTabsViewController.swift */,
 			);
 			path = RootTabs;
+			sourceTree = "<group>";
+		};
+		7C962DB92736C76600425798 /* CatalogFilter */ = {
+			isa = PBXGroup;
+			children = (
+				7C962DBE2736C7A800425798 /* CatalogFilerViewModel.swift */,
+				7C962DBA2736C79900425798 /* CatalogFilerViewController.swift */,
+				7C962DBB2736C79900425798 /* CatalogFilerViewController.xib */,
+			);
+			path = CatalogFilter;
 			sourceTree = "<group>";
 		};
 		7CA9AC4D2733EB62009FF259 /* MVVM */ = {
@@ -718,6 +735,7 @@
 				7CA9ACA827348A1C009FF259 /* TitleTagsCell.xib in Resources */,
 				7CA9AC9A27348244009FF259 /* TitleMetricsCell.xib in Resources */,
 				7C2EF80D273362FA002BADC4 /* TitleViewController.xib in Resources */,
+				7C962DBD2736C79900425798 /* CatalogFilerViewController.xib in Resources */,
 				7C6D10D9273498870039230F /* TitleSimilarCollectionCell.xib in Resources */,
 				7C6D10CA273492E00039230F /* TitleTranslatorView.xib in Resources */,
 				7C53B33E27359200007814F0 /* SearchViewController.xib in Resources */,
@@ -777,6 +795,7 @@
 				7C2EF7F42733476A002BADC4 /* ReCommentsModel.swift in Sources */,
 				7C2EF7F52733476A002BADC4 /* ReTitleModel.swift in Sources */,
 				7CA9AC672733EB62009FF259 /* MvvmViewModel.swift in Sources */,
+				7C962DBF2736C7A800425798 /* CatalogFilerViewModel.swift in Sources */,
 				7C2EF80F27336304002BADC4 /* TitleViewModel.swift in Sources */,
 				7CA9AC8A27345B2D009FF259 /* TitleSectionSelectorView.swift in Sources */,
 				7CA9AC8627343CC6009FF259 /* UIViewExtensions.swift in Sources */,
@@ -824,6 +843,7 @@
 				7C962DB12735F69800425798 /* MvvmTabsViewModel.swift in Sources */,
 				7CF21BB62734AB8600806F4D /* ReaderViewModel.swift in Sources */,
 				7C2EF80527335255002BADC4 /* CatalogViewController.swift in Sources */,
+				7C962DBC2736C79900425798 /* CatalogFilerViewController.swift in Sources */,
 				7CA9AC83273435F9009FF259 /* GradientView.swift in Sources */,
 				7CA9AC792734128E009FF259 /* NibLoadable.swift in Sources */,
 				7CA9ACA727348A1C009FF259 /* TitleTagsCell.swift in Sources */,
