@@ -44,6 +44,8 @@ extension MVVM {
     }
 
     func registerRouting() {
+        router.registerRoot(RootTabsViewModel.self)
+
         router.register(viewModel: CatalogViewModel.self, viewController: CatalogViewController.self)
         router.register(viewModel: TitleViewModel.self, viewController: TitleViewController.self)
         router.register(viewModel: ReaderViewModel.self, viewController: ReaderViewController.self)

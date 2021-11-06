@@ -6,13 +6,29 @@
 //
 
 import Foundation
+import UIKit
 
 class Router {
     private let container: Container
     private var map = [String: Any]()
+    private var rootModel: String?
 
     init(container: Container) {
         self.container = container
+    }
+
+    func registerRoot(_ rootModel: MvvmViewModelProtocol.Type) {
+        self.rootModel = "\(rootModel)"
+    }
+
+    func resolveRoot(in window: UIWindow) {
+        if let rootModel = rootModel,
+           let resolver = map["\(rootModel)"] {
+            let viewModel = container.resolve(id: rootModel) as MvvmViewModelProtocol
+            let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
+            vc.setViewModel(viewModel)
+            window.rootViewController = vc
+        }
     }
 }
 

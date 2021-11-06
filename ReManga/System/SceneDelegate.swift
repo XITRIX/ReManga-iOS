@@ -18,9 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let root = RootTabsViewModel.self.resolveView()
-            root.view.tintColor = UIColor(named: "accentColor")
-            window.rootViewController = root
+            MVVM.shared.router.resolveRoot(in: window)
+            window.tintColor = UIColor(named: "accentColor")
             self.window = window
             window.makeKeyAndVisible()
         }

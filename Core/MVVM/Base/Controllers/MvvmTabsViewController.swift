@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreMedia
 
 class MvvmTabsViewController<ViewModel: MvvmTabsViewModelProtocol>: UITabBarController, MvvmViewControllerProtocol {
     var _viewModel: MvvmViewModelProtocol!
