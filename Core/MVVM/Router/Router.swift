@@ -14,25 +14,28 @@ class Router {
     init(container: Container) {
         self.container = container
     }
+}
 
-    func register<VM: MvvmViewModelProtocol, VC: MvvmViewController<VM>>(viewModel: VM.Type, viewController: VC.Type) {
+// MARK: - MvvmViewController
+extension Router {
+    func register<VM: MvvmViewModelProtocol, VC: MvvmViewControllerProtocol>(viewModel: VM.Type, viewController: VC.Type) {
         map["\(viewModel)"] = viewController
     }
 
-    func resolve<VM: MvvmViewModelProtocol, VC: MvvmViewController<VM>>(viewModel: VM.Type) -> VC {
-        if let resolver = map["\(viewModel)"] as? VC.Type {
-            let viewModel = container.resolve(type: VM.self)
-            let vc = container.resolve(type: resolver.self)
+    func resolve<VM: MvvmViewModelProtocol>(viewModel: VM.Type) -> MvvmViewControllerProtocol {
+        if let resolver = map["\(viewModel)"] {
+            let viewModel = container.resolve(type: viewModel)
+            let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
             vc.setViewModel(viewModel)
             return vc
         }
         fatalError("\(viewModel) is not registered")
     }
 
-    func resolve<M, VM: MvvmViewModelWithProtocol, VC: MvvmViewController<VM>>(viewModel: VM.Type, prepare model: M) -> VC where VM.Model == M  {
-        if let resolver = map["\(viewModel)"] as? VC.Type {
+    func resolve<M, VM: MvvmViewModelWithProtocol>(viewModel: VM.Type, prepare model: M) -> MvvmViewControllerProtocol where VM.Model == M  {
+        if let resolver = map["\(viewModel)"] {
             let viewModel = container.resolve(type: VM.self)
-            let vc = container.resolve(type: resolver.self)
+            let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
             viewModel.prepare(with: model)
             vc.setViewModel(viewModel)
             return vc

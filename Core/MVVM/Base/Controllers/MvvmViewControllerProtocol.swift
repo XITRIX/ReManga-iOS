@@ -8,16 +8,14 @@
 import UIKit
 
 protocol MvvmViewControllerProtocol: UIViewController {
-    associatedtype ViewModel: MvvmViewModelProtocol
-
-    var viewModel: ViewModel! { get set }
-    func setViewModel(_ viewModel: ViewModel)
+    var _viewModel: MvvmViewModelProtocol! { get set }
+    func setViewModel(_ viewModel: MvvmViewModelProtocol)
 }
 
 extension MvvmViewControllerProtocol {
-    func setViewModel(_ viewModel: ViewModel) {
-        guard self.viewModel == nil else { fatalError("viewModel cannot be set several times") }
-        self.viewModel = viewModel
-        self.viewModel.setAttachedView(self)
+    func setViewModel(_ viewModel: MvvmViewModelProtocol) {
+        guard self._viewModel == nil else { fatalError("viewModel cannot be set several times") }
+        self._viewModel = viewModel
+        self._viewModel.setAttachedView(self)
     }
 }

@@ -18,11 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let root = MVVM.shared.router.resolve(viewModel: CatalogViewModel.self)
-            root.viewModel.prepare(with: CatalogModel(title: "Каталог", filter: ReCatalogFilterModel(ordering: .rating), allowSearching: true))
-            let nvc = BaseNavigationController(rootViewController: root)
-            nvc.navigationBar.prefersLargeTitles = true
-            window.rootViewController = nvc
+            let root = RootTabsViewModel.self.resolveView()
+            root.view.tintColor = UIColor(named: "accentColor")
+            window.rootViewController = root
             self.window = window
             window.makeKeyAndVisible()
         }

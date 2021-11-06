@@ -42,4 +42,11 @@ class Container {
         }
         fatalError("\(T.self) is not registered")
     }
+
+    func resolve<T: Any>(id: String) -> T {
+        if let obj = map[id]?.getter as? T {
+            return obj
+        }
+        fatalError("\(T.self) is not registered")
+    }
 }

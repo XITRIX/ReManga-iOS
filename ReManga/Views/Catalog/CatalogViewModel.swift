@@ -23,12 +23,16 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     private var model: CatalogModel!
     private var loadingBarrier = false
 
+    required init() {
+        super.init()
+        prepare(with: CatalogModel(title: "Каталог", filter: ReCatalogFilterModel(ordering: .rating), allowSearching: true))
+    }
+
     override func prepare(with item: CatalogModel) {
         allowSearching = item.allowSearching
         allowFiltering = item.allowFiltering
         title.value = item.title
         model = item
-        loadNext()
     }
 
     func loadNext() {

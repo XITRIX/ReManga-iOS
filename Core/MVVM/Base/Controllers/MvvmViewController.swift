@@ -8,7 +8,8 @@
 import UIKit
 
 class MvvmViewController<ViewModel: MvvmViewModelProtocol>: SAViewController, MvvmViewControllerProtocol {
-    var viewModel: ViewModel!
+    var _viewModel: MvvmViewModelProtocol!
+    var viewModel: ViewModel { _viewModel as! ViewModel }
 
     override func viewDidLoad() {
         super.viewDidLoad()

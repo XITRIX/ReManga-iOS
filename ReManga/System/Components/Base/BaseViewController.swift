@@ -7,6 +7,6 @@
 
 import Foundation
 
-class BaseViewController<ViewModel: MvvmViewModelProtocol>: MvvmViewController<ViewModel> {
+class BaseViewController<ViewModel: MvvmViewModel>: MvvmViewController<ViewModel> {
     
 }

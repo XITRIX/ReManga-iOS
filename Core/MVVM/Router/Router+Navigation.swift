@@ -14,7 +14,21 @@ extension Router {
         case modal(wrapInNavigation: Bool)
     }
 
-    func navigate<FVM: MvvmViewModel, TVM: MvvmViewModel>(from fromViewModel: FVM, to targetViewModel: TVM.Type, with type: NavigationType) {
+    func dismiss<FVM: MvvmViewModelProtocol>(from fromViewModel: FVM, completion: (() -> ())? = nil) {
+        guard let fvc = fromViewModel.attachedView
+        else { return }
+
+        if fvc.isModal {
+            fvc.dismiss(animated: true, completion: completion)
+        } else {
+            fvc.navigationController?.popViewController(animated: true)
+        }
+    }
+}
+
+// MARK: - MvvmViewModel
+extension Router {
+    func navigate<FVM: MvvmViewModelProtocol, TVM: MvvmViewModel>(from fromViewModel: FVM, to targetViewModel: TVM.Type, with type: NavigationType) {
         guard let fvc = fromViewModel.attachedView
         else { return }
 
@@ -30,10 +44,10 @@ extension Router {
         }
     }
 
-    func navigate<M, FVM: MvvmViewModel, TVM: MvvmViewModelWith<M>>(from fromViewModel: FVM, to targetViewModel: TVM.Type, prepare model: M, with type: NavigationType) {
+    func navigate<M, FVM: MvvmViewModelProtocol, TVM: MvvmViewModelWith<M>>(from fromViewModel: FVM, to targetViewModel: TVM.Type, prepare model: M, with type: NavigationType) {
         guard let fvc = fromViewModel.attachedView
         else { return }
-        
+
         let vc = resolve(viewModel: TVM.self, prepare: model)
 
         switch type {
@@ -48,17 +62,6 @@ extension Router {
             } else {
                 fvc.present(vc, animated: true)
             }
-        }
-    }
-
-    func dismiss<FVM: MvvmViewModel>(from fromViewModel: FVM, completion: (() -> ())? = nil) {
-        guard let fvc = fromViewModel.attachedView
-        else { return }
-
-        if fvc.isModal {
-            fvc.dismiss(animated: true, completion: completion)
-        } else {
-            fvc.navigationController?.popViewController(animated: true)
         }
     }
 }

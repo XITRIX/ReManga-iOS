@@ -8,7 +8,8 @@
 import UIKit
 
 class MvvmCollectionViewController<ViewModel: MvvmViewModelProtocol>: UICollectionViewController, MvvmViewControllerProtocol {
-    var viewModel: ViewModel!
+    var _viewModel: MvvmViewModelProtocol!
+    var viewModel: ViewModel { _viewModel as! ViewModel }
 
     override func viewDidLoad() {
         super.viewDidLoad()

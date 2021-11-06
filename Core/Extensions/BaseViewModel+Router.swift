@@ -8,6 +8,14 @@
 import Foundation
 
 extension MvvmViewModel {
+    static func resolve() -> Self {
+        MVVM.shared.container.resolve(type: Self.self)
+    }
+
+    static func resolveView() -> MvvmViewControllerProtocol {
+        MVVM.shared.router.resolve(viewModel: Self.self)
+    }
+
     func navigate<TVM: MvvmViewModel>(to targetViewModel: TVM.Type, with type: Router.NavigationType = .push) {
         MVVM.shared.router.navigate(from: self, to: targetViewModel, with: type)
     }
