@@ -18,10 +18,14 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if viewModel.allowSearching {
-            let search = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search))
-            navigationItem.setRightBarButtonItems([search], animated: false)
+        var items = [UIBarButtonItem]()
+        if viewModel.allowFiltering {
+            items.append(UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(filter)))
         }
+        if viewModel.allowSearching {
+            items.append(UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search)))
+        }
+        navigationItem.setRightBarButtonItems(items, animated: false)
 
         navigationItem.largeTitleDisplayMode = .always
         collectionView.register(cell: CatalogCellView.self)
@@ -44,6 +48,10 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
 
     @objc func search() {
         viewModel.navigateSearch()
+    }
+
+    @objc func filter() {
+        viewModel.navigateFilter()
     }
 }
 

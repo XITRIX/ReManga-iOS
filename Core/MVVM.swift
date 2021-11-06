@@ -34,6 +34,7 @@ extension MVVM {
         container.register() { ReaderViewModel() }
         container.register() { SearchViewModel() }
         container.register() { RootTabsViewModel() }
+        container.register() { CatalogFilterViewModel() }
 
         // Register ViewControllers
         container.register() { CatalogViewController() }
@@ -41,6 +42,7 @@ extension MVVM {
         container.register() { ReaderViewController() }
         container.register() { SearchViewController() }
         container.register() { RootTabsViewController() }
+        container.register() { CatalogFilerViewController() }
     }
 
     func registerRouting() {
@@ -53,5 +55,6 @@ extension MVVM {
         router.register(viewModel: ReaderViewModel.self, viewController: ReaderViewController.self)
         router.register(viewModel: SearchViewModel.self, viewController: SearchViewController.self)
         router.register(viewModel: RootTabsViewModel.self, viewController: RootTabsViewController.self)
+        router.register(viewModel: CatalogFilterViewModel.self, viewController: CatalogFilerViewController.self)
     }
 }

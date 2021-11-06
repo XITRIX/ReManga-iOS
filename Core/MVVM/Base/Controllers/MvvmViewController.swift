@@ -13,6 +13,7 @@ class MvvmViewController<ViewModel: MvvmViewModelProtocol>: SAViewController, Mv
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.appear()
         viewModel.title.observeNext(with: { [unowned self] in title = $0 }).dispose(in: bag)
     }
 }

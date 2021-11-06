@@ -47,15 +47,15 @@ class ReClient {
             api.append(contentsOf: "&ordering=\(ordering.rawValue)")
         }
 
-        filter.genres?.forEach { api.append(contentsOf: "&genres=\($0)") }
-        filter.categories?.forEach { api.append(contentsOf: "&categories=\($0)") }
-        filter.types?.forEach { api.append(contentsOf: "&types=\($0)") }
-        filter.status?.forEach { api.append(contentsOf: "&genres=\($0)") }
-        filter.ageLimit?.forEach { api.append(contentsOf: "&age_limit=\($0)") }
+        filter.genres?.forEach { api.append(contentsOf: "&genres=\($0.id)") }
+        filter.categories?.forEach { api.append(contentsOf: "&categories=\($0.id)") }
+        filter.types?.forEach { api.append(contentsOf: "&types=\($0.id)") }
+        filter.status?.forEach { api.append(contentsOf: "&genres=\($0.id)") }
+        filter.ageLimit?.forEach { api.append(contentsOf: "&age_limit=\($0.id)") }
         
-        filter.excludedGenres?.forEach { api.append(contentsOf: "&exclude_genres=\($0)") }
-        filter.excludedCategories?.forEach { api.append(contentsOf: "&exclude_categories=\($0)") }
-        filter.excludedTypes?.forEach { api.append(contentsOf: "&exclude_types=\($0)") }
+        filter.excludedGenres?.forEach { api.append(contentsOf: "&exclude_genres=\($0.id)") }
+        filter.excludedCategories?.forEach { api.append(contentsOf: "&exclude_categories=\($0.id)") }
+        filter.excludedTypes?.forEach { api.append(contentsOf: "&exclude_types=\($0.id)") }
         api.append(contentsOf: "&page=\(page)&count=\(count)")
 
         return baseRequest(api, completionHandler: completionHandler)

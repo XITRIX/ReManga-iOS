@@ -14,6 +14,7 @@ protocol MvvmViewModelProtocol: DisposeBagProvider {
     var attachedView: UIViewController! { get }
 
     func setAttachedView(_ viewController: UIViewController)
+    func appear()
 }
 
 class MvvmViewModel: MvvmViewModelProtocol {
@@ -24,6 +25,8 @@ class MvvmViewModel: MvvmViewModelProtocol {
         guard attachedView == nil else { fatalError("attachedView cannot be reattached") }
         attachedView = viewController
     }
+
+    func appear() { }
 
     private(set) weak var attachedView: UIViewController!
 

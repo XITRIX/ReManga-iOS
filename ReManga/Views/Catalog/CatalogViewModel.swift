@@ -7,6 +7,7 @@
 
 import Bond
 import Foundation
+import Alamofire
 
 enum ReCatalogSortingFilter: String {
     case rating = "-rating"
@@ -40,24 +41,33 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     private var page = 1
     private var model: CatalogModel!
     private var loadingBarrier = false
+    private var currentTask: DataRequest?
 
     required init() {
         super.init()
-        prepare(with: CatalogModel(title: "Каталог", filter: CatalogFilterModel(ordering: .rating), allowSearching: true))
+        prepare(with: CatalogModel(title: "Каталог", filter: CatalogFilterModel(ordering: .rating), allowSearching: true, allowFiltering: true))
     }
 
     override func prepare(with item: CatalogModel) {
+        page = 1
+        currentTask?.cancel()
+        loadingBarrier = false
+        collection.removeAll()
         allowSearching = item.allowSearching
         allowFiltering = item.allowFiltering
         title.value = item.title
         model = item
     }
 
+    override func appear() {
+        loadNext()
+    }
+
     func loadNext() {
         if loadingBarrier { return }
         loadingBarrier = true
 
-        ReClient.shared.getCatalog(page: page, filter: model.filter) { [weak self] result in
+        currentTask = ReClient.shared.getCatalog(page: page, filter: model.filter) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -87,5 +97,10 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
             self.navigate(to: TitleViewModel.self, prepare: dir)
         }
         navigate(to: SearchViewModel.self, prepare: model, with: .modal(wrapInNavigation: false))
+    }
+
+    func navigateFilter() {
+        let model = CatalogFilterModel()
+        navigate(to: CatalogFilterViewModel.self, prepare: model, with: .modal(wrapInNavigation: false))
     }
 }
