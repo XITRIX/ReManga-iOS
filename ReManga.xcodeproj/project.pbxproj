@@ -82,6 +82,8 @@
 		7CA9ACA32734848F009FF259 /* TitleDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CA9ACA12734848F009FF259 /* TitleDescriptionCell.xib */; };
 		7CA9ACA727348A1C009FF259 /* TitleTagsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9ACA527348A1C009FF259 /* TitleTagsCell.swift */; };
 		7CA9ACA827348A1C009FF259 /* TitleTagsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CA9ACA627348A1C009FF259 /* TitleTagsCell.xib */; };
+		7CAE01212737035E0044A550 /* CatalogFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE011F2737035E0044A550 /* CatalogFilterCell.swift */; };
+		7CAE01222737035E0044A550 /* CatalogFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CAE01202737035E0044A550 /* CatalogFilterCell.xib */; };
 		7CF21BA82734A1BB00806F4D /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */; };
 		7CF21BAC2734A5F500806F4D /* TitleChapterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */; };
 		7CF21BAD2734A5F500806F4D /* TitleChapterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF21BAB2734A5F500806F4D /* TitleChapterCell.xib */; };
@@ -176,6 +178,8 @@
 		7CA9ACA12734848F009FF259 /* TitleDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleDescriptionCell.xib; sourceTree = "<group>"; };
 		7CA9ACA527348A1C009FF259 /* TitleTagsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTagsCell.swift; sourceTree = "<group>"; };
 		7CA9ACA627348A1C009FF259 /* TitleTagsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTagsCell.xib; sourceTree = "<group>"; };
+		7CAE011F2737035E0044A550 /* CatalogFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterCell.swift; sourceTree = "<group>"; };
+		7CAE01202737035E0044A550 /* CatalogFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogFilterCell.xib; sourceTree = "<group>"; };
 		7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleChapterCell.swift; sourceTree = "<group>"; };
 		7CF21BAB2734A5F500806F4D /* TitleChapterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleChapterCell.xib; sourceTree = "<group>"; };
@@ -406,6 +410,7 @@
 		7C962DB92736C76600425798 /* CatalogFilter */ = {
 			isa = PBXGroup;
 			children = (
+				7CAE011D273703280044A550 /* Cells */,
 				7C962DBE2736C7A800425798 /* CatalogFilerViewModel.swift */,
 				7C962DBA2736C79900425798 /* CatalogFilerViewController.swift */,
 				7C962DBB2736C79900425798 /* CatalogFilerViewController.xib */,
@@ -589,6 +594,23 @@
 			path = TitleTags;
 			sourceTree = "<group>";
 		};
+		7CAE011D273703280044A550 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7CAE011E273703330044A550 /* CatalogFilterCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7CAE011E273703330044A550 /* CatalogFilterCell */ = {
+			isa = PBXGroup;
+			children = (
+				7CAE011F2737035E0044A550 /* CatalogFilterCell.swift */,
+				7CAE01202737035E0044A550 /* CatalogFilterCell.xib */,
+			);
+			path = CatalogFilterCell;
+			sourceTree = "<group>";
+		};
 		7CF21BA62734A1AF00806F4D /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -731,6 +753,7 @@
 				7C2EF79D2732ECEA002BADC4 /* Assets.xcassets in Resources */,
 				7C2EF80227334AEE002BADC4 /* CatalogCellView.xib in Resources */,
 				7CA9ACA32734848F009FF259 /* TitleDescriptionCell.xib in Resources */,
+				7CAE01222737035E0044A550 /* CatalogFilterCell.xib in Resources */,
 				7CF21BAD2734A5F500806F4D /* TitleChapterCell.xib in Resources */,
 				7CA9ACA827348A1C009FF259 /* TitleTagsCell.xib in Resources */,
 				7CA9AC9A27348244009FF259 /* TitleMetricsCell.xib in Resources */,
@@ -837,6 +860,7 @@
 				7C2EF7962732ECE9002BADC4 /* SceneDelegate.swift in Sources */,
 				7CF21BC32734AE0D00806F4D /* ReaderPageCell.swift in Sources */,
 				7CA9AC93273469CC009FF259 /* IntExtensions.swift in Sources */,
+				7CAE01212737035E0044A550 /* CatalogFilterCell.swift in Sources */,
 				7C2EF7F92733476A002BADC4 /* ReChapterModel.swift in Sources */,
 				7CA9AC80273432E2009FF259 /* OptionalExtensions.swift in Sources */,
 				7CA9AC652733EB62009FF259 /* Holder.swift in Sources */,

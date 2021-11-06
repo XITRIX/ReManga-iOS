@@ -8,12 +8,19 @@
 import Foundation
 import Bond
 
+struct CatalogFilterModel {
+    var filters: CatalogFiltersModel
+    var completion: ((CatalogFiltersModel)->())?
+}
+
 class CatalogFilterViewModel: MvvmViewModelWith<CatalogFilterModel> {
     let availableFilters = Observable<ReCatalogFilterContent?>(nil)
-    let filters = Observable(CatalogFilterModel())
+    var filters = CatalogFiltersModel()
+    var completion: ((CatalogFiltersModel)->())?
 
     override func prepare(with item: CatalogFilterModel) {
-        filters.value = item
+        filters = item.filters
+        completion = item.completion
 
         ReClient.shared.getCatalogFilters { [weak self] result in
             guard let self = self else { return }
@@ -24,6 +31,12 @@ class CatalogFilterViewModel: MvvmViewModelWith<CatalogFilterModel> {
             case .failure(_):
                 break
             }
+        }
+    }
+
+    func done() {
+        dismiss { [unowned self] in
+            self.completion?(filters)
         }
     }
 }

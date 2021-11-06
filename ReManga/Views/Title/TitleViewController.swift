@@ -194,7 +194,7 @@ extension TitleViewController: UITableViewDataSource {
                     guard let self = self else { return }
 
                     let tag = self.viewModel.categories.collection[index]
-                    let model = CatalogModel(title: tag.name, filter: CatalogFilterModel(ordering: .rating, categories: [.init(id: tag.id, name: tag.name)]))
+                    let model = CatalogModel(title: tag.name, filter: CatalogFiltersModel(ordering: .rating, categories: [.init(id: tag.id, name: tag.name)]))
                     self.viewModel.navigateCatalog(model)
                 }
             }.dispose(in: cell.bag)

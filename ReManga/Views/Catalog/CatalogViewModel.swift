@@ -13,23 +13,23 @@ enum ReCatalogSortingFilter: String {
     case rating = "-rating"
 }
 
-struct CatalogFilterModel {
+struct CatalogFiltersModel: Hashable {
     var ordering: ReCatalogSortingFilter?
 
-    var genres: [ReCatalogFilterItem]?
-    var categories: [ReCatalogFilterItem]?
-    var types: [ReCatalogFilterItem]?
-    var status: [ReCatalogFilterItem]?
-    var ageLimit: [ReCatalogFilterItem]?
+    var genres = [ReCatalogFilterItem]()
+    var categories = [ReCatalogFilterItem]()
+    var types = [ReCatalogFilterItem]()
+    var status = [ReCatalogFilterItem]()
+    var ageLimit = [ReCatalogFilterItem]()
 
-    var excludedGenres: [ReCatalogFilterItem]?
-    var excludedCategories: [ReCatalogFilterItem]?
-    var excludedTypes: [ReCatalogFilterItem]?
+    var excludedGenres = [ReCatalogFilterItem]()
+    var excludedCategories = [ReCatalogFilterItem]()
+    var excludedTypes = [ReCatalogFilterItem]()
 }
 
 struct CatalogModel {
     var title: String?
-    var filter: CatalogFilterModel
+    var filter: CatalogFiltersModel
     var allowSearching: Bool = false
     var allowFiltering: Bool = false
 }
@@ -45,7 +45,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
 
     required init() {
         super.init()
-        prepare(with: CatalogModel(title: "Каталог", filter: CatalogFilterModel(ordering: .rating), allowSearching: true, allowFiltering: true))
+        prepare(with: createDefaultModel())
     }
 
     override func prepare(with item: CatalogModel) {
@@ -57,6 +57,10 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
         allowFiltering = item.allowFiltering
         title.value = item.title
         model = item
+    }
+
+    func createDefaultModel(with filters: CatalogFiltersModel = CatalogFiltersModel(ordering: .rating)) -> CatalogModel {
+        CatalogModel(title: "Каталог", filter: filters, allowSearching: true, allowFiltering: true)
     }
 
     override func appear() {
@@ -100,7 +104,13 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     }
 
     func navigateFilter() {
-        let model = CatalogFilterModel()
+        let model = CatalogFilterModel(filters: model.filter) { [weak self] filters in
+            guard let self = self else { return }
+            if self.model.filter != filters {
+                self.prepare(with: self.createDefaultModel(with: filters))
+                self.loadNext()
+            }
+        }
         navigate(to: CatalogFilterViewModel.self, prepare: model, with: .modal(wrapInNavigation: false))
     }
 }

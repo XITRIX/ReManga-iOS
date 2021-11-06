@@ -40,22 +40,22 @@ class ReClient {
     }
 
     @discardableResult
-    func getCatalog(page: Int, count: Int = 30, filter: CatalogFilterModel, completionHandler: @escaping (Result<ReCatalogModel, HttpClientError>) -> ()) -> DataRequest? {
+    func getCatalog(page: Int, count: Int = 30, filter: CatalogFiltersModel, completionHandler: @escaping (Result<ReCatalogModel, HttpClientError>) -> ()) -> DataRequest? {
         var api = "api/search/catalog/?"
 
         if let ordering = filter.ordering {
             api.append(contentsOf: "&ordering=\(ordering.rawValue)")
         }
 
-        filter.genres?.forEach { api.append(contentsOf: "&genres=\($0.id)") }
-        filter.categories?.forEach { api.append(contentsOf: "&categories=\($0.id)") }
-        filter.types?.forEach { api.append(contentsOf: "&types=\($0.id)") }
-        filter.status?.forEach { api.append(contentsOf: "&genres=\($0.id)") }
-        filter.ageLimit?.forEach { api.append(contentsOf: "&age_limit=\($0.id)") }
+        filter.genres.forEach { api.append(contentsOf: "&genres=\($0.id)") }
+        filter.categories.forEach { api.append(contentsOf: "&categories=\($0.id)") }
+        filter.types.forEach { api.append(contentsOf: "&types=\($0.id)") }
+        filter.status.forEach { api.append(contentsOf: "&genres=\($0.id)") }
+        filter.ageLimit.forEach { api.append(contentsOf: "&age_limit=\($0.id)") }
         
-        filter.excludedGenres?.forEach { api.append(contentsOf: "&exclude_genres=\($0.id)") }
-        filter.excludedCategories?.forEach { api.append(contentsOf: "&exclude_categories=\($0.id)") }
-        filter.excludedTypes?.forEach { api.append(contentsOf: "&exclude_types=\($0.id)") }
+        filter.excludedGenres.forEach { api.append(contentsOf: "&exclude_genres=\($0.id)") }
+        filter.excludedCategories.forEach { api.append(contentsOf: "&exclude_categories=\($0.id)") }
+        filter.excludedTypes.forEach { api.append(contentsOf: "&exclude_types=\($0.id)") }
         api.append(contentsOf: "&page=\(page)&count=\(count)")
 
         return baseRequest(api, completionHandler: completionHandler)

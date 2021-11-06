@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TTGTags
 
 class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
     @IBOutlet var navigationBar: UINavigationBar!
@@ -30,11 +31,18 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
         view.frame.height * 0.1
     }
 
+    var sectionHidden = [Bool].init(repeating: true, count: SectionItem.allCases.count)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         transitioningDelegate = self
+
+        tableView.register(cell: CatalogFilterCell.self)
         tableView.contentInset.top = navigationBar.frame.size.height
+        tableView.verticalScrollIndicatorInsets.top = navigationBar.frame.size.height
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.dataSource = self
 
         binding()
     }
@@ -50,7 +58,7 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
         }.dispose(in: bag)
 
         cancelButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
-        doneButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
+        doneButton.reactive.tap.observeNext(with: viewModel.done).dispose(in: bag)
     }
 
     private func updateConstraints() {
@@ -75,17 +83,108 @@ extension CatalogFilerViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+        1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
-    }
-}
+        let cell = tableView.dequeue(for: indexPath) as CatalogFilterCell
+        cell.titleLabel.text = SectionItem.allCases[indexPath.section].rawValue
+        let items = getFilterCatalog(for: SectionItem.allCases[indexPath.section])
+        cell.tagsView.removeAllTags()
+        cell.tagsView.add(items.map { item in
+            let style = TTGTextTagStyle()
+            style.cornerRadius = 10
+            style.shadowRadius = 0
+            style.shadowOffset = .zero
+            style.borderWidth = 0
+            style.backgroundColor = .tertiarySystemBackground
+            style.extraSpace = CGSize(width: 24, height: 12)
 
-extension CatalogFilerViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        SectionItem.allCases[section].rawValue
+            let content = TTGTextTagStringContent(text: item.name)
+            content.textColor = .label
+            content.textFont = .systemFont(ofSize: 14)
+
+            let selectedStyle = style.copy() as! TTGTextTagStyle
+            selectedStyle.backgroundColor = view.tintColor
+
+            let sectionItem = SectionItem.allCases[indexPath.section]
+            let tag = TTGTextTag(content: content, style: style, selectedContent: content, selectedStyle: selectedStyle)
+            tag.selected = getFilterSelected(for: sectionItem).contains(where: { $0.id == item.id })
+            return tag
+        })
+        cell.configure(self.sectionHidden[indexPath.section], animated: false)
+        cell.clicked = { [weak self] hidden in
+            guard let self = self else { return }
+            self.sectionHidden[indexPath.section] = hidden
+
+            tableView.beginUpdates()
+            cell.configure(hidden, animated: true)
+            tableView.endUpdates()
+        }
+        cell.tagSelected = { [weak self] index, selected in
+            guard let self = self else { return }
+
+            let sectionItem = SectionItem.allCases[indexPath.section]
+            self.setFilterSelected(for: sectionItem, index: index, selected: selected)
+        }
+
+        return cell
+    }
+
+    func getFilterCatalog(for item: SectionItem) -> [ReCatalogFilterItem] {
+        switch item {
+        case .genres:
+            return viewModel.availableFilters.value?.genres ?? []
+        case .categories:
+            return viewModel.availableFilters.value?.categories ?? []
+        case .types:
+            return viewModel.availableFilters.value?.types ?? []
+        case .status:
+            return viewModel.availableFilters.value?.status ?? []
+        case .ageLimit:
+            return viewModel.availableFilters.value?.ageLimit ?? []
+        }
+    }
+
+    func getFilterSelected(for item: SectionItem) -> [ReCatalogFilterItem] {
+        switch item {
+        case .genres:
+            return viewModel.filters.genres
+        case .categories:
+            return viewModel.filters.categories
+        case .types:
+            return viewModel.filters.types
+        case .status:
+            return viewModel.filters.status
+        case .ageLimit:
+            return viewModel.filters.ageLimit
+        }
+    }
+
+    func setFilterSelected(for item: SectionItem, index: Int, selected: Bool) {
+        let filter = getFilterCatalog(for: item)[index]
+        switch item {
+        case .genres:
+            selected
+            ? viewModel.filters.genres.append(filter)
+            : viewModel.filters.genres.removeAll(where: { $0 == filter })
+        case .categories:
+            selected
+            ? viewModel.filters.categories.append(filter)
+            : viewModel.filters.categories.removeAll(where: { $0 == filter })
+        case .types:
+            selected
+            ? viewModel.filters.types.append(filter)
+            : viewModel.filters.types.removeAll(where: { $0 == filter })
+        case .status:
+            selected
+            ? viewModel.filters.status.append(filter)
+            : viewModel.filters.status.removeAll(where: { $0 == filter })
+        case .ageLimit:
+            selected
+            ? viewModel.filters.ageLimit.append(filter)
+            : viewModel.filters.ageLimit.removeAll(where: { $0 == filter })
+        }
     }
 }
 
