@@ -117,7 +117,7 @@ class TitleViewController: BaseViewController<TitleViewModel> {
 
         headerView.readingStatusButton.reactive.controlEvents(.touchUpInside).observeNext { [unowned self] _ in
             viewModel.navigateCurrentChapter()
-        }
+        }.dispose(in: bag)
 
         backButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
     }
