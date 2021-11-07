@@ -68,9 +68,7 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
             return cell
         }.dispose(in: bag)
 
-        closeButtons.forEach { $0.bind { [unowned self] in
-            navigationController?.popViewController(animated: true)
-        }.dispose(in: bag) }
+        closeButtons.forEach { $0.bind(viewModel.dismiss).dispose(in: bag) }
 
         viewModel.name.bind(to: chapter.reactive.title).dispose(in: bag)
 
