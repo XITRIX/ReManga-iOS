@@ -53,11 +53,11 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
         page = 1
         currentTask?.cancel()
         loadingBarrier = false
-        collection.removeAll()
         allowSearching = item.allowSearching
         allowFiltering = item.allowFiltering
         title.value = item.title
         model = item
+        collection.removeAll()
     }
 
     func createDefaultModel(with filters: CatalogFiltersModel = CatalogFiltersModel(ordering: .rating)) -> CatalogModel {
