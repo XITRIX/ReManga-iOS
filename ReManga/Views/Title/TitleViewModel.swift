@@ -36,6 +36,8 @@ class TitleViewModel: MvvmViewModelWith<String> {
     let chapters = MutableObservableCollection<[ReBranchContent]>()
 
     let descriptionShorten = Observable<Bool>(true)
+    let readingStatus = Observable<String>("")
+    let readingStatusDetails = Observable<String?>(nil)
 
     override func prepare(with item: String) {
         branch.observeNext { [unowned self] brunch in
@@ -61,6 +63,18 @@ class TitleViewModel: MvvmViewModelWith<String> {
     func navigateCatalog(_ model: CatalogModel) {
         navigate(to: CatalogViewModel.self, prepare: model)
     }
+
+    func navigateCurrentChapter() {
+        if let firstChapter = firstChapter.value,
+            let id = firstChapter.id {
+            let model = ReaderViewModelParams(chapterId: id, chapters: nil)
+            navigate(to: ReaderViewModel.self, prepare: model)
+        } else if let continueChapter = continueChapter.value,
+                  let id = continueChapter.id {
+            let model = ReaderViewModelParams(chapterId: id, chapters: nil)
+            navigate(to: ReaderViewModel.self, prepare: model)
+        }
+    }
 }
 
 extension TitleViewModel {
@@ -78,6 +92,7 @@ private extension TitleViewModel {
 
             switch result {
             case .success(let model):
+                self.props = model.props
                 self.setModel(model.content)
                 self.loaded.value = true
             case .failure:
@@ -142,5 +157,15 @@ private extension TitleViewModel {
         if let _branch = model.activeBranch ?? model.branches?.first?.id {
             branch.value = _branch
         }
+
+        if model.firstChapter != nil {
+            readingStatus.value = "Читать"
+        } else if model.continueReading != nil {
+            readingStatus.value = "Продолжить"
+        } else {
+            readingStatus.value = "Прочитано"
+        }
+
+        readingStatusDetails.value = model.continueReading != nil ? "Том \((model.continueReading!.tome).text) Глава \((model.continueReading!.chapter).text)" : nil
     }
 }

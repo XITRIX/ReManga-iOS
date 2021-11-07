@@ -100,6 +100,15 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         viewModel.rating.bind(to: headerView.ratingLabel).dispose(in: bag)
         viewModel.info.bind(to: headerView.descriptionLabel).dispose(in: bag)
 
+        viewModel.readingStatus.bind(to: headerView.readingStatusLabel).dispose(in: bag)
+
+        viewModel.readingStatusDetails.observeNext { [unowned self] text in
+            headerView.readingStatusDetailsLabel.isHidden = text == nil
+            headerView.readingStatusDetailsLabel.text = text
+        }.dispose(in: bag)
+
+        viewModel.bookmark.bind(to: headerView.bookmarkStatusLabel).dispose(in: bag)
+
         viewModel.loaded.observeNext { [unowned self] _ in
             tableView.reloadData()
         }.dispose(in: bag)
@@ -109,6 +118,10 @@ class TitleViewController: BaseViewController<TitleViewModel> {
                 viewModel.navigateChapter(viewModel.chapters.collection[indexPath.row].id)
             }
         }.dispose(in: bag)
+
+        headerView.readingStatusButton.reactive.controlEvents(.touchUpInside).observeNext { [unowned self] _ in
+            viewModel.navigateCurrentChapter()
+        }
 
         backButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
     }

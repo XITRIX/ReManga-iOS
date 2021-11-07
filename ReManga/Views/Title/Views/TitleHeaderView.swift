@@ -14,6 +14,13 @@ class TitleHeaderView: UIView {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var ratingLabel: UILabel!
 
+    @IBOutlet var readingStatusLabel: UILabel!
+    @IBOutlet var readingStatusDetailsLabel: UILabel!
+    @IBOutlet var readingStatusButton: UIControl!
+
+    @IBOutlet var bookmarkStatusLabel: UILabel!
+    @IBOutlet var bookmarkStatusButton: UIControl!
+
     @IBOutlet var imageTopConstraint: NSLayoutConstraint!
     @IBOutlet private var headerView: UIView!
 

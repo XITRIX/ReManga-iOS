@@ -65,6 +65,7 @@ class SearchViewController: BaseViewController<SearchViewModel> {
             return cell
         })
 
+        collectionView.backgroundColor = collectionView.backgroundColor?.withAlphaComponent(0.8)
         collectionView.register(cell: CatalogCellView.self)
         collectionView.dataSource = collectionViewDataSource
         collectionView.delegate = self

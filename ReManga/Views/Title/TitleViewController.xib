@@ -108,13 +108,13 @@
                                                 <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LFH-4k-bSb">
                                                     <rect key="frame" x="16" y="8" width="141" height="34"/>
                                                     <subviews>
-                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="ПРОДОЛЖИТЬ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lJD-0a-O9F">
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="ПРОДОЛЖИТЬ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lJD-0a-O9F">
                                                             <rect key="frame" x="19.5" y="0.0" width="102.5" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Том 2 Глава 140" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NZF-hA-SZq">
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Том 2 Глава 140" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NZF-hA-SZq">
                                                             <rect key="frame" x="23.5" y="17" width="94" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -139,7 +139,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="48s-LL-jsF">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="48s-LL-jsF" customClass="UIControl">
                                             <rect key="frame" x="185" y="0.0" width="173" height="50"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="iif-h0-gk4">
@@ -211,12 +211,17 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="bookmarkStatusButton" destination="48s-LL-jsF" id="EHD-eU-bgR"/>
+                <outlet property="bookmarkStatusLabel" destination="1ID-TL-T5H" id="W3H-mZ-wG9"/>
                 <outlet property="descriptionLabel" destination="NbA-tM-n9e" id="yVG-DP-hQF"/>
                 <outlet property="engTitleLabel" destination="DWg-5V-gXu" id="kMW-sQ-UM9"/>
                 <outlet property="headerView" destination="LXP-Yb-YGW" id="XFR-FA-oXd"/>
                 <outlet property="imageTopConstraint" destination="w7g-Zg-I5G" id="gn6-jJ-3ep"/>
                 <outlet property="imageView" destination="Axr-AD-EsN" id="5Gw-hK-3MM"/>
                 <outlet property="ratingLabel" destination="CO7-dc-F3m" id="QTF-Aw-fy8"/>
+                <outlet property="readingStatusButton" destination="6L4-cv-FNm" id="Ezq-eV-eE1"/>
+                <outlet property="readingStatusDetailsLabel" destination="NZF-hA-SZq" id="ABF-CO-pLn"/>
+                <outlet property="readingStatusLabel" destination="lJD-0a-O9F" id="n4T-K4-evA"/>
                 <outlet property="ruTitleLabel" destination="58w-dX-gyW" id="6De-9H-CAl"/>
             </connections>
             <point key="canvasLocation" x="845" y="-27"/>

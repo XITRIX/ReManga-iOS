@@ -42,7 +42,6 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Ufu-29-Lhe" firstAttribute="leading" secondItem="Rqy-qM-OCM" secondAttribute="leading" id="NUe-1c-MhL"/>
                                             <constraint firstItem="Ufu-29-Lhe" firstAttribute="top" secondItem="Rqy-qM-OCM" secondAttribute="top" id="ajV-L1-pZR"/>
@@ -69,7 +68,7 @@
                                                 <rect key="frame" x="8" y="8" width="264" height="89"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Iw5-XH-q1V" firstAttribute="leading" secondItem="h1H-XA-cJV" secondAttribute="leading" constant="8" id="27Z-Kc-q2L"/>
                                             <constraint firstAttribute="trailing" secondItem="Iw5-XH-q1V" secondAttribute="trailing" constant="8" id="Cps-6D-uf4"/>
@@ -101,6 +100,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="chevronImage" destination="Lqs-kl-XAf" id="AnD-YI-msk"/>
                 <outlet property="tagsView" destination="Iw5-XH-q1V" id="bbH-xc-PrX"/>
@@ -113,9 +113,6 @@
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -40,9 +40,11 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
 
         tableView.register(cell: CatalogFilterCell.self)
         tableView.contentInset.top = navigationBar.frame.size.height
+        tableView.contentInset.bottom = 44
         tableView.verticalScrollIndicatorInsets.top = navigationBar.frame.size.height
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.dataSource = self
+        tableView.backgroundColor = tableView.backgroundColor?.withAlphaComponent(0.8)
 
         binding()
     }
