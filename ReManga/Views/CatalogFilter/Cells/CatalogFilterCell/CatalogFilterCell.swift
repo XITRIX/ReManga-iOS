@@ -15,6 +15,9 @@ class CatalogFilterCell: BaseTableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var chevronImage: UIImageView!
 
+    @IBOutlet var filtersCountLabel: UILabel!
+    @IBOutlet var filtersCountHolder: UIView!
+
     private var tagsHidden: Bool = true
     var clicked: ((Bool)->())?
     var tagSelected: ((_ index: Int, _ selected: Bool)->())?

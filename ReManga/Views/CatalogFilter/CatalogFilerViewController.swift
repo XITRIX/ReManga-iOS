@@ -95,6 +95,7 @@ extension CatalogFilerViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let sectionItem = SectionItem.allCases[indexPath.section]
         let cell = tableView.dequeue(for: indexPath) as CatalogFilterCell
         cell.titleLabel.text = SectionItem.allCases[indexPath.section].rawValue
         let items = getFilterCatalog(for: SectionItem.allCases[indexPath.section])
@@ -115,7 +116,6 @@ extension CatalogFilerViewController: UITableViewDataSource {
             let selectedStyle = style.copy() as! TTGTextTagStyle
             selectedStyle.backgroundColor = view.tintColor
 
-            let sectionItem = SectionItem.allCases[indexPath.section]
             let tag = TTGTextTag(content: content, style: style, selectedContent: content, selectedStyle: selectedStyle)
             tag.selected = getFilterSelected(for: sectionItem).contains(where: { $0.id == item.id })
             return tag
@@ -132,9 +132,15 @@ extension CatalogFilerViewController: UITableViewDataSource {
         cell.tagSelected = { [weak self] index, selected in
             guard let self = self else { return }
 
-            let sectionItem = SectionItem.allCases[indexPath.section]
             self.setFilterSelected(for: sectionItem, index: index, selected: selected)
+            let filtersCount = self.getFilterSelected(for: sectionItem).count
+            cell.filtersCountLabel.text = "\(filtersCount)"
+            cell.filtersCountHolder.isHidden = filtersCount == 0
         }
+        
+        let filtersCount = self.getFilterSelected(for: sectionItem).count
+        cell.filtersCountLabel.text = "\(filtersCount)"
+        cell.filtersCountHolder.isHidden = filtersCount == 0
 
         return cell
     }

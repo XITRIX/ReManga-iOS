@@ -279,12 +279,12 @@
 		7C2EF7DA2733447C002BADC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7C962DB92736C76600425798 /* CatalogFilter */,
 				7C962DB42735FC6E00425798 /* RootTabs */,
-				7C53B33827359200007814F0 /* Search */,
 				7C2EF7DB27334487002BADC4 /* Catalog */,
-				7CF21BB02734AB2900806F4D /* Reader */,
+				7C962DB92736C76600425798 /* CatalogFilter */,
+				7C53B33827359200007814F0 /* Search */,
 				7C2EF809273362E5002BADC4 /* Title */,
+				7CF21BB02734AB2900806F4D /* Reader */,
 			);
 			path = Views;
 			sourceTree = "<group>";
