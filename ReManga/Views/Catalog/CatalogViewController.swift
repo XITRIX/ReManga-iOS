@@ -5,8 +5,8 @@
 //  Created by Даниил Виноградов on 04.11.2021.
 //
 
-import UIKit
 import Bond
+import UIKit
 
 class CatalogViewController: BaseViewController<CatalogViewModel> {
     @IBOutlet var collectionView: UICollectionView!
@@ -14,9 +14,9 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
     var columns: CGFloat {
         view.traitCollection.horizontalSizeClass == .compact ? 3 : 5
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+
+    override func setupView() {
+        super.setupView()
 
         var items = [UIBarButtonItem]()
         if viewModel.allowFiltering {
@@ -30,6 +30,10 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
         navigationItem.largeTitleDisplayMode = .always
         collectionView.register(cell: CatalogCellView.self)
         collectionView.delegate = self
+    }
+
+    override func binding() {
+        super.binding()
 
         viewModel.collection.bind(to: collectionView) { content, indexPath, collectionView in
             let cell = collectionView.dequeue(for: indexPath) as CatalogCellView

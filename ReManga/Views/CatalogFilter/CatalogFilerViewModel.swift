@@ -22,14 +22,16 @@ class CatalogFilterViewModel: MvvmViewModelWith<CatalogFilterModel> {
         filters = item.filters
         completion = item.completion
 
+        state.value = .processing
         ReClient.shared.getCatalogFilters { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success(let model):
                 self.availableFilters.value = model.content
-            case .failure(_):
-                break
+                self.state.value = .done
+            case .failure(let error):
+                self.state.value = .error(error)
             }
         }
     }

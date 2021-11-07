@@ -68,7 +68,7 @@
                                                 <rect key="frame" x="8" y="8" width="264" height="89"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Iw5-XH-q1V" firstAttribute="leading" secondItem="h1H-XA-cJV" secondAttribute="leading" constant="8" id="27Z-Kc-q2L"/>
                                             <constraint firstAttribute="trailing" secondItem="Iw5-XH-q1V" secondAttribute="trailing" constant="8" id="Cps-6D-uf4"/>
@@ -113,8 +113,8 @@
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

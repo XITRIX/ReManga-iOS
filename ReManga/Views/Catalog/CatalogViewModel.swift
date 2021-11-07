@@ -49,6 +49,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     }
 
     override func prepare(with item: CatalogModel) {
+        state.value = .processing
         page = 1
         currentTask?.cancel()
         loadingBarrier = false
@@ -77,9 +78,10 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
             switch result {
             case .success(let model):
                 model.content.forEach { self.collection.append($0) }
+                self.state.value = .done
                 self.page += 1
-            case .failure:
-                break
+            case .failure(let error):
+                self.state.value = .error(error)
             }
             self.loadingBarrier = false
         }

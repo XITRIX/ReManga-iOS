@@ -23,7 +23,7 @@ class CatalogFilterCell: BaseTableViewCell {
         super.awakeFromNib()
         tagsView.enableTagSelection = true
         tagsView.delegate = self
-        tagsView.backgroundColor = tagsView.backgroundColor?.withAlphaComponent(0.8)
+        tagsView.backgroundColor = tagsView.backgroundColor?.withAlphaComponent(0.9)
         tagsViewHolder.isHidden = tagsHidden
         titleHolder.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
     }

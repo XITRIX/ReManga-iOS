@@ -5,15 +5,15 @@
 //  Created by Даниил Виноградов on 10.03.2021.
 //
 
-import UIKit
 import Bond
+import UIKit
 
 class SearchViewController: BaseViewController<SearchViewModel> {
     enum Section {
         case main
     }
 
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var backgroundView: UIVisualEffectView!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
@@ -39,12 +39,6 @@ class SearchViewController: BaseViewController<SearchViewModel> {
         view.frame.height * 0.1
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setView()
-        binding()
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchBar.becomeFirstResponder()
@@ -55,7 +49,9 @@ class SearchViewController: BaseViewController<SearchViewModel> {
         updateConstraints()
     }
 
-    func setView() {
+    override func setupView() {
+        super.setupView()
+
         transitioningDelegate = self
         searchBar.backgroundImage = UIImage()
 
@@ -73,7 +69,8 @@ class SearchViewController: BaseViewController<SearchViewModel> {
         backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDismiss)))
     }
 
-    func binding() {
+    override func binding() {
+        super.binding()
         viewModel.content.observeNext { [unowned self] content in
             var snapshot = NSDiffableDataSourceSnapshot<Section, ReSearchContent>()
             snapshot.appendSections([.main])
@@ -108,7 +105,7 @@ class SearchViewController: BaseViewController<SearchViewModel> {
     private func updateConstraints() {
         topConstraint.constant = verticalOffset
         sideConstraints.forEach { $0.constant = horizontalOffset }
-        bottomConstraint.constant = KeyboardHelper.shared.isHidden.value ? self.verticalOffset : KeyboardHelper.shared.visibleHeight.value + self.horizontalOffset
+        bottomConstraint.constant = KeyboardHelper.shared.isHidden.value ? verticalOffset : KeyboardHelper.shared.visibleHeight.value + horizontalOffset
     }
 }
 

@@ -5,8 +5,8 @@
 //  Created by Даниил Виноградов on 06.11.2021.
 //
 
-import UIKit
 import TTGTags
+import UIKit
 
 class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
     @IBOutlet var navigationBar: UINavigationBar!
@@ -18,6 +18,7 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
     @IBOutlet var verticalConstraints: [NSLayoutConstraint]!
     @IBOutlet var horizontalConstraints: [NSLayoutConstraint]!
 
+    @IBOutlet var holderView: UIView!
     override var modalPresentationStyle: UIModalPresentationStyle {
         get { .overFullScreen }
         set {}
@@ -33,9 +34,13 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
 
     var sectionHidden = [Bool].init(repeating: true, count: SectionItem.allCases.count)
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateConstraints()
+    }
 
+    override func setupView() {
+        super.setupView()
         transitioningDelegate = self
 
         tableView.register(cell: CatalogFilterCell.self)
@@ -45,22 +50,23 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.dataSource = self
         tableView.backgroundColor = tableView.backgroundColor?.withAlphaComponent(0.8)
-
-        binding()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        updateConstraints()
-    }
-
-    func binding() {
-        viewModel.availableFilters.observeNext { [unowned self] filters in
+    override func binding() {
+        super.binding()
+        viewModel.availableFilters.observeNext { [unowned self] _ in
             tableView.reloadData()
         }.dispose(in: bag)
 
         cancelButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
         doneButton.reactive.tap.observeNext(with: viewModel.done).dispose(in: bag)
+    }
+
+    override func updateOverlay(_ old: UIViewController?) {
+        if overlay == old { return }
+
+        old?.remove()
+        overlay?.insert(to: self, at: 1, in: holderView)
     }
 
     private func updateConstraints() {
@@ -81,7 +87,7 @@ extension CatalogFilerViewController {
 
 extension CatalogFilerViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        SectionItem.allCases.count
+        viewModel.availableFilters.value != nil ? SectionItem.allCases.count : 0
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,7 +120,7 @@ extension CatalogFilerViewController: UITableViewDataSource {
             tag.selected = getFilterSelected(for: sectionItem).contains(where: { $0.id == item.id })
             return tag
         })
-        cell.configure(self.sectionHidden[indexPath.section], animated: false)
+        cell.configure(sectionHidden[indexPath.section], animated: false)
         cell.clicked = { [weak self] hidden in
             guard let self = self else { return }
             self.sectionHidden[indexPath.section] = hidden
@@ -168,24 +174,24 @@ extension CatalogFilerViewController: UITableViewDataSource {
         switch item {
         case .genres:
             selected
-            ? viewModel.filters.genres.append(filter)
-            : viewModel.filters.genres.removeAll(where: { $0 == filter })
+                ? viewModel.filters.genres.append(filter)
+                : viewModel.filters.genres.removeAll(where: { $0 == filter })
         case .categories:
             selected
-            ? viewModel.filters.categories.append(filter)
-            : viewModel.filters.categories.removeAll(where: { $0 == filter })
+                ? viewModel.filters.categories.append(filter)
+                : viewModel.filters.categories.removeAll(where: { $0 == filter })
         case .types:
             selected
-            ? viewModel.filters.types.append(filter)
-            : viewModel.filters.types.removeAll(where: { $0 == filter })
+                ? viewModel.filters.types.append(filter)
+                : viewModel.filters.types.removeAll(where: { $0 == filter })
         case .status:
             selected
-            ? viewModel.filters.status.append(filter)
-            : viewModel.filters.status.removeAll(where: { $0 == filter })
+                ? viewModel.filters.status.append(filter)
+                : viewModel.filters.status.removeAll(where: { $0 == filter })
         case .ageLimit:
             selected
-            ? viewModel.filters.ageLimit.append(filter)
-            : viewModel.filters.ageLimit.removeAll(where: { $0 == filter })
+                ? viewModel.filters.ageLimit.append(filter)
+                : viewModel.filters.ageLimit.removeAll(where: { $0 == filter })
         }
     }
 }

@@ -5,8 +5,8 @@
 //  Created by Даниил Виноградов on 05.11.2021.
 //
 
-import UIKit
 import Bond
+import UIKit
 
 class ReaderViewController: BaseViewController<ReaderViewModel> {
     @IBOutlet var closeButtons: [UIButton]!
@@ -33,21 +33,16 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
         set {}
     }
 
+    override func setupView() {
+        super.setupView()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setView()
-        binding()
-    }
-
-    func setView() {
         navigationBarIsHidden = true
-        
+
         tableView.contentInset.top = view.safeAreaInsets.top
         tableView.register(cell: ReaderPageCell.self)
         tableView.delegate = self
 
-        lastFrameView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height )
+        lastFrameView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         lastFrameView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableView.tableFooterView = lastFrameView
 
@@ -56,7 +51,11 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
         tableView.bouncesZoom = true
     }
 
-    func binding() {
+    func setView() {}
+
+    override func binding() {
+        super.binding()
+
         viewModel.score.bind(to: likesLabel).dispose(in: bag)
 
         viewModel.rated.observeNext { [unowned self] rated in
@@ -69,9 +68,9 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
             return cell
         }.dispose(in: bag)
 
-        closeButtons.forEach{$0.bind { [unowned self] in
+        closeButtons.forEach { $0.bind { [unowned self] in
             navigationController?.popViewController(animated: true)
-        }.dispose(in: bag)}
+        }.dispose(in: bag) }
 
         viewModel.name.bind(to: chapter.reactive.title).dispose(in: bag)
 

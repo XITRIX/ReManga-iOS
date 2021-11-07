@@ -96,19 +96,24 @@ class ReaderViewModel: MvvmViewModelWith<ReaderViewModelParams> {
     }
 
     private func loadChapter(completionHandler: ((Result<ReChapterModel, Error>) -> ())? = nil) {
+        state.value = .processing
         if let chapters = chapters {
             name.value = "Глава \(chapters[currentChapter].chapter.text)"
         }
 
         updateStates()
         pages.removeAll()
-        ReClient.shared.getChapter(chapter: id) { result in
+        ReClient.shared.getChapter(chapter: id) { [weak self] result in
+            guard let self = self else { return }
+
             switch result {
             case .failure(let error):
                 completionHandler?(.failure(error))
+                self.state.value = .error(error)
             case .success(let model):
                 self.loadModel(model.content)
                 completionHandler?(.success(model))
+                self.state.value = .done
             }
         }
     }

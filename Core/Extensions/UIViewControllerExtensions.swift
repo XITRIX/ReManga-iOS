@@ -8,6 +8,37 @@
 import UIKit
 
 extension UIViewController {
+    func add(to viewController: UIViewController, in view: UIView? = nil) {
+        viewController.addChild(self)
+        self.view.frame = viewController.view.bounds
+        self.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        if let view = view {
+            view.addSubview(view)
+        } else {
+            viewController.view.addSubview(self.view)
+        }
+        self.didMove(toParent: viewController)
+    }
+
+    func insert(to viewController: UIViewController, at: Int, in view: UIView? = nil) {
+        viewController.addChild(self)
+        if let view = view {
+            view.insertSubview(self.view, at: at)
+            self.view.frame = view.bounds
+        } else {
+            viewController.view.insertSubview(self.view, at: at)
+            self.view.frame = viewController.view.bounds
+        }
+        self.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.didMove(toParent: viewController)
+    }
+
+    func remove() {
+        self.willMove(toParent: nil)
+        self.view.removeFromSuperview()
+        self.removeFromParent()
+    }
+
     var isModal: Bool {
         let presentingIsModal = presentingViewController != nil
         let presentingIsNavigation = navigationController?.presentingViewController?.presentedViewController == navigationController
@@ -15,7 +46,7 @@ extension UIViewController {
 
         return presentingIsModal || presentingIsNavigation || presentingIsTabBar
     }
-    
+
     func smoothlyDeselectRows(in tableView: UITableView?) {
         // Get the initially selected index paths, if any
         let selectedIndexPaths = tableView?.indexPathsForSelectedRows ?? []
@@ -33,8 +64,7 @@ extension UIViewController {
                     }
                 }
             }
-        }
-        else { // If this isn't a transition coordinator, just deselect the rows without animating
+        } else { // If this isn't a transition coordinator, just deselect the rows without animating
             selectedIndexPaths.forEach {
                 tableView?.deselectRow(at: $0, animated: false)
             }

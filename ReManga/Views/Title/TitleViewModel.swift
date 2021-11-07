@@ -87,6 +87,7 @@ extension TitleViewModel {
 
 private extension TitleViewModel {
     func loadTitle(_ title: String) {
+        state.value = .processing
         ReClient.shared.getTitle(title: title) { [weak self] result in
             guard let self = self else { return }
 
@@ -95,8 +96,9 @@ private extension TitleViewModel {
                 self.props = model.props
                 self.setModel(model.content)
                 self.loaded.value = true
-            case .failure:
-                break
+                self.state.value = .done
+            case .failure(let error):
+                self.state.value = .error(error)
             }
         }
     }

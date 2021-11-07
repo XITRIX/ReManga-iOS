@@ -5,10 +5,10 @@
 //  Created by Даниил Виноградов on 04.11.2021.
 //
 
-import UIKit
 import Kingfisher
-import TTGTags
 import MarqueeLabel
+import TTGTags
+import UIKit
 
 class TitleViewController: BaseViewController<TitleViewModel> {
     @IBOutlet var tableView: UITableView!
@@ -26,12 +26,6 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setView()
-        binding()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         smoothlyDeselectRows(in: tableView)
@@ -42,7 +36,8 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         backButtonConstraint.constant = (UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0) + 6
     }
 
-    func setView() {
+    override func setupView() {
+        super.setupView()
         navigationItem.largeTitleDisplayMode = .never
 
         let navAppearance = UINavigationBarAppearance()
@@ -73,7 +68,8 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         navigationItem.titleView = titleView
     }
 
-    func binding() {
+    override func binding() {
+        super.binding()
         viewModel.rusName.observeNext { [unowned self] in
             titleView.text = $0
             titleView.sizeToFit()
