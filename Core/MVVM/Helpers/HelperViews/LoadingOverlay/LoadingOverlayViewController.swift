@@ -8,16 +8,7 @@
 import UIKit
 
 class LoadingOverlayViewController: UIViewController {
-    private var backgroundColor: UIColor?
-
-    init(backgroundColor: UIColor?) {
-        self.backgroundColor = backgroundColor
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+    var backgroundColor: UIColor?
 
     override func viewDidLoad() {
         super.viewDidLoad()

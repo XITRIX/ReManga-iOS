@@ -14,3 +14,10 @@ extension UIButton {
         self.reactive.tap.observeNext(with: action)
     }
 }
+
+extension MutableChangesetContainerProtocol where Changeset: OrderedCollectionChangesetProtocol, Changeset.Collection: RangeReplaceableCollection {
+    /// Append `newElement` at the end of the collection.
+    public func append(_ newElements: [Collection.Element]) {
+        newElements.forEach { append($0) }
+    }
+}

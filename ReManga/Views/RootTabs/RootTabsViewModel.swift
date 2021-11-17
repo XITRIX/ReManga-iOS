@@ -12,8 +12,12 @@ class RootTabsViewModel: MvvmTabsViewModel {
         super.init()
 
         setModels([MvvmTabItem(item: CatalogViewModel.self,
-                               title: "Лалок",
+                               title: "Каталог",
                                image: UIImage(systemName: "rectangle.grid.3x2"),
-                               selectedImage: UIImage(systemName: "rectangle.grid.3x2.fill"))])
+                               selectedImage: UIImage(systemName: "rectangle.grid.3x2.fill")),
+                   MvvmTabItem(item: UserViewModel.self,
+                               title: "Профиль",
+                               image: UIImage(systemName: "person"),
+                               selectedImage: UIImage(systemName: "person.fill"))])
     }
 }

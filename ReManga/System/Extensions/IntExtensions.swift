@@ -12,6 +12,10 @@ extension BinaryInteger {
         return CGFloat(Int(self)) * .pi / 180
     }
 
+    var text: String {
+        "\(self)"
+    }
+
     func cropText() -> String {
         if self >= 1000000 {
             return String(format: "%.1fM", Float(self) / 1000000)

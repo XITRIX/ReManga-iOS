@@ -9,25 +9,6 @@ import Bond
 import ReactiveKit
 import UIKit
 
-enum MvvmViewModelState: Equatable {
-    case done
-    case processing
-    case error(Error)
-
-    static func == (lhs: MvvmViewModelState, rhs: MvvmViewModelState) -> Bool {
-        switch (lhs, rhs) {
-        case (.done, .done):
-            return true
-        case (.processing, .processing):
-            return true
-        case (.error(let err1), .error(let err2)):
-            return err1.localizedDescription == err2.localizedDescription
-        default:
-            return false
-        }
-    }
-}
-
 protocol MvvmViewModelProtocol: DisposeBagProvider {
     var title: Observable<String?> { get }
     var attachedView: UIViewController! { get }

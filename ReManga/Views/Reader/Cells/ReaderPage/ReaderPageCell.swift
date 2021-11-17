@@ -11,7 +11,11 @@ class ReaderPageCell: BaseTableViewCell {
     @IBOutlet var pageImage: UIImageView!
     @IBOutlet var loader: UIActivityIndicatorView!
     @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var errorView: UIStackView!
+    @IBOutlet var reloadButton: UIButton!
 
+    var model: ReChapterPage?
+    
     let maxScalingFactor: CGFloat = 5
     let gestureScalingFactor: CGFloat = 3
     let tapsRequiredForZoom = 2
@@ -27,19 +31,18 @@ class ReaderPageCell: BaseTableViewCell {
         centerImage()
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        loader.isHidden = false
-        loader.startAnimating()
-    }
-
     func setModel(_ model: ReChapterPage) {
+        self.model = model
         reloadImageScales()
+        setupLoading()
         pageImage.kf.setImage(with: URL(string: model.link ?? "")) { [weak self] result in
             guard let self = self else { return }
 
-            self.loader.isHidden = true
-            self.loader.stopAnimating()
+            if case .failure(_) = result {
+                self.setupError()
+            } else {
+                self.setupDone()
+            }
         }
     }
 }
@@ -49,6 +52,23 @@ private extension ReaderPageCell {
     func setup() {
 //        setupGestures()
         setupScrollView()
+        setupErrorButton()
+    }
+
+    func setupLoading() {
+        errorView.isHidden = true
+        loader.isHidden = false
+        loader.startAnimating()
+    }
+
+    func setupDone() {
+        errorView.isHidden = true
+        loader.isHidden = true
+    }
+
+    func setupError() {
+        errorView.isHidden = false
+        loader.isHidden = true
     }
 
     func setupScrollView() {
@@ -56,6 +76,14 @@ private extension ReaderPageCell {
         scrollView.decelerationRate = .fast
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+    }
+
+    func setupErrorButton() {
+        reloadButton.reactive.tap.observeNext { [unowned self] _ in
+            if let model = model {
+                setModel(model)
+            }
+        }.dispose(in: bag)
     }
 
     func setupGestures() {

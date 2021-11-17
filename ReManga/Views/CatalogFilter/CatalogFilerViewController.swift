@@ -54,7 +54,7 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
 
     override func binding() {
         super.binding()
-        viewModel.availableFilters.observeNext { [unowned self] _ in
+        viewModel.state.observeNext { [unowned self] _ in
             tableView.reloadData()
         }.dispose(in: bag)
 
@@ -87,7 +87,7 @@ extension CatalogFilerViewController {
 
 extension CatalogFilerViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel.availableFilters.value != nil ? SectionItem.allCases.count : 0
+        viewModel.state.value == .done ? SectionItem.allCases.count : 0
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

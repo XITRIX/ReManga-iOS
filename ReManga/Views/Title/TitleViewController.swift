@@ -51,6 +51,7 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         tableView.register(cell: TitleTranslatersCell.self)
         tableView.register(cell: TitleSimilarCell.self)
         tableView.register(cell: TitleChapterCell.self)
+        tableView.register(cell: TitleCommentCell.self)
 
         headerView.frame.size.height = view.frame.height * 4 / 5
         tableView.tableHeaderView = headerView
@@ -109,17 +110,39 @@ class TitleViewController: BaseViewController<TitleViewModel> {
             tableView.reloadData()
         }.dispose(in: bag)
 
+        viewModel.chapters.observeNext { [unowned self] chapters in
+            if viewModel.sectionSelected.value == .chapters {
+                tableView.reloadSections([0], with: .automatic)
+            }
+        }.dispose(in: bag)
+
+        viewModel.comments.observeNext { [unowned self] chapters in
+            if viewModel.sectionSelected.value == .comments {
+                tableView.reloadSections([0], with: .automatic)
+            }
+        }.dispose(in: bag)
+
         tableView.reactive.selectedRowIndexPath.observeNext { [unowned self] indexPath in
             if viewModel.sectionSelected.value == .chapters {
                 viewModel.navigateChapter(viewModel.chapters.collection[indexPath.row].id)
             }
         }.dispose(in: bag)
 
-        headerView.readingStatusButton.reactive.controlEvents(.touchUpInside).observeNext { [unowned self] _ in
-            viewModel.navigateCurrentChapter()
-        }.dispose(in: bag)
+        headerView.readingStatusButton.reactive.controlEvents(.touchUpInside).observeNext(with: viewModel.navigateCurrentChapter).dispose(in: bag)
 
         backButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
+    }
+
+    override var additionalSafeAreaInsets: UIEdgeInsets {
+        get {
+            var area = super.additionalSafeAreaInsets
+            area.top = 0
+            return area
+        }
+        set {
+            super.additionalSafeAreaInsets = newValue
+        }
+
     }
 }
 
@@ -140,8 +163,8 @@ extension TitleViewController: UITableViewDataSource {
             return Item.allCases.count
         case .chapters:
             return viewModel.chapters.count
-        default:
-            return 0
+        case .comments:
+            return viewModel.comments.count
         }
     }
 
@@ -151,14 +174,20 @@ extension TitleViewController: UITableViewDataSource {
             return configureAboutCell(tableView, at: indexPath)
         case .chapters:
             return configureChaptersCell(tableView, at: indexPath)
-        default:
-            return UITableViewCell()
+        case .comments:
+            return configureCommentsCell(tableView, at: indexPath)
         }
     }
 
     func configureChaptersCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(for: indexPath) as TitleChapterCell
         cell.setModel(viewModel.chapters.collection[indexPath.row])
+        return cell
+    }
+
+    func configureCommentsCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue(for: indexPath) as TitleCommentCell
+        cell.setModel(viewModel.comments.collection[indexPath.row])
         return cell
     }
 
@@ -240,6 +269,7 @@ extension TitleViewController: UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         headerView.imageTopConstraint.constant = scrollView.contentOffset.y
+        print(tableView.safeAreaInsets.top)
         navigationBarIsHidden = scrollView.contentOffset.y < 200
     }
 }

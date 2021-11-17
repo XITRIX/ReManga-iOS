@@ -33,9 +33,13 @@ class MvvmViewController<ViewModel: MvvmViewModelProtocol>: SAViewController, Mv
         case .done:
             overlay = nil
         case .processing:
-            overlay = LoadingOverlayViewController(backgroundColor: view.backgroundColor)
-        case .error(_):
-            overlay = nil
+            let loadingOverlay = LoadingOverlayViewController.resolve()
+            loadingOverlay.backgroundColor = view.backgroundColor
+            overlay = loadingOverlay
+        case .error(let error):
+            let errorOverlay = ErrorOverlayViewController.resolve()
+            errorOverlay.error = error
+            overlay = errorOverlay
         }
     }
 

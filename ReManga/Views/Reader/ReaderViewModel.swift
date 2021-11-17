@@ -105,11 +105,13 @@ class ReaderViewModel: MvvmViewModelWith<ReaderViewModelParams> {
         pages.removeAll()
         ReClient.shared.getChapter(chapter: id) { [weak self] result in
             guard let self = self else { return }
-
+            
             switch result {
             case .failure(let error):
                 completionHandler?(.failure(error))
-                self.state.value = .error(error)
+                self.state.value = .error(.init(error, retryCallback: {
+                    self.loadChapter(completionHandler: completionHandler)
+                }))
             case .success(let model):
                 self.loadModel(model.content)
                 completionHandler?(.success(model))

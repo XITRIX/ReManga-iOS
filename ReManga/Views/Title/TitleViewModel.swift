@@ -39,6 +39,10 @@ class TitleViewModel: MvvmViewModelWith<String> {
     let readingStatus = Observable<String>("")
     let readingStatusDetails = Observable<String?>(nil)
 
+    let comments = MutableObservableCollection<[ReCommentsContent]>()
+    var commentsPage = 1
+    var commentsId: Int?
+
     override func prepare(with item: String) {
         branch.observeNext { [unowned self] brunch in
             if let brunch = brunch {
@@ -46,8 +50,7 @@ class TitleViewModel: MvvmViewModelWith<String> {
             }
         }.dispose(in: bag)
 
-        loadTitle(item)
-        loadSimilar(item)
+        load(item)
     }
 
     //MARK: - Public
@@ -86,7 +89,19 @@ extension TitleViewModel {
 }
 
 private extension TitleViewModel {
-    func loadTitle(_ title: String) {
+    func load(_ title: String) {
+        loadTitle(title) { [weak self] result in
+            guard let self = self,
+                  let model = try? result.get()
+            else { return }
+
+            self.commentsId = model.content.id
+            self.loadComments()
+        }
+        loadSimilar(title)
+    }
+
+    func loadTitle(_ title: String, completion: ((Result<ReTitleModel, HttpClientError>)->())? = nil) {
         state.value = .processing
         ReClient.shared.getTitle(title: title) { [weak self] result in
             guard let self = self else { return }
@@ -98,8 +113,11 @@ private extension TitleViewModel {
                 self.loaded.value = true
                 self.state.value = .done
             case .failure(let error):
-                self.state.value = .error(error)
+                self.state.value = .error(.init(error, retryCallback: {
+                    self.load(title)
+                }))
             }
+            completion?(result)
         }
     }
 
@@ -125,6 +143,19 @@ private extension TitleViewModel {
                 break
             case .success(let model):
                 self.chapters.replace(with: model.content)
+            }
+        }
+    }
+
+    func loadComments() {
+        guard let commentsId = commentsId else { return }
+        ReClient.shared.getTitleComments(titleId: commentsId, page: commentsPage) { result in
+            switch result {
+            case .success(let model):
+                self.comments.append(model.content)
+                self.commentsPage += 1
+            case .failure(_):
+                break
             }
         }
     }

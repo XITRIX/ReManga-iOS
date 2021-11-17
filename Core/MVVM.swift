@@ -29,20 +29,26 @@ extension MVVM {
         container.registerSingleton { Router(container: self.container) }
 
         // Register ViewModels
-        container.register() { CatalogViewModel() }
-        container.register() { TitleViewModel() }
-        container.register() { ReaderViewModel() }
-        container.register() { SearchViewModel() }
-        container.register() { RootTabsViewModel() }
-        container.register() { CatalogFilterViewModel() }
+        container.register { CatalogViewModel() }
+        container.register { TitleViewModel() }
+        container.register { ReaderViewModel() }
+        container.register { SearchViewModel() }
+        container.register { RootTabsViewModel() }
+        container.register { CatalogFilterViewModel() }
+        container.register { UserViewModel() }
 
         // Register ViewControllers
-        container.register() { CatalogViewController() }
-        container.register() { TitleViewController() }
-        container.register() { ReaderViewController() }
-        container.register() { SearchViewController() }
-        container.register() { RootTabsViewController() }
-        container.register() { CatalogFilerViewController() }
+        container.register { CatalogViewController() }
+        container.register { TitleViewController() }
+        container.register { ReaderViewController() }
+        container.register { SearchViewController() }
+        container.register { RootTabsViewController() }
+        container.register { CatalogFilerViewController() }
+        container.register { UserViewController() }
+
+        // Register ViewController Overlays
+        container.register { LoadingOverlayViewController() }
+        container.register { ErrorOverlayViewController() }
     }
 
     func registerRouting() {
@@ -56,5 +62,6 @@ extension MVVM {
         router.register(viewModel: SearchViewModel.self, viewController: SearchViewController.self)
         router.register(viewModel: RootTabsViewModel.self, viewController: RootTabsViewController.self)
         router.register(viewModel: CatalogFilterViewModel.self, viewController: CatalogFilerViewController.self)
+        router.register(viewModel: UserViewModel.self, viewController: UserViewController.self)
     }
 }

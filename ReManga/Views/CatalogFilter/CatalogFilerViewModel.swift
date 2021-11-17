@@ -21,7 +21,10 @@ class CatalogFilterViewModel: MvvmViewModelWith<CatalogFilterModel> {
     override func prepare(with item: CatalogFilterModel) {
         filters = item.filters
         completion = item.completion
+        load()
+    }
 
+    func load() {
         state.value = .processing
         ReClient.shared.getCatalogFilters { [weak self] result in
             guard let self = self else { return }
@@ -31,7 +34,7 @@ class CatalogFilterViewModel: MvvmViewModelWith<CatalogFilterModel> {
                 self.availableFilters.value = model.content
                 self.state.value = .done
             case .failure(let error):
-                self.state.value = .error(error)
+                self.state.value = .error(.init(error, retryCallback: self.load))
             }
         }
     }

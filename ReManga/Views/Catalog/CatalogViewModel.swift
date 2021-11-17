@@ -77,11 +77,14 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
 
             switch result {
             case .success(let model):
-                model.content.forEach { self.collection.append($0) }
+                self.collection.append(model.content)
                 self.state.value = .done
                 self.page += 1
             case .failure(let error):
-                self.state.value = .error(error)
+                self.state.value = .error(.init(error, retryCallback: {
+                    self.state.value = .processing
+                    self.loadNext()
+                }))
             }
             self.loadingBarrier = false
         }

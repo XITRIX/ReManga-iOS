@@ -30,6 +30,11 @@
 		7C2EF80C273362FA002BADC4 /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF80A273362FA002BADC4 /* TitleViewController.swift */; };
 		7C2EF80D273362FA002BADC4 /* TitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C2EF80B273362FA002BADC4 /* TitleViewController.xib */; };
 		7C2EF80F27336304002BADC4 /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF80E27336304002BADC4 /* TitleViewModel.swift */; };
+		7C43959F2739B71F001144AE /* TitleCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43959D2739B71E001144AE /* TitleCommentCell.swift */; };
+		7C4395A02739B71F001144AE /* TitleCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C43959E2739B71F001144AE /* TitleCommentCell.xib */; };
+		7C4395A42739C2B5001144AE /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4395A22739C2B5001144AE /* UserViewController.swift */; };
+		7C4395A52739C2B5001144AE /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C4395A32739C2B5001144AE /* UserViewController.xib */; };
+		7C4395A72739C2BD001144AE /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4395A62739C2BD001144AE /* UserViewModel.swift */; };
 		7C53B3342734B609007814F0 /* ReCatalogFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B3332734B609007814F0 /* ReCatalogFilterModel.swift */; };
 		7C53B3372734C10B007814F0 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B3362734C10B007814F0 /* BaseNavigationController.swift */; };
 		7C53B33C27359200007814F0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B33927359200007814F0 /* SearchViewController.swift */; };
@@ -65,7 +70,7 @@
 		7CA9AC6C2733EB62009FF259 /* Router+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC5E2733EB62009FF259 /* Router+Navigation.swift */; };
 		7CA9AC6D2733EB62009FF259 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC5F2733EB62009FF259 /* Router.swift */; };
 		7CA9AC6E2733EB62009FF259 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC612733EB62009FF259 /* UITableViewCell+Extensions.swift */; };
-		7CA9AC6F2733EB62009FF259 /* BaseViewModel+Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC622733EB62009FF259 /* BaseViewModel+Router.swift */; };
+		7CA9AC6F2733EB62009FF259 /* MvvmViewModel+Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC622733EB62009FF259 /* MvvmViewModel+Router.swift */; };
 		7CA9AC7227341193009FF259 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC7127341193009FF259 /* TitleHeaderView.swift */; };
 		7CA9AC792734128E009FF259 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC782734128E009FF259 /* NibLoadable.swift */; };
 		7CA9AC7B273413A6009FF259 /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC7A273413A6009FF259 /* NibLoadableView.swift */; };
@@ -86,6 +91,10 @@
 		7CAE01222737035E0044A550 /* CatalogFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CAE01202737035E0044A550 /* CatalogFilterCell.xib */; };
 		7CAE012C2737FFE00044A550 /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE012A2737FFE00044A550 /* LoadingOverlayViewController.swift */; };
 		7CAE012D2737FFE00044A550 /* LoadingOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CAE012B2737FFE00044A550 /* LoadingOverlayViewController.xib */; };
+		7CBEBDBF273C4F8B00D70702 /* ErrorOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */; };
+		7CBEBDC0273C4F8B00D70702 /* ErrorOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */; };
+		7CBEBDC2273C511F00D70702 /* NSObject+Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */; };
+		7CC4DC0B273AD2FE004E476A /* MvvmViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */; };
 		7CF21BA82734A1BB00806F4D /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */; };
 		7CF21BAC2734A5F500806F4D /* TitleChapterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */; };
 		7CF21BAD2734A5F500806F4D /* TitleChapterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF21BAB2734A5F500806F4D /* TitleChapterCell.xib */; };
@@ -128,6 +137,11 @@
 		7C2EF80A273362FA002BADC4 /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		7C2EF80B273362FA002BADC4 /* TitleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleViewController.xib; sourceTree = "<group>"; };
 		7C2EF80E27336304002BADC4 /* TitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewModel.swift; sourceTree = "<group>"; };
+		7C43959D2739B71E001144AE /* TitleCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCommentCell.swift; sourceTree = "<group>"; };
+		7C43959E2739B71F001144AE /* TitleCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleCommentCell.xib; sourceTree = "<group>"; };
+		7C4395A22739C2B5001144AE /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		7C4395A32739C2B5001144AE /* UserViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
+		7C4395A62739C2BD001144AE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		7C53B3332734B609007814F0 /* ReCatalogFilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReCatalogFilterModel.swift; sourceTree = "<group>"; };
 		7C53B3362734C10B007814F0 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		7C53B33927359200007814F0 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -163,7 +177,7 @@
 		7CA9AC5E2733EB62009FF259 /* Router+Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+Navigation.swift"; sourceTree = "<group>"; };
 		7CA9AC5F2733EB62009FF259 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		7CA9AC612733EB62009FF259 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
-		7CA9AC622733EB62009FF259 /* BaseViewModel+Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseViewModel+Router.swift"; sourceTree = "<group>"; };
+		7CA9AC622733EB62009FF259 /* MvvmViewModel+Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MvvmViewModel+Router.swift"; sourceTree = "<group>"; };
 		7CA9AC7127341193009FF259 /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
 		7CA9AC782734128E009FF259 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		7CA9AC7A273413A6009FF259 /* NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
@@ -184,6 +198,10 @@
 		7CAE01202737035E0044A550 /* CatalogFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogFilterCell.xib; sourceTree = "<group>"; };
 		7CAE012A2737FFE00044A550 /* LoadingOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlayViewController.swift; sourceTree = "<group>"; };
 		7CAE012B2737FFE00044A550 /* LoadingOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingOverlayViewController.xib; sourceTree = "<group>"; };
+		7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlayViewController.swift; sourceTree = "<group>"; };
+		7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorOverlayViewController.xib; sourceTree = "<group>"; };
+		7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Container.swift"; sourceTree = "<group>"; };
+		7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmViewModelState.swift; sourceTree = "<group>"; };
 		7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleChapterCell.swift; sourceTree = "<group>"; };
 		7CF21BAB2734A5F500806F4D /* TitleChapterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleChapterCell.xib; sourceTree = "<group>"; };
@@ -285,6 +303,7 @@
 				7C53B33827359200007814F0 /* Search */,
 				7C2EF809273362E5002BADC4 /* Title */,
 				7CF21BB02734AB2900806F4D /* Reader */,
+				7C4395A12739C28F001144AE /* User */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +355,25 @@
 				7C2EF80B273362FA002BADC4 /* TitleViewController.xib */,
 			);
 			path = Title;
+			sourceTree = "<group>";
+		};
+		7C43959C2739B6FB001144AE /* TitleComment */ = {
+			isa = PBXGroup;
+			children = (
+				7C43959D2739B71E001144AE /* TitleCommentCell.swift */,
+				7C43959E2739B71F001144AE /* TitleCommentCell.xib */,
+			);
+			path = TitleComment;
+			sourceTree = "<group>";
+		};
+		7C4395A12739C28F001144AE /* User */ = {
+			isa = PBXGroup;
+			children = (
+				7C4395A62739C2BD001144AE /* UserViewModel.swift */,
+				7C4395A22739C2B5001144AE /* UserViewController.swift */,
+				7C4395A32739C2B5001144AE /* UserViewController.xib */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		7C53B33827359200007814F0 /* Search */ = {
@@ -471,6 +509,7 @@
 		7CA9AC552733EB62009FF259 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */,
 				7CA9AC572733EB62009FF259 /* MvvmViewModel.swift */,
 				7CA9AC562733EB62009FF259 /* MvvmViewModelWith.swift */,
 				7C962DB02735F69800425798 /* MvvmTabsViewModel.swift */,
@@ -504,7 +543,8 @@
 			children = (
 				7CF21BC52734AF1100806F4D /* BondExtensions.swift */,
 				7CA9AC612733EB62009FF259 /* UITableViewCell+Extensions.swift */,
-				7CA9AC622733EB62009FF259 /* BaseViewModel+Router.swift */,
+				7CA9AC622733EB62009FF259 /* MvvmViewModel+Router.swift */,
+				7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */,
 				7C53B3442735D99D007814F0 /* UIViewControllerExtensions.swift */,
 			);
 			path = Extensions;
@@ -562,7 +602,8 @@
 		7CA9AC8D27346091009FF259 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				7CF21BA92734A5D400806F4D /* TitleChapterCell */,
+				7C43959C2739B6FB001144AE /* TitleComment */,
+				7CF21BA92734A5D400806F4D /* TitleChapter */,
 				7C6D10CB273496770039230F /* TitleSimilar */,
 				7C6D10C1273491E20039230F /* TitleTranslaters */,
 				7CA9ACA427348A04009FF259 /* TitleTags */,
@@ -619,6 +660,7 @@
 		7CAE01282737FFB00044A550 /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
+				7CBEBDBC273C4F5200D70702 /* ErrorOverlay */,
 				7CAE01292737FFBC0044A550 /* LoadingOverlay */,
 			);
 			path = HelperViews;
@@ -641,6 +683,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		7CBEBDBC273C4F5200D70702 /* ErrorOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */,
+				7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */,
+			);
+			path = ErrorOverlay;
+			sourceTree = "<group>";
+		};
 		7CF21BA62734A1AF00806F4D /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,13 +702,13 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		7CF21BA92734A5D400806F4D /* TitleChapterCell */ = {
+		7CF21BA92734A5D400806F4D /* TitleChapter */ = {
 			isa = PBXGroup;
 			children = (
 				7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */,
 				7CF21BAB2734A5F500806F4D /* TitleChapterCell.xib */,
 			);
-			path = TitleChapterCell;
+			path = TitleChapter;
 			sourceTree = "<group>";
 		};
 		7CF21BB02734AB2900806F4D /* Reader */ = {
@@ -774,6 +825,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CBEBDC0273C4F8B00D70702 /* ErrorOverlayViewController.xib in Resources */,
 				7C2EF80627335255002BADC4 /* CatalogViewController.xib in Resources */,
 				7C2EF80827335FC6002BADC4 /* Main.storyboard in Resources */,
 				7C2EF7A02732ECEA002BADC4 /* LaunchScreen.storyboard in Resources */,
@@ -785,6 +837,7 @@
 				7CA9ACA32734848F009FF259 /* TitleDescriptionCell.xib in Resources */,
 				7CAE01222737035E0044A550 /* CatalogFilterCell.xib in Resources */,
 				7CF21BAD2734A5F500806F4D /* TitleChapterCell.xib in Resources */,
+				7C4395A52739C2B5001144AE /* UserViewController.xib in Resources */,
 				7CA9ACA827348A1C009FF259 /* TitleTagsCell.xib in Resources */,
 				7CA9AC9A27348244009FF259 /* TitleMetricsCell.xib in Resources */,
 				7C2EF80D273362FA002BADC4 /* TitleViewController.xib in Resources */,
@@ -794,6 +847,7 @@
 				7C6D10CA273492E00039230F /* TitleTranslatorView.xib in Resources */,
 				7C53B33E27359200007814F0 /* SearchViewController.xib in Resources */,
 				7CF21BB42734AB5000806F4D /* ReaderViewController.xib in Resources */,
+				7C4395A02739B71F001144AE /* TitleCommentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,12 +913,13 @@
 				7C53B34027359A95007814F0 /* FadeControllerPresentation.swift in Sources */,
 				7CA9AC692733EB62009FF259 /* MvvmCollectionViewController.swift in Sources */,
 				7CA9AC7227341193009FF259 /* TitleHeaderView.swift in Sources */,
+				7C4395A42739C2B5001144AE /* UserViewController.swift in Sources */,
 				7CA9AC9927348244009FF259 /* TitleMetricsCell.swift in Sources */,
 				7C53B3372734C10B007814F0 /* BaseNavigationController.swift in Sources */,
 				7CA9AC632733EB62009FF259 /* HttpClient.swift in Sources */,
 				7C53B3452735D99D007814F0 /* UIViewControllerExtensions.swift in Sources */,
 				7CF21BB82734AC3500806F4D /* BaseViewController.swift in Sources */,
-				7CA9AC6F2733EB62009FF259 /* BaseViewModel+Router.swift in Sources */,
+				7CA9AC6F2733EB62009FF259 /* MvvmViewModel+Router.swift in Sources */,
 				7C53B33D27359200007814F0 /* SearchViewModel.swift in Sources */,
 				7CA9AC6A2733EB62009FF259 /* MvvmViewController.swift in Sources */,
 				7CF21BB32734AB5000806F4D /* ReaderViewController.swift in Sources */,
@@ -884,6 +939,7 @@
 				7C6D10C8273492D10039230F /* TitleTranslatorView.swift in Sources */,
 				7CA9AC6E2733EB62009FF259 /* UITableViewCell+Extensions.swift in Sources */,
 				7CA9AC662733EB62009FF259 /* MvvmViewModelWith.swift in Sources */,
+				7C43959F2739B71F001144AE /* TitleCommentCell.swift in Sources */,
 				7C2EF7FA2733476A002BADC4 /* ReBranchModel.swift in Sources */,
 				7C6D10CE273496930039230F /* TitleSimilarCell.swift in Sources */,
 				7CA9AC6B2733EB62009FF259 /* MvvmViewControllerProtocol.swift in Sources */,
@@ -896,6 +952,7 @@
 				7C2EF7F92733476A002BADC4 /* ReChapterModel.swift in Sources */,
 				7CA9AC80273432E2009FF259 /* OptionalExtensions.swift in Sources */,
 				7CA9AC652733EB62009FF259 /* Holder.swift in Sources */,
+				7CC4DC0B273AD2FE004E476A /* MvvmViewModelState.swift in Sources */,
 				7C962DB12735F69800425798 /* MvvmTabsViewModel.swift in Sources */,
 				7CF21BB62734AB8600806F4D /* ReaderViewModel.swift in Sources */,
 				7C2EF80527335255002BADC4 /* CatalogViewController.swift in Sources */,
@@ -909,11 +966,14 @@
 				7C962DB62735FC8000425798 /* RootTabsViewController.swift in Sources */,
 				7CA9AC7B273413A6009FF259 /* NibLoadableView.swift in Sources */,
 				7C2EF7CF2733441E002BADC4 /* MVVM.swift in Sources */,
+				7C4395A72739C2BD001144AE /* UserViewModel.swift in Sources */,
 				7CF21BBD2734ACC900806F4D /* SAViewControllers.swift in Sources */,
+				7CBEBDBF273C4F8B00D70702 /* ErrorOverlayViewController.swift in Sources */,
 				7CA9AC6D2733EB62009FF259 /* Router.swift in Sources */,
 				7C2EF7F62733476A002BADC4 /* ReSearchModel.swift in Sources */,
 				7C2EF80127334AEE002BADC4 /* CatalogCellView.swift in Sources */,
 				7CA9AC7E273430D1009FF259 /* UIImageViewExtensions.swift in Sources */,
+				7CBEBDC2273C511F00D70702 /* NSObject+Container.swift in Sources */,
 				7C2EF7FD2733482A002BADC4 /* ReClient.swift in Sources */,
 				7C962DB82735FCB000425798 /* RootTabsViewModel.swift in Sources */,
 				7CF21BBE2734ACC900806F4D /* SANavigationController.swift in Sources */,

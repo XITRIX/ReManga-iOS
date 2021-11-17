@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TitleChapterCell: UITableViewCell {
+class TitleChapterCell: BaseTableViewCell {
     @IBOutlet var tome: UILabel!
     @IBOutlet var chapter: UILabel!
     @IBOutlet var pubDate: UILabel!

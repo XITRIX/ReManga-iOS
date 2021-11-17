@@ -9,7 +9,7 @@ import Alamofire
 import Foundation
 
 class ReClient {
-    static let baseUrl = "https://api.remanga.org/"
+    static let baseUrl = "https://api.xn--80aaig9ahr.xn--c1avg/"
 
     static let shared = ReClient()
 
