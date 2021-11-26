@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 extension UIViewController {
     func add(to viewController: UIViewController, in view: UIView? = nil) {
@@ -69,5 +70,24 @@ extension UIViewController {
                 tableView?.deselectRow(at: $0, animated: false)
             }
         }
+    }
+}
+
+@resultBuilder
+struct BindingBuilder {
+    static func buildBlock() -> [Disposable] { [] }
+
+    static func buildBlock(_ components: Disposable...) -> [Disposable] {
+        components
+    }
+
+    static func buildArray(_ components: [[Disposable]]) -> [Disposable] {
+        components.flatMap { $0 }
+    }
+}
+
+extension UIViewController {
+    func bindingContext(@BindingBuilder _ content: () -> [Disposable]) {
+        content().forEach { $0.dispose(in: bag) }
     }
 }

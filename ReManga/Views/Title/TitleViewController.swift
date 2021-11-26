@@ -43,6 +43,7 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         let navAppearance = UINavigationBarAppearance()
         navAppearance.configureWithTransparentBackground()
         navAppearance.backgroundColor = .secondarySystemBackground
+        navAppearance.backgroundEffect = UIBlurEffect(style: .systemThickMaterial)
         navigationItem.standardAppearance = navAppearance
 
         tableView.register(cell: TitleMetricsCell.self)
@@ -69,68 +70,70 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         navigationItem.titleView = titleView
     }
 
+    deinit {
+        print("Deinit!!!!!!!")
+    }
+
     override func binding() {
         super.binding()
-        viewModel.rusName.observeNext { [unowned self] in
-            titleView.text = $0
-            titleView.sizeToFit()
-        }.dispose(in: bag)
 
-        viewModel.sectionSelected.bidirectionalMap(to: { item in
-            item.rawValue
-        }, from: { value in
-            TitleViewModel.SectionItem(rawValue: value) ?? .about
-        }).bidirectionalBind(to: sectionSelectorView.segment.reactive.selectedSegmentIndex).dispose(in: bag)
+        bindingContext {
+            backButton.bindTap(viewModel.dismiss)
 
-        viewModel.sectionSelected.observeNext { [unowned self] _ in
-            UIView.performWithoutAnimation {
-                tableView.reloadSections([0], with: .none)
-                scrollViewDidScroll(tableView)
+            viewModel.enName.bind(to: headerView.engTitleLabel)
+            viewModel.rusName.bind(to: headerView.ruTitleLabel)
+            viewModel.rating.bind(to: headerView.ratingLabel)
+            viewModel.info.bind(to: headerView.descriptionLabel)
+            viewModel.readingStatus.bind(to: headerView.readingStatusLabel)
+            viewModel.bookmark.bind(to: headerView.bookmarkStatusLabel)
+            viewModel.image.bind(to: headerView.imageView.reactive.imageUrl)
+            headerView.readingStatusButton.bindTap(viewModel.navigateCurrentChapter)
+
+            viewModel.rusName.observeNext { [unowned self] in
+                titleView.text = $0
+                titleView.sizeToFit()
             }
-        }.dispose(in: bag)
 
-        viewModel.image.observeNext { [unowned self] link in
-            headerView.imageView.kf.setImage(with: link)
-        }.dispose(in: bag)
-        viewModel.enName.bind(to: headerView.engTitleLabel).dispose(in: bag)
-        viewModel.rusName.bind(to: headerView.ruTitleLabel).dispose(in: bag)
-        viewModel.rating.bind(to: headerView.ratingLabel).dispose(in: bag)
-        viewModel.info.bind(to: headerView.descriptionLabel).dispose(in: bag)
+            viewModel.sectionSelected.bidirectionalMap(to: { item in
+                item.rawValue
+            }, from: { value in
+                TitleViewModel.SectionItem(rawValue: value) ?? .about
+            }).bidirectionalBind(to: sectionSelectorView.segment.reactive.selectedSegmentIndex)
 
-        viewModel.readingStatus.bind(to: headerView.readingStatusLabel).dispose(in: bag)
-
-        viewModel.readingStatusDetails.observeNext { [unowned self] text in
-            headerView.readingStatusDetailsLabel.isHidden = text == nil
-            headerView.readingStatusDetailsLabel.text = text
-        }.dispose(in: bag)
-
-        viewModel.bookmark.bind(to: headerView.bookmarkStatusLabel).dispose(in: bag)
-
-        viewModel.loaded.observeNext { [unowned self] _ in
-            tableView.reloadData()
-        }.dispose(in: bag)
-
-        viewModel.chapters.observeNext { [unowned self] chapters in
-            if viewModel.sectionSelected.value == .chapters {
-                tableView.reloadSections([0], with: .automatic)
+            viewModel.sectionSelected.observeNext { [unowned self] _ in
+                UIView.performWithoutAnimation {
+                    tableView.reloadSections([0], with: .none)
+                    scrollViewDidScroll(tableView)
+                }
             }
-        }.dispose(in: bag)
 
-        viewModel.comments.observeNext { [unowned self] chapters in
-            if viewModel.sectionSelected.value == .comments {
-                tableView.reloadSections([0], with: .automatic)
+            viewModel.readingStatusDetails.observeNext { [unowned self] text in
+                headerView.readingStatusDetailsLabel.isHidden = text == nil
+                headerView.readingStatusDetailsLabel.text = text
             }
-        }.dispose(in: bag)
 
-        tableView.reactive.selectedRowIndexPath.observeNext { [unowned self] indexPath in
-            if viewModel.sectionSelected.value == .chapters {
-                viewModel.navigateChapter(viewModel.chapters.collection[indexPath.row].id)
+            viewModel.loaded.observeNext { [unowned self] _ in
+                tableView.reloadData()
             }
-        }.dispose(in: bag)
 
-        headerView.readingStatusButton.reactive.controlEvents(.touchUpInside).observeNext(with: viewModel.navigateCurrentChapter).dispose(in: bag)
+            viewModel.chapters.observeNext { [unowned self] chapters in
+                if viewModel.sectionSelected.value == .chapters {
+                    tableView.reloadSections([0], with: .automatic)
+                }
+            }
 
-        backButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
+            viewModel.comments.observeNext { [unowned self] chapters in
+                if viewModel.sectionSelected.value == .comments {
+                    tableView.reloadSections([0], with: .automatic)
+                }
+            }
+
+            tableView.reactive.selectedRowIndexPath.observeNext { [unowned self] indexPath in
+                if viewModel.sectionSelected.value == .chapters {
+                    viewModel.navigateChapter(viewModel.chapters.collection[indexPath.row].id)
+                }
+            }
+        }
     }
 
     override var additionalSafeAreaInsets: UIEdgeInsets {
@@ -154,13 +157,21 @@ extension TitleViewController {
         case translaters
         case similar
     }
+
+    var allVisibleItems: [Item] {
+        var res: [Item] = [.metrics, .description]
+        if !viewModel.categories.isEmpty { res.append(.tags) }
+        if !viewModel.publishers.isEmpty { res.append(.translaters) }
+        res.append(.similar)
+        return res
+    }
 }
 
 extension TitleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch viewModel.sectionSelected.value {
         case .about:
-            return Item.allCases.count
+            return allVisibleItems.count
         case .chapters:
             return viewModel.chapters.count
         case .comments:
@@ -192,7 +203,7 @@ extension TitleViewController: UITableViewDataSource {
     }
 
     func configureAboutCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        switch Item(rawValue: indexPath.row) {
+        switch allVisibleItems[indexPath.row] {
         case .metrics:
             let cell = tableView.dequeue(for: indexPath) as TitleMetricsCell
             viewModel.totalVotes.bind(to: cell.likesLabel).dispose(in: cell.bag)

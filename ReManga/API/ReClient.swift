@@ -28,7 +28,7 @@ class ReClient {
     }
 
     @discardableResult
-    func getSimilar(title: String, completionHandler: @escaping (Result<ReSimilarModel, HttpClientError>) -> ()) -> DataRequest? {
+    func getSimilar(title: String, completionHandler: @escaping (Result<ReCatalogModel, HttpClientError>) -> ()) -> DataRequest? {
         let api = "api/titles/\(title)/similar"
         return baseRequest(api, completionHandler: completionHandler)
     }

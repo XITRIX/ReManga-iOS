@@ -13,7 +13,7 @@ class TitleSimilarCollectionCell: UICollectionViewCell {
     @IBOutlet var image: UIImageView!
     @IBOutlet var totalFavorites: UILabel!
 
-    func setModel(_ model: ReSimilarContent) {
+    func setModel(_ model: ReCatalogContent) {
         name.text = model.rusName
         details.text = model.type
         totalFavorites.text = model.totalVotes?.cropText()

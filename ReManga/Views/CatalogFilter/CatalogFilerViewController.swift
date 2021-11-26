@@ -54,12 +54,14 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
 
     override func binding() {
         super.binding()
-        viewModel.state.observeNext { [unowned self] _ in
-            tableView.reloadData()
-        }.dispose(in: bag)
 
-        cancelButton.reactive.tap.observeNext(with: viewModel.dismiss).dispose(in: bag)
-        doneButton.reactive.tap.observeNext(with: viewModel.done).dispose(in: bag)
+        bindingContext {
+            cancelButton.bindTap(viewModel.dismiss)
+            doneButton.bindTap(viewModel.done)
+            viewModel.state.observeNext { [unowned self] _ in
+                tableView.reloadData()
+            }
+        }
     }
 
     override func updateOverlay(_ old: UIViewController?) {

@@ -14,6 +14,7 @@ class TitleChapterCell: BaseTableViewCell {
     @IBOutlet var publishers: UILabel!
     @IBOutlet var score: UILabel!
     @IBOutlet var like: UIImageView!
+    @IBOutlet var lockIcon: UIImageView!
 
     func setModel(_ model: ReBranchContent) {
         tome.text = model.tome.text
@@ -40,5 +41,6 @@ class TitleChapterCell: BaseTableViewCell {
         chapter.textColor = textColor
         pubDate.textColor = textColor
         publishers.textColor = textColor
+        lockIcon.isHidden = !((model.isPaid ?? false) && !(model.isBought ?? false))
     }
 }

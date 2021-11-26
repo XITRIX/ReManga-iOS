@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 
 struct SearchModel {
-    var query: String = ""
-    var callback: (ReSearchContent)->()
+    var query: String?
+    var callback: (ReSearchContent?, String?)->()
 }
 
 class SearchViewModel: MvvmViewModelWith<SearchModel> {
@@ -20,7 +20,7 @@ class SearchViewModel: MvvmViewModelWith<SearchModel> {
 
     private var lock = false
     private var lastRequest: DataRequest?
-    private var callback: ((ReSearchContent)->())?
+    private var callback: ((ReSearchContent?, String?)->())?
 
     required init() {
         super.init()
@@ -65,9 +65,15 @@ class SearchViewModel: MvvmViewModelWith<SearchModel> {
 //        }
     }
 
+    func dismissWithCallback() {
+        dismiss() { [unowned self] in
+            callback?(nil, query.value)
+        }
+    }
+
     func itemSelected(_ index: Int) {
         dismiss() { [unowned self] in
-            callback?(content.collection[index])
+            callback?(content.collection[index], query.value)
         }
     }
 }

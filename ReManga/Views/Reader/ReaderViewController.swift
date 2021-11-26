@@ -16,7 +16,9 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
     @IBOutlet var bookmark: UIButton!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var topBar: UIVisualEffectView!
+    @IBOutlet var topBarContainer: UIView!
     @IBOutlet var bottomBar: UIVisualEffectView!
+    @IBOutlet var bottomBarContainer: UIView!
 
     @IBOutlet var lastFrameView: UIView!
     @IBOutlet var likesLabel: UILabel!
@@ -38,7 +40,6 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
 
         navigationBarIsHidden = true
 
-        tableView.contentInset.top = view.safeAreaInsets.top
         tableView.register(cell: ReaderPageCell.self)
         tableView.delegate = self
 
@@ -49,28 +50,32 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
         tableView.minimumZoomScale = 0.5
         tableView.maximumZoomScale = 4
         tableView.bouncesZoom = true
-    }
 
-    func setView() {}
+        tableView.contentInset.top = topBarContainer.frame.height
+        tableView.contentOffset.y = -topBarContainer.frame.height
+
+        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleNavigationHidden)))
+    }
 
     override func binding() {
         super.binding()
 
-        viewModel.score.bind(to: likesLabel).dispose(in: bag)
+        bindingContext {
+            viewModel.score.bind(to: likesLabel)
+            viewModel.name.bind(to: chapter.reactive.title)
 
-        viewModel.rated.observeNext { [unowned self] rated in
-            likeButton.setImage(UIImage(systemName: rated ? "heart.fill" : "heart"), for: .normal)
-        }.dispose(in: bag)
-
-        viewModel.pages.bind(to: tableView) { (pages, indexPath, tableView) -> UITableViewCell in
-            let cell = tableView.dequeue(for: indexPath) as ReaderPageCell
-            cell.setModel(pages[indexPath.row])
-            return cell
-        }.dispose(in: bag)
+            viewModel.rated.observeNext { [unowned self] rated in
+                likeButton.setImage(UIImage(systemName: rated ? "heart.fill" : "heart"), for: .normal)
+            }
+            
+            viewModel.pages.bind(to: tableView) { (pages, indexPath, tableView) -> UITableViewCell in
+                let cell = tableView.dequeue(for: indexPath) as ReaderPageCell
+                cell.setModel(pages[indexPath.row])
+                return cell
+            }
+        }
 
         closeButtons.forEach { $0.bind(viewModel.dismiss).dispose(in: bag) }
-
-        viewModel.name.bind(to: chapter.reactive.title).dispose(in: bag)
 
         prevChapterButtons.forEach {
             viewModel.prevAvailable.bind(to: $0.reactive.isEnabled).dispose(in: bag)
@@ -81,13 +86,18 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
             viewModel.nextAvailable.bind(to: $0.reactive.isEnabled).dispose(in: bag)
             $0.bind(viewModel.loadNextChapter).dispose(in: bag)
         }
-
-        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleNavigationHidden)))
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.contentInset.top = topBar.frame.height
+        tableView.contentInset.top = topBarContainer.frame.height
+    }
+
+    override func updateOverlay(_ old: UIViewController?) {
+        if overlay == old { return }
+
+        old?.remove()
+        overlay?.insert(to: self, at: 2, in: view)
     }
 
     @objc func toggleNavigationHidden() {
@@ -107,7 +117,7 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
             if self._navigationBarIsHidden {
                 self.tableView.scrollIndicatorInsets = .zero
             } else {
-                self.tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.topBar.frame.height, left: 0, bottom: self.bottomBar.frame.height, right: 0)
+                self.tableView.scrollIndicatorInsets = UIEdgeInsets(top: self.topBarContainer.frame.height, left: 0, bottom: self.bottomBarContainer.frame.height, right: 0)
             }
         }
     }

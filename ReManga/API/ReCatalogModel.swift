@@ -32,10 +32,13 @@ struct ReCatalogContent: Codable, Hashable {
     let coverHigh: String?
     let coverMid: String?
     let coverLow: String?
+    let promoLink: String?
+    let img: ReCatalogImg?
     let bookmarkType: ReCatalogBookmarkType?
     let genres: [ReCatalogCategory]?
-    let img: ReCatalogImg?
     let categories: [ReCatalogCategory]?
+    let countChapters: Int?
+    let isPromo: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -50,10 +53,13 @@ struct ReCatalogContent: Codable, Hashable {
         case coverHigh = "cover_high"
         case coverMid = "cover_mid"
         case coverLow = "cover_low"
+        case promoLink = "promo_link"
         case bookmarkType = "bookmark_type"
         case genres = "genres"
         case img = "img"
         case categories = "categories"
+        case countChapters = "count_chapters"
+        case isPromo = "is_promo"
     }
 }
 

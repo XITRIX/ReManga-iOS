@@ -9,9 +9,7 @@ import Bond
 import Foundation
 
 class TitleViewModel: MvvmViewModelWith<String> {
-    var sectionSelected = Observable<SectionItem>(.about)
-
-    var props: ReTitleProps?
+    let sectionSelected = Observable<SectionItem>(.about)
 
     let id = Observable<Int?>(nil)
     let rusName = Observable<String?>(nil)
@@ -32,7 +30,7 @@ class TitleViewModel: MvvmViewModelWith<String> {
     let bookmark = Observable<String?>(nil)
     let loaded = Observable<Bool>(false)
 
-    let similar = MutableObservableCollection<[ReSimilarContent]>()
+    let similar = MutableObservableCollection<[ReCatalogContent]>()
     let chapters = MutableObservableCollection<[ReBranchContent]>()
 
     let descriptionShorten = Observable<Bool>(true)
@@ -40,8 +38,10 @@ class TitleViewModel: MvvmViewModelWith<String> {
     let readingStatusDetails = Observable<String?>(nil)
 
     let comments = MutableObservableCollection<[ReCommentsContent]>()
-    var commentsPage = 1
-    var commentsId: Int?
+
+    private var props: ReTitleProps?
+    private var commentsPage = 1
+    private var commentsId: Int?
 
     override func prepare(with item: String) {
         branch.observeNext { [unowned self] brunch in

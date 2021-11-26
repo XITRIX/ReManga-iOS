@@ -14,12 +14,14 @@
             <connections>
                 <outlet property="bookmark" destination="VXQ-9r-PkA" id="oPl-WK-MMC"/>
                 <outlet property="bottomBar" destination="oau-kp-5xQ" id="rPN-nv-ca5"/>
+                <outlet property="bottomBarContainer" destination="ZGD-kC-QcG" id="20E-YG-9Vg"/>
                 <outlet property="chapter" destination="P8b-FY-MOv" id="Jf8-0S-wdO"/>
                 <outlet property="lastFrameView" destination="hyh-SG-EP0" id="HAZ-NO-IhQ"/>
                 <outlet property="likeButton" destination="2HF-VI-UwT" id="Uao-JV-s1Y"/>
                 <outlet property="likesLabel" destination="0bw-2D-rzS" id="4AP-5u-5dk"/>
                 <outlet property="tableView" destination="Pfd-Zg-KG6" id="8a8-yW-zBW"/>
                 <outlet property="topBar" destination="p1H-yp-ybT" id="PQW-ac-Hqs"/>
+                <outlet property="topBarContainer" destination="dd5-kx-J4r" id="5yK-LO-c5q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="nextChapterButtons" destination="ZR8-Yj-vfY" collectionClass="NSMutableArray" id="UXm-ug-G5a"/>
                 <outletCollection property="nextChapterButtons" destination="W6C-8X-hQI" collectionClass="NSMutableArray" id="Vva-Bn-z9c"/>
@@ -38,6 +40,40 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oau-kp-5xQ">
+                    <rect key="frame" x="0.0" y="818" width="414" height="78"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6U5-30-7Da">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZGD-kC-QcG">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="N35-95-AL2"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iZC-3e-VHo" userLabel="Separator">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
+                                <color key="backgroundColor" systemColor="separatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.29999999999999999" id="8Go-ID-q71"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DyM-BS-cjN"/>
+                        <constraints>
+                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="trailing" secondItem="iZC-3e-VHo" secondAttribute="trailing" id="BHM-nI-FE4"/>
+                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="leading" secondItem="6U5-30-7Da" secondAttribute="leading" id="BeX-XW-NWk"/>
+                            <constraint firstAttribute="trailing" secondItem="iZC-3e-VHo" secondAttribute="trailing" id="KDU-v3-JGm"/>
+                            <constraint firstItem="iZC-3e-VHo" firstAttribute="top" secondItem="6U5-30-7Da" secondAttribute="top" id="MMR-Zk-l0X"/>
+                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="bottom" secondItem="DyM-BS-cjN" secondAttribute="bottom" priority="750" id="pBc-Zm-Tkv"/>
+                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="top" secondItem="DyM-BS-cjN" secondAttribute="top" id="qU5-m3-I8Y"/>
+                            <constraint firstItem="iZC-3e-VHo" firstAttribute="leading" secondItem="6U5-30-7Da" secondAttribute="leading" id="toY-UM-vih"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1H-yp-ybT">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="h3L-N6-ZWp">
@@ -119,40 +155,6 @@
                             <constraint firstAttribute="bottom" secondItem="hFq-1s-DdT" secondAttribute="bottom" id="XL8-sF-T3u"/>
                             <constraint firstAttribute="bottom" secondItem="dd5-kx-J4r" secondAttribute="bottom" id="i03-1h-qiJ"/>
                             <constraint firstAttribute="trailing" secondItem="dd5-kx-J4r" secondAttribute="trailing" id="qjv-bb-w9s"/>
-                        </constraints>
-                    </view>
-                    <blurEffect style="regular"/>
-                </visualEffectView>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oau-kp-5xQ">
-                    <rect key="frame" x="0.0" y="818" width="414" height="78"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6U5-30-7Da">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZGD-kC-QcG">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="N35-95-AL2"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iZC-3e-VHo" userLabel="Separator">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
-                                <color key="backgroundColor" systemColor="separatorColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="0.29999999999999999" id="8Go-ID-q71"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="DyM-BS-cjN"/>
-                        <constraints>
-                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="trailing" secondItem="iZC-3e-VHo" secondAttribute="trailing" id="BHM-nI-FE4"/>
-                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="leading" secondItem="6U5-30-7Da" secondAttribute="leading" id="BeX-XW-NWk"/>
-                            <constraint firstAttribute="trailing" secondItem="iZC-3e-VHo" secondAttribute="trailing" id="KDU-v3-JGm"/>
-                            <constraint firstItem="iZC-3e-VHo" firstAttribute="top" secondItem="6U5-30-7Da" secondAttribute="top" id="MMR-Zk-l0X"/>
-                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="bottom" secondItem="DyM-BS-cjN" secondAttribute="bottom" priority="750" id="pBc-Zm-Tkv"/>
-                            <constraint firstItem="ZGD-kC-QcG" firstAttribute="top" secondItem="DyM-BS-cjN" secondAttribute="top" id="qU5-m3-I8Y"/>
-                            <constraint firstItem="iZC-3e-VHo" firstAttribute="leading" secondItem="6U5-30-7Da" secondAttribute="leading" id="toY-UM-vih"/>
                         </constraints>
                     </view>
                     <blurEffect style="regular"/>

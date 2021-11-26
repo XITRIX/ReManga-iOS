@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             MVVM.shared.router.resolveRoot(in: window)
-            window.tintColor = UIColor(named: "accentColor")
+            window.tintColor = .accentColor
             self.window = window
             window.makeKeyAndVisible()
         }

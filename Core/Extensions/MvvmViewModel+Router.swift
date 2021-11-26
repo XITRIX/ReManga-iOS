@@ -25,7 +25,7 @@ extension MvvmViewModel {
     }
 
     func dismiss() {
-        MVVM.shared.router.dismiss(from: self)
+        dismiss(completion: nil)
     }
 
     func dismiss(completion: (() -> ())?) {

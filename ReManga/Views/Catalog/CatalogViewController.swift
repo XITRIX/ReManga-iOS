@@ -42,14 +42,6 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        // Large title dirty fix
-        navigationController?.view.setNeedsLayout()
-        navigationController?.view.layoutIfNeeded()
-    }
-
     @objc func search() {
         viewModel.navigateSearch()
     }

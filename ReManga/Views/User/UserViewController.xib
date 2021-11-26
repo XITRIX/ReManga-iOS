@@ -19,7 +19,9 @@
                 <outlet property="headerView" destination="mAv-Iy-khS" id="Ccl-GN-KoQ"/>
                 <outlet property="idLabel" destination="mq0-uL-Ks1" id="Ttg-5f-qiF"/>
                 <outlet property="nicknameLabel" destination="osV-Vz-RMU" id="alY-7d-t63"/>
+                <outlet property="settingsButton" destination="ACe-fP-NTX" id="yeG-km-E4I"/>
                 <outlet property="tableView" destination="UnT-pv-KPU" id="D0d-9M-2V6"/>
+                <outlet property="ticketsLabel" destination="kMI-a0-I4t" id="64p-XS-yvy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -44,7 +46,7 @@
             <point key="canvasLocation" x="134.78260869565219" y="97.767857142857139"/>
         </view>
         <view contentMode="scaleToFill" id="mAv-Iy-khS">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="222"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cvX-Df-hYO">
@@ -80,6 +82,14 @@
                             <buttonConfiguration key="configuration" style="plain" title="НАСТРОЙКИ" buttonSize="small">
                                 <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
                             </buttonConfiguration>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </button>
                     </subviews>
                 </stackView>
@@ -184,7 +194,7 @@
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6u-tD-VqH">
-                    <rect key="frame" x="0.0" y="221" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="173" width="414" height="1"/>
                     <color key="backgroundColor" systemColor="separatorColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="w2t-UI-dgN"/>
@@ -192,7 +202,6 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Grg-pU-Ia5"/>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="hv6-pV-dxS" firstAttribute="leading" secondItem="cvX-Df-hYO" secondAttribute="trailing" constant="21" id="EiC-IN-VpZ"/>
                 <constraint firstItem="t6u-tD-VqH" firstAttribute="trailing" secondItem="Grg-pU-Ia5" secondAttribute="trailing" id="Gey-Kx-5ED"/>
@@ -206,7 +215,7 @@
                 <constraint firstItem="cvX-Df-hYO" firstAttribute="top" secondItem="mAv-Iy-khS" secondAttribute="top" constant="20" id="ufP-qP-B2P"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="840.57971014492762" y="-127.90178571428571"/>
+            <point key="canvasLocation" x="840.57971014492762" y="-143.97321428571428"/>
         </view>
     </objects>
     <resources>
@@ -220,9 +229,6 @@
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

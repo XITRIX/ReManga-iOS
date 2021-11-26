@@ -29,6 +29,7 @@ extension MVVM {
         container.registerSingleton { Router(container: self.container) }
 
         // Register ViewModels
+        container.register { MainViewModel() }
         container.register { CatalogViewModel() }
         container.register { TitleViewModel() }
         container.register { ReaderViewModel() }
@@ -38,6 +39,7 @@ extension MVVM {
         container.register { UserViewModel() }
 
         // Register ViewControllers
+        container.register { MainViewController() }
         container.register { CatalogViewController() }
         container.register { TitleViewController() }
         container.register { ReaderViewController() }
@@ -56,6 +58,7 @@ extension MVVM {
         router.registerRoot(RootTabsViewModel.self)
 
         // Register navigation routing
+        router.register(viewModel: MainViewModel.self, viewController: MainViewController.self)
         router.register(viewModel: CatalogViewModel.self, viewController: CatalogViewController.self)
         router.register(viewModel: TitleViewModel.self, viewController: TitleViewController.self)
         router.register(viewModel: ReaderViewModel.self, viewController: ReaderViewController.self)

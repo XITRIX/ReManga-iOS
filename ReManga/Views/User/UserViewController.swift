@@ -13,26 +13,34 @@ class UserViewController: BaseViewController<UserViewModel> {
     @IBOutlet var avatarImage: UIImageView!
     @IBOutlet var idLabel: UILabel!
     @IBOutlet var nicknameLabel: UILabel!
+    @IBOutlet var settingsButton: UIButton!
     @IBOutlet var balanceLabel: UILabel!
+    @IBOutlet var ticketsLabel: UILabel!
     @IBOutlet var countViewsLabel: UILabel!
     @IBOutlet var countVotesLabel: UILabel!
     @IBOutlet var countCommentsLabel: UILabel!
 
     override func setupView() {
         super.setupView()
-
         tableView.tableHeaderView = headerView
     }
 
     override func binding() {
         super.binding()
 
-        viewModel.avatar.observeNext(with: avatarImage.setImage).dispose(in: bag)
-        viewModel.username.bind(to: nicknameLabel).dispose(in: bag)
-        viewModel.userId.bind(to: idLabel).dispose(in: bag)
-        viewModel.balance.bind(to: balanceLabel).dispose(in: bag)
-        viewModel.countViews.bind(to: countViewsLabel).dispose(in: bag)
-        viewModel.countVotes.bind(to: countVotesLabel).dispose(in: bag)
-        viewModel.countComments.bind(to: countCommentsLabel).dispose(in: bag)
+        bindingContext {
+            viewModel.avatar.bind(to: avatarImage.reactive.imageUrl)
+            viewModel.username.bind(to: nicknameLabel)
+            viewModel.userId.bind(to: idLabel)
+            viewModel.balance.bind(to: balanceLabel)
+            viewModel.tickets.bind(to: ticketsLabel)
+            viewModel.countViews.bind(to: countViewsLabel)
+            viewModel.countVotes.bind(to: countVotesLabel)
+            viewModel.countComments.bind(to: countCommentsLabel)
+        }
+    }
+
+    override func themeChanged() {
+        settingsButton.layer.borderColor = UIColor.accentColor.cgColor
     }
 }

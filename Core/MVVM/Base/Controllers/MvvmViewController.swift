@@ -25,7 +25,7 @@ class MvvmViewController<ViewModel: MvvmViewModelProtocol>: SAViewController, Mv
     func setupView() {}
     func binding() {
         viewModel.title.observeNext(with: { [unowned self] in title = $0 }).dispose(in: bag)
-        viewModel.state.observeNext(with: viewModelStateChanged).dispose(in: bag)
+        viewModel.state.observeNext(with: { [unowned self] state in viewModelStateChanged(state) }).dispose(in: bag)
     }
 
     func viewModelStateChanged(_ state: MvvmViewModelState) {

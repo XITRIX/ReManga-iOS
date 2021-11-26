@@ -71,26 +71,29 @@ class SearchViewController: BaseViewController<SearchViewModel> {
 
     override func binding() {
         super.binding()
-        viewModel.content.observeNext { [unowned self] content in
-            var snapshot = NSDiffableDataSourceSnapshot<Section, ReSearchContent>()
-            snapshot.appendSections([.main])
-            snapshot.appendItems(content.collection)
-            collectionViewDataSource.apply(snapshot)
-        }.dispose(in: bag)
 
-        viewModel.query.bidirectionalBind(to: searchBar.reactive.text).dispose(in: bag)
-
-        KeyboardHelper.shared.isHidden.observeNext { [unowned self] hidden in
-            bottomConstraint?.constant = hidden ? self.verticalOffset : KeyboardHelper.shared.visibleHeight.value + self.horizontalOffset
-
-            UIView.animate(withDuration: KeyboardHelper.shared.animationDuration.value) {
-                view.layoutIfNeeded()
+        bindingContext {
+            viewModel.content.observeNext { [unowned self] content in
+                var snapshot = NSDiffableDataSourceSnapshot<Section, ReSearchContent>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(content.collection)
+                collectionViewDataSource.apply(snapshot)
             }
-        }.dispose(in: bag)
 
-        KeyboardHelper.shared.visibleHeight.observeNext { [unowned self] height in
-            bottomConstraint?.constant = KeyboardHelper.shared.isHidden.value ? self.verticalOffset : height + self.horizontalOffset
-        }.dispose(in: bag)
+            viewModel.query.bidirectionalBind(to: searchBar.reactive.text)
+
+            KeyboardHelper.shared.isHidden.observeNext { [unowned self] hidden in
+                bottomConstraint?.constant = hidden ? self.verticalOffset : KeyboardHelper.shared.visibleHeight.value + self.horizontalOffset
+
+                UIView.animate(withDuration: KeyboardHelper.shared.animationDuration.value) {
+                    view.layoutIfNeeded()
+                }
+            }
+
+            KeyboardHelper.shared.visibleHeight.observeNext { [unowned self] height in
+                bottomConstraint?.constant = KeyboardHelper.shared.isHidden.value ? self.verticalOffset : height + self.horizontalOffset
+            }
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -99,7 +102,7 @@ class SearchViewController: BaseViewController<SearchViewModel> {
     }
 
     @objc func tapDismiss() {
-        dismiss(animated: true)
+        viewModel.dismissWithCallback()
     }
 
     private func updateConstraints() {

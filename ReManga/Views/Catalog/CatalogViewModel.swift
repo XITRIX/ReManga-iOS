@@ -42,6 +42,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     private var model: CatalogModel!
     private var loadingBarrier = false
     private var currentTask: DataRequest?
+    private var searchQuery: String?
 
     required init() {
         super.init()
@@ -98,11 +99,11 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     }
 
     func navigateSearch() {
-        let model = SearchModel { [weak self] context in
-            guard let self = self,
-                  let dir = context.dir
-            else { return }
+        let model = SearchModel(query: searchQuery) { [weak self] context, query in
+            guard let self = self else { return }
+            self.searchQuery = query
 
+            guard let dir = context?.dir else { return }
             self.navigate(to: TitleViewModel.self, prepare: dir)
         }
         navigate(to: SearchViewModel.self, prepare: model, with: .modal(wrapInNavigation: false))

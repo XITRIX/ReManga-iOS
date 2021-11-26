@@ -25,7 +25,7 @@ class SAViewController: UIViewController, NavigationProtocol {
     var swipeAnywhereDisabled: Bool {
         false
     }
-    
+
     var toolBarIsHidden: Bool? {
         nil
     }
@@ -36,6 +36,11 @@ class SAViewController: UIViewController, NavigationProtocol {
                 updateNavigationControllerState(animated: true)
             }
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        themeChanged()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,13 +77,23 @@ class SAViewController: UIViewController, NavigationProtocol {
             navigationController?.setNavigationBarHidden(navigationBarIsHidden, animated: animated)
         }
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                themeChanged()
+            }
+        }
+    }
+
+    func themeChanged() {}
 }
 
 class SATableViewController: UITableViewController, NavigationProtocol {
     var swipeAnywhereDisabled: Bool {
         false
     }
-    
+
     var toolBarIsHidden: Bool? {
         nil
     }

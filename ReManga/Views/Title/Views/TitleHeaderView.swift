@@ -24,9 +24,10 @@ class TitleHeaderView: UIView {
     @IBOutlet var imageTopConstraint: NSLayoutConstraint!
     @IBOutlet private var headerView: UIView!
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let height: CGFloat = self.headerView.frame.height
-        headerView.roundCorners(corners: [.topLeft, .topRight], radius: height)
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        headerView.layer.cornerRadius = headerView.frame.height / 2
+        headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 }

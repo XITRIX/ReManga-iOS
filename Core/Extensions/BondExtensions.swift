@@ -7,7 +7,9 @@
 
 import Foundation
 import ReactiveKit
+import Kingfisher
 import Bond
+import UIKit
 
 extension UIButton {
     func bind(_ action: @escaping () -> ()) -> Disposable {
@@ -21,3 +23,30 @@ extension MutableChangesetContainerProtocol where Changeset: OrderedCollectionCh
         newElements.forEach { append($0) }
     }
 }
+
+//extension UIImageView: BindableProtocol {
+//    public func bind(signal: Signal<String?, Never>) -> Disposable {
+//        return reactive.text.bind(signal: signal)
+//    }
+//}
+
+extension ReactiveExtensions where Base: UIImageView {
+    public var imageUrl: Bond<URL?> {
+        return bond {
+            $0.kf.setImage(with: $1)
+        }
+    }
+}
+
+extension UIControl {
+    func bindTap(_ function: @escaping ()->()) -> Disposable {
+        reactive.controlEvents(.touchUpInside).observeNext(with: function)
+    }
+}
+
+extension UIBarButtonItem {
+    func bindTap(_ function: @escaping ()->()) -> Disposable {
+        reactive.tap.observeNext(with: function)
+    }
+}
+

@@ -10,9 +10,10 @@ import Bond
 
 class UserViewModel: MvvmViewModel {
     let username = Observable<String?>(nil)
-    let avatar = Observable<String?>(nil)
+    let avatar = Observable<URL?>(nil)
     let userId = Observable<String?>(nil)
     let balance = Observable<String?>(nil)
+    let tickets = Observable<String?>(nil)
     let countViews = Observable<String?>(nil)
     let countVotes = Observable<String?>(nil)
     let countComments = Observable<String?>(nil)
@@ -31,11 +32,13 @@ class UserViewModel: MvvmViewModel {
             switch result {
             case .success(let model):
                 let content = model.content
-                if let avatar = content.avatar {
-                    self.avatar.value = ReClient.baseUrl.appending(avatar)
+                if let avatar = content.avatar,
+                   let avatarUrl = URL(string: ReClient.baseUrl.appending(avatar)) {
+                    self.avatar.value = avatarUrl
                 }
                 self.userId.value = "ID: \(content.id)"
                 self.balance.value = content.balance
+                self.tickets.value = content.ticketBalance.text
                 self.countViews.value = content.countViews.text
                 self.countVotes.value = content.countVotes.text
                 self.countComments.value = content.countComments.text

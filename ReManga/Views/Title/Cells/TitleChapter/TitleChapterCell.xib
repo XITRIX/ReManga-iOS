@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="0tc-Dz-Qbx">
-                        <rect key="frame" x="50" y="8" width="181.5" height="38"/>
+                        <rect key="frame" x="50" y="8" width="155.5" height="38"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Глава 140" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7q-vS-s9u">
                                 <rect key="frame" x="0.0" y="0.0" width="69" height="16"/>
@@ -52,34 +52,47 @@
                             </stackView>
                         </subviews>
                     </stackView>
-                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hNF-wb-bka">
-                        <rect key="frame" x="247.5" y="18" width="48.5" height="18"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Tcm-rf-Rmn">
+                        <rect key="frame" x="221.5" y="18" width="74.5" height="18"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JGx-xe-TQE">
-                                <rect key="frame" x="0.0" y="1.5" width="18" height="15.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Wpe-1T-rhB">
+                                <rect key="frame" x="0.0" y="0.5" width="18" height="16.5"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="LFw-Io-P2y"/>
-                                    <constraint firstAttribute="width" constant="18" id="eUd-Ed-IRF"/>
+                                    <constraint firstAttribute="width" constant="18" id="aHG-QF-l9x"/>
+                                    <constraint firstAttribute="height" constant="18" id="hr1-EK-7ag"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.6К" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebL-tA-qIz">
-                                <rect key="frame" x="22" y="0.0" width="26.5" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hNF-wb-bka">
+                                <rect key="frame" x="26" y="0.0" width="48.5" height="18"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JGx-xe-TQE">
+                                        <rect key="frame" x="0.0" y="1.5" width="18" height="15.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="LFw-Io-P2y"/>
+                                            <constraint firstAttribute="width" constant="18" id="eUd-Ed-IRF"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.6К" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebL-tA-qIz">
+                                        <rect key="frame" x="22" y="0.0" width="26.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                     </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="0tc-Dz-Qbx" firstAttribute="top" secondItem="q3G-gB-J1j" secondAttribute="top" constant="8" id="3zn-YY-XO8"/>
-                    <constraint firstItem="hNF-wb-bka" firstAttribute="leading" secondItem="0tc-Dz-Qbx" secondAttribute="trailing" constant="16" id="7kB-ky-0ho"/>
-                    <constraint firstItem="hNF-wb-bka" firstAttribute="centerY" secondItem="q3G-gB-J1j" secondAttribute="centerY" id="D2e-Ya-Or3"/>
                     <constraint firstItem="0tc-Dz-Qbx" firstAttribute="centerY" secondItem="q3G-gB-J1j" secondAttribute="centerY" id="N8S-j7-Fut"/>
                     <constraint firstAttribute="bottom" secondItem="0tc-Dz-Qbx" secondAttribute="bottom" constant="8" id="SPf-4c-ehR"/>
                     <constraint firstItem="gA2-Wr-XnB" firstAttribute="leading" secondItem="q3G-gB-J1j" secondAttribute="leading" constant="24" id="Smc-TM-JG8"/>
+                    <constraint firstAttribute="trailing" secondItem="Tcm-rf-Rmn" secondAttribute="trailing" constant="24" id="UgO-qm-jEQ"/>
+                    <constraint firstItem="Tcm-rf-Rmn" firstAttribute="leading" secondItem="0tc-Dz-Qbx" secondAttribute="trailing" constant="16" id="VFx-Xv-nRi"/>
+                    <constraint firstItem="Tcm-rf-Rmn" firstAttribute="centerY" secondItem="q3G-gB-J1j" secondAttribute="centerY" id="c3B-bU-Vj4"/>
                     <constraint firstItem="0tc-Dz-Qbx" firstAttribute="leading" secondItem="gA2-Wr-XnB" secondAttribute="trailing" constant="16" id="eup-jp-Vs6"/>
-                    <constraint firstAttribute="trailing" secondItem="hNF-wb-bka" secondAttribute="trailing" constant="24" id="lQQ-Hu-8OO"/>
                     <constraint firstItem="gA2-Wr-XnB" firstAttribute="centerY" secondItem="q3G-gB-J1j" secondAttribute="centerY" id="mK3-NX-yDz"/>
                 </constraints>
             </tableViewCellContentView>
@@ -88,6 +101,7 @@
             <connections>
                 <outlet property="chapter" destination="T7q-vS-s9u" id="rFV-18-eUm"/>
                 <outlet property="like" destination="JGx-xe-TQE" id="AvA-xo-aJz"/>
+                <outlet property="lockIcon" destination="Wpe-1T-rhB" id="SbQ-jk-lgg"/>
                 <outlet property="pubDate" destination="Cak-1a-hTt" id="eUI-fl-Agt"/>
                 <outlet property="publishers" destination="6N2-pg-qAT" id="XXB-l8-w4R"/>
                 <outlet property="score" destination="ebL-tA-qIz" id="pb5-oD-Gw1"/>
@@ -98,6 +112,10 @@
     </objects>
     <resources>
         <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="lock.fill" catalog="system" width="128" height="128"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

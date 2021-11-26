@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="316" id="KGk-i7-Jjw" customClass="MainTitlesCollectionCell" customModule="ReManga" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="323" height="316"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="323" height="316"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4y3-h3-xwc">
+                        <rect key="frame" x="0.0" y="0.0" width="323" height="316"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ej7-rW-3dz">
+                                <rect key="frame" x="0.0" y="0.0" width="323" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Похожее" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPx-JN-RnX">
+                                        <rect key="frame" x="21" y="21" width="281" height="49"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="BPx-JN-RnX" firstAttribute="top" secondItem="ej7-rW-3dz" secondAttribute="top" constant="21" id="GGY-dC-6k9"/>
+                                    <constraint firstAttribute="bottom" secondItem="BPx-JN-RnX" secondAttribute="bottom" id="MvM-bE-vbf"/>
+                                    <constraint firstItem="BPx-JN-RnX" firstAttribute="leading" secondItem="ej7-rW-3dz" secondAttribute="leading" constant="21" id="RIi-FF-A3A"/>
+                                    <constraint firstAttribute="trailing" secondItem="BPx-JN-RnX" secondAttribute="trailing" constant="21" id="vrG-9d-7Jv"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Zne-3e-wXs">
+                                <rect key="frame" x="0.0" y="78" width="323" height="238"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="238" id="B1r-Wc-U6l"/>
+                                </constraints>
+                                <inset key="scrollIndicatorInsets" minX="18" minY="0.0" maxX="18" maxY="0.0"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mqo-cc-lB0">
+                                    <size key="itemSize" width="124" height="230"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="18" minY="0.0" maxX="18" maxY="8"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4y3-h3-xwc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7v3-ue-80L"/>
+                    <constraint firstAttribute="trailing" secondItem="4y3-h3-xwc" secondAttribute="trailing" id="9WV-UO-TbP"/>
+                    <constraint firstAttribute="bottom" secondItem="4y3-h3-xwc" secondAttribute="bottom" id="pbU-iV-aOF"/>
+                    <constraint firstItem="4y3-h3-xwc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="sMW-AQ-5eP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="collectionView" destination="Zne-3e-wXs" id="ly3-KI-9Vb"/>
+                <outlet property="titleLabel" destination="BPx-JN-RnX" id="evg-s6-S66"/>
+            </connections>
+            <point key="canvasLocation" x="132.60869565217394" y="212.27678571428569"/>
+        </tableViewCell>
+    </objects>
+</document>

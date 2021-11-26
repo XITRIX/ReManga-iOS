@@ -31,6 +31,7 @@ struct ReUserContent: Codable, Hashable {
 //    let badges: [JSONAny]?
     let isSuperuser, isStaff: Bool?
     let balance: String
+    let ticketBalance: Int
     let avatar, email: String?
     let sex: Int?
 //    let publishers: [JSONAny]?
@@ -49,6 +50,7 @@ struct ReUserContent: Codable, Hashable {
         case isSuperuser = "is_superuser"
         case isStaff = "is_staff"
         case balance, avatar, email, sex
+        case ticketBalance = "ticket_balance"
         case vkNot = "vk_not"
         case yaoi, adult
         case chaptersRead = "chapters_read"
