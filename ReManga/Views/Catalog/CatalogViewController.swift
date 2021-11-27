@@ -11,6 +11,11 @@ import UIKit
 class CatalogViewController: BaseViewController<CatalogViewModel> {
     @IBOutlet var collectionView: UICollectionView!
 
+    var filterButton: UIBarButtonItem?
+    var filterIcon: UIImage? {
+        viewModel.isFiltersSelected ? UIImage(systemName: "line.3.horizontal.decrease.circle.fill") : UIImage(systemName: "line.horizontal.3.decrease.circle")
+    }
+
     var columns: CGFloat {
         view.traitCollection.horizontalSizeClass == .compact ? 3 : 5
     }
@@ -20,7 +25,9 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
 
         var items = [UIBarButtonItem]()
         if viewModel.allowFiltering {
-            items.append(UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(filter)))
+            let button = UIBarButtonItem(image: filterIcon, style: .plain, target: self, action: #selector(filter))
+            filterButton = button
+            items.append(button)
         }
         if viewModel.allowSearching {
             items.append(UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search)))
@@ -34,6 +41,10 @@ class CatalogViewController: BaseViewController<CatalogViewModel> {
 
     override func binding() {
         super.binding()
+
+        viewModel.state.observeNext { [unowned self] _ in
+            filterButton?.image = filterIcon
+        }.dispose(in: bag)
 
         viewModel.collection.bind(to: collectionView) { content, indexPath, collectionView in
             let cell = collectionView.dequeue(for: indexPath) as CatalogCellView

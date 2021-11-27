@@ -70,6 +70,10 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         navigationItem.titleView = titleView
     }
 
+    func reloadTableView() {
+        tableView.reloadSections([0], with: .automatic)
+    }
+
     deinit {
         print("Deinit!!!!!!!")
     }
@@ -102,7 +106,7 @@ class TitleViewController: BaseViewController<TitleViewModel> {
 
             viewModel.sectionSelected.observeNext { [unowned self] _ in
                 UIView.performWithoutAnimation {
-                    tableView.reloadSections([0], with: .none)
+                    reloadTableView()
                     scrollViewDidScroll(tableView)
                 }
             }
@@ -113,18 +117,18 @@ class TitleViewController: BaseViewController<TitleViewModel> {
             }
 
             viewModel.loaded.observeNext { [unowned self] _ in
-                tableView.reloadData()
+                reloadTableView()
             }
 
-            viewModel.chapters.observeNext { [unowned self] chapters in
+            viewModel.chapters.observeNext { [unowned self] _ in
                 if viewModel.sectionSelected.value == .chapters {
-                    tableView.reloadSections([0], with: .automatic)
+                    reloadTableView()
                 }
             }
 
-            viewModel.comments.observeNext { [unowned self] chapters in
+            viewModel.comments.observeNext { [unowned self] _ in
                 if viewModel.sectionSelected.value == .comments {
-                    tableView.reloadSections([0], with: .automatic)
+                    reloadTableView()
                 }
             }
 
@@ -145,7 +149,6 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         set {
             super.additionalSafeAreaInsets = newValue
         }
-
     }
 }
 
@@ -159,7 +162,8 @@ extension TitleViewController {
     }
 
     var allVisibleItems: [Item] {
-        var res: [Item] = [.metrics, .description]
+        var res: [Item] = [.metrics]
+        if !(viewModel.description.value?.string.isEmpty ?? true) { res.append(.description) }
         if !viewModel.categories.isEmpty { res.append(.tags) }
         if !viewModel.publishers.isEmpty { res.append(.translaters) }
         res.append(.similar)
@@ -267,8 +271,6 @@ extension TitleViewController: UITableViewDataSource {
                 }
             }.dispose(in: cell.bag)
             return cell
-        default:
-            return UITableViewCell()
         }
     }
 }
@@ -280,7 +282,8 @@ extension TitleViewController: UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         headerView.imageTopConstraint.constant = scrollView.contentOffset.y
-        print(tableView.safeAreaInsets.top)
+//        print(tableView.safeAreaInsets.top)
         navigationBarIsHidden = scrollView.contentOffset.y < 200
+//        updateFooter()
     }
 }

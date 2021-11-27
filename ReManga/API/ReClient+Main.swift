@@ -28,8 +28,14 @@ extension ReClient {
     }
 
     @discardableResult
-    func getNews(onlyReading: Bool, completionHandler: ((Result<ReUploadedChapterModel, HttpClientError>) -> ())? = nil) -> DataRequest? {
+    func getNewChapters(onlyReading: Bool, completionHandler: ((Result<ReUploadedChapterModel, HttpClientError>) -> ())? = nil) -> DataRequest? {
         let api = "api/titles/last-chapters/?\(onlyReading ? "only_reading=1&" : "")page=1&count=40"
+        return baseRequest(api, completionHandler: completionHandler)
+    }
+
+    @discardableResult
+    func getNewTitles(completionHandler: ((Result<ReCatalogModel, HttpClientError>) -> ())? = nil) -> DataRequest? {
+        let api = "api/titles/?ordering=-id&count=20"
         return baseRequest(api, completionHandler: completionHandler)
     }
 }

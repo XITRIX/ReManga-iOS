@@ -29,8 +29,8 @@ class MainViewController: BaseViewController<MainViewModel> {
             tableView.reloadSections([SectionItem.popular.rawValue], with: .automatic)
         }.dispose(in: bag)
 
-        viewModel.news.observeNext { [unowned self] _ in
-            tableView.reloadSections([SectionItem.news.rawValue], with: .automatic)
+        viewModel.newChapters.observeNext { [unowned self] _ in
+            tableView.reloadSections([SectionItem.newCapters.rawValue], with: .automatic)
         }.dispose(in: bag)
     }
 }
@@ -40,7 +40,8 @@ extension MainViewController {
         case top
         case popular
         case hotNews
-        case news
+        case newCapters
+        case newTitles
     }
 }
 
@@ -57,37 +58,41 @@ extension MainViewController: UITableViewDataSource {
             return 1 + viewModel.popularToday.count
         case .hotNews:
             return 1
-        case .news:
-            return 1 + viewModel.news.count
+        case .newCapters:
+            return 1 + viewModel.newChapters.count
+        case .newTitles:
+            return 1
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch SectionItem(rawValue: indexPath.section)! {
         case .top:
-            return dequeueTopCell(at: indexPath)
+            return dequeueCollectionCell(at: indexPath, title: nil, with: viewModel.popular)
         case .popular:
             return dequeuePopularTodayCells(at: indexPath)
         case .hotNews:
-            return dequeueHotNewsCell(at: indexPath)
-        case .news:
-            return dequeueNewsCells(at: indexPath)
+            return dequeueCollectionCell(at: indexPath, title: "Горячие новинки", with: viewModel.hotNews)
+        case .newCapters:
+            return dequeueNewChaptersCells(at: indexPath)
+        case .newTitles:
+            return dequeueCollectionCell(at: indexPath, title: "Новая манга", with: viewModel.newTitles)
         }
     }
 
-    func dequeueTopCell(at indexPath: IndexPath) -> UITableViewCell {
+    func dequeueCollectionCell(at indexPath: IndexPath, title: String?, with data: MutableObservableCollection<[ReCatalogContent]>) -> UITableViewCell {
         let cell = tableView.dequeue(for: indexPath) as MainTitlesCollectionCell
-        viewModel.popular.bind(to: cell.collectionView) { models, indexPath, collectionView in
+        data.bind(to: cell.collectionView) { models, indexPath, collectionView in
             let cell = collectionView.dequeue(for: indexPath) as TitleSimilarCollectionCell
             cell.setModel(models[indexPath.item])
             return cell
         }.dispose(in: cell.bag)
         cell.collectionView.reactive.selectedItemIndexPath.observeNext { [unowned self] indexPath in
-            if let dir = viewModel.popular[indexPath.item].dir {
+            if let dir = data[indexPath.item].dir {
                 viewModel.navigateTitle(dir)
             }
         }.dispose(in: cell.bag)
-        cell.setTitle(nil)
+        cell.setTitle(title)
         return cell
     }
 
@@ -104,23 +109,7 @@ extension MainViewController: UITableViewDataSource {
         }
     }
 
-    func dequeueHotNewsCell(at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(for: indexPath) as MainTitlesCollectionCell
-        viewModel.hotNews.bind(to: cell.collectionView) { models, indexPath, collectionView in
-            let cell = collectionView.dequeue(for: indexPath) as TitleSimilarCollectionCell
-            cell.setModel(models[indexPath.item])
-            return cell
-        }.dispose(in: cell.bag)
-        cell.collectionView.reactive.selectedItemIndexPath.observeNext { [unowned self] indexPath in
-            if let dir = viewModel.hotNews[indexPath.item].dir {
-                viewModel.navigateTitle(dir)
-            }
-        }.dispose(in: cell.bag)
-        cell.setTitle("Горячие новинки")
-        return cell
-    }
-
-    func dequeueNewsCells(at indexPath: IndexPath) -> UITableViewCell {
+    func dequeueNewChaptersCells(at indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeue(for: indexPath) as MainHeaderCell
@@ -128,7 +117,7 @@ extension MainViewController: UITableViewDataSource {
             return cell
         default:
             let cell = tableView.dequeue(for: indexPath) as MainTitleCell
-            cell.configure(for: viewModel.news[indexPath.row - 1])
+            cell.configure(for: viewModel.newChapters[indexPath.row - 1])
             return cell
         }
     }
@@ -144,10 +133,10 @@ extension MainViewController: UITableViewDelegate {
             else { return }
 
             viewModel.navigateTitle(dir)
-        case .news:
+        case .newCapters:
             let index = indexPath.row - 1
             guard index >= 0,
-                  let dir = viewModel.news[index].dir
+                  let dir = viewModel.newChapters[index].dir
             else { return }
 
             viewModel.navigateTitle(dir)

@@ -44,12 +44,17 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     private var currentTask: DataRequest?
     private var searchQuery: String?
 
+    var isFiltersSelected: Bool {
+        model.filter != CatalogFiltersModel(ordering: .rating)
+    }
+
     required init() {
         super.init()
         prepare(with: createDefaultModel())
     }
 
     override func prepare(with item: CatalogModel) {
+        model = item
         state.value = .processing
         page = 1
         currentTask?.cancel()
@@ -57,7 +62,6 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
         allowSearching = item.allowSearching
         allowFiltering = item.allowFiltering
         title.value = item.title
-        model = item
         collection.removeAll()
     }
 

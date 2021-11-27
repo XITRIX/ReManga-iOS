@@ -12,7 +12,8 @@ class MainViewModel: MvvmViewModel {
     let popular = MutableObservableCollection<[ReCatalogContent]>()
     let popularToday = MutableObservableCollection<[ReCatalogContent]>()
     let hotNews = MutableObservableCollection<[ReCatalogContent]>()
-    let news = MutableObservableCollection<[ReUploadedChapterContent]>()
+    let newChapters = MutableObservableCollection<[ReUploadedChapterContent]>()
+    let newTitles = MutableObservableCollection<[ReCatalogContent]>()
 
     private let loadCounter = Observable<Int>(0)
 
@@ -36,7 +37,8 @@ class MainViewModel: MvvmViewModel {
         loadPopular()
         loadPopularToday()
         loadHotNews()
-        loadNews()
+        loadNewChapters()
+        loadNewTitles()
     }
 
     func loadPopular() {
@@ -84,15 +86,30 @@ class MainViewModel: MvvmViewModel {
         }
     }
 
-    func loadNews() {
+    func loadNewChapters() {
         loadCounter.value += 1
-        ReClient.shared.getNews(onlyReading: true) { [weak self] result in
+        ReClient.shared.getNewChapters(onlyReading: true) { [weak self] result in
             guard let self = self else { return }
             self.loadCounter.value -= 1
 
             switch result {
             case .success(let model):
-                self.news.replace(with: model.content)
+                self.newChapters.replace(with: model.content)
+            case .failure:
+                break
+            }
+        }
+    }
+
+    func loadNewTitles() {
+        loadCounter.value += 1
+        ReClient.shared.getNewTitles { [weak self] result in
+            guard let self = self else { return }
+            self.loadCounter.value -= 1
+
+            switch result {
+            case .success(let model):
+                self.newTitles.replace(with: model.content)
             case .failure:
                 break
             }
