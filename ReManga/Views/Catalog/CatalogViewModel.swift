@@ -14,7 +14,7 @@ enum ReCatalogSortingFilter: String {
 }
 
 struct CatalogFiltersModel: Hashable {
-    var ordering: ReCatalogSortingFilter?
+    var ordering: ReCatalogSortingFilter? = .rating
 
     var genres = [ReCatalogFilterItem]()
     var categories = [ReCatalogFilterItem]()
@@ -25,6 +25,8 @@ struct CatalogFiltersModel: Hashable {
     var excludedGenres = [ReCatalogFilterItem]()
     var excludedCategories = [ReCatalogFilterItem]()
     var excludedTypes = [ReCatalogFilterItem]()
+
+    static let empty = CatalogFiltersModel()
 }
 
 struct CatalogModel {
@@ -45,7 +47,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
     private var searchQuery: String?
 
     var isFiltersSelected: Bool {
-        model.filter != CatalogFiltersModel(ordering: .rating)
+        model.filter != CatalogFiltersModel()
     }
 
     required init() {
@@ -65,7 +67,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
         collection.removeAll()
     }
 
-    func createDefaultModel(with filters: CatalogFiltersModel = CatalogFiltersModel(ordering: .rating)) -> CatalogModel {
+    func createDefaultModel(with filters: CatalogFiltersModel = CatalogFiltersModel()) -> CatalogModel {
         CatalogModel(title: "Каталог", filter: filters, allowSearching: true, allowFiltering: true)
     }
 

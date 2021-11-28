@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C266D71275437B900C38E5A /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C266D70275437B900C38E5A /* DateExtensions.swift */; };
 		7C2BC80027518B7100CB0B76 /* ReUploadedChapterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2BC7FF27518B7100CB0B76 /* ReUploadedChapterModel.swift */; };
 		7C2BC8022751A15A00CB0B76 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2BC8012751A15A00CB0B76 /* UIColorAssets.swift */; };
 		7C2EF7942732ECE9002BADC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF7932732ECE9002BADC4 /* AppDelegate.swift */; };
@@ -123,6 +124,7 @@
 
 /* Begin PBXFileReference section */
 		5399D881FC16647FEC24A75D /* Pods-ReManga.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.release.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.release.xcconfig"; sourceTree = "<group>"; };
+		7C266D70275437B900C38E5A /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		7C2BC7FF27518B7100CB0B76 /* ReUploadedChapterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReUploadedChapterModel.swift; sourceTree = "<group>"; };
 		7C2BC8012751A15A00CB0B76 /* UIColorAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorAssets.swift; sourceTree = "<group>"; };
 		7C2EF7902732ECE9002BADC4 /* ReManga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReManga.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -649,6 +651,7 @@
 				7CA9AC8527343CC6009FF259 /* UIViewExtensions.swift */,
 				7CA9AC92273469CC009FF259 /* IntExtensions.swift */,
 				7CA9AC9427346BDA009FF259 /* StringExtensions.swift */,
+				7C266D70275437B900C38E5A /* DateExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C2EF7F42733476A002BADC4 /* ReCommentsModel.swift in Sources */,
+				7C266D71275437B900C38E5A /* DateExtensions.swift in Sources */,
 				7C2EF7F52733476A002BADC4 /* ReTitleModel.swift in Sources */,
 				7CA9AC672733EB62009FF259 /* MvvmViewModel.swift in Sources */,
 				7C962DBF2736C7A800425798 /* CatalogFilerViewModel.swift in Sources */,

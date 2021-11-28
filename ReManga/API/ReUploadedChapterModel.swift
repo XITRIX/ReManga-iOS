@@ -37,7 +37,7 @@ struct ReUploadedChapterContent: Codable, Hashable {
     let rusName: String?
     let dir: String?
     let img: ReUploadedChapterImg?
-    let uploadDate: Int?
+    let uploadDate: Double
     let chapterID: Int?
     let tome: Int?
     let chapter: String?

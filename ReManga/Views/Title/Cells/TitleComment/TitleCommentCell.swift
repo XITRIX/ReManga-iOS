@@ -34,6 +34,9 @@ class TitleCommentCell: BaseTableViewCell {
         likesLabel.text = "\(model.score)"
         showRepliesButton.setTitle("Показать \(model.countReplies ?? 0) ответов", for: .normal)
         showRepliesButton.isHidden = model.countReplies ?? 0 == 0
+
+        let interval = model.date / -1000
+        date.text = Date().addingTimeInterval(interval).timeAgo()
     }
 
     func setImageInset() {

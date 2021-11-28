@@ -30,7 +30,8 @@ struct ReCommentsContent: Codable, Hashable {
     let text: String?
     let countReplies: Int?
     let user: ReCommentsUser?
-    let date, score: Int
+    let date: Double
+    let score: Int
     let rated: Int?
     let isSpoiler, isPinned: Bool?
     let rank: String?

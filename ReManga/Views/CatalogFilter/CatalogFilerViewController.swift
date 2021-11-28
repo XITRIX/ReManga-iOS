@@ -14,6 +14,7 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
 
     @IBOutlet var cancelButton: UIBarButtonItem!
     @IBOutlet var doneButton: UIBarButtonItem!
+    @IBOutlet var clearButton: UIButton!
 
     @IBOutlet var verticalConstraints: [NSLayoutConstraint]!
     @IBOutlet var horizontalConstraints: [NSLayoutConstraint]!
@@ -50,6 +51,7 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.dataSource = self
         tableView.backgroundColor = tableView.backgroundColor?.withAlphaComponent(0.8)
+        tableView.contentInset.bottom = clearButton.frame.height + 24
     }
 
     override func binding() {
@@ -58,8 +60,15 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
         bindingContext {
             cancelButton.bindTap(viewModel.dismiss)
             doneButton.bindTap(viewModel.done)
+            viewModel.clearButtonIsHidden.bind(to: clearButton.reactive.isHidden)
             viewModel.state.observeNext { [unowned self] _ in
                 tableView.reloadData()
+            }
+            viewModel.filters.observeNext { [unowned self] _ in
+                tableView.reloadData()
+            }
+            clearButton.bindTap { [unowned self] in
+                viewModel.clearFilters()
             }
         }
     }
@@ -165,15 +174,15 @@ extension CatalogFilerViewController: UITableViewDataSource {
     func getFilterSelected(for item: SectionItem) -> [ReCatalogFilterItem] {
         switch item {
         case .genres:
-            return viewModel.filters.genres
+            return viewModel.filters.value.genres
         case .categories:
-            return viewModel.filters.categories
+            return viewModel.filters.value.categories
         case .types:
-            return viewModel.filters.types
+            return viewModel.filters.value.types
         case .status:
-            return viewModel.filters.status
+            return viewModel.filters.value.status
         case .ageLimit:
-            return viewModel.filters.ageLimit
+            return viewModel.filters.value.ageLimit
         }
     }
 
@@ -182,24 +191,24 @@ extension CatalogFilerViewController: UITableViewDataSource {
         switch item {
         case .genres:
             selected
-                ? viewModel.filters.genres.append(filter)
-                : viewModel.filters.genres.removeAll(where: { $0 == filter })
+                ? viewModel.filters.value.genres.append(filter)
+                : viewModel.filters.value.genres.removeAll(where: { $0 == filter })
         case .categories:
             selected
-                ? viewModel.filters.categories.append(filter)
-                : viewModel.filters.categories.removeAll(where: { $0 == filter })
+                ? viewModel.filters.value.categories.append(filter)
+                : viewModel.filters.value.categories.removeAll(where: { $0 == filter })
         case .types:
             selected
-                ? viewModel.filters.types.append(filter)
-                : viewModel.filters.types.removeAll(where: { $0 == filter })
+                ? viewModel.filters.value.types.append(filter)
+                : viewModel.filters.value.types.removeAll(where: { $0 == filter })
         case .status:
             selected
-                ? viewModel.filters.status.append(filter)
-                : viewModel.filters.status.removeAll(where: { $0 == filter })
+                ? viewModel.filters.value.status.append(filter)
+                : viewModel.filters.value.status.removeAll(where: { $0 == filter })
         case .ageLimit:
             selected
-                ? viewModel.filters.ageLimit.append(filter)
-                : viewModel.filters.ageLimit.removeAll(where: { $0 == filter })
+                ? viewModel.filters.value.ageLimit.append(filter)
+                : viewModel.filters.value.ageLimit.removeAll(where: { $0 == filter })
         }
     }
 }

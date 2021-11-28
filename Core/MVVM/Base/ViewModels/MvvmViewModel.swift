@@ -28,9 +28,13 @@ class MvvmViewModel: MvvmViewModelProtocol {
         attachedView = viewController
     }
 
+    func binding() {}
+    
     func appear() {}
 
     private(set) weak var attachedView: UIViewController!
 
-    required init() {}
+    required init() {
+        binding()
+    }
 }

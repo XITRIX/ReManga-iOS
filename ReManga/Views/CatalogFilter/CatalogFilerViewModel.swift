@@ -15,13 +15,20 @@ struct CatalogFilterModel {
 
 class CatalogFilterViewModel: MvvmViewModelWith<CatalogFilterModel> {
     let availableFilters = Observable<ReCatalogFilterContent?>(nil)
-    var filters = CatalogFiltersModel()
+    let clearButtonIsHidden = Observable<Bool>(false)
+    let filters = Observable(CatalogFiltersModel())
     var completion: ((CatalogFiltersModel)->())?
 
     override func prepare(with item: CatalogFilterModel) {
-        filters = item.filters
+        filters.value = item.filters
         completion = item.completion
         load()
+    }
+
+    override func binding() {
+        filters.observeNext { [unowned self] model in
+            clearButtonIsHidden.value = model == .empty
+        }.dispose(in: bag)
     }
 
     func load() {
@@ -41,7 +48,11 @@ class CatalogFilterViewModel: MvvmViewModelWith<CatalogFilterModel> {
 
     func done() {
         dismiss { [unowned self] in
-            self.completion?(filters)
+            self.completion?(filters.value)
         }
+    }
+
+    func clearFilters() {
+        filters.value = .empty
     }
 }

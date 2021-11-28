@@ -22,10 +22,9 @@ class MainViewModel: MvvmViewModel {
         title.value = "Главная"
 
         loadAll()
-        binding()
     }
 
-    func binding() {
+    override func binding() {
         loadCounter.observeNext { [unowned self] count in
             guard count == 0 else { return }
             self.state.value = .done

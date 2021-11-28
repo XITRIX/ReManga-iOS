@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CatalogFilerViewController" customModule="ReManga" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="O8z-xv-qFh" id="Yez-OR-STb"/>
+                <outlet property="clearButton" destination="6t6-Rk-tWx" id="MGJ-Vb-wBK"/>
                 <outlet property="doneButton" destination="IWa-lD-Nhy" id="aiu-WC-oZ1"/>
                 <outlet property="holderView" destination="R5x-M5-0zx" id="pJA-2z-2EP"/>
                 <outlet property="navigationBar" destination="qaw-xS-ood" id="b5R-we-Hoy"/>
@@ -55,15 +57,36 @@
                                         </navigationItem>
                                     </items>
                                 </navigationBar>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6t6-Rk-tWx">
+                                    <rect key="frame" x="21" y="696" width="316" height="44"/>
+                                    <color key="backgroundColor" name="AccentColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="dO5-df-Uo3"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Сбросить">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="6t6-Rk-tWx" firstAttribute="centerX" secondItem="R5x-M5-0zx" secondAttribute="centerX" id="5OB-3I-FdH"/>
                                 <constraint firstAttribute="trailing" secondItem="7ac-uL-MHf" secondAttribute="trailing" id="8Zk-9h-xFR"/>
+                                <constraint firstAttribute="bottom" secondItem="6t6-Rk-tWx" secondAttribute="bottom" constant="12" id="A1x-JU-Ev3"/>
                                 <constraint firstItem="7ac-uL-MHf" firstAttribute="leading" secondItem="R5x-M5-0zx" secondAttribute="leading" id="C4c-v6-AYC"/>
                                 <constraint firstItem="qaw-xS-ood" firstAttribute="top" secondItem="R5x-M5-0zx" secondAttribute="top" id="KW7-I0-9vp"/>
                                 <constraint firstItem="7ac-uL-MHf" firstAttribute="top" secondItem="R5x-M5-0zx" secondAttribute="top" id="QdX-bc-mF2"/>
                                 <constraint firstAttribute="bottom" secondItem="7ac-uL-MHf" secondAttribute="bottom" id="Sil-G8-aBs"/>
                                 <constraint firstItem="qaw-xS-ood" firstAttribute="leading" secondItem="R5x-M5-0zx" secondAttribute="leading" id="XF1-dp-5Nw"/>
                                 <constraint firstAttribute="trailing" secondItem="qaw-xS-ood" secondAttribute="trailing" id="XPO-9V-7nC"/>
+                                <constraint firstAttribute="trailing" secondItem="6t6-Rk-tWx" secondAttribute="trailing" constant="21" id="ogh-a1-dsp"/>
+                                <constraint firstItem="6t6-Rk-tWx" firstAttribute="leading" secondItem="R5x-M5-0zx" secondAttribute="leading" constant="21" id="ycr-QG-WeR"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -96,6 +119,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
