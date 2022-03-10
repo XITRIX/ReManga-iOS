@@ -119,6 +119,6 @@ class MainViewModel: MvvmViewModel {
 // MARK: - Navigation
 extension MainViewModel {
     func navigateTitle(_ title: String) {
-        navigate(to: TitleViewModel.self, prepare: title)
+        navigate(to: TitleViewModel.self, prepare: title, with: .detail)
     }
 }

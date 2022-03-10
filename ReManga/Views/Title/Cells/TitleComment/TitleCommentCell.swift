@@ -17,10 +17,12 @@ class TitleCommentCell: BaseTableViewCell {
     @IBOutlet var likesLabel: UILabel!
     @IBOutlet var replyButton: UIButton!
     @IBOutlet var showRepliesButton: UIButton!
-
+    @IBOutlet var coloredView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setImageInset()
+        textView.textContainer.lineFragmentPadding = 0
     }
 
     func setModel(_ model: ReCommentsContent) {
@@ -30,13 +32,15 @@ class TitleCommentCell: BaseTableViewCell {
         }
 
         username.text = model.user?.username
-        textView.text = model.text
+        textView.attributedText = model.text?.htmlAttributedString(size: 16)
         likesLabel.text = "\(model.score)"
         showRepliesButton.setTitle("Показать \(model.countReplies ?? 0) ответов", for: .normal)
         showRepliesButton.isHidden = model.countReplies ?? 0 == 0
 
         let interval = model.date / -1000
         date.text = Date().addingTimeInterval(interval).timeAgo()
+
+        coloredView.backgroundColor = getRankColor(model.rank)
     }
 
     func setImageInset() {
@@ -46,5 +50,22 @@ class TitleCommentCell: BaseTableViewCell {
         intersectionFrame.size.height -= 4
         let imageFrame = UIBezierPath(rect: intersectionFrame)
         textView.textContainer.exclusionPaths = [imageFrame]
+    }
+
+    func getRankColor(_ rank: ReCommentsRank?) -> UIColor {
+        switch rank {
+        case .ruby:
+            return .systemPink
+        case .gold:
+            return .systemYellow
+        case .silver:
+            return .lightGray
+        case .diamond:
+            return .systemTeal
+        case .bronze:
+            return .systemOrange
+        case .transparent, .none:
+            return .tertiarySystemBackground
+        }
     }
 }

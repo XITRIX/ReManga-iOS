@@ -22,14 +22,17 @@
                         <rect key="frame" x="12" y="2" width="296" height="118"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="otk-nY-b6i">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="118"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="10" height="118"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="UKR-Pc-2Lq"/>
+                                </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWG-DF-PR2">
                                 <rect key="frame" x="2" y="0.0" width="294" height="118"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MpC-Am-63p">
-                                        <rect key="frame" x="8" y="20" width="278" height="78"/>
+                                        <rect key="frame" x="12" y="8" width="270" height="102"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="To0-a6-jdE">
                                                 <rect key="frame" x="48" y="0.0" width="137" height="14.5"/>
@@ -49,7 +52,7 @@
                                                 </subviews>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjU-eD-ioS">
-                                                <rect key="frame" x="0.0" y="14.5" width="278" height="33.5"/>
+                                                <rect key="frame" x="0.0" y="14.5" width="270" height="57.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor"/>
@@ -69,7 +72,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="aVV-ef-wOM">
-                                                <rect key="frame" x="8" y="56" width="275.5" height="22"/>
+                                                <rect key="frame" x="8" y="80" width="275.5" height="22"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgc-QV-kQ2">
                                                         <rect key="frame" x="0.0" y="0.0" width="21" height="22"/>
@@ -100,7 +103,6 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="To0-a6-jdE" firstAttribute="top" secondItem="MpC-Am-63p" secondAttribute="top" id="6Go-yB-EkS"/>
                                             <constraint firstAttribute="trailing" secondItem="vjU-eD-ioS" secondAttribute="trailing" id="Bc3-xM-P4c"/>
@@ -118,10 +120,10 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="MpC-Am-63p" firstAttribute="top" secondItem="iWG-DF-PR2" secondAttribute="top" constant="20" id="HTj-QA-pAL"/>
-                                    <constraint firstAttribute="bottom" secondItem="MpC-Am-63p" secondAttribute="bottom" constant="20" id="PVO-Oh-o68"/>
-                                    <constraint firstAttribute="trailing" secondItem="MpC-Am-63p" secondAttribute="trailing" constant="8" id="bfh-rY-JrN"/>
-                                    <constraint firstItem="MpC-Am-63p" firstAttribute="leading" secondItem="iWG-DF-PR2" secondAttribute="leading" constant="8" id="nzM-cV-A37"/>
+                                    <constraint firstItem="MpC-Am-63p" firstAttribute="top" secondItem="iWG-DF-PR2" secondAttribute="top" constant="8" id="HTj-QA-pAL"/>
+                                    <constraint firstAttribute="bottom" secondItem="MpC-Am-63p" secondAttribute="bottom" constant="8" id="PVO-Oh-o68"/>
+                                    <constraint firstAttribute="trailing" secondItem="MpC-Am-63p" secondAttribute="trailing" constant="12" id="bfh-rY-JrN"/>
+                                    <constraint firstItem="MpC-Am-63p" firstAttribute="leading" secondItem="iWG-DF-PR2" secondAttribute="leading" constant="12" id="nzM-cV-A37"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -134,7 +136,6 @@
                         <constraints>
                             <constraint firstItem="otk-nY-b6i" firstAttribute="top" secondItem="Pmi-VG-8Jg" secondAttribute="top" id="8tZ-5T-Mhl"/>
                             <constraint firstItem="otk-nY-b6i" firstAttribute="leading" secondItem="Pmi-VG-8Jg" secondAttribute="leading" id="DLZ-x4-JIR"/>
-                            <constraint firstAttribute="trailing" secondItem="otk-nY-b6i" secondAttribute="trailing" constant="8" id="g8Z-e7-P82"/>
                             <constraint firstItem="iWG-DF-PR2" firstAttribute="leading" secondItem="Pmi-VG-8Jg" secondAttribute="leading" constant="2" id="hZX-yq-0Er"/>
                             <constraint firstAttribute="bottom" secondItem="iWG-DF-PR2" secondAttribute="bottom" id="ipB-we-nMM"/>
                             <constraint firstAttribute="bottom" secondItem="otk-nY-b6i" secondAttribute="bottom" id="jGu-U5-gPQ"/>
@@ -158,6 +159,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="coloredView" destination="otk-nY-b6i" id="m3i-ZM-Zpe"/>
                 <outlet property="date" destination="DdD-f3-H9m" id="d0N-uE-CP6"/>
                 <outlet property="dislikeButton" destination="uaD-ll-umh" id="iLn-b9-GGo"/>
                 <outlet property="likeButton" destination="Mgc-QV-kQ2" id="qkM-1V-W3I"/>
@@ -180,9 +182,6 @@
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -13,7 +13,7 @@ class ReClient {
 
     static let shared = ReClient()
 
-    private(set) var token = "RbusBKDSEPoqFJNj4S7cViyphSvczf"
+    private(set) var token = "" 
 
     @discardableResult
     func getTitle(title: String, completionHandler: @escaping (Result<ReTitleModel, HttpClientError>) -> ()) -> DataRequest? {

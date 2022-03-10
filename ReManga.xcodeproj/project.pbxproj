@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C20ECCD2767ED6B0040B5C0 /* LongSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C20ECCC2767ED6B0040B5C0 /* LongSegmentView.swift */; };
+		7C20ECCF2767ED760040B5C0 /* LongSegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C20ECCE2767ED760040B5C0 /* LongSegmentView.xib */; };
 		7C266D71275437B900C38E5A /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C266D70275437B900C38E5A /* DateExtensions.swift */; };
 		7C2BC80027518B7100CB0B76 /* ReUploadedChapterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2BC7FF27518B7100CB0B76 /* ReUploadedChapterModel.swift */; };
 		7C2BC8022751A15A00CB0B76 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2BC8012751A15A00CB0B76 /* UIColorAssets.swift */; };
@@ -103,9 +105,16 @@
 		7CAE01222737035E0044A550 /* CatalogFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CAE01202737035E0044A550 /* CatalogFilterCell.xib */; };
 		7CAE012C2737FFE00044A550 /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE012A2737FFE00044A550 /* LoadingOverlayViewController.swift */; };
 		7CAE012D2737FFE00044A550 /* LoadingOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CAE012B2737FFE00044A550 /* LoadingOverlayViewController.xib */; };
+		7CB63C782764D135004D68F6 /* MvvmSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C772764D134004D68F6 /* MvvmSplitViewController.swift */; };
+		7CB63C7A2764D1A3004D68F6 /* MvvmSplitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C792764D1A3004D68F6 /* MvvmSplitViewModel.swift */; };
+		7CB63C7D2764D490004D68F6 /* RootSplitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C7C2764D490004D68F6 /* RootSplitViewModel.swift */; };
+		7CB63C7F2764DC99004D68F6 /* RootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C7E2764DC99004D68F6 /* RootSplitViewController.swift */; };
+		7CBE459B276B93EE005A76B1 /* SlideAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE459A276B93ED005A76B1 /* SlideAnimation.swift */; };
 		7CBEBDBF273C4F8B00D70702 /* ErrorOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */; };
 		7CBEBDC0273C4F8B00D70702 /* ErrorOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */; };
 		7CBEBDC2273C511F00D70702 /* NSObject+Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */; };
+		7CC34BBF276A834D00995B74 /* TitleLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC34BBD276A834D00995B74 /* TitleLoadingCell.swift */; };
+		7CC34BC0276A834D00995B74 /* TitleLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CC34BBE276A834D00995B74 /* TitleLoadingCell.xib */; };
 		7CC4DC0B273AD2FE004E476A /* MvvmViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */; };
 		7CF21BA82734A1BB00806F4D /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */; };
 		7CF21BAC2734A5F500806F4D /* TitleChapterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */; };
@@ -124,6 +133,8 @@
 
 /* Begin PBXFileReference section */
 		5399D881FC16647FEC24A75D /* Pods-ReManga.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.release.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.release.xcconfig"; sourceTree = "<group>"; };
+		7C20ECCC2767ED6B0040B5C0 /* LongSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongSegmentView.swift; sourceTree = "<group>"; };
+		7C20ECCE2767ED760040B5C0 /* LongSegmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LongSegmentView.xib; sourceTree = "<group>"; };
 		7C266D70275437B900C38E5A /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		7C2BC7FF27518B7100CB0B76 /* ReUploadedChapterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReUploadedChapterModel.swift; sourceTree = "<group>"; };
 		7C2BC8012751A15A00CB0B76 /* UIColorAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorAssets.swift; sourceTree = "<group>"; };
@@ -222,9 +233,17 @@
 		7CAE01202737035E0044A550 /* CatalogFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogFilterCell.xib; sourceTree = "<group>"; };
 		7CAE012A2737FFE00044A550 /* LoadingOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlayViewController.swift; sourceTree = "<group>"; };
 		7CAE012B2737FFE00044A550 /* LoadingOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingOverlayViewController.xib; sourceTree = "<group>"; };
+		7CB63C722764C397004D68F6 /* ReManga.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReManga.entitlements; sourceTree = "<group>"; };
+		7CB63C772764D134004D68F6 /* MvvmSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmSplitViewController.swift; sourceTree = "<group>"; };
+		7CB63C792764D1A3004D68F6 /* MvvmSplitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmSplitViewModel.swift; sourceTree = "<group>"; };
+		7CB63C7C2764D490004D68F6 /* RootSplitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSplitViewModel.swift; sourceTree = "<group>"; };
+		7CB63C7E2764DC99004D68F6 /* RootSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSplitViewController.swift; sourceTree = "<group>"; };
+		7CBE459A276B93ED005A76B1 /* SlideAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimation.swift; sourceTree = "<group>"; };
 		7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlayViewController.swift; sourceTree = "<group>"; };
 		7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorOverlayViewController.xib; sourceTree = "<group>"; };
 		7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Container.swift"; sourceTree = "<group>"; };
+		7CC34BBD276A834D00995B74 /* TitleLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLoadingCell.swift; sourceTree = "<group>"; };
+		7CC34BBE276A834D00995B74 /* TitleLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleLoadingCell.xib; sourceTree = "<group>"; };
 		7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmViewModelState.swift; sourceTree = "<group>"; };
 		7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleChapterCell.swift; sourceTree = "<group>"; };
@@ -263,6 +282,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		7C20ECCB2767ED4E0040B5C0 /* LongSegmentView */ = {
+			isa = PBXGroup;
+			children = (
+				7C20ECCC2767ED6B0040B5C0 /* LongSegmentView.swift */,
+				7C20ECCE2767ED760040B5C0 /* LongSegmentView.xib */,
+			);
+			path = LongSegmentView;
+			sourceTree = "<group>";
+		};
 		7C2EF7872732ECE8002BADC4 = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +313,7 @@
 		7C2EF7922732ECE9002BADC4 /* ReManga */ = {
 			isa = PBXGroup;
 			children = (
+				7CB63C722764C397004D68F6 /* ReManga.entitlements */,
 				7C2EF7EA2733476A002BADC4 /* API */,
 				7C2EF7DA2733447C002BADC4 /* Views */,
 				7C2EF7D927334427002BADC4 /* System */,
@@ -321,6 +350,7 @@
 		7C2EF7DA2733447C002BADC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7CB63C7B2764D45A004D68F6 /* RootSplit */,
 				7C44488D274C3381009377EC /* Main */,
 				7C962DB42735FC6E00425798 /* RootTabs */,
 				7C2EF7DB27334487002BADC4 /* Catalog */,
@@ -464,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				7C53B3422735CF49007814F0 /* KeyboardHelper.swift */,
+				7CBE459A276B93ED005A76B1 /* SlideAnimation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -574,8 +605,10 @@
 		7CA9AC542733EB62009FF259 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				7CA9AC552733EB62009FF259 /* ViewModels */,
-				7CA9AC582733EB62009FF259 /* Controllers */,
+				7CB63C752764D0B0004D68F6 /* Core */,
+				7CB63C762764D119004D68F6 /* SplitView */,
+				7CB63C742764D036004D68F6 /* TabsView */,
+				7CB63C732764D01E004D68F6 /* View */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -584,9 +617,6 @@
 			isa = PBXGroup;
 			children = (
 				7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */,
-				7CA9AC572733EB62009FF259 /* MvvmViewModel.swift */,
-				7CA9AC562733EB62009FF259 /* MvvmViewModelWith.swift */,
-				7C962DB02735F69800425798 /* MvvmTabsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -595,10 +625,8 @@
 			isa = PBXGroup;
 			children = (
 				7CA9AC5C2733EB62009FF259 /* MvvmViewControllerProtocol.swift */,
-				7CA9AC5B2733EB62009FF259 /* MvvmViewController.swift */,
 				7CA9AC592733EB62009FF259 /* MvvmTableViewController.swift */,
 				7CA9AC5A2733EB62009FF259 /* MvvmCollectionViewController.swift */,
-				7C962DB22735F83600425798 /* MvvmTabsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -669,6 +697,7 @@
 		7CA9AC8427343605009FF259 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7C20ECCB2767ED4E0040B5C0 /* LongSegmentView */,
 				7CA9AC772734127E009FF259 /* NibLoadable */,
 				7CA9AC82273435F9009FF259 /* GradientView.swift */,
 			);
@@ -678,6 +707,7 @@
 		7CA9AC8D27346091009FF259 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7CC34BBC276A833600995B74 /* TitleLoading */,
 				7C43959C2739B6FB001144AE /* TitleComment */,
 				7CF21BA92734A5D400806F4D /* TitleChapter */,
 				7C6D10CB273496770039230F /* TitleSimilar */,
@@ -759,6 +789,52 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		7CB63C732764D01E004D68F6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7CA9AC572733EB62009FF259 /* MvvmViewModel.swift */,
+				7CA9AC562733EB62009FF259 /* MvvmViewModelWith.swift */,
+				7CA9AC5B2733EB62009FF259 /* MvvmViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7CB63C742764D036004D68F6 /* TabsView */ = {
+			isa = PBXGroup;
+			children = (
+				7C962DB02735F69800425798 /* MvvmTabsViewModel.swift */,
+				7C962DB22735F83600425798 /* MvvmTabsViewController.swift */,
+			);
+			path = TabsView;
+			sourceTree = "<group>";
+		};
+		7CB63C752764D0B0004D68F6 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				7CA9AC552733EB62009FF259 /* ViewModels */,
+				7CA9AC582733EB62009FF259 /* Controllers */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		7CB63C762764D119004D68F6 /* SplitView */ = {
+			isa = PBXGroup;
+			children = (
+				7CB63C792764D1A3004D68F6 /* MvvmSplitViewModel.swift */,
+				7CB63C772764D134004D68F6 /* MvvmSplitViewController.swift */,
+			);
+			path = SplitView;
+			sourceTree = "<group>";
+		};
+		7CB63C7B2764D45A004D68F6 /* RootSplit */ = {
+			isa = PBXGroup;
+			children = (
+				7CB63C7C2764D490004D68F6 /* RootSplitViewModel.swift */,
+				7CB63C7E2764DC99004D68F6 /* RootSplitViewController.swift */,
+			);
+			path = RootSplit;
+			sourceTree = "<group>";
+		};
 		7CBEBDBC273C4F5200D70702 /* ErrorOverlay */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +842,15 @@
 				7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */,
 			);
 			path = ErrorOverlay;
+			sourceTree = "<group>";
+		};
+		7CC34BBC276A833600995B74 /* TitleLoading */ = {
+			isa = PBXGroup;
+			children = (
+				7CC34BBD276A834D00995B74 /* TitleLoadingCell.swift */,
+				7CC34BBE276A834D00995B74 /* TitleLoadingCell.xib */,
+			);
+			path = TitleLoading;
 			sourceTree = "<group>";
 		};
 		7CF21BA62734A1AF00806F4D /* Base */ = {
@@ -915,12 +1000,14 @@
 				7CAE01222737035E0044A550 /* CatalogFilterCell.xib in Resources */,
 				7CF21BAD2734A5F500806F4D /* TitleChapterCell.xib in Resources */,
 				7C4395A52739C2B5001144AE /* UserViewController.xib in Resources */,
+				7C20ECCF2767ED760040B5C0 /* LongSegmentView.xib in Resources */,
 				7CA9ACA827348A1C009FF259 /* TitleTagsCell.xib in Resources */,
 				7C44489A274C3B30009377EC /* MainTitlesCollectionCell.xib in Resources */,
 				7CA9AC9A27348244009FF259 /* TitleMetricsCell.xib in Resources */,
 				7C2EF80D273362FA002BADC4 /* TitleViewController.xib in Resources */,
 				7C962DBD2736C79900425798 /* CatalogFilerViewController.xib in Resources */,
 				7C6D10D9273498870039230F /* TitleSimilarCollectionCell.xib in Resources */,
+				7CC34BC0276A834D00995B74 /* TitleLoadingCell.xib in Resources */,
 				7CAE012D2737FFE00044A550 /* LoadingOverlayViewController.xib in Resources */,
 				7C444891274C33A1009377EC /* MainViewController.xib in Resources */,
 				7C6D10CA273492E00039230F /* TitleTranslatorView.xib in Resources */,
@@ -1004,9 +1091,11 @@
 				7C53B33D27359200007814F0 /* SearchViewModel.swift in Sources */,
 				7CA9AC6A2733EB62009FF259 /* MvvmViewController.swift in Sources */,
 				7C40BCBF274D840B00E931DF /* MainTitleCell.swift in Sources */,
+				7C20ECCD2767ED6B0040B5C0 /* LongSegmentView.swift in Sources */,
 				7CF21BB32734AB5000806F4D /* ReaderViewController.swift in Sources */,
 				7C2EF7F82733476A002BADC4 /* ReCatalogModel.swift in Sources */,
 				7CF21BA82734A1BB00806F4D /* BaseTableViewCell.swift in Sources */,
+				7CB63C782764D135004D68F6 /* MvvmSplitViewController.swift in Sources */,
 				7C2EF7942732ECE9002BADC4 /* AppDelegate.swift in Sources */,
 				7CA9AC6C2733EB62009FF259 /* Router+Navigation.swift in Sources */,
 				7C444890274C33A1009377EC /* MainViewController.swift in Sources */,
@@ -1024,11 +1113,13 @@
 				7CA9AC6E2733EB62009FF259 /* UITableViewCell+Extensions.swift in Sources */,
 				7CA9AC662733EB62009FF259 /* MvvmViewModelWith.swift in Sources */,
 				7C43959F2739B71F001144AE /* TitleCommentCell.swift in Sources */,
+				7CB63C7A2764D1A3004D68F6 /* MvvmSplitViewModel.swift in Sources */,
 				7C2EF7FA2733476A002BADC4 /* ReBranchModel.swift in Sources */,
 				7C4448A0274CF532009377EC /* MainHeaderCell.swift in Sources */,
 				7C6D10CE273496930039230F /* TitleSimilarCell.swift in Sources */,
 				7CA9AC6B2733EB62009FF259 /* MvvmViewControllerProtocol.swift in Sources */,
 				7C6D10C4273491FA0039230F /* TitleTranslatersCell.swift in Sources */,
+				7CBE459B276B93EE005A76B1 /* SlideAnimation.swift in Sources */,
 				7C962DB32735F83600425798 /* MvvmTabsViewController.swift in Sources */,
 				7C444899274C3B30009377EC /* MainTitlesCollectionCell.swift in Sources */,
 				7C2EF7962732ECE9002BADC4 /* SceneDelegate.swift in Sources */,
@@ -1041,6 +1132,7 @@
 				7CC4DC0B273AD2FE004E476A /* MvvmViewModelState.swift in Sources */,
 				7C962DB12735F69800425798 /* MvvmTabsViewModel.swift in Sources */,
 				7CF21BB62734AB8600806F4D /* ReaderViewModel.swift in Sources */,
+				7CC34BBF276A834D00995B74 /* TitleLoadingCell.swift in Sources */,
 				7C2EF80527335255002BADC4 /* CatalogViewController.swift in Sources */,
 				7C2BC80027518B7100CB0B76 /* ReUploadedChapterModel.swift in Sources */,
 				7C962DBC2736C79900425798 /* CatalogFilerViewController.swift in Sources */,
@@ -1049,6 +1141,7 @@
 				7CA9ACA727348A1C009FF259 /* TitleTagsCell.swift in Sources */,
 				7C53B3432735CF49007814F0 /* KeyboardHelper.swift in Sources */,
 				7C53B3342734B609007814F0 /* ReCatalogFilterModel.swift in Sources */,
+				7CB63C7D2764D490004D68F6 /* RootSplitViewModel.swift in Sources */,
 				7C2EF80C273362FA002BADC4 /* TitleViewController.swift in Sources */,
 				7C962DB62735FC8000425798 /* RootTabsViewController.swift in Sources */,
 				7CA9AC7B273413A6009FF259 /* NibLoadableView.swift in Sources */,
@@ -1057,6 +1150,7 @@
 				7C4395A72739C2BD001144AE /* UserViewModel.swift in Sources */,
 				7CF21BBD2734ACC900806F4D /* SAViewControllers.swift in Sources */,
 				7CBEBDBF273C4F8B00D70702 /* ErrorOverlayViewController.swift in Sources */,
+				7CB63C7F2764DC99004D68F6 /* RootSplitViewController.swift in Sources */,
 				7CA9AC6D2733EB62009FF259 /* Router.swift in Sources */,
 				7C2EF7F62733476A002BADC4 /* ReSearchModel.swift in Sources */,
 				7C2EF80127334AEE002BADC4 /* CatalogCellView.swift in Sources */,
@@ -1206,6 +1300,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ReManga/ReManga.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D59DHVRS87;
@@ -1225,9 +1320,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.xitrix.ReManga2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -1237,6 +1334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ReManga/ReManga.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D59DHVRS87;
@@ -1256,9 +1354,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.xitrix.ReManga2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

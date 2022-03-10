@@ -5,8 +5,8 @@
 //  Created by Даниил Виноградов on 06.11.2021.
 //
 
-import UIKit
 import ReactiveKit
+import UIKit
 
 extension UIViewController {
     func add(to viewController: UIViewController, in view: UIView? = nil) {
@@ -74,7 +74,7 @@ extension UIViewController {
 }
 
 @resultBuilder
-struct BindingBuilder {
+enum BindingBuilder {
     static func buildBlock() -> [Disposable] { [] }
 
     static func buildBlock(_ components: Disposable...) -> [Disposable] {
@@ -89,5 +89,21 @@ struct BindingBuilder {
 extension UIViewController {
     func bindingContext(@BindingBuilder _ content: () -> [Disposable]) {
         content().forEach { $0.dispose(in: bag) }
+    }
+}
+
+extension UIViewController {
+    private enum AssociatedKey {
+        static var viewExtension = "isSecondaryViewExtension"
+    }
+
+    var isSecondary: Bool? {
+        get {
+            objc_getAssociatedObject(self, &AssociatedKey.viewExtension) as? Bool
+        }
+
+        set {
+            objc_setAssociatedObject(self, &AssociatedKey.viewExtension, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
 }

@@ -29,6 +29,7 @@ extension MVVM {
         container.registerSingleton { Router(container: self.container) }
 
         // Register ViewModels
+        container.register { RootSplitViewModel() }
         container.register { MainViewModel() }
         container.register { CatalogViewModel() }
         container.register { TitleViewModel() }
@@ -39,6 +40,7 @@ extension MVVM {
         container.register { UserViewModel() }
 
         // Register ViewControllers
+        container.register { RootSplitViewController() }
         container.register { MainViewController() }
         container.register { CatalogViewController() }
         container.register { TitleViewController() }
@@ -55,9 +57,10 @@ extension MVVM {
 
     func registerRouting() {
         // Register root ViewModel
-        router.registerRoot(RootTabsViewModel.self)
+        router.registerRoot(RootSplitViewModel.self)
 
         // Register navigation routing
+        router.register(viewModel: RootSplitViewModel.self, viewController: RootSplitViewController.self)
         router.register(viewModel: MainViewModel.self, viewController: MainViewController.self)
         router.register(viewModel: CatalogViewModel.self, viewController: CatalogViewController.self)
         router.register(viewModel: TitleViewModel.self, viewController: TitleViewController.self)

@@ -22,6 +22,10 @@ extension NavigationProtocol {
 
 class SAViewController: UIViewController, NavigationProtocol {
     private var isPresented: Bool = false
+
+    var hidesTopBar: Bool = false
+    var hidesBottomBar: Bool = false
+    
     var swipeAnywhereDisabled: Bool {
         false
     }

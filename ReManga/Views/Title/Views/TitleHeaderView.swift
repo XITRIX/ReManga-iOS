@@ -27,7 +27,7 @@ class TitleHeaderView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        headerView.layer.cornerRadius = headerView.frame.height / 2
+        headerView.layer.cornerRadius = 14
         headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 }

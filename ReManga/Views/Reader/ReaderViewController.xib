@@ -91,7 +91,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" backgroundImage="chevron.left.circle.fill" catalog="system"/>
+                                        <state key="normal" backgroundImage="multiply.circle.fill" catalog="system"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6C-8X-hQI">
                                         <rect key="frame" x="249.5" y="11" width="20" height="22"/>
@@ -356,8 +356,8 @@
         <image name="arrowtriangle.right.circle" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.right.fill" catalog="system" width="128" height="113"/>
         <image name="book.circle" catalog="system" width="128" height="121"/>
-        <image name="chevron.left.circle.fill" catalog="system" width="128" height="121"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="multiply.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -35,6 +35,11 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
         set {}
     }
 
+    override var modalPresentationStyle: UIModalPresentationStyle {
+        get { .fullScreen }
+        set {}
+    }
+
     override func setupView() {
         super.setupView()
 

@@ -60,7 +60,7 @@ class TitleViewModel: MvvmViewModelWith<String> {
 
     func navigateChapter(_ id: Int) {
         let params = ReaderViewModelParams(chapterId: id, chapters: chapters.collection)
-        navigate(to: ReaderViewModel.self, prepare: params)
+        navigate(to: ReaderViewModel.self, prepare: params, with: .modal(wrapInNavigation: false))
     }
 
     func navigateCatalog(_ model: CatalogModel) {

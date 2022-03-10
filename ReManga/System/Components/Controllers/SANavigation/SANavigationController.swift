@@ -46,6 +46,10 @@ extension SANavigationController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         self.fullScreenPanGestureRecognizer.isEnabled = self.viewControllers.count > 1
     }
+
+//    public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        <#code#>
+//    }
 }
 
 extension SANavigationController: UIGestureRecognizerDelegate {

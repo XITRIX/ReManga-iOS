@@ -101,7 +101,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
         guard let dir = collection[index].dir
         else { return }
 
-        navigate(to: TitleViewModel.self, prepare: dir)
+        navigate(to: TitleViewModel.self, prepare: dir, with: .detail)
     }
 
     func navigateSearch() {
@@ -110,7 +110,7 @@ class CatalogViewModel: MvvmViewModelWith<CatalogModel> {
             self.searchQuery = query
 
             guard let dir = context?.dir else { return }
-            self.navigate(to: TitleViewModel.self, prepare: dir)
+            self.navigate(to: TitleViewModel.self, prepare: dir, with: .detail)
         }
         navigate(to: SearchViewModel.self, prepare: model, with: .modal(wrapInNavigation: false))
     }

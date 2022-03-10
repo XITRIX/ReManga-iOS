@@ -26,7 +26,7 @@ struct ReCommentsModel: Codable, Hashable {
 
 // MARK: - ReCommentsContent
 struct ReCommentsContent: Codable, Hashable {
-    let id: Int?
+    let id: Int
     let text: String?
     let countReplies: Int?
     let user: ReCommentsUser?
@@ -34,7 +34,7 @@ struct ReCommentsContent: Codable, Hashable {
     let score: Int
     let rated: Int?
     let isSpoiler, isPinned: Bool?
-    let rank: String?
+    let rank: ReCommentsRank?
 
     enum CodingKeys: String, CodingKey {
         case id, text
@@ -58,6 +58,15 @@ struct ReCommentsUser: Codable, Hashable {
     let username: String?
     let avatar: ReCommentsAvatar?
     let tagline: String?
+}
+
+enum ReCommentsRank: String, Codable {
+    case ruby = "ruby"
+    case diamond = "diamond"
+    case gold = "gold"
+    case silver = "silver"
+    case transparent = "transparent"
+    case bronze = "bronze"
 }
 
 //

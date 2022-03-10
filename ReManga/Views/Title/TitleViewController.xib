@@ -63,13 +63,13 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDT-n7-R99" customClass="GradientView" customModule="ReManga" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="152.5" width="406" height="371.5"/>
+                    <rect key="frame" x="0.0" y="158.5" width="406" height="365.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LXP-Yb-YGW">
-                            <rect key="frame" x="0.0" y="343.5" width="406" height="28"/>
+                            <rect key="frame" x="0.0" y="343.5" width="406" height="22"/>
                             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="28" id="qKu-Ux-uhX"/>
+                                <constraint firstAttribute="height" constant="22" id="qKu-Ux-uhX"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="stX-Ub-bsh">

@@ -19,6 +19,7 @@
                 <outlet property="headerView" destination="mAv-Iy-khS" id="Ccl-GN-KoQ"/>
                 <outlet property="idLabel" destination="mq0-uL-Ks1" id="Ttg-5f-qiF"/>
                 <outlet property="nicknameLabel" destination="osV-Vz-RMU" id="alY-7d-t63"/>
+                <outlet property="segmentControlView" destination="iD5-nV-MP7" id="rPI-j8-BQF"/>
                 <outlet property="settingsButton" destination="ACe-fP-NTX" id="yeG-km-E4I"/>
                 <outlet property="tableView" destination="UnT-pv-KPU" id="D0d-9M-2V6"/>
                 <outlet property="ticketsLabel" destination="kMI-a0-I4t" id="64p-XS-yvy"/>
@@ -46,7 +47,7 @@
             <point key="canvasLocation" x="134.78260869565219" y="97.767857142857139"/>
         </view>
         <view contentMode="scaleToFill" id="mAv-Iy-khS">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cvX-Df-hYO">
@@ -194,10 +195,17 @@
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6u-tD-VqH">
-                    <rect key="frame" x="0.0" y="173" width="414" height="1"/>
+                    <rect key="frame" x="0.0" y="209" width="414" height="1"/>
                     <color key="backgroundColor" systemColor="separatorColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="w2t-UI-dgN"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iD5-nV-MP7" customClass="LongSegmentView" customModule="ReManga" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="162" width="414" height="32"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="3tK-UK-9ze"/>
                     </constraints>
                 </view>
             </subviews>
@@ -207,15 +215,18 @@
                 <constraint firstItem="t6u-tD-VqH" firstAttribute="trailing" secondItem="Grg-pU-Ia5" secondAttribute="trailing" id="Gey-Kx-5ED"/>
                 <constraint firstItem="ddD-fc-cO5" firstAttribute="leading" secondItem="Grg-pU-Ia5" secondAttribute="leading" constant="12" id="Ny1-0U-rrl"/>
                 <constraint firstItem="t6u-tD-VqH" firstAttribute="bottom" secondItem="Grg-pU-Ia5" secondAttribute="bottom" id="U3y-0H-vgh"/>
+                <constraint firstItem="iD5-nV-MP7" firstAttribute="leading" secondItem="Grg-pU-Ia5" secondAttribute="leading" id="V8e-r6-kQK"/>
+                <constraint firstItem="iD5-nV-MP7" firstAttribute="top" secondItem="ddD-fc-cO5" secondAttribute="bottom" constant="8" symbolic="YES" id="bro-rM-3gp"/>
                 <constraint firstItem="hv6-pV-dxS" firstAttribute="centerY" secondItem="cvX-Df-hYO" secondAttribute="centerY" id="g0y-dJ-yF8"/>
                 <constraint firstItem="t6u-tD-VqH" firstAttribute="leading" secondItem="Grg-pU-Ia5" secondAttribute="leading" id="ghW-SP-ymZ"/>
                 <constraint firstItem="cvX-Df-hYO" firstAttribute="leading" secondItem="Grg-pU-Ia5" secondAttribute="leading" constant="20" id="iTQ-l2-X0R"/>
+                <constraint firstItem="iD5-nV-MP7" firstAttribute="trailing" secondItem="Grg-pU-Ia5" secondAttribute="trailing" id="mC5-ha-25k"/>
                 <constraint firstItem="ddD-fc-cO5" firstAttribute="top" secondItem="cvX-Df-hYO" secondAttribute="bottom" constant="16" id="puK-hO-Roo"/>
                 <constraint firstItem="Grg-pU-Ia5" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ddD-fc-cO5" secondAttribute="trailing" constant="12" id="qDw-fB-637"/>
                 <constraint firstItem="cvX-Df-hYO" firstAttribute="top" secondItem="mAv-Iy-khS" secondAttribute="top" constant="20" id="ufP-qP-B2P"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="840.57971014492762" y="-143.97321428571428"/>
+            <point key="canvasLocation" x="840.57971014492762" y="-131.91964285714286"/>
         </view>
     </objects>
     <resources>

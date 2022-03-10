@@ -17,6 +17,17 @@ class TitleViewController: BaseViewController<TitleViewModel> {
     @IBOutlet var backButton: UIButton!
     @IBOutlet var backButtonConstraint: NSLayoutConstraint!
     var titleView: MarqueeLabel!
+    var dataSource: UITableViewDiffableDataSource<Int, Int>?
+
+    override var hidesTopBar: Bool {
+        get { true }
+        set {}
+    }
+
+//    override var hidesBottomBar: Bool {
+//        get { true }
+//        set {}
+//    }
 
     override var navigationBarIsHidden: Bool? {
         didSet {
@@ -34,11 +45,24 @@ class TitleViewController: BaseViewController<TitleViewModel> {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         backButtonConstraint.constant = (UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0) + 6
+        backButton.isHidden = navigationController?.viewControllers.count ?? 0 <= 1
+        headerView.frame.size.height = view.safeFrame.height * 4 / 5
     }
 
     override func setupView() {
         super.setupView()
         navigationItem.largeTitleDisplayMode = .never
+
+//        dataSource = UITableViewDiffableDataSource<Int, Int>(tableView: tableView, cellProvider: { [unowned self] tableView, indexPath, itemIdentifier in
+//            switch viewModel.sectionSelected.value {
+//            case .about:
+//                return configureAboutCell(tableView, at: indexPath)
+//            case .chapters:
+//                return configureChaptersCell(tableView, at: indexPath)
+//            case .comments:
+//                return configureCommentsCell(tableView, at: indexPath)
+//            }
+//        })
 
         let navAppearance = UINavigationBarAppearance()
         navAppearance.configureWithTransparentBackground()
@@ -53,11 +77,12 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         tableView.register(cell: TitleSimilarCell.self)
         tableView.register(cell: TitleChapterCell.self)
         tableView.register(cell: TitleCommentCell.self)
+        tableView.register(cell: TitleLoadingCell.self)
 
-        headerView.frame.size.height = view.frame.height * 4 / 5
         tableView.tableHeaderView = headerView
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
+//        tableView.dataSource = dataSource
         tableView.dataSource = self
         tableView.delegate = self
         if #available(iOS 15.0, *) {
@@ -70,8 +95,30 @@ class TitleViewController: BaseViewController<TitleViewModel> {
         navigationItem.titleView = titleView
     }
 
+    override func updateOverlay(_ old: UIViewController?) {
+        if overlay == old { return }
+
+        old?.remove()
+        overlay?.insert(to: self, at: 1, in: view)
+    }
+
     func reloadTableView() {
-        tableView.reloadSections([0], with: .automatic)
+        tableView.reloadSections([0], with: .none)
+//        var snap = NSDiffableDataSourceSnapshot<Int, Int>()
+//        snap.appendSections([0])
+//
+//        switch viewModel.sectionSelected.value {
+//        case .about:
+//            snap.appendItems(allVisibleItems.map { $0.rawValue }, toSection: 0)
+//        case .chapters:
+////            return viewModel.chapters.count
+//            snap.appendItems(viewModel.chapters.array.map { $0.id }, toSection: 0)
+//        case .comments:
+//            //            return viewModel.comments.count
+//            snap.appendItems(viewModel.comments.array.map { $0.id }, toSection: 0)
+//        }
+//
+//        dataSource?.apply(snap, animatingDifferences: true)
     }
 
     deinit {
@@ -133,21 +180,11 @@ class TitleViewController: BaseViewController<TitleViewModel> {
             }
 
             tableView.reactive.selectedRowIndexPath.observeNext { [unowned self] indexPath in
-                if viewModel.sectionSelected.value == .chapters {
+                if viewModel.sectionSelected.value == .chapters,
+                   !viewModel.chapters.isEmpty {
                     viewModel.navigateChapter(viewModel.chapters.collection[indexPath.row].id)
                 }
             }
-        }
-    }
-
-    override var additionalSafeAreaInsets: UIEdgeInsets {
-        get {
-            var area = super.additionalSafeAreaInsets
-            area.top = 0
-            return area
-        }
-        set {
-            super.additionalSafeAreaInsets = newValue
         }
     }
 }
@@ -172,7 +209,7 @@ extension TitleViewController {
 }
 
 extension TitleViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func getRowsCount(at section: Int) -> Int {
         switch viewModel.sectionSelected.value {
         case .about:
             return allVisibleItems.count
@@ -183,7 +220,14 @@ extension TitleViewController: UITableViewDataSource {
         }
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return max(1, getRowsCount(at: section))
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard getRowsCount(at: indexPath.section) > 0
+        else { return configureLoadingCell(tableView, at: indexPath) }
+
         switch viewModel.sectionSelected.value {
         case .about:
             return configureAboutCell(tableView, at: indexPath)
@@ -203,6 +247,12 @@ extension TitleViewController: UITableViewDataSource {
     func configureCommentsCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(for: indexPath) as TitleCommentCell
         cell.setModel(viewModel.comments.collection[indexPath.row])
+        return cell
+    }
+
+    func configureLoadingCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue(for: indexPath) as TitleLoadingCell
+//        cell.setModel(viewModel.comments.collection[indexPath.row])
         return cell
     }
 

@@ -74,7 +74,7 @@ extension CatalogViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let frameWithoutInset: CGFloat = (collectionView.frame.width - 24)
+        let frameWithoutInset: CGFloat = (collectionView.frame.width - 24 - collectionView.safeAreaInsets.left - collectionView.safeAreaInsets.right)
         let frameSeparators = CGFloat(10 * (columns - 1))
         let itemWidth = CGFloat((frameWithoutInset - frameSeparators) / columns)
 

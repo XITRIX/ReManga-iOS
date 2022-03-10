@@ -12,6 +12,10 @@ class MvvmTabsViewController<ViewModel: MvvmTabsViewModelProtocol>: UITabBarCont
     var viewModel: ViewModel { _viewModel as! ViewModel }
     private var shown = false
 
+    override var navigationController: UINavigationController? {
+        selectedViewController as? UINavigationController
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -28,7 +32,7 @@ class MvvmTabsViewController<ViewModel: MvvmTabsViewModelProtocol>: UITabBarCont
                     return nvc
                 }
                 
-                setViewControllers(viewControllers, animated: true)
+                setViewControllers(viewControllers, animated: false)
             }.dispose(in: bag)
         }
     }

@@ -38,9 +38,15 @@ extension Router {
         case .push:
             fvc.show(vc, sender: fvc)
         case .detail:
+            vc.isSecondary = true
             fvc.showDetailViewController(vc, sender: fvc)
-        case .modal:
-            fvc.present(vc, animated: true)
+        case .modal(let wrapInNavigation):
+            if wrapInNavigation {
+                let nvc = BaseNavigationController(rootViewController: vc)
+                fvc.present(nvc, animated: true)
+            } else {
+                fvc.present(vc, animated: true)
+            }
         }
     }
 
@@ -54,6 +60,7 @@ extension Router {
         case .push:
             fvc.show(vc, sender: fvc)
         case .detail:
+            vc.isSecondary = true
             fvc.showDetailViewController(vc, sender: fvc)
         case .modal(let wrapInNavigation):
             if wrapInNavigation {

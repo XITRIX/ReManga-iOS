@@ -22,13 +22,15 @@ class Router {
     }
 
     func resolveRoot(in window: UIWindow) {
-        if let rootModel = rootModel,
-           let resolver = map["\(rootModel)"] {
-            let viewModel = container.resolve(id: rootModel) as MvvmViewModelProtocol
-            let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
-            vc.setViewModel(viewModel)
-            window.rootViewController = vc
-        }
+        guard let rootModel = rootModel,
+              let resolver = map["\(rootModel)"]
+        else { return }
+
+        let viewModel = container.resolve(id: rootModel) as MvvmViewModelProtocol
+        let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
+        vc.setViewModel(viewModel)
+
+        window.rootViewController = vc
     }
 }
 
@@ -39,23 +41,25 @@ extension Router {
     }
 
     func resolve<VM: MvvmViewModelProtocol>(viewModel: VM.Type) -> MvvmViewControllerProtocol {
-        if let resolver = map["\(viewModel)"] {
-            let viewModel = container.resolve(type: viewModel)
-            let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
-            vc.setViewModel(viewModel)
-            return vc
+        guard let resolver = map["\(viewModel)"] else {
+            fatalError("\(viewModel) is not registered")
         }
-        fatalError("\(viewModel) is not registered")
+
+        let viewModel = container.resolve(type: viewModel)
+        let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
+        vc.setViewModel(viewModel)
+        return vc
     }
 
-    func resolve<M, VM: MvvmViewModelWithProtocol>(viewModel: VM.Type, prepare model: M) -> MvvmViewControllerProtocol where VM.Model == M  {
-        if let resolver = map["\(viewModel)"] {
-            let viewModel = container.resolve(type: VM.self)
-            let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
-            viewModel.prepare(with: model)
-            vc.setViewModel(viewModel)
-            return vc
+    func resolve<M, VM: MvvmViewModelWithProtocol>(viewModel: VM.Type, prepare model: M) -> MvvmViewControllerProtocol where VM.Model == M {
+        guard let resolver = map["\(viewModel)"] else {
+            fatalError("\(viewModel) is not registered")
         }
-        fatalError("\(viewModel) is not registered")
+
+        let viewModel = container.resolve(type: VM.self)
+        let vc = container.resolve(id: "\(resolver)") as MvvmViewControllerProtocol
+        viewModel.prepare(with: model)
+        vc.setViewModel(viewModel)
+        return vc
     }
 }

@@ -19,10 +19,13 @@ class UserViewController: BaseViewController<UserViewModel> {
     @IBOutlet var countViewsLabel: UILabel!
     @IBOutlet var countVotesLabel: UILabel!
     @IBOutlet var countCommentsLabel: UILabel!
+    @IBOutlet var segmentControlView: LongSegmentView!
 
     override func setupView() {
         super.setupView()
         tableView.tableHeaderView = headerView
+
+//        segmentControlView.inset
     }
 
     override func binding() {
