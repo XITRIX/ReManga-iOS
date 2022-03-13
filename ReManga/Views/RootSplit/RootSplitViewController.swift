@@ -6,5 +6,6 @@
 //
 
 import Foundation
+import MVVMFoundation
 
 class RootSplitViewController: MvvmSplitViewController<RootSplitViewModel> {}

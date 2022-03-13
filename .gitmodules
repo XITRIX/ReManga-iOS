@@ -1,0 +1,3 @@
+[submodule "Submodules/MVVMFoundation"]
+	path = Submodules/MVVMFoundation
+	url = https://github.com/XITRIX/MVVMFoundation.git

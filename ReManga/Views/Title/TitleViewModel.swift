@@ -7,6 +7,7 @@
 
 import Bond
 import Foundation
+import MVVMFoundation
 
 class TitleViewModel: MvvmViewModelWith<String> {
     let sectionSelected = Observable<SectionItem>(.about)

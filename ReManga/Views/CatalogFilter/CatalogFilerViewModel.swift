@@ -7,6 +7,7 @@
 
 import Foundation
 import Bond
+import MVVMFoundation
 
 struct CatalogFilterModel {
     var filters: CatalogFiltersModel

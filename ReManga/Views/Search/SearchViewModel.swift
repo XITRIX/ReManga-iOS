@@ -8,6 +8,7 @@
 import Bond
 import Foundation
 import Alamofire
+import MVVMFoundation
 
 struct SearchModel {
     var query: String?

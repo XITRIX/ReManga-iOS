@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MVVMFoundation
 
 class UserViewController: BaseViewController<UserViewModel> {
     @IBOutlet var headerView: UIView!
@@ -24,14 +25,12 @@ class UserViewController: BaseViewController<UserViewModel> {
     override func setupView() {
         super.setupView()
         tableView.tableHeaderView = headerView
-
-//        segmentControlView.inset
     }
 
     override func binding() {
         super.binding()
 
-        bindingContext {
+        bind(in: bag) {
             viewModel.avatar.bind(to: avatarImage.reactive.imageUrl)
             viewModel.username.bind(to: nicknameLabel)
             viewModel.userId.bind(to: idLabel)

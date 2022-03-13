@@ -6,5 +6,6 @@
 //
 
 import Foundation
+import MVVMFoundation
 
 class RootTabsViewController: MvvmTabsViewController<RootTabsViewModel> {}

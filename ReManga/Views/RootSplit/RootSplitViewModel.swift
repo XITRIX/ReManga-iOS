@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MVVMFoundation
 
 class RootSplitViewModel: MvvmViewModel, MvvmSplitViewModelProtocol {
     var primaryViewModel: MvvmViewModel.Type { RootTabsViewModel.self }

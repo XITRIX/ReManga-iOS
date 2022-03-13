@@ -7,6 +7,7 @@
 
 import Alamofire
 import Foundation
+import MVVMFoundation
 
 class ReClient {
     static let baseUrl = "https://api.xn--80aaig9ahr.xn--c1avg/"
@@ -117,9 +118,9 @@ class ReClient {
                 }
                 
                 do {
+//                    print(String(data: res, encoding: .utf8))
                     let title = try JSONDecoder().decode(T.self, from: res)
                     completionHandler?(.success(title))
-//                    print(title)
                 } catch {
                     completionHandler?(.failure(.error(error)))
                     print(error)

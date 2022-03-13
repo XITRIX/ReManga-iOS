@@ -16,7 +16,6 @@
 		7C2EF7962732ECE9002BADC4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF7952732ECE9002BADC4 /* SceneDelegate.swift */; };
 		7C2EF79D2732ECEA002BADC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C2EF79C2732ECEA002BADC4 /* Assets.xcassets */; };
 		7C2EF7A02732ECEA002BADC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2EF79E2732ECEA002BADC4 /* LaunchScreen.storyboard */; };
-		7C2EF7CF2733441E002BADC4 /* MVVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF7BE2733441E002BADC4 /* MVVM.swift */; };
 		7C2EF7E8273346FE002BADC4 /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF7E7273346FE002BADC4 /* CatalogViewModel.swift */; };
 		7C2EF7F42733476A002BADC4 /* ReCommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF7EB2733476A002BADC4 /* ReCommentsModel.swift */; };
 		7C2EF7F52733476A002BADC4 /* ReTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2EF7EC2733476A002BADC4 /* ReTitleModel.swift */; };
@@ -56,7 +55,6 @@
 		7C53B33E27359200007814F0 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C53B33B27359200007814F0 /* SearchViewController.xib */; };
 		7C53B34027359A95007814F0 /* FadeControllerPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B33F27359A95007814F0 /* FadeControllerPresentation.swift */; };
 		7C53B3432735CF49007814F0 /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B3422735CF49007814F0 /* KeyboardHelper.swift */; };
-		7C53B3452735D99D007814F0 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C53B3442735D99D007814F0 /* UIViewControllerExtensions.swift */; };
 		7C6D10C4273491FA0039230F /* TitleTranslatersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6D10C2273491F90039230F /* TitleTranslatersCell.swift */; };
 		7C6D10C5273491FA0039230F /* TitleTranslatersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D10C3273491F90039230F /* TitleTranslatersCell.xib */; };
 		7C6D10C8273492D10039230F /* TitleTranslatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6D10C7273492D10039230F /* TitleTranslatorView.swift */; };
@@ -65,26 +63,14 @@
 		7C6D10CF273496930039230F /* TitleSimilarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D10CD273496930039230F /* TitleSimilarCell.xib */; };
 		7C6D10D8273498870039230F /* TitleSimilarCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6D10D6273498870039230F /* TitleSimilarCollectionCell.swift */; };
 		7C6D10D9273498870039230F /* TitleSimilarCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D10D7273498870039230F /* TitleSimilarCollectionCell.xib */; };
-		7C962DB12735F69800425798 /* MvvmTabsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DB02735F69800425798 /* MvvmTabsViewModel.swift */; };
-		7C962DB32735F83600425798 /* MvvmTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DB22735F83600425798 /* MvvmTabsViewController.swift */; };
 		7C962DB62735FC8000425798 /* RootTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DB52735FC8000425798 /* RootTabsViewController.swift */; };
 		7C962DB82735FCB000425798 /* RootTabsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DB72735FCB000425798 /* RootTabsViewModel.swift */; };
 		7C962DBC2736C79900425798 /* CatalogFilerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DBA2736C79900425798 /* CatalogFilerViewController.swift */; };
 		7C962DBD2736C79900425798 /* CatalogFilerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C962DBB2736C79900425798 /* CatalogFilerViewController.xib */; };
 		7C962DBF2736C7A800425798 /* CatalogFilerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C962DBE2736C7A800425798 /* CatalogFilerViewModel.swift */; };
-		7CA9AC632733EB62009FF259 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC4F2733EB62009FF259 /* HttpClient.swift */; };
-		7CA9AC642733EB62009FF259 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC512733EB62009FF259 /* Container.swift */; };
-		7CA9AC652733EB62009FF259 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC532733EB62009FF259 /* Holder.swift */; };
-		7CA9AC662733EB62009FF259 /* MvvmViewModelWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC562733EB62009FF259 /* MvvmViewModelWith.swift */; };
-		7CA9AC672733EB62009FF259 /* MvvmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC572733EB62009FF259 /* MvvmViewModel.swift */; };
-		7CA9AC682733EB62009FF259 /* MvvmTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC592733EB62009FF259 /* MvvmTableViewController.swift */; };
-		7CA9AC692733EB62009FF259 /* MvvmCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC5A2733EB62009FF259 /* MvvmCollectionViewController.swift */; };
-		7CA9AC6A2733EB62009FF259 /* MvvmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC5B2733EB62009FF259 /* MvvmViewController.swift */; };
-		7CA9AC6B2733EB62009FF259 /* MvvmViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC5C2733EB62009FF259 /* MvvmViewControllerProtocol.swift */; };
-		7CA9AC6C2733EB62009FF259 /* Router+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC5E2733EB62009FF259 /* Router+Navigation.swift */; };
-		7CA9AC6D2733EB62009FF259 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC5F2733EB62009FF259 /* Router.swift */; };
-		7CA9AC6E2733EB62009FF259 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC612733EB62009FF259 /* UITableViewCell+Extensions.swift */; };
-		7CA9AC6F2733EB62009FF259 /* MvvmViewModel+Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC622733EB62009FF259 /* MvvmViewModel+Router.swift */; };
+		7CA1A28327DE0A6F001C9EE7 /* MVVMCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1A28227DE0A6F001C9EE7 /* MVVMCore.swift */; };
+		7CA1A29027DE31F4001C9EE7 /* SAViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1A28E27DE31F4001C9EE7 /* SAViewControllers.swift */; };
+		7CA1A29127DE31F4001C9EE7 /* SANavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1A28F27DE31F4001C9EE7 /* SANavigationController.swift */; };
 		7CA9AC7227341193009FF259 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC7127341193009FF259 /* TitleHeaderView.swift */; };
 		7CA9AC792734128E009FF259 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC782734128E009FF259 /* NibLoadable.swift */; };
 		7CA9AC7B273413A6009FF259 /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9AC7A273413A6009FF259 /* NibLoadableView.swift */; };
@@ -103,19 +89,11 @@
 		7CA9ACA827348A1C009FF259 /* TitleTagsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CA9ACA627348A1C009FF259 /* TitleTagsCell.xib */; };
 		7CAE01212737035E0044A550 /* CatalogFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE011F2737035E0044A550 /* CatalogFilterCell.swift */; };
 		7CAE01222737035E0044A550 /* CatalogFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CAE01202737035E0044A550 /* CatalogFilterCell.xib */; };
-		7CAE012C2737FFE00044A550 /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAE012A2737FFE00044A550 /* LoadingOverlayViewController.swift */; };
-		7CAE012D2737FFE00044A550 /* LoadingOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CAE012B2737FFE00044A550 /* LoadingOverlayViewController.xib */; };
-		7CB63C782764D135004D68F6 /* MvvmSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C772764D134004D68F6 /* MvvmSplitViewController.swift */; };
-		7CB63C7A2764D1A3004D68F6 /* MvvmSplitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C792764D1A3004D68F6 /* MvvmSplitViewModel.swift */; };
 		7CB63C7D2764D490004D68F6 /* RootSplitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C7C2764D490004D68F6 /* RootSplitViewModel.swift */; };
 		7CB63C7F2764DC99004D68F6 /* RootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB63C7E2764DC99004D68F6 /* RootSplitViewController.swift */; };
 		7CBE459B276B93EE005A76B1 /* SlideAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE459A276B93ED005A76B1 /* SlideAnimation.swift */; };
-		7CBEBDBF273C4F8B00D70702 /* ErrorOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */; };
-		7CBEBDC0273C4F8B00D70702 /* ErrorOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */; };
-		7CBEBDC2273C511F00D70702 /* NSObject+Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */; };
 		7CC34BBF276A834D00995B74 /* TitleLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC34BBD276A834D00995B74 /* TitleLoadingCell.swift */; };
 		7CC34BC0276A834D00995B74 /* TitleLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CC34BBE276A834D00995B74 /* TitleLoadingCell.xib */; };
-		7CC4DC0B273AD2FE004E476A /* MvvmViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */; };
 		7CF21BA82734A1BB00806F4D /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */; };
 		7CF21BAC2734A5F500806F4D /* TitleChapterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */; };
 		7CF21BAD2734A5F500806F4D /* TitleChapterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF21BAB2734A5F500806F4D /* TitleChapterCell.xib */; };
@@ -123,13 +101,23 @@
 		7CF21BB42734AB5000806F4D /* ReaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF21BB22734AB5000806F4D /* ReaderViewController.xib */; };
 		7CF21BB62734AB8600806F4D /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BB52734AB8600806F4D /* ReaderViewModel.swift */; };
 		7CF21BB82734AC3500806F4D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BB72734AC3500806F4D /* BaseViewController.swift */; };
-		7CF21BBD2734ACC900806F4D /* SAViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BBB2734ACC900806F4D /* SAViewControllers.swift */; };
-		7CF21BBE2734ACC900806F4D /* SANavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BBC2734ACC900806F4D /* SANavigationController.swift */; };
 		7CF21BC32734AE0D00806F4D /* ReaderPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BC12734AE0D00806F4D /* ReaderPageCell.swift */; };
 		7CF21BC42734AE0D00806F4D /* ReaderPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF21BC22734AE0D00806F4D /* ReaderPageCell.xib */; };
-		7CF21BC62734AF1100806F4D /* BondExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF21BC52734AF1100806F4D /* BondExtensions.swift */; };
-		EE520F13DAEFAFAF3153F4F7 /* Pods_ReManga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96110B5775A865CBA125CD6E /* Pods_ReManga.framework */; };
+		8B347C5474C85265BF29BE2F /* Pods_ReManga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D884FFF296D20D79D0C3FAB4 /* Pods_ReManga.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7CA1A01D27DDFA10001C9EE7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5399D881FC16647FEC24A75D /* Pods-ReManga.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.release.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,7 +132,6 @@
 		7C2EF79C2732ECEA002BADC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C2EF79F2732ECEA002BADC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C2EF7A12732ECEA002BADC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C2EF7BE2733441E002BADC4 /* MVVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVVM.swift; sourceTree = "<group>"; };
 		7C2EF7E7273346FE002BADC4 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
 		7C2EF7EB2733476A002BADC4 /* ReCommentsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReCommentsModel.swift; sourceTree = "<group>"; };
 		7C2EF7EC2733476A002BADC4 /* ReTitleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReTitleModel.swift; sourceTree = "<group>"; };
@@ -184,7 +171,6 @@
 		7C53B33B27359200007814F0 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		7C53B33F27359A95007814F0 /* FadeControllerPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeControllerPresentation.swift; sourceTree = "<group>"; };
 		7C53B3422735CF49007814F0 /* KeyboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHelper.swift; sourceTree = "<group>"; };
-		7C53B3442735D99D007814F0 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		7C6D10C2273491F90039230F /* TitleTranslatersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTranslatersCell.swift; sourceTree = "<group>"; };
 		7C6D10C3273491F90039230F /* TitleTranslatersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTranslatersCell.xib; sourceTree = "<group>"; };
 		7C6D10C7273492D10039230F /* TitleTranslatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTranslatorView.swift; sourceTree = "<group>"; };
@@ -193,26 +179,14 @@
 		7C6D10CD273496930039230F /* TitleSimilarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleSimilarCell.xib; sourceTree = "<group>"; };
 		7C6D10D6273498870039230F /* TitleSimilarCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSimilarCollectionCell.swift; sourceTree = "<group>"; };
 		7C6D10D7273498870039230F /* TitleSimilarCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleSimilarCollectionCell.xib; sourceTree = "<group>"; };
-		7C962DB02735F69800425798 /* MvvmTabsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmTabsViewModel.swift; sourceTree = "<group>"; };
-		7C962DB22735F83600425798 /* MvvmTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmTabsViewController.swift; sourceTree = "<group>"; };
 		7C962DB52735FC8000425798 /* RootTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabsViewController.swift; sourceTree = "<group>"; };
 		7C962DB72735FCB000425798 /* RootTabsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabsViewModel.swift; sourceTree = "<group>"; };
 		7C962DBA2736C79900425798 /* CatalogFilerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilerViewController.swift; sourceTree = "<group>"; };
 		7C962DBB2736C79900425798 /* CatalogFilerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogFilerViewController.xib; sourceTree = "<group>"; };
 		7C962DBE2736C7A800425798 /* CatalogFilerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilerViewModel.swift; sourceTree = "<group>"; };
-		7CA9AC4F2733EB62009FF259 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
-		7CA9AC512733EB62009FF259 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
-		7CA9AC532733EB62009FF259 /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
-		7CA9AC562733EB62009FF259 /* MvvmViewModelWith.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvvmViewModelWith.swift; sourceTree = "<group>"; };
-		7CA9AC572733EB62009FF259 /* MvvmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvvmViewModel.swift; sourceTree = "<group>"; };
-		7CA9AC592733EB62009FF259 /* MvvmTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvvmTableViewController.swift; sourceTree = "<group>"; };
-		7CA9AC5A2733EB62009FF259 /* MvvmCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvvmCollectionViewController.swift; sourceTree = "<group>"; };
-		7CA9AC5B2733EB62009FF259 /* MvvmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvvmViewController.swift; sourceTree = "<group>"; };
-		7CA9AC5C2733EB62009FF259 /* MvvmViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvvmViewControllerProtocol.swift; sourceTree = "<group>"; };
-		7CA9AC5E2733EB62009FF259 /* Router+Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+Navigation.swift"; sourceTree = "<group>"; };
-		7CA9AC5F2733EB62009FF259 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		7CA9AC612733EB62009FF259 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
-		7CA9AC622733EB62009FF259 /* MvvmViewModel+Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MvvmViewModel+Router.swift"; sourceTree = "<group>"; };
+		7CA1A28227DE0A6F001C9EE7 /* MVVMCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMCore.swift; sourceTree = "<group>"; };
+		7CA1A28E27DE31F4001C9EE7 /* SAViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAViewControllers.swift; sourceTree = "<group>"; };
+		7CA1A28F27DE31F4001C9EE7 /* SANavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SANavigationController.swift; sourceTree = "<group>"; };
 		7CA9AC7127341193009FF259 /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
 		7CA9AC782734128E009FF259 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		7CA9AC7A273413A6009FF259 /* NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
@@ -231,20 +205,12 @@
 		7CA9ACA627348A1C009FF259 /* TitleTagsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTagsCell.xib; sourceTree = "<group>"; };
 		7CAE011F2737035E0044A550 /* CatalogFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterCell.swift; sourceTree = "<group>"; };
 		7CAE01202737035E0044A550 /* CatalogFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogFilterCell.xib; sourceTree = "<group>"; };
-		7CAE012A2737FFE00044A550 /* LoadingOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlayViewController.swift; sourceTree = "<group>"; };
-		7CAE012B2737FFE00044A550 /* LoadingOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingOverlayViewController.xib; sourceTree = "<group>"; };
 		7CB63C722764C397004D68F6 /* ReManga.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReManga.entitlements; sourceTree = "<group>"; };
-		7CB63C772764D134004D68F6 /* MvvmSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmSplitViewController.swift; sourceTree = "<group>"; };
-		7CB63C792764D1A3004D68F6 /* MvvmSplitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmSplitViewModel.swift; sourceTree = "<group>"; };
 		7CB63C7C2764D490004D68F6 /* RootSplitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSplitViewModel.swift; sourceTree = "<group>"; };
 		7CB63C7E2764DC99004D68F6 /* RootSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSplitViewController.swift; sourceTree = "<group>"; };
 		7CBE459A276B93ED005A76B1 /* SlideAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimation.swift; sourceTree = "<group>"; };
-		7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlayViewController.swift; sourceTree = "<group>"; };
-		7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorOverlayViewController.xib; sourceTree = "<group>"; };
-		7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Container.swift"; sourceTree = "<group>"; };
 		7CC34BBD276A834D00995B74 /* TitleLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLoadingCell.swift; sourceTree = "<group>"; };
 		7CC34BBE276A834D00995B74 /* TitleLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleLoadingCell.xib; sourceTree = "<group>"; };
-		7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvvmViewModelState.swift; sourceTree = "<group>"; };
 		7CF21BA72734A1BB00806F4D /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		7CF21BAA2734A5F500806F4D /* TitleChapterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleChapterCell.swift; sourceTree = "<group>"; };
 		7CF21BAB2734A5F500806F4D /* TitleChapterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleChapterCell.xib; sourceTree = "<group>"; };
@@ -252,12 +218,9 @@
 		7CF21BB22734AB5000806F4D /* ReaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderViewController.xib; sourceTree = "<group>"; };
 		7CF21BB52734AB8600806F4D /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
 		7CF21BB72734AC3500806F4D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		7CF21BBB2734ACC900806F4D /* SAViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAViewControllers.swift; sourceTree = "<group>"; };
-		7CF21BBC2734ACC900806F4D /* SANavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SANavigationController.swift; sourceTree = "<group>"; };
 		7CF21BC12734AE0D00806F4D /* ReaderPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderPageCell.swift; sourceTree = "<group>"; };
 		7CF21BC22734AE0D00806F4D /* ReaderPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderPageCell.xib; sourceTree = "<group>"; };
-		7CF21BC52734AF1100806F4D /* BondExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BondExtensions.swift; sourceTree = "<group>"; };
-		96110B5775A865CBA125CD6E /* Pods_ReManga.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReManga.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D884FFF296D20D79D0C3FAB4 /* Pods_ReManga.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReManga.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8FA23E4269AEB7A581F7EB0 /* Pods-ReManga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.debug.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,7 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE520F13DAEFAFAF3153F4F7 /* Pods_ReManga.framework in Frameworks */,
+				8B347C5474C85265BF29BE2F /* Pods_ReManga.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,11 +257,10 @@
 		7C2EF7872732ECE8002BADC4 = {
 			isa = PBXGroup;
 			children = (
-				7C2EF7BD2733441E002BADC4 /* Core */,
 				7C2EF7922732ECE9002BADC4 /* ReManga */,
 				7C2EF7912732ECE9002BADC4 /* Products */,
 				38E26FEE618B5D6EE24461B5 /* Pods */,
-				D630AD1751ED789F2FF784F3 /* Frameworks */,
+				7CA1A1CC27DDFDE8001C9EE7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -321,16 +283,6 @@
 			path = ReManga;
 			sourceTree = "<group>";
 		};
-		7C2EF7BD2733441E002BADC4 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				7CA9AC602733EB62009FF259 /* Extensions */,
-				7CA9AC4D2733EB62009FF259 /* MVVM */,
-				7C2EF7BE2733441E002BADC4 /* MVVM.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
 		7C2EF7D927334427002BADC4 /* System */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +291,7 @@
 				7CA9AC7C273430BF009FF259 /* Extensions */,
 				7C2EF7932732ECE9002BADC4 /* AppDelegate.swift */,
 				7C2EF7952732ECE9002BADC4 /* SceneDelegate.swift */,
+				7CA1A28227DE0A6F001C9EE7 /* MVVMCore.swift */,
 				7C2EF80727335FC6002BADC4 /* Main.storyboard */,
 				7C2EF79E2732ECEA002BADC4 /* LaunchScreen.storyboard */,
 				7C2EF79C2732ECEA002BADC4 /* Assets.xcassets */,
@@ -565,91 +518,21 @@
 			path = CatalogFilter;
 			sourceTree = "<group>";
 		};
-		7CA9AC4D2733EB62009FF259 /* MVVM */ = {
+		7CA1A1CC27DDFDE8001C9EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7CAE012E273800620044A550 /* Helpers */,
-				7CA9AC4E2733EB62009FF259 /* Networking */,
-				7CA9AC502733EB62009FF259 /* Container */,
-				7CA9AC542733EB62009FF259 /* Base */,
-				7CA9AC5D2733EB62009FF259 /* Router */,
+				D884FFF296D20D79D0C3FAB4 /* Pods_ReManga.framework */,
 			);
-			path = MVVM;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7CA9AC4E2733EB62009FF259 /* Networking */ = {
+		7CA1A28D27DE31F4001C9EE7 /* SANavigation */ = {
 			isa = PBXGroup;
 			children = (
-				7CA9AC4F2733EB62009FF259 /* HttpClient.swift */,
+				7CA1A28E27DE31F4001C9EE7 /* SAViewControllers.swift */,
+				7CA1A28F27DE31F4001C9EE7 /* SANavigationController.swift */,
 			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		7CA9AC502733EB62009FF259 /* Container */ = {
-			isa = PBXGroup;
-			children = (
-				7CA9AC512733EB62009FF259 /* Container.swift */,
-				7CA9AC522733EB62009FF259 /* Holder */,
-			);
-			path = Container;
-			sourceTree = "<group>";
-		};
-		7CA9AC522733EB62009FF259 /* Holder */ = {
-			isa = PBXGroup;
-			children = (
-				7CA9AC532733EB62009FF259 /* Holder.swift */,
-			);
-			path = Holder;
-			sourceTree = "<group>";
-		};
-		7CA9AC542733EB62009FF259 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				7CB63C752764D0B0004D68F6 /* Core */,
-				7CB63C762764D119004D68F6 /* SplitView */,
-				7CB63C742764D036004D68F6 /* TabsView */,
-				7CB63C732764D01E004D68F6 /* View */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		7CA9AC552733EB62009FF259 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				7CC4DC0A273AD2FE004E476A /* MvvmViewModelState.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		7CA9AC582733EB62009FF259 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				7CA9AC5C2733EB62009FF259 /* MvvmViewControllerProtocol.swift */,
-				7CA9AC592733EB62009FF259 /* MvvmTableViewController.swift */,
-				7CA9AC5A2733EB62009FF259 /* MvvmCollectionViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		7CA9AC5D2733EB62009FF259 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				7CA9AC5E2733EB62009FF259 /* Router+Navigation.swift */,
-				7CA9AC5F2733EB62009FF259 /* Router.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		7CA9AC602733EB62009FF259 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				7CF21BC52734AF1100806F4D /* BondExtensions.swift */,
-				7CA9AC612733EB62009FF259 /* UITableViewCell+Extensions.swift */,
-				7CA9AC622733EB62009FF259 /* MvvmViewModel+Router.swift */,
-				7CBEBDC1273C511F00D70702 /* NSObject+Container.swift */,
-				7C53B3442735D99D007814F0 /* UIViewControllerExtensions.swift */,
-			);
-			path = Extensions;
+			path = SANavigation;
 			sourceTree = "<group>";
 		};
 		7CA9AC7027341176009FF259 /* Views */ = {
@@ -763,69 +646,6 @@
 			path = CatalogFilterCell;
 			sourceTree = "<group>";
 		};
-		7CAE01282737FFB00044A550 /* HelperViews */ = {
-			isa = PBXGroup;
-			children = (
-				7CBEBDBC273C4F5200D70702 /* ErrorOverlay */,
-				7CAE01292737FFBC0044A550 /* LoadingOverlay */,
-			);
-			path = HelperViews;
-			sourceTree = "<group>";
-		};
-		7CAE01292737FFBC0044A550 /* LoadingOverlay */ = {
-			isa = PBXGroup;
-			children = (
-				7CAE012A2737FFE00044A550 /* LoadingOverlayViewController.swift */,
-				7CAE012B2737FFE00044A550 /* LoadingOverlayViewController.xib */,
-			);
-			path = LoadingOverlay;
-			sourceTree = "<group>";
-		};
-		7CAE012E273800620044A550 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				7CAE01282737FFB00044A550 /* HelperViews */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		7CB63C732764D01E004D68F6 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				7CA9AC572733EB62009FF259 /* MvvmViewModel.swift */,
-				7CA9AC562733EB62009FF259 /* MvvmViewModelWith.swift */,
-				7CA9AC5B2733EB62009FF259 /* MvvmViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7CB63C742764D036004D68F6 /* TabsView */ = {
-			isa = PBXGroup;
-			children = (
-				7C962DB02735F69800425798 /* MvvmTabsViewModel.swift */,
-				7C962DB22735F83600425798 /* MvvmTabsViewController.swift */,
-			);
-			path = TabsView;
-			sourceTree = "<group>";
-		};
-		7CB63C752764D0B0004D68F6 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				7CA9AC552733EB62009FF259 /* ViewModels */,
-				7CA9AC582733EB62009FF259 /* Controllers */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		7CB63C762764D119004D68F6 /* SplitView */ = {
-			isa = PBXGroup;
-			children = (
-				7CB63C792764D1A3004D68F6 /* MvvmSplitViewModel.swift */,
-				7CB63C772764D134004D68F6 /* MvvmSplitViewController.swift */,
-			);
-			path = SplitView;
-			sourceTree = "<group>";
-		};
 		7CB63C7B2764D45A004D68F6 /* RootSplit */ = {
 			isa = PBXGroup;
 			children = (
@@ -833,15 +653,6 @@
 				7CB63C7E2764DC99004D68F6 /* RootSplitViewController.swift */,
 			);
 			path = RootSplit;
-			sourceTree = "<group>";
-		};
-		7CBEBDBC273C4F5200D70702 /* ErrorOverlay */ = {
-			isa = PBXGroup;
-			children = (
-				7CBEBDBD273C4F8A00D70702 /* ErrorOverlayViewController.swift */,
-				7CBEBDBE273C4F8A00D70702 /* ErrorOverlayViewController.xib */,
-			);
-			path = ErrorOverlay;
 			sourceTree = "<group>";
 		};
 		7CC34BBC276A833600995B74 /* TitleLoading */ = {
@@ -886,19 +697,10 @@
 		7CF21BB92734ACC900806F4D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7CF21BBA2734ACC900806F4D /* SANavigation */,
+				7CA1A28D27DE31F4001C9EE7 /* SANavigation */,
 				7C53B33F27359A95007814F0 /* FadeControllerPresentation.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		7CF21BBA2734ACC900806F4D /* SANavigation */ = {
-			isa = PBXGroup;
-			children = (
-				7CF21BBB2734ACC900806F4D /* SAViewControllers.swift */,
-				7CF21BBC2734ACC900806F4D /* SANavigationController.swift */,
-			);
-			path = SANavigation;
 			sourceTree = "<group>";
 		};
 		7CF21BBF2734ADE700806F4D /* Cells */ = {
@@ -918,14 +720,6 @@
 			path = ReaderPage;
 			sourceTree = "<group>";
 		};
-		D630AD1751ED789F2FF784F3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				96110B5775A865CBA125CD6E /* Pods_ReManga.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -938,6 +732,7 @@
 				7C2EF78D2732ECE9002BADC4 /* Frameworks */,
 				7C2EF78E2732ECE9002BADC4 /* Resources */,
 				1092F32758A8994947A19BC1 /* [CP] Embed Pods Frameworks */,
+				7CA1A01D27DDFA10001C9EE7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -986,7 +781,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CBEBDC0273C4F8B00D70702 /* ErrorOverlayViewController.xib in Resources */,
 				7C2EF80627335255002BADC4 /* CatalogViewController.xib in Resources */,
 				7C2EF80827335FC6002BADC4 /* Main.storyboard in Resources */,
 				7C2EF7A02732ECEA002BADC4 /* LaunchScreen.storyboard in Resources */,
@@ -1008,7 +802,6 @@
 				7C962DBD2736C79900425798 /* CatalogFilerViewController.xib in Resources */,
 				7C6D10D9273498870039230F /* TitleSimilarCollectionCell.xib in Resources */,
 				7CC34BC0276A834D00995B74 /* TitleLoadingCell.xib in Resources */,
-				7CAE012D2737FFE00044A550 /* LoadingOverlayViewController.xib in Resources */,
 				7C444891274C33A1009377EC /* MainViewController.xib in Resources */,
 				7C6D10CA273492E00039230F /* TitleTranslatorView.xib in Resources */,
 				7C53B33E27359200007814F0 /* SearchViewController.xib in Resources */,
@@ -1070,57 +863,42 @@
 				7C2EF7F42733476A002BADC4 /* ReCommentsModel.swift in Sources */,
 				7C266D71275437B900C38E5A /* DateExtensions.swift in Sources */,
 				7C2EF7F52733476A002BADC4 /* ReTitleModel.swift in Sources */,
-				7CA9AC672733EB62009FF259 /* MvvmViewModel.swift in Sources */,
 				7C962DBF2736C7A800425798 /* CatalogFilerViewModel.swift in Sources */,
 				7C2EF80F27336304002BADC4 /* TitleViewModel.swift in Sources */,
 				7CA9AC8A27345B2D009FF259 /* TitleSectionSelectorView.swift in Sources */,
 				7C2BC8022751A15A00CB0B76 /* UIColorAssets.swift in Sources */,
 				7CA9AC8627343CC6009FF259 /* UIViewExtensions.swift in Sources */,
 				7CA9AC9527346BDA009FF259 /* StringExtensions.swift in Sources */,
-				7CA9AC642733EB62009FF259 /* Container.swift in Sources */,
 				7C53B34027359A95007814F0 /* FadeControllerPresentation.swift in Sources */,
-				7CA9AC692733EB62009FF259 /* MvvmCollectionViewController.swift in Sources */,
 				7CA9AC7227341193009FF259 /* TitleHeaderView.swift in Sources */,
+				7CA1A29127DE31F4001C9EE7 /* SANavigationController.swift in Sources */,
 				7C4395A42739C2B5001144AE /* UserViewController.swift in Sources */,
 				7CA9AC9927348244009FF259 /* TitleMetricsCell.swift in Sources */,
 				7C53B3372734C10B007814F0 /* BaseNavigationController.swift in Sources */,
-				7CA9AC632733EB62009FF259 /* HttpClient.swift in Sources */,
-				7C53B3452735D99D007814F0 /* UIViewControllerExtensions.swift in Sources */,
 				7CF21BB82734AC3500806F4D /* BaseViewController.swift in Sources */,
-				7CA9AC6F2733EB62009FF259 /* MvvmViewModel+Router.swift in Sources */,
 				7C53B33D27359200007814F0 /* SearchViewModel.swift in Sources */,
-				7CA9AC6A2733EB62009FF259 /* MvvmViewController.swift in Sources */,
 				7C40BCBF274D840B00E931DF /* MainTitleCell.swift in Sources */,
 				7C20ECCD2767ED6B0040B5C0 /* LongSegmentView.swift in Sources */,
 				7CF21BB32734AB5000806F4D /* ReaderViewController.swift in Sources */,
 				7C2EF7F82733476A002BADC4 /* ReCatalogModel.swift in Sources */,
 				7CF21BA82734A1BB00806F4D /* BaseTableViewCell.swift in Sources */,
-				7CB63C782764D135004D68F6 /* MvvmSplitViewController.swift in Sources */,
 				7C2EF7942732ECE9002BADC4 /* AppDelegate.swift in Sources */,
-				7CA9AC6C2733EB62009FF259 /* Router+Navigation.swift in Sources */,
 				7C444890274C33A1009377EC /* MainViewController.swift in Sources */,
 				7C6D10D8273498870039230F /* TitleSimilarCollectionCell.swift in Sources */,
-				7CAE012C2737FFE00044A550 /* LoadingOverlayViewController.swift in Sources */,
-				7CA9AC682733EB62009FF259 /* MvvmTableViewController.swift in Sources */,
+				7CA1A29027DE31F4001C9EE7 /* SAViewControllers.swift in Sources */,
 				7CF21BAC2734A5F500806F4D /* TitleChapterCell.swift in Sources */,
 				7C2EF7FC2733476A002BADC4 /* ReUserModel.swift in Sources */,
 				7C2EF7E8273346FE002BADC4 /* CatalogViewModel.swift in Sources */,
-				7CF21BC62734AF1100806F4D /* BondExtensions.swift in Sources */,
 				7CA9ACA22734848F009FF259 /* TitleDescriptionCell.swift in Sources */,
 				7C444895274C38A8009377EC /* ReClient+Main.swift in Sources */,
 				7C53B33C27359200007814F0 /* SearchViewController.swift in Sources */,
 				7C6D10C8273492D10039230F /* TitleTranslatorView.swift in Sources */,
-				7CA9AC6E2733EB62009FF259 /* UITableViewCell+Extensions.swift in Sources */,
-				7CA9AC662733EB62009FF259 /* MvvmViewModelWith.swift in Sources */,
 				7C43959F2739B71F001144AE /* TitleCommentCell.swift in Sources */,
-				7CB63C7A2764D1A3004D68F6 /* MvvmSplitViewModel.swift in Sources */,
 				7C2EF7FA2733476A002BADC4 /* ReBranchModel.swift in Sources */,
 				7C4448A0274CF532009377EC /* MainHeaderCell.swift in Sources */,
 				7C6D10CE273496930039230F /* TitleSimilarCell.swift in Sources */,
-				7CA9AC6B2733EB62009FF259 /* MvvmViewControllerProtocol.swift in Sources */,
 				7C6D10C4273491FA0039230F /* TitleTranslatersCell.swift in Sources */,
 				7CBE459B276B93EE005A76B1 /* SlideAnimation.swift in Sources */,
-				7C962DB32735F83600425798 /* MvvmTabsViewController.swift in Sources */,
 				7C444899274C3B30009377EC /* MainTitlesCollectionCell.swift in Sources */,
 				7C2EF7962732ECE9002BADC4 /* SceneDelegate.swift in Sources */,
 				7CF21BC32734AE0D00806F4D /* ReaderPageCell.swift in Sources */,
@@ -1128,9 +906,6 @@
 				7CAE01212737035E0044A550 /* CatalogFilterCell.swift in Sources */,
 				7C2EF7F92733476A002BADC4 /* ReChapterModel.swift in Sources */,
 				7CA9AC80273432E2009FF259 /* OptionalExtensions.swift in Sources */,
-				7CA9AC652733EB62009FF259 /* Holder.swift in Sources */,
-				7CC4DC0B273AD2FE004E476A /* MvvmViewModelState.swift in Sources */,
-				7C962DB12735F69800425798 /* MvvmTabsViewModel.swift in Sources */,
 				7CF21BB62734AB8600806F4D /* ReaderViewModel.swift in Sources */,
 				7CC34BBF276A834D00995B74 /* TitleLoadingCell.swift in Sources */,
 				7C2EF80527335255002BADC4 /* CatalogViewController.swift in Sources */,
@@ -1145,20 +920,15 @@
 				7C2EF80C273362FA002BADC4 /* TitleViewController.swift in Sources */,
 				7C962DB62735FC8000425798 /* RootTabsViewController.swift in Sources */,
 				7CA9AC7B273413A6009FF259 /* NibLoadableView.swift in Sources */,
-				7C2EF7CF2733441E002BADC4 /* MVVM.swift in Sources */,
 				7C444893274C33AB009377EC /* MainViewModel.swift in Sources */,
+				7CA1A28327DE0A6F001C9EE7 /* MVVMCore.swift in Sources */,
 				7C4395A72739C2BD001144AE /* UserViewModel.swift in Sources */,
-				7CF21BBD2734ACC900806F4D /* SAViewControllers.swift in Sources */,
-				7CBEBDBF273C4F8B00D70702 /* ErrorOverlayViewController.swift in Sources */,
 				7CB63C7F2764DC99004D68F6 /* RootSplitViewController.swift in Sources */,
-				7CA9AC6D2733EB62009FF259 /* Router.swift in Sources */,
 				7C2EF7F62733476A002BADC4 /* ReSearchModel.swift in Sources */,
 				7C2EF80127334AEE002BADC4 /* CatalogCellView.swift in Sources */,
 				7CA9AC7E273430D1009FF259 /* UIImageViewExtensions.swift in Sources */,
-				7CBEBDC2273C511F00D70702 /* NSObject+Container.swift in Sources */,
 				7C2EF7FD2733482A002BADC4 /* ReClient.swift in Sources */,
 				7C962DB82735FCB000425798 /* RootTabsViewModel.swift in Sources */,
-				7CF21BBE2734ACC900806F4D /* SANavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1228,7 +998,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1284,7 +1054,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

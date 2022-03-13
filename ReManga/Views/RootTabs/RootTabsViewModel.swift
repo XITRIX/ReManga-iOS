@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MVVMFoundation
 
 class RootTabsViewModel: MvvmTabsViewModel {
     required init() {

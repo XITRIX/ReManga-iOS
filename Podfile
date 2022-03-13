@@ -7,6 +7,7 @@ target 'ReManga' do
   use_frameworks!
 
   # Pods for ReManga
+  pod 'MVVMFoundation', :path => 'Submodules/MVVMFoundation'
   pod 'Bond'
   pod 'Alamofire', '~> 5.4'
   pod 'Kingfisher', '~> 7.0'

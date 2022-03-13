@@ -8,7 +8,14 @@
 import UIKit
 
 class TitleMetricsCell: BaseTableViewCell {
+    @IBOutlet private var rootView: UIView!
+
     @IBOutlet var likesLabel: UILabel!
     @IBOutlet var viewsLabel: UILabel!
     @IBOutlet var bookmarksLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        rootView.layer.cornerCurve = .continuous
+    }
 }

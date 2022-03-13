@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MVVMFoundation
 
 class BaseNavigationController: SANavigationController {
     let animation = SlideAnimation()

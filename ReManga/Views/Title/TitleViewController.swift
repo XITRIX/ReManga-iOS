@@ -128,7 +128,7 @@ class TitleViewController: BaseViewController<TitleViewModel> {
     override func binding() {
         super.binding()
 
-        bindingContext {
+        bind(in: bag) {
             backButton.bindTap(viewModel.dismiss)
 
             viewModel.enName.bind(to: headerView.engTitleLabel)

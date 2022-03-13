@@ -5,8 +5,9 @@
 //  Created by Даниил Виноградов on 08.11.2021.
 //
 
-import Foundation
 import Bond
+import Foundation
+import MVVMFoundation
 
 class UserViewModel: MvvmViewModel {
     let username = Observable<String?>(nil)
@@ -33,7 +34,8 @@ class UserViewModel: MvvmViewModel {
             case .success(let model):
                 let content = model.content
                 if let avatar = content.avatar,
-                   let avatarUrl = URL(string: ReClient.baseUrl.appending(avatar)) {
+                   let avatarUrl = URL(string: avatar)
+                {
                     self.avatar.value = avatarUrl
                 }
                 self.userId.value = "ID: \(content.id)"

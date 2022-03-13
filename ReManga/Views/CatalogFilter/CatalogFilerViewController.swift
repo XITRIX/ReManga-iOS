@@ -7,6 +7,7 @@
 
 import TTGTags
 import UIKit
+import MVVMFoundation
 
 class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
     @IBOutlet var navigationBar: UINavigationBar!
@@ -57,7 +58,7 @@ class CatalogFilerViewController: BaseViewController<CatalogFilterViewModel> {
     override func binding() {
         super.binding()
 
-        bindingContext {
+        bind(in: bag) {
             cancelButton.bindTap(viewModel.dismiss)
             doneButton.bindTap(viewModel.done)
             viewModel.clearButtonIsHidden.bind(to: clearButton.reactive.isHidden)

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MVVMFoundation
 
 class SlideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     var popStyle: Bool = false
@@ -35,7 +36,7 @@ class SlideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 
         transitionContext.containerView.insertSubview(tz.view, aboveSubview: fz.view)
 
-        let test = tz as? SAViewController
+        let test = tz as? NavigationProtocol
 
         var snap: UIView?
         var ts: CGRect?
@@ -45,7 +46,7 @@ class SlideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 
         if let tbvc = tz.tabBarController,
            let lsnap = tbvc.tabBar.snapshotView(afterScreenUpdates: false),
-           let btz = tz as? SAViewController,
+           let btz = tz as? NavigationProtocol,
            btz.hidesBottomBar,
            tbvc.tabBar.isHidden == false
         {
@@ -58,7 +59,7 @@ class SlideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 
         if let nvc = tz.navigationController,
            let lsnap = nvc.navigationBar.snapshotView(afterScreenUpdates: false),
-           let btz = tz as? SAViewController,
+           let btz = tz as? NavigationProtocol,
            btz.hidesTopBar,
            nvc.navigationBar.isHidden == false
         {
@@ -112,8 +113,8 @@ class SlideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 
         if let tbvc = tz.tabBarController,
            let lsnap = tbvc.tabBar.snapshotView(afterScreenUpdates: false),
-           let bfz = fz as? SAViewController,
-           let btz = tz as? SAViewController,
+           let bfz = fz as? NavigationProtocol,
+           let btz = tz as? NavigationProtocol,
            bfz.hidesBottomBar,
            !btz.hidesBottomBar
         {
@@ -131,8 +132,8 @@ class SlideAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 
         if let nvc = tz.navigationController,
            let lsnap = nvc.navigationBar.snapshotView(afterScreenUpdates: false),
-           let bfz = fz as? SAViewController,
-           let btz = tz as? SAViewController,
+           let bfz = fz as? NavigationProtocol,
+           let btz = tz as? NavigationProtocol,
            bfz.hidesTopBar,
            !btz.hidesTopBar
         {

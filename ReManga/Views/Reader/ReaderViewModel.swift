@@ -7,6 +7,7 @@
 
 import Bond
 import Foundation
+import MVVMFoundation
 
 struct ReaderBookmarkState {
     var props: [ReTitleStatus]

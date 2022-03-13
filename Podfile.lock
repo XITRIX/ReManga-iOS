@@ -6,6 +6,9 @@ PODS:
   - Differ (1.4.5)
   - Kingfisher (7.1.1)
   - MarqueeLabel (4.3.0)
+  - MVVMFoundation (0.1.0):
+    - Bond
+    - Kingfisher
   - ReactiveKit (3.17.4)
   - TTGTagCollectionView (2.1.0)
 
@@ -14,6 +17,7 @@ DEPENDENCIES:
   - Bond
   - Kingfisher (~> 7.0)
   - MarqueeLabel
+  - MVVMFoundation (from `Submodules/MVVMFoundation`)
   - TTGTagCollectionView
 
 SPEC REPOS:
@@ -27,15 +31,20 @@ SPEC REPOS:
     - Differ
     - ReactiveKit
 
+EXTERNAL SOURCES:
+  MVVMFoundation:
+    :path: Submodules/MVVMFoundation
+
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   Bond: 87075c7f20f37ea3e73dc7057fce839787bf46eb
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Kingfisher: f738f9c4a3415823b8e2985d10aa2d6a9f37bc4d
   MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
+  MVVMFoundation: c2ece7469f62857342a949ffb091953d3437a85c
   ReactiveKit: f9f9e079efa39312c597bf1508ef4810d111ce76
   TTGTagCollectionView: a2a8668c659b39e7a6ffd6590475ea53a7ae95f7
 
-PODFILE CHECKSUM: f93b1765ee51851dbc7e2244b10e2c858c5f10f4
+PODFILE CHECKSUM: 71210fb3b951aaa1fabf829039263bbab2eb106c
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

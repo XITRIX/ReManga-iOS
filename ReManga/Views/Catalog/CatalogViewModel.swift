@@ -5,9 +5,10 @@
 //  Created by Даниил Виноградов on 04.11.2021.
 //
 
+import Alamofire
 import Bond
 import Foundation
-import Alamofire
+import MVVMFoundation
 
 enum ReCatalogSortingFilter: String {
     case rating = "-rating"

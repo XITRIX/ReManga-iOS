@@ -9,10 +9,10 @@
 import UIKit
 
 /// Swipe Anywhere - to close view controller
-public class SANavigationController: UINavigationController {
+open class SANavigationController: UINavigationController {
     var locker = true
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 
         // Glitchy behaviour on iOS less than 11
@@ -54,7 +54,7 @@ extension SANavigationController: UINavigationControllerDelegate {
 
 extension SANavigationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let controller = (viewControllers.last as? SAViewController)
+        guard let controller = (viewControllers.last as? NavigationProtocol)
         else { return false }
         
         if controller.navigationItem.leftBarButtonItem != nil {

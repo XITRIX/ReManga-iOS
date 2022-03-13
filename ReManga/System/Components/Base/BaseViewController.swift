@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import MVVMFoundation
 
-class BaseViewController<ViewModel: MvvmViewModel>: MvvmViewController<ViewModel> {
+class BaseViewController<ViewModel: MvvmViewModel>: SAViewController<ViewModel> {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 

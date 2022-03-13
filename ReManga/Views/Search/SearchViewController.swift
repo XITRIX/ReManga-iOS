@@ -72,7 +72,7 @@ class SearchViewController: BaseViewController<SearchViewModel> {
     override func binding() {
         super.binding()
 
-        bindingContext {
+        bind(in: bag) {
             viewModel.content.observeNext { [unowned self] content in
                 var snapshot = NSDiffableDataSourceSnapshot<Section, ReSearchContent>()
                 snapshot.appendSections([.main])

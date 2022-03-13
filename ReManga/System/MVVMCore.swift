@@ -1,32 +1,19 @@
 //
 //  MVVM.swift
-//  DemoMVVM
+//  ReManga
 //
-//  Created by Даниил Виноградов on 03.11.2021.
+//  Created by Даниил Виноградов on 13.03.2022.
 //
 
 import Foundation
+import MVVMFoundation
 
-class MVVM {
-    static let shared = MVVM()
+class MVVMCore: MVVM {
+    override func registerContainer() {
+        super.registerContainer()
 
-    let container: Container
-    var router: Router! {
-        container.resolve(type: Router.self)
-    }
-
-    private init() {
-        container = Container()
-
-        registerContainer()
-        registerRouting()
-    }
-}
-
-extension MVVM {
-    func registerContainer() {
-        // Register services
-        container.registerSingleton { Router(container: self.container) }
+        // Register Base Controllers
+        container.register(type: UINavigationController.self) { BaseNavigationController() }
 
         // Register ViewModels
         container.register { RootSplitViewModel() }
@@ -49,13 +36,11 @@ extension MVVM {
         container.register { RootTabsViewController() }
         container.register { CatalogFilerViewController() }
         container.register { UserViewController() }
-
-        // Register ViewController Overlays
-        container.register { LoadingOverlayViewController() }
-        container.register { ErrorOverlayViewController() }
     }
 
-    func registerRouting() {
+    override func registerRouting() {
+        super.registerRouting()
+        
         // Register root ViewModel
         router.registerRoot(RootSplitViewModel.self)
 

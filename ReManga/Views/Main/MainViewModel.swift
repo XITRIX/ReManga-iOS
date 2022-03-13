@@ -7,6 +7,7 @@
 
 import Bond
 import Foundation
+import MVVMFoundation
 
 class MainViewModel: MvvmViewModel {
     let popular = MutableObservableCollection<[ReCatalogContent]>()

@@ -65,7 +65,7 @@ class ReaderViewController: BaseViewController<ReaderViewModel> {
     override func binding() {
         super.binding()
 
-        bindingContext {
+        bind(in: bag) {
             viewModel.score.bind(to: likesLabel)
             viewModel.name.bind(to: chapter.reactive.title)
 
