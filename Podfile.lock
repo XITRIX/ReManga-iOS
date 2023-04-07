@@ -1,0 +1,43 @@
+PODS:
+  - Kingfisher (7.6.2)
+  - MvvmFoundation (0.1.0):
+    - RxBiBinding
+    - RxCocoa (~> 6.5.0)
+    - RxSwift (~> 6.5.0)
+  - RxBiBinding (0.3.5):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+
+DEPENDENCIES:
+  - Kingfisher (~> 7.0)
+  - MvvmFoundation (from `../MvvmFoundation`)
+
+SPEC REPOS:
+  trunk:
+    - Kingfisher
+    - RxBiBinding
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+
+EXTERNAL SOURCES:
+  MvvmFoundation:
+    :path: "../MvvmFoundation"
+
+SPEC CHECKSUMS:
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  MvvmFoundation: 44794136a81e1f993fa09da54831f9eefd506a01
+  RxBiBinding: c4de0aad6ee668fa73ea6ba423bc0ab5d77b986b
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+
+PODFILE CHECKSUM: eb6f7ac9ea35ffb5f405daa1e6e2c6120fa3b73d
+
+COCOAPODS: 1.11.3

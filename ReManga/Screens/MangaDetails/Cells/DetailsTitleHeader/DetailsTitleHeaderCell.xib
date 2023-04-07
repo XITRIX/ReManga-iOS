@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailsTitleHeaderCell" customModule="ReManga" customModuleProvider="target">
+            <connections>
+                <outlet property="backlayerView" destination="zo2-nF-cAs" id="hyo-90-Hc2"/>
+                <outlet property="capView" destination="4Su-Kc-vHe" id="8Oj-XM-Fg8"/>
+                <outlet property="detail" destination="ic1-ZY-TiH" id="nox-Xp-2ue"/>
+                <outlet property="title" destination="ZWA-Lm-XCd" id="DQE-lE-r26"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Br-yR-rKN">
+            <rect key="frame" x="0.0" y="0.0" width="331" height="177"/>
+            <subviews>
+                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zo2-nF-cAs" customClass="GradientView" customModule="ReManga" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="331" height="177"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jap-xL-7IJ">
+                            <rect key="frame" x="16" y="48" width="299" height="85"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWA-Lm-XCd">
+                                    <rect key="frame" x="0.0" y="0.0" width="299" height="49"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" text="Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ic1-ZY-TiH">
+                                    <rect key="frame" x="0.0" y="49" width="299" height="36"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Su-Kc-vHe">
+                            <rect key="frame" x="0.0" y="145" width="331" height="32"/>
+                            <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="eBD-8q-OSj"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailingMargin" secondItem="jap-xL-7IJ" secondAttribute="trailing" id="B5n-cm-mFp"/>
+                        <constraint firstItem="4Su-Kc-vHe" firstAttribute="top" secondItem="jap-xL-7IJ" secondAttribute="bottom" constant="12" id="N0g-vl-bBp"/>
+                        <constraint firstAttribute="trailing" secondItem="4Su-Kc-vHe" secondAttribute="trailing" id="S41-5p-Kg7"/>
+                        <constraint firstAttribute="bottom" secondItem="4Su-Kc-vHe" secondAttribute="bottom" id="WDA-2Q-c0j"/>
+                        <constraint firstItem="jap-xL-7IJ" firstAttribute="leading" secondItem="zo2-nF-cAs" secondAttribute="leadingMargin" id="hVN-0F-zMH"/>
+                        <constraint firstItem="jap-xL-7IJ" firstAttribute="top" secondItem="zo2-nF-cAs" secondAttribute="top" constant="48" id="mMR-aJ-QIo"/>
+                        <constraint firstItem="4Su-Kc-vHe" firstAttribute="leading" secondItem="zo2-nF-cAs" secondAttribute="leading" id="wAD-Au-fbU"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="1Gp-lU-SDw"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="zo2-nF-cAs" firstAttribute="top" secondItem="9Br-yR-rKN" secondAttribute="top" id="7XF-bs-pqs"/>
+                <constraint firstAttribute="bottom" secondItem="zo2-nF-cAs" secondAttribute="bottom" id="D0z-ty-Jlh"/>
+                <constraint firstAttribute="trailing" secondItem="zo2-nF-cAs" secondAttribute="trailing" id="eUs-dA-IG2"/>
+                <constraint firstItem="zo2-nF-cAs" firstAttribute="leading" secondItem="9Br-yR-rKN" secondAttribute="leading" id="nXV-Ui-iz0"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="156.4885496183206" y="158.80281690140845"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
