@@ -25,11 +25,17 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        titleLabel.overrideUserInterfaceStyle = .dark
+        subtitleLabel.overrideUserInterfaceStyle = .dark
+
         setupCap()
         setupNavigationAppearance()
         setupCollectionView()
 
         bind(in: disposeBag) {
+            collectionView.rx.itemSelected.bind { [unowned self] indexPath in
+                viewModel.itemSelected(at: indexPath)
+            }
             viewModel.image.bind { [unowned self] img in
                 activityIndicator.startAnimating()
                 imageView.setImage(img) { [weak self] in
@@ -41,6 +47,13 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
             }
             titleLabel.rx.text <- viewModel.title
             subtitleLabel.rx.text <- viewModel.detail
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selected = collectionView.indexPathsForSelectedItems?.first {
+            collectionView.deselectItem(at: selected, animated: true)
         }
     }
 
@@ -100,7 +113,8 @@ private extension MangaDetailsViewController {
         let scrollAppearance = UINavigationBarAppearance()
         scrollAppearance.configureWithTransparentBackground()
         scrollAppearance.buttonAppearance = scrollButtonsAppearance
-        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.label, renderingMode: .alwaysOriginal), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
+        scrollAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
+        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
         navigationItem.scrollEdgeAppearance = scrollAppearance
 
         let appearance = UINavigationBarAppearance()
@@ -113,9 +127,6 @@ private extension MangaDetailsViewController {
     func setupCollectionView() {
         collectionView.backgroundView = imageViewHolder
         collectionView.delegate = delegates
-
-        collectionView.register(type: DetailsTitleHeaderCell.self)
-        collectionView.register(type: DetailsHeaderCap.self)
 
         collectionView.collectionViewLayout =
         UICollectionViewCompositionalLayout(sectionProvider: { [unowned self] section, env in

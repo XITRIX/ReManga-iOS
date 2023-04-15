@@ -178,8 +178,8 @@ struct NewMangaDetailsResultUser: Codable, Hashable {
 
 // MARK: - NewMangaDetailsResultGenre
 struct NewMangaDetailsResultGenre: Codable, Hashable {
-    let id: Int?
-    let title: NewMangaDetailsResultTitle?
+    let id: Int
+    let title: NewMangaDetailsResultTitle
 }
 
 //

@@ -9,21 +9,35 @@ import MvvmFoundation
 import RxSwift
 import RxRelay
 
+struct CatalogViewConfig {
+    var title: String
+    var isSearchAvailable: Bool
+    var filters: [ApiMangaTag]
+
+    static var `default`: CatalogViewConfig {
+        .init(title: "Каталог", isSearchAvailable: true, filters: [])
+    }
+}
+
 protocol CatalogViewModelProtocol: BaseViewModelProtocol {
     var items: Observable<[MangaCellViewModel]> { get }
     var searchQuery: BehaviorRelay<String?> { get }
+    var isSearchAvailable: BehaviorRelay<Bool> { get }
+    var filters: BehaviorRelay<[ApiMangaTag]> { get }
     func loadNext()
     func showDetails(for model: MangaCellViewModel)
 }
 
-class CatalogViewModel: BaseViewModel, CatalogViewModelProtocol {
+class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelProtocol {
     public let allItems = BehaviorRelay<[MangaCellViewModel]>(value: [])
     public let searchItems = BehaviorRelay<[MangaCellViewModel]>(value: [])
     public let searchQuery = BehaviorRelay<String?>(value: "")
+    public let isSearchAvailable = BehaviorRelay<Bool>(value: true)
+    public let filters = BehaviorRelay<[ApiMangaTag]>(value: [])
 
     public var items: Observable<[MangaCellViewModel]> {
-        Observable.combineLatest(allItems, searchItems).map { (all, search) in
-            if search.isEmpty {
+        Observable.combineLatest(allItems, searchItems).map { [unowned self] (all, search) in
+            if searchQuery.value.isNilOrEmpty {
                 return all
             }
             return search
@@ -32,7 +46,6 @@ class CatalogViewModel: BaseViewModel, CatalogViewModelProtocol {
     
     required init() {
         super.init()
-        title.accept("Каталог")
 
         bind(in: disposeBag) {
             searchQuery.bind { [unowned self] _ in
@@ -41,6 +54,12 @@ class CatalogViewModel: BaseViewModel, CatalogViewModelProtocol {
                 }
             }
         }
+    }
+
+    override func prepare(with model: CatalogViewConfig) {
+        title.accept(model.title)
+        isSearchAvailable.accept(model.isSearchAvailable)
+        filters.accept(model.filters)
     }
 
     func loadNext() {
@@ -68,7 +87,7 @@ extension CatalogViewModel {
         
         page += 1
         await performTask { [self] in
-            let res = try await api.fetchCatalog(page: page)
+            let res = try await api.fetchCatalog(page: page, filters: filters.value)
             allItems.accept(allItems.value + res.map { $0.cellModel })
             isLoading = false
         }

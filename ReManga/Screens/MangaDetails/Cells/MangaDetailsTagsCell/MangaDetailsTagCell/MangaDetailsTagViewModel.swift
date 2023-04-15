@@ -6,5 +6,8 @@
 //
 
 import MvvmFoundation
+import RxRelay
 
-class MangaDetailsTagViewModel: MvvmViewModel {}
+class MangaDetailsTagViewModel: MvvmViewModel {
+    let tag = BehaviorRelay<ApiMangaTag?>(value: nil)
+}

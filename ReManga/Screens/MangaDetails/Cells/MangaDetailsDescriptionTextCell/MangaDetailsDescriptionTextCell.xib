@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsDescriptionTextCell" customModule="ReManga" customModuleProvider="target">
             <connections>
+                <outlet property="expandButton" destination="zSi-H1-5dG" id="Dkf-A8-Od9"/>
                 <outlet property="textLabel" destination="NFC-c4-Jka" id="Acu-cR-njR"/>
             </connections>
         </placeholder>
@@ -19,20 +20,33 @@
             <rect key="frame" x="0.0" y="0.0" width="316" height="121"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NFC-c4-Jka">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jp2-4D-tKy">
                     <rect key="frame" x="16" y="8" width="284" height="105"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NFC-c4-Jka">
+                            <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333332"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSi-H1-5dG">
+                            <rect key="frame" x="0.0" y="28.333333333333336" width="69" height="76.666666666666657"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Раскрыть"/>
+                            <connections>
+                                <action selector="expandAction:" destination="-1" eventType="touchUpInside" id="nVL-1k-xql"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="MkP-hJ-hBh"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="NFC-c4-Jka" secondAttribute="bottom" constant="8" id="0hV-1c-9Jh"/>
-                <constraint firstItem="NFC-c4-Jka" firstAttribute="leading" secondItem="ACd-zl-3D5" secondAttribute="leadingMargin" id="Akg-BQ-pWl"/>
-                <constraint firstAttribute="trailingMargin" secondItem="NFC-c4-Jka" secondAttribute="trailing" id="Xok-ic-Yoo"/>
-                <constraint firstItem="NFC-c4-Jka" firstAttribute="top" secondItem="ACd-zl-3D5" secondAttribute="top" constant="8" id="rNq-yZ-Ud3"/>
+                <constraint firstAttribute="trailingMargin" secondItem="jp2-4D-tKy" secondAttribute="trailing" id="YzP-XN-Tdm"/>
+                <constraint firstAttribute="bottom" secondItem="jp2-4D-tKy" secondAttribute="bottom" constant="8" id="aEZ-NC-Kd6"/>
+                <constraint firstItem="jp2-4D-tKy" firstAttribute="top" secondItem="ACd-zl-3D5" secondAttribute="top" constant="8" id="cDU-IY-gYr"/>
+                <constraint firstItem="jp2-4D-tKy" firstAttribute="leading" secondItem="ACd-zl-3D5" secondAttribute="leadingMargin" id="nqa-nP-rBm"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-244.27480916030532" y="260.21126760563379"/>

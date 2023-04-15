@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="dateLabel" destination="4gB-jK-gkF" id="Qsw-ND-hzE"/>
                 <outlet property="nameLabel" destination="3Vz-B9-S4T" id="T1C-kf-nFm"/>
+                <outlet property="teamLabel" destination="WZx-W0-J5B" id="q5d-OX-pJ0"/>
                 <outlet property="tomeLabel" destination="8qK-xC-dEp" id="J6M-0r-CHF"/>
             </connections>
         </placeholder>

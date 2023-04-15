@@ -33,11 +33,11 @@ struct NewMangaTitleChapterResultItem: Codable, Hashable {
     let isAvailable, isViewed, hasHeart: Bool?
     let translator: String?
     let expiresAt: String?
-    let createdAt: String?
+    let createdAt: String
     let isExpired: Bool?
     let pages: Int?
     let isPublished, isParsed: Bool?
-    let origin: NewMangaTitleChapterResultOrigin?
+//    let origin: NewMangaTitleChapterResultOrigin?
 
     enum CodingKeys: String, CodingKey {
         case id, tom, name, number
@@ -54,11 +54,12 @@ struct NewMangaTitleChapterResultItem: Codable, Hashable {
         case pages
         case isPublished = "is_published"
         case isParsed = "is_parsed"
-        case origin
+//        case origin
     }
 }
 
 enum NewMangaTitleChapterResultOrigin: String, Codable, Hashable {
     case appDisk1Main = "app_disk1_main"
     case appDisk2Main = "app_disk2_main"
+    case appDisk2Parsed = "app_disk2_parsed"
 }

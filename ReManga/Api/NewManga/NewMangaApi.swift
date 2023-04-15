@@ -11,11 +11,15 @@ class NewMangaApi: ApiProtocol {
     let decoder = JSONDecoder()
     static let imgPath: String = "https://img.newmanga.org/ProjectCard/webp/"
 
-    func fetchCatalog(page: Int) async throws -> [ApiMangaModel] {
-        try await fetchSearch(query: "", page: page)
+    func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
+        try await fetchSearch(query: "", page: page, filters: filters)
     }
 
     func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel] {
+        try await fetchSearch(query: query, page: page, filters: [])
+    }
+
+    func fetchSearch(query: String, page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel] {
         let url = URL(string: "https://neo.newmanga.org/catalogue")!
 
         var request = URLRequest(
@@ -26,6 +30,17 @@ class NewMangaApi: ApiProtocol {
         var body = NewMangaCatalogRequest()
         body.query = query
         body.pagination.page = page
+
+        for filter in filters {
+            switch filter.kind {
+            case .tag:
+                body.filter.tags.included.append(filter.name)
+            case .type:
+                body.filter.type.allowed.append(filter.name)
+            case .genre:
+                body.filter.genres.included.append(filter.name)
+            }
+        }
 
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -47,21 +62,19 @@ class NewMangaApi: ApiProtocol {
         return await MainActor.run { ApiMangaModel(from: model) }
     }
 
-    func fetchTitleChapters(branch: String, count: Int? = nil) async throws -> [ApiMangaChapterModel] {
-        var _count = count
-        if _count == nil {
-            let url = "https://api.newmanga.org/v2/branches/\(branch)/chapters?reverse=true&page=1&size=1"
-            let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
-            let r_model = try JSONDecoder().decode(NewMangaTitleChapterResult.self, from: result)
-            _count = r_model.count
-        }
-
-        guard let _count else { fatalError("Undefined behaviour") }
-
-        let url = "https://api.newmanga.org/v2/branches/\(branch)/chapters?reverse=true&page=1&size=\(_count)"
+    func fetchTitleChapters(branch: String) async throws -> [ApiMangaChapterModel] {
+        let url = "https://api.newmanga.org/v3/branches/\(branch)/chapters/all"
         let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
-        let model = try JSONDecoder().decode(NewMangaTitleChapterResult.self, from: result)
+        let model = try JSONDecoder().decode([NewMangaTitleChapterResultItem].self, from: result)
 
-        return await MainActor.run { model.items.map { .init(from: $0) } }
+        return await MainActor.run { model.map { .init(from: $0) }.reversed() }
+    }
+
+    func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
+        let url = "https://api.newmanga.org/v3/chapters/\(id)/pages"
+        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let model = try JSONDecoder().decode(NewMangaChapterPagesResult.self, from: result)
+
+        return await MainActor.run { model.getPages(chapter: id) }
     }
 }

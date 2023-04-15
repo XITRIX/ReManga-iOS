@@ -14,6 +14,7 @@ import RxBiBinding
 class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
     private var keyboardToken: KeyboardHandler!
+    private let searchController = UISearchController()
 
     private var collectionViewFlowLayout: UICollectionViewFlowLayout {
         get { collectionView.collectionViewLayout as! UICollectionViewFlowLayout }
@@ -29,9 +30,9 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
 
         keyboardToken = KeyboardHandler(collectionView)
         collectionView.delegate = delegates
-        let searchController = UISearchController()
+
+        navigationItem.largeTitleDisplayMode = .always
         searchController.searchBar.placeholder = "Поиск"
-        navigationItem.searchController = searchController
 
         bind(in: disposeBag) {
             viewModel.searchQuery <- searchController.searchBar.rx.text.throttle(.seconds(1), scheduler: MainScheduler.instance)
@@ -41,6 +42,9 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
             collectionView.rx.itemSelected.bind { [unowned self] indexPath in
                 let item = dataSource.snapshot().itemIdentifiers(inSection: indexPath.section)[indexPath.item]
                 viewModel.showDetails(for: item.viewModel)
+            }
+            viewModel.isSearchAvailable.bind { [unowned self] available in
+                navigationItem.searchController = available ? searchController : nil
             }
         }
     }

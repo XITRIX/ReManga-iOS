@@ -28,8 +28,8 @@ extension ApiMangaModel {
         bookmarks = model.bookmarks?.kmbFormatted ?? "--"
         sees = model.views?.kmbFormatted ?? "--"
 
-        genres = model.genres?.compactMap { $0.title?.ru } ?? []
-        tags = model.tags?.compactMap { $0.title?.ru } ?? []
+        genres = model.genres?.compactMap { .init(id: String($0.id), name: $0.title.ru ?? "", kind: .genre)  } ?? []
+        tags = model.tags?.compactMap { .init(id: String($0.id), name: $0.title.ru ?? "", kind: .tag) } ?? []
 
         branches = model.branches?.compactMap { .init(id: String($0.id), count: $0.chaptersTotal) } ?? []
     }
@@ -37,9 +37,30 @@ extension ApiMangaModel {
 
 extension ApiMangaChapterModel {
     init(from model: NewMangaTitleChapterResultItem) {
+        id = String(model.id ?? 0)
         tome = model.tom ?? 0
         chapter = String(format: "%g", model.number ?? 0)
-        date = "11/11/2011"
+        team = model.translator
+
+        let dateFormatter = ISO8601DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss[.SSS]±hh:mm"
+        dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
+        date = dateFormatter.date(from: model.createdAt)!
+    }
+}
+
+//extension ApiMangaChapterPageModel {
+//    init(from model: NewMangaChapterPagesResultSlice) {
+//        size = CGSize(width: model.size.width, height: model.size.height)
+//        path = model.path
+//    }
+//}
+
+extension NewMangaChapterPagesResult {
+    func getPages(chapter id: String) -> [ApiMangaChapterPageModel] {
+        let rootPath = "https://storage.newmanga.org/origin_proxy/"
+        let pages = pages.flatMap { $0.slices }.compactMap { $0 }
+        return pages.map { ApiMangaChapterPageModel(size: CGSize(width: $0.size.width, height: $0.size.height), path: "\(rootPath)/\(origin)/\(id)/\($0.path)") }
     }
 }
 

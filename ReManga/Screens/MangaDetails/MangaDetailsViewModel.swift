@@ -46,9 +46,25 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
             selectorVM.selected.bind { [unowned self] segment in
                 Task { await selectSegment(segment) }
             }
+            tagsVM.tagSelected.bind { [unowned self] tag in
+                Task { await tagSelected(tag) }
+            }
         }
     }
 
+    func itemSelected(at indexPath: IndexPath) {
+        guard let model = items.value[indexPath.section].items[indexPath.item] as? MangaDetailsChapterViewModel
+        else { return }
+
+        navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: true))
+    }
+
+    func tagSelected(_ tag: ApiMangaTag) {
+        navigate(to: CatalogViewModel.self, with: .init(title: tag.name.capitalizedSentence, isSearchAvailable: false, filters: [tag]), by: .show)
+    }
+}
+
+private extension MangaDetailsViewModel {
     func refresh() {
         selectSegment(selectorVM.selected.value)
     }
@@ -57,7 +73,7 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
         let headerSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [statusVM, selectorVM])
         switch segment {
         case 0:
-            let descriptionSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [tagsVM, descriptionVM])
+            let descriptionSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [descriptionVM, tagsVM])
             items.accept([headerSection, descriptionSection])
         case 1:
             let chaptersSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: true, items: chapters.value)
@@ -75,7 +91,7 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
             image.accept(res.img)
 
             if let branch = res.branches.first {
-                let chaptersRes = try await api.fetchTitleChapters(branch: branch.id, count: branch.count)
+                let chaptersRes = try await api.fetchTitleChapters(branch: branch.id)
                 chapters.accept(chaptersRes.map { chapter in
                     let res = MangaDetailsChapterViewModel()
                     res.prepare(with: chapter)
@@ -92,9 +108,11 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
             detail.accept(res.subtitle)
             descriptionVM.title.accept(res.description)
 
-            tagsVM.tags.accept(res.tags.map { tag in
+            let tags = res.genres + res.tags
+
+            tagsVM.tags.accept(tags.map { tag in
                 let res = MangaDetailsTagViewModel()
-                res.title.accept(tag)
+                res.tag.accept(tag)
                 return res
             })
 

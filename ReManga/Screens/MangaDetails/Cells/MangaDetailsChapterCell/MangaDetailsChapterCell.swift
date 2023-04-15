@@ -13,6 +13,7 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
     @IBOutlet private var tomeLabel: UILabel!
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var dateLabel: UILabel!
+    @IBOutlet private var teamLabel: UILabel!
 
     override func initSetup() {
         accessories = [.disclosureIndicator()]
@@ -23,6 +24,7 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
             tomeLabel.rx.text <- viewModel.tome
             nameLabel.rx.text <- viewModel.chapter
             dateLabel.rx.text <- viewModel.date
+            teamLabel.rx.text <- viewModel.team
         }
     }
 }

@@ -131,7 +131,7 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailingMargin" secondItem="Jc5-l6-mSp" secondAttribute="trailing" id="MLJ-2J-w0h"/>
                                 <constraint firstItem="Jc5-l6-mSp" firstAttribute="leading" secondItem="k8D-pP-kSf" secondAttribute="leadingMargin" id="Phg-kI-ojh"/>
@@ -141,7 +141,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="k8D-pP-kSf" firstAttribute="leading" secondItem="tuu-MU-73I" secondAttribute="leadingMargin" id="I4X-Uw-r0v"/>
                         <constraint firstItem="k8D-pP-kSf" firstAttribute="top" secondItem="tuu-MU-73I" secondAttribute="top" id="PWw-kz-rUE"/>
@@ -169,11 +169,11 @@
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="secondarySystemGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGroupedBackgroundColor">
+        <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

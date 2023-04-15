@@ -22,11 +22,11 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(MvvmTabBarController<MainTabBarViewModel>.self)
         router.register(CatalogViewController<CatalogViewModel>.self)
         router.register(MangaDetailsViewController<MangaDetailsViewModel>.self)
+        router.register(MangaReaderViewController<MangaReaderViewModel>.self)
 
         // Cells
         router.register(MangaCell<MangaCellViewModel>.self)
         router.register(DetailsHeaderCap<DetailsHeaderCapViewModel>.self)
-        router.register(DetailsTitleHeaderCell<DetailsTitleHeaderViewModel>.self)
         router.register(MangaDetailsDescriptionTextCell<MangaDetailsDescriptionTextViewModel>.self)
         router.register(MangaDetailsSelectorCell<MangaDetailsSelectorViewModel>.self)
         router.register(MangaDetailsTagsCell<MangaDetailsTagsViewModel>.self)

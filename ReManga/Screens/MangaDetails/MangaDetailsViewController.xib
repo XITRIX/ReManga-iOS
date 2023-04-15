@@ -39,7 +39,7 @@
                 </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="FsN-FQ-f27" secondAttribute="bottom" id="L4f-CY-vin"/>
                 <constraint firstItem="FsN-FQ-f27" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yxw-na-jL1"/>
@@ -81,7 +81,7 @@
                         </stackView>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yfj-eX-be3">
                             <rect key="frame" x="0.0" y="121.33333333333331" width="393" height="32"/>
-                            <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="GQ0-i5-5zy"/>
                             </constraints>
@@ -136,8 +136,8 @@
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

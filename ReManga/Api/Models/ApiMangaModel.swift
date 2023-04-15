@@ -7,6 +7,16 @@
 
 import Foundation
 
+struct ApiMangaTag: Codable, Hashable {
+    enum Kind: Codable {
+        case tag, type, genre
+    }
+
+    var id: String
+    var name: String
+    var kind: Kind
+}
+
 struct ApiMangaModel: Codable, Hashable {
     let title: String
     let rusTitle: String?
@@ -19,7 +29,7 @@ struct ApiMangaModel: Codable, Hashable {
     var likes: String? = nil
     var sees: String? = nil
     var bookmarks: String? = nil
-    var genres: [String] = []
-    var tags: [String] = []
+    var genres: [ApiMangaTag] = []
+    var tags: [ApiMangaTag] = []
     var branches: [ApiMangaBranchModel] = []
 }
