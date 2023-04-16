@@ -132,14 +132,14 @@ struct NewMangaDetailsResultTranslator: Codable, Hashable {
 //    let balance: JSONNull?
     let isTeam: Bool?
     let user: NewMangaDetailsResultUser?
-//    let team: JSONNull?
+    let team: NewMangaDetailsResultTeam?
 
     enum CodingKeys: String, CodingKey {
         case id
 //        case balance
         case isTeam = "is_team"
         case user
-//         case team
+        case team
     }
 }
 
@@ -166,6 +166,18 @@ struct NewMangaDetailsResultUser: Codable, Hashable {
         case isActive = "is_active"
         case lastLogin = "last_login"
         case isOnline = "is_online"
+        case image
+    }
+}
+
+// MARK: - NewMangaDetailsResultTeam
+struct NewMangaDetailsResultTeam: Codable, Hashable {
+    let id: Int?
+    let name: String?
+    let image: NewMangaDetailsResultImage?
+
+    enum CodingKeys: String, CodingKey {
+        case id, name
         case image
     }
 }

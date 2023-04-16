@@ -8,4 +8,6 @@
 import MvvmFoundation
 import RxRelay
 
-class MangaDetailsDescriptionTextViewModel: MvvmViewModel {}
+class MangaDetailsDescriptionTextViewModel: MvvmViewModel {
+    let isExpanded = BehaviorRelay<Bool>(value: false)
+}

@@ -34,6 +34,8 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     let detail = BehaviorRelay<String?>(value: nil)
     let items = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
     let chapters = BehaviorRelay<[MangaDetailsChapterViewModel]>(value: [])
+    let translators = BehaviorRelay<[MangaDetailsTranslatorViewModel]>(value: [])
+    let comments = BehaviorRelay<[MangaDetailsCommentViewModel]?>(value: nil)
 
     override func prepare(with model: String) {
         loadDetails(for: model)
@@ -73,11 +75,24 @@ private extension MangaDetailsViewModel {
         let headerSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [statusVM, selectorVM])
         switch segment {
         case 0:
-            let descriptionSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [descriptionVM, tagsVM])
+            var descriptionSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [])
+            if !descriptionVM.title.value.isNilOrEmpty {
+                descriptionSection.items.append(descriptionVM)
+            }
+            if !tagsVM.tags.value.isEmpty {
+                descriptionSection.items.append(tagsVM)
+            }
+            if !translators.value.isEmpty {
+                descriptionSection.items.append(MangaDetailsHeaderViewModel(with: "Переводчики"))
+                translators.value.forEach { descriptionSection.items.append($0) }
+            }
             items.accept([headerSection, descriptionSection])
         case 1:
             let chaptersSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: true, items: chapters.value)
             items.accept([headerSection, chaptersSection])
+        case 2:
+            let commentsSection = MvvmCollectionSectionModel(style: .plain, showsSeparators: false, items: comments.value ?? [])
+            items.accept([headerSection, commentsSection])
         default:
             items.accept([headerSection])
         }
@@ -99,6 +114,8 @@ private extension MangaDetailsViewModel {
                 })
             }
 
+            await comments.accept(try api.fetchComments(id: id).map { .init(with: $0) })
+
             statusVM.rating.accept(res.rating)
             statusVM.likes.accept(res.likes)
             statusVM.sees.accept(res.sees)
@@ -115,6 +132,8 @@ private extension MangaDetailsViewModel {
                 res.tag.accept(tag)
                 return res
             })
+
+            translators.accept(res.branches.flatMap { $0.translators }.map { .init(with: $0) })
 
             refresh()
             state.accept(.default)

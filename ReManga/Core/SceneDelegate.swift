@@ -32,6 +32,11 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(MangaDetailsTagsCell<MangaDetailsTagsViewModel>.self)
         router.register(MangaDetailsTagCell<MangaDetailsTagViewModel>.self)
         router.register(MangaDetailsChapterCell<MangaDetailsChapterViewModel>.self)
+        router.register(MangaDetailsTranslatorCell<MangaDetailsTranslatorViewModel>.self)
+        router.register(MangaDetailsHeaderCell<MangaDetailsHeaderViewModel>.self)
+        router.register(MangaDetailsLoadingPlaceholderCell<MangaDetailsLoadingPlaceholderViewModel>.self)
+        router.register(MangaDetailsCommentCell<MangaDetailsCommentViewModel>.self)
+
 
 
 

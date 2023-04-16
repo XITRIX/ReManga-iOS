@@ -10,5 +10,6 @@ import RxRelay
 
 class MangaDetailsTagsViewModel: MvvmViewModel {
     let tags = BehaviorRelay<[MangaDetailsTagViewModel]>(value: [])
+    let isExpanded = BehaviorRelay<Bool>(value: false)
     let tagSelected = PublishRelay<ApiMangaTag>()
 }

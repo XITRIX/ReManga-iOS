@@ -77,4 +77,12 @@ class NewMangaApi: ApiProtocol {
 
         return await MainActor.run { model.getPages(chapter: id) }
     }
+
+    func fetchComments(id: String) async throws -> [ApiMangaCommentModel] {
+        let url = "https://api.newmanga.org/v2/projects/\(id)/comments?sort_by=new"
+        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let model = try JSONDecoder().decode(NewMangaTitleCommentsResult.self, from: result)
+
+        return await MainActor.run { model.compactMap { .init(from: $0) } }
+    }
 }

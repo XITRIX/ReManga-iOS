@@ -13,6 +13,7 @@ protocol ApiProtocol: AnyObject {
     func fetchDetails(id: String) async throws -> ApiMangaModel
     func fetchTitleChapters(branch: String) async throws -> [ApiMangaChapterModel]
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel]
+    func fetchComments(id: String) async throws -> [ApiMangaCommentModel]
 }
 
 extension ApiProtocol {

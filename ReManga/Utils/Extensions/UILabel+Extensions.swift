@@ -9,7 +9,8 @@ import UIKit
 
 extension UILabel {
     var isTruncated: Bool {
-        guard let labelText = text
+        guard let labelText = text,
+              !labelText.isEmpty
         else { return false }
 
         let labelTextSize = (labelText as NSString).boundingRect(

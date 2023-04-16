@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsTranslatorCell" customModule="ReManga" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="bJa-pU-i8K" id="s39-M3-4lB"/>
+                <outlet property="subtitleLabel" destination="xgd-kN-drx" id="6XD-CR-zsW"/>
+                <outlet property="titleLabel" destination="5Hs-ST-Yfs" id="CVB-SX-EaD"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="8B3-4y-ij9">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="F2f-hD-ZOB">
+                    <rect key="frame" x="16" y="8" width="361" height="54"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bJa-pU-i8K">
+                            <rect key="frame" x="0.0" y="1" width="52" height="52"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="52" id="96F-zm-BN0"/>
+                                <constraint firstAttribute="height" constant="52" id="EDg-dL-cTi"/>
+                            </constraints>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IUb-wj-A5z">
+                            <rect key="frame" x="68" y="5.3333333333333321" width="293" height="43.333333333333343"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XITRIX Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Hs-ST-Yfs">
+                                    <rect key="frame" x="0.0" y="0.0" width="293" height="25.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Команда" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgd-kN-drx">
+                                    <rect key="frame" x="0.0" y="25.333333333333329" width="293" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="9Bt-zE-vjO"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="F2f-hD-ZOB" firstAttribute="centerY" secondItem="8B3-4y-ij9" secondAttribute="centerY" id="1P6-WK-B8V"/>
+                <constraint firstAttribute="trailingMargin" secondItem="F2f-hD-ZOB" secondAttribute="trailing" id="26a-oT-kVL"/>
+                <constraint firstAttribute="bottom" secondItem="F2f-hD-ZOB" secondAttribute="bottom" constant="8" id="5k2-aB-QgD"/>
+                <constraint firstItem="F2f-hD-ZOB" firstAttribute="leading" secondItem="8B3-4y-ij9" secondAttribute="leadingMargin" id="Awn-wv-V6e"/>
+                <constraint firstItem="F2f-hD-ZOB" firstAttribute="top" secondItem="8B3-4y-ij9" secondAttribute="top" constant="8" id="dKW-3b-Uez"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-106.10687022900763" y="301.40845070422534"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

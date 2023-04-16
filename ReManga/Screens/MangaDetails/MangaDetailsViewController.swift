@@ -87,7 +87,7 @@ private extension MangaDetailsViewController {
         for section in sections {
             snapshot.appendItems(section.items.map { .init(viewModel: $0) }, toSection: section)
         }
-        dataSource.apply(snapshot, animatingDifferences: false) {
+        dataSource.apply(snapshot, animatingDifferences: true) {
             self.updateCollectionViewInset()
         }
     }

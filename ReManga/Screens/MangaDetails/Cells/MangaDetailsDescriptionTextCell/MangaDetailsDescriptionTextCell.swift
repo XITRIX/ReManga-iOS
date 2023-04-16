@@ -11,26 +11,25 @@ import MvvmFoundation
 class MangaDetailsDescriptionTextCell<VM: MangaDetailsDescriptionTextViewModel>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var expandButton: UIButton!
+    private var viewModel: VM!
 
     override func setup(with viewModel: VM) {
+        self.viewModel = viewModel
         bind(in: disposeBag) {
-//            textLabel.rx.text <- viewModel.title
             viewModel.title.bind { [unowned self] text in
                 textLabel.text = text
-                textLabel.numberOfLines = 4
-                expandButton.isHidden = !textLabel.isTruncated
+                invalidateIntrinsicContentSize()
+            }
+            viewModel.isExpanded.bind { [unowned self] expanded in
+                textLabel.numberOfLines = expanded ? 0 : 4
+                expandButton.isHidden = expanded || !textLabel.isTruncated
                 invalidateIntrinsicContentSize()
             }
         }
     }
 
     @IBAction func expandAction(_ sender: UIButton) {
-        textLabel.numberOfLines = 0
-        sender.isHidden = true
-        invalidateIntrinsicContentSize()
+        viewModel.isExpanded.accept(true)
     }
-    //    override func layoutSubviews() {
-//        super.layoutSubviews()
-//    }
 
 }

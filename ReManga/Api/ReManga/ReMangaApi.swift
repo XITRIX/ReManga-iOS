@@ -31,4 +31,8 @@ class ReMangaApi: ApiProtocol {
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
         fatalError("fetchChapter(id:) has not been implemented")
     }
+
+    func fetchComments(id: String) async throws -> [ApiMangaCommentModel] {
+        fatalError("fetchComments(id:) has not been implemented")
+    }
 }

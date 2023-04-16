@@ -10,6 +10,7 @@ import Foundation
 struct ApiMangaBranchModel: Codable, Hashable {
     var id: String
     var count: Int
+    var translators: [ApiMangaTranslatorModel]
 }
 
 struct ApiMangaChapterModel: Codable, Hashable {

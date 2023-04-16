@@ -32,4 +32,5 @@ struct ApiMangaModel: Codable, Hashable {
     var genres: [ApiMangaTag] = []
     var tags: [ApiMangaTag] = []
     var branches: [ApiMangaBranchModel] = []
+    var translators: [ApiMangaTranslatorModel] = []
 }

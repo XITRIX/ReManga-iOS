@@ -45,6 +45,7 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
             }
             viewModel.isSearchAvailable.bind { [unowned self] available in
                 navigationItem.searchController = available ? searchController : nil
+                collectionView.setContentOffset(.init(x: 0, y: -200), animated: false)
             }
         }
     }

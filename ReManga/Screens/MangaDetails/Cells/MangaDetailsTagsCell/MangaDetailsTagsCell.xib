@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="310" height="81"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ndS-xR-Zzz" customClass="TagListView" customModule="ReManga" customModuleProvider="target">
+                <view contentMode="TopLeft" translatesAutoresizingMaskIntoConstraints="NO" id="ndS-xR-Zzz" customClass="TagListView" customModule="ReManga" customModuleProvider="target">
                     <rect key="frame" x="16" y="8" width="278" height="65"/>
                 </view>
             </subviews>

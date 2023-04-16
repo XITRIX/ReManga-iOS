@@ -31,7 +31,85 @@ extension ApiMangaModel {
         genres = model.genres?.compactMap { .init(id: String($0.id), name: $0.title.ru ?? "", kind: .genre)  } ?? []
         tags = model.tags?.compactMap { .init(id: String($0.id), name: $0.title.ru ?? "", kind: .tag) } ?? []
 
-        branches = model.branches?.compactMap { .init(id: String($0.id), count: $0.chaptersTotal) } ?? []
+        branches = model.branches?.compactMap { .init(from: $0) } ?? []
+    }
+}
+
+extension ApiMangaCommentModel {
+    init?(from model: NewMangaTitleComment) {
+        id = String(model.id)
+        children = model.children?.compactMap { .init(from: $0) } ?? []
+        name = model.user?.name ?? ""
+
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
+        date = dateFormatter.date(from: model.createdAt)!
+
+        let imageRoot = "https://img.newmanga.org/AvatarSmall/webp/"
+        imagePath = imageRoot + (model.user?.image?.name ?? "")
+
+        do {
+            guard let data = model.html?.data(using: .utf8)
+            else { return nil }
+
+            text = try NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html],
+                documentAttributes: nil)
+        } catch { return nil }
+    }
+
+    init?(from model: NewMangaTitleCommentsResultChild) {
+        id = String(model.id)
+        children = model.children?.compactMap { .init(from: $0) } ?? []
+        name = model.user?.name ?? ""
+
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
+        date = dateFormatter.date(from: model.createdAt)!
+
+        let imageRoot = "https://img.newmanga.org/AvatarSmall/webp/"
+        imagePath = imageRoot + (model.user?.image?.name ?? "")
+
+        do {
+            guard let data = model.html?.data(using: .utf8)
+            else { return nil }
+
+            text = try NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html],
+                documentAttributes: nil)
+        } catch { return nil }
+    }
+}
+
+extension ApiMangaBranchModel {
+    init(from model: NewMangaDetailsResultBranch) {
+        self.init(id: String(model.id),
+                  count: model.chaptersTotal,
+                  translators: model.translators?.compactMap { .init(from: $0) } ?? [])
+    }
+}
+
+extension ApiMangaTranslatorModel {
+    init?(from model: NewMangaDetailsResultTranslator) {
+        let imageRoot = "https://img.newmanga.org/AvatarSmall/webp/"
+
+        if model.isTeam == true {
+            guard let team = model.team
+            else { return nil }
+
+            title = team.name ?? ""
+            imagePath = imageRoot + (team.image?.name ?? "")
+            type = "Команда"
+        } else {
+            guard let user = model.user
+            else { return nil }
+
+            title = user.name ?? ""
+            imagePath = imageRoot + (user.image?.name ?? "")
+            type = "Пользователь"
+        }
     }
 }
 
