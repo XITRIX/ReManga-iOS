@@ -105,7 +105,7 @@ private extension MangaDetailsViewModel {
         switch segment {
         case 0:
             var descriptionSection: MvvmCollectionSectionModel = .init(id: "description", style: .plain, showsSeparators: false, items: [])
-            if !descriptionVM.title.value.isNilOrEmpty {
+            if !(descriptionVM.text.value?.string.isEmpty ?? true) {
                 descriptionSection.items.append(descriptionVM)
             }
             if !tagsVM.tags.value.isEmpty {
@@ -166,7 +166,7 @@ private extension MangaDetailsViewModel {
 
 //            titleVM.title.accept(title.value)
             detail.accept(res.subtitle)
-            descriptionVM.title.accept(res.description)
+            descriptionVM.text.accept(res.description)
 
             let tags = res.genres + res.tags
 

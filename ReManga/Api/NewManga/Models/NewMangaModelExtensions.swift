@@ -22,7 +22,7 @@ extension ApiMangaModel {
         rusTitle = model.title?.ru ?? ""
         img = NewMangaApi.imgPath + (model.image?.name ?? "")
 
-        description = model.description
+        description = NSMutableAttributedString(string: model.description ?? "")
         subtitle = "\([model.title?.en, model.title?.original].compactMap { $0 }.joined(separator: " / "))\n\([model.type?.name, model.status?.name].compactMap { $0 }.joined(separator: " ⸱ "))"
         rating = model.rating == nil ? nil : String(format: "%.2f", model.rating!)
         likes = model.hearts?.kmbFormatted ?? "--"
@@ -89,25 +89,44 @@ extension ApiMangaCommentModel {
 }
 
 private extension String {
-    func htmlToAttributedString() throws -> NSMutableAttributedString? {
-        let font = UIFont.systemFont(ofSize: 17)
-        let string = appending(String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", font.fontName, font.pointSize))
+    func htmlToAttributedString(of size: Int = 17) -> NSMutableAttributedString? {
+        let htmlTemplate = """
+        <!doctype html>
+        <html>
+          <head>
+            <style>
+              body {
+                font-family: -apple-system;
+                font-size: \(size)px;
+              }
+            </style>
+          </head>
+          <body>
+            \(self)
+          </body>
+        </html>
+        """
 
-        guard let data = string.data(using: .utf8)
-        else { return nil }
+        guard let data = htmlTemplate.data(using: .utf8) else {
+            return nil
+        }
 
-        let text = try NSMutableAttributedString(
+        guard let attributedString = try? NSMutableAttributedString(
             data: data,
             options: [.documentType: NSAttributedString.DocumentType.html,
                       .characterEncoding: String.Encoding.utf8.rawValue],
-            documentAttributes: nil)
+            documentAttributes: nil
+        ) else {
+            return nil
+        }
 
         let attrs: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.label
         ]
 
-        text.addAttributes(attrs, range: .init(location: 0, length: text.length))
-        return text
+        attributedString.addAttributes(attrs, range: .init(location: 0, length: attributedString.length))
+
+        return attributedString
     }
 }
 

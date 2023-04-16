@@ -16,8 +16,8 @@ class MangaDetailsDescriptionTextCell<VM: MangaDetailsDescriptionTextViewModel>:
     override func setup(with viewModel: VM) {
         self.viewModel = viewModel
         bind(in: disposeBag) {
-            viewModel.title.bind { [unowned self] text in
-                textLabel.text = text
+            viewModel.text.bind { [unowned self] text in
+                textLabel.attributedText = text
                 invalidateIntrinsicContentSize()
             }
             viewModel.isExpanded.bind { [unowned self] expanded in

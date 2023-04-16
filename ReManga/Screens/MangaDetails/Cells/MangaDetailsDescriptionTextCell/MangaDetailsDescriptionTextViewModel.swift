@@ -9,5 +9,6 @@ import MvvmFoundation
 import RxRelay
 
 class MangaDetailsDescriptionTextViewModel: MvvmViewModel {
+    let text = BehaviorRelay<NSMutableAttributedString?>(value: nil)
     let isExpanded = BehaviorRelay<Bool>(value: false)
 }

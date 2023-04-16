@@ -17,13 +17,13 @@ struct ApiMangaTag: Codable, Hashable {
     var kind: Kind
 }
 
-struct ApiMangaModel: Codable, Hashable {
+struct ApiMangaModel: Hashable {
     let title: String
     let rusTitle: String?
     let img: String
     let id: String
 
-    var description: String? = nil
+    var description: NSMutableAttributedString? = nil
     var subtitle: String? = nil
     var rating: String? = nil
     var likes: String? = nil
