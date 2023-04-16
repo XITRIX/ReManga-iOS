@@ -7,15 +7,9 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 
 extension UIImageView {
-    var imageUrl: String? {
-        get { "" }
-        set {
-            guard let newValue else { return image = nil }
-            kf.setImage(with: URL(string: newValue))
-        }
-    }
 
     func setImage(_ url: String?, completion: (() -> Void)? = nil) {
         guard let url else {
@@ -28,5 +22,17 @@ extension UIImageView {
             completion?()
         }
 
+    }
+}
+
+extension Reactive where Base: UIImageView {
+    public func imageUrl(with activityIndicator: UIActivityIndicatorView? = nil) -> Binder<String?> {
+        Binder(self.base) { imageView, image in
+            guard let image else { return }
+            activityIndicator?.startAnimating()
+            imageView.kf.setImage(with: URL(string: image)) { _ in
+                activityIndicator?.stopAnimating()
+            }
+        }
     }
 }

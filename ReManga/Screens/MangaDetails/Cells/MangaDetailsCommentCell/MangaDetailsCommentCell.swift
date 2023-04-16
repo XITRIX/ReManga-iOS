@@ -8,6 +8,7 @@
 import UIKit
 import MvvmFoundation
 import RxSwift
+import RxCocoa
 
 class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var nameLabel: UILabel!
@@ -20,7 +21,8 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
     @IBOutlet private var leftOffsetConstraint: NSLayoutConstraint!
     @IBOutlet private var hierarchyStack: UIStackView!
     @IBOutlet private var pinImageView: UIImageView!
-    
+    @IBOutlet private var activityView: UIActivityIndicatorView!
+
     private var viewModel: VM!
 
     override func initSetup() {
@@ -39,7 +41,7 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
             nameLabel.rx.text <- viewModel.name
             dateLabel.rx.text <- viewModel.date
             scoreLabel.rx.text <- viewModel.score.map(String.init)
-            imageView.rx.imageUrl <- viewModel.image
+            imageView.rx.imageUrl(with: activityView) <- viewModel.image
             Observable.combineLatest(viewModel.score, viewModel.isPinned).bind { [unowned self] (score, pinned) in
                 applyScore(score, pinned)
             }
@@ -78,10 +80,10 @@ private extension MangaDetailsCommentCell {
             return
         }
 
-        if score > 10 {
+        if score >= 10 {
             messageContainer.layer.borderWidth = 1
             messageContainer.layer.borderColor = CGColor(red: 205/255, green: 127/255, blue: 50/255, alpha: 1)
-        } else if score > 10 {
+        } else if score >= 25 {
             messageContainer.layer.borderWidth = 1
             messageContainer.layer.borderColor = CGColor(red: 217/255, green: 170/255, blue:6/255, alpha: 1)
         } else {

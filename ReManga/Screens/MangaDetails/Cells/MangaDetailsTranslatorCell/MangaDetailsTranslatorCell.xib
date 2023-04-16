@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsTranslatorCell" customModule="ReManga" customModuleProvider="target">
             <connections>
+                <outlet property="activityView" destination="AVp-vQ-paP" id="Nfo-dN-sXl"/>
                 <outlet property="imageView" destination="bJa-pU-i8K" id="s39-M3-4lB"/>
                 <outlet property="subtitleLabel" destination="xgd-kN-drx" id="6XD-CR-zsW"/>
                 <outlet property="titleLabel" destination="5Hs-ST-Yfs" id="CVB-SX-EaD"/>
@@ -24,13 +25,30 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="F2f-hD-ZOB">
                     <rect key="frame" x="16" y="8" width="361" height="54"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bJa-pU-i8K">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYe-gF-ccS">
                             <rect key="frame" x="0.0" y="1" width="52" height="52"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bJa-pU-i8K">
+                                    <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
+                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="52" id="96F-zm-BN0"/>
+                                        <constraint firstAttribute="height" constant="52" id="EDg-dL-cTi"/>
+                                    </constraints>
+                                </imageView>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="AVp-vQ-paP">
+                                    <rect key="frame" x="16" y="16" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="width" constant="52" id="96F-zm-BN0"/>
-                                <constraint firstAttribute="height" constant="52" id="EDg-dL-cTi"/>
+                                <constraint firstItem="bJa-pU-i8K" firstAttribute="leading" secondItem="VYe-gF-ccS" secondAttribute="leading" id="Tlh-ij-qTU"/>
+                                <constraint firstItem="bJa-pU-i8K" firstAttribute="top" secondItem="VYe-gF-ccS" secondAttribute="top" id="c50-FS-oGY"/>
+                                <constraint firstAttribute="trailing" secondItem="bJa-pU-i8K" secondAttribute="trailing" id="dQa-Hv-5oy"/>
+                                <constraint firstItem="AVp-vQ-paP" firstAttribute="centerY" secondItem="VYe-gF-ccS" secondAttribute="centerY" id="eQ7-Yc-rVT"/>
+                                <constraint firstAttribute="bottom" secondItem="bJa-pU-i8K" secondAttribute="bottom" id="uNg-K1-5Ku"/>
+                                <constraint firstItem="AVp-vQ-paP" firstAttribute="centerX" secondItem="VYe-gF-ccS" secondAttribute="centerX" id="wTD-Cx-fVM"/>
                             </constraints>
-                        </imageView>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IUb-wj-A5z">
                             <rect key="frame" x="68" y="5.3333333333333321" width="293" height="43.333333333333343"/>
                             <subviews>
@@ -67,6 +85,9 @@
     <resources>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

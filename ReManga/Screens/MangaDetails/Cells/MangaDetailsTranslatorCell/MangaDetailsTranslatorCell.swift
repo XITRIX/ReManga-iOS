@@ -13,6 +13,7 @@ class MangaDetailsTranslatorCell<VM: MangaDetailsTranslatorViewModel>: MvvmColle
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
+    @IBOutlet private var activityView: UIActivityIndicatorView!
 
     override func initSetup() {
         imageView.layer.cornerRadius = 16
@@ -31,7 +32,7 @@ class MangaDetailsTranslatorCell<VM: MangaDetailsTranslatorViewModel>: MvvmColle
         bind(in: disposeBag) {
             titleLabel.rx.text <- viewModel.title
             subtitleLabel.rx.text <- viewModel.subtitle
-            imageView.rx.imageUrl <- viewModel.image
+            imageView.rx.imageUrl(with: activityView) <- viewModel.image
         }
     }
 }

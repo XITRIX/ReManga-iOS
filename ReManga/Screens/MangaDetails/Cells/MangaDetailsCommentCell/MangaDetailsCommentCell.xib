@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsCommentCell" customModule="ReManga" customModuleProvider="target">
             <connections>
+                <outlet property="activityView" destination="0vE-XN-ETp" id="0cA-B4-Dkn"/>
                 <outlet property="dateLabel" destination="0Ot-sU-FZo" id="40L-pq-VuI"/>
                 <outlet property="hierarchyStack" destination="mkL-kb-40q" id="6cm-LX-ZrK"/>
                 <outlet property="imageView" destination="9Y1-iU-RUk" id="aVP-2B-qd9"/>
@@ -47,11 +48,15 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Y1-iU-RUk">
                                                     <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="MlV-Vx-WF2"/>
                                                         <constraint firstAttribute="width" constant="36" id="n1B-ii-PoR"/>
                                                     </constraints>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="0vE-XN-ETp">
+                                                    <rect key="frame" x="8" y="8" width="20" height="20"/>
+                                                </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n9i-dr-r15">
                                                     <rect key="frame" x="23" y="-4.0000000000000018" width="18" height="16.666666666666664"/>
                                                     <constraints>
@@ -69,11 +74,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="9Y1-iU-RUk" firstAttribute="leading" secondItem="Upn-W6-1Yi" secondAttribute="leading" id="30s-eW-9Kk"/>
+                                                <constraint firstItem="0vE-XN-ETp" firstAttribute="centerX" secondItem="Upn-W6-1Yi" secondAttribute="centerX" id="CJD-yi-Yvz"/>
                                                 <constraint firstItem="9Y1-iU-RUk" firstAttribute="top" secondItem="Upn-W6-1Yi" secondAttribute="top" id="HDc-tP-XC4"/>
                                                 <constraint firstItem="n9i-dr-r15" firstAttribute="centerY" secondItem="Upn-W6-1Yi" secondAttribute="top" constant="4" id="JYU-nL-iHo"/>
                                                 <constraint firstAttribute="trailing" secondItem="n9i-dr-r15" secondAttribute="centerX" constant="4" id="eTS-Za-6GS"/>
                                                 <constraint firstAttribute="bottom" secondItem="9Y1-iU-RUk" secondAttribute="bottom" id="o8u-cw-M4V"/>
                                                 <constraint firstAttribute="trailing" secondItem="9Y1-iU-RUk" secondAttribute="trailing" id="oXv-KC-J05"/>
+                                                <constraint firstItem="0vE-XN-ETp" firstAttribute="centerY" secondItem="Upn-W6-1Yi" secondAttribute="centerY" id="xkc-4u-WlU"/>
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zpo-Et-YhJ">
@@ -90,7 +97,7 @@
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEA-B7-WHz">
                                                                             <rect key="frame" x="0.0" y="0.0" width="251.66666666666666" height="18"/>
-                                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
