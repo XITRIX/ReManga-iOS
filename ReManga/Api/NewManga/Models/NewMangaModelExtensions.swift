@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension ApiMangaModel {
     init(from model: NewMangaCatalogResultDocument) {
@@ -28,7 +29,7 @@ extension ApiMangaModel {
         bookmarks = model.bookmarks?.kmbFormatted ?? "--"
         sees = model.views?.kmbFormatted ?? "--"
 
-        genres = model.genres?.compactMap { .init(id: String($0.id), name: $0.title.ru ?? "", kind: .genre)  } ?? []
+        genres = model.genres?.compactMap { .init(id: String($0.id), name: $0.title.ru ?? "", kind: .genre) } ?? []
         tags = model.tags?.compactMap { .init(id: String($0.id), name: $0.title.ru ?? "", kind: .tag) } ?? []
 
         branches = model.branches?.compactMap { .init(from: $0) } ?? []
@@ -38,8 +39,11 @@ extension ApiMangaModel {
 extension ApiMangaCommentModel {
     init?(from model: NewMangaTitleComment) {
         id = String(model.id)
-        children = model.children?.compactMap { .init(from: $0) } ?? []
         name = model.user?.name ?? ""
+        likes = model.likes ?? 0
+        dislikes = model.dislikes ?? 0
+        children = model.children?.compactMap { .init(from: $0) } ?? []
+        isPinned = model.isPinned ?? false
 
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
@@ -48,21 +52,20 @@ extension ApiMangaCommentModel {
         let imageRoot = "https://img.newmanga.org/AvatarSmall/webp/"
         imagePath = imageRoot + (model.user?.image?.name ?? "")
 
-        do {
-            guard let data = model.html?.data(using: .utf8)
-            else { return nil }
+        guard let text = try? model.html?.htmlToAttributedString()
+        else { return nil }
 
-            text = try NSAttributedString(
-                data: data,
-                options: [.documentType: NSAttributedString.DocumentType.html],
-                documentAttributes: nil)
-        } catch { return nil }
+        self.text = text
+        applyHierarchy(0)
     }
 
     init?(from model: NewMangaTitleCommentsResultChild) {
         id = String(model.id)
-        children = model.children?.compactMap { .init(from: $0) } ?? []
         name = model.user?.name ?? ""
+        likes = model.likes ?? 0
+        dislikes = model.dislikes ?? 0
+        children = model.children?.compactMap { .init(from: $0) } ?? []
+        isPinned = model.isPinned ?? false
 
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
@@ -71,15 +74,40 @@ extension ApiMangaCommentModel {
         let imageRoot = "https://img.newmanga.org/AvatarSmall/webp/"
         imagePath = imageRoot + (model.user?.image?.name ?? "")
 
-        do {
-            guard let data = model.html?.data(using: .utf8)
-            else { return nil }
+        guard let text = try? model.html?.htmlToAttributedString()
+        else { return nil }
 
-            text = try NSAttributedString(
-                data: data,
-                options: [.documentType: NSAttributedString.DocumentType.html],
-                documentAttributes: nil)
-        } catch { return nil }
+        self.text = text
+    }
+
+    private mutating func applyHierarchy(_ value: Int) {
+        hierarchy = value
+        for i in 0 ..< children.count {
+            children[i].applyHierarchy(hierarchy + 1)
+        }
+    }
+}
+
+private extension String {
+    func htmlToAttributedString() throws -> NSMutableAttributedString? {
+        let font = UIFont.systemFont(ofSize: 17)
+        let string = appending(String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", font.fontName, font.pointSize))
+
+        guard let data = string.data(using: .utf8)
+        else { return nil }
+
+        let text = try NSMutableAttributedString(
+            data: data,
+            options: [.documentType: NSAttributedString.DocumentType.html,
+                      .characterEncoding: String.Encoding.utf8.rawValue],
+            documentAttributes: nil)
+
+        let attrs: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.label
+        ]
+
+        text.addAttributes(attrs, range: .init(location: 0, length: text.length))
+        return text
     }
 }
 
@@ -127,12 +155,12 @@ extension ApiMangaChapterModel {
     }
 }
 
-//extension ApiMangaChapterPageModel {
+// extension ApiMangaChapterPageModel {
 //    init(from model: NewMangaChapterPagesResultSlice) {
 //        size = CGSize(width: model.size.width, height: model.size.height)
 //        path = model.path
 //    }
-//}
+// }
 
 extension NewMangaChapterPagesResult {
     func getPages(chapter id: String) -> [ApiMangaChapterPageModel] {

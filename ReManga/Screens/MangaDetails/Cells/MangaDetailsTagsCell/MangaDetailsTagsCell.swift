@@ -22,6 +22,7 @@ class MangaDetailsTagsCell<VM: MangaDetailsTagsViewModel>: MvvmCollectionViewCel
         tagListView.marginY = 8
         tagListView.paddingX = 16
         tagListView.paddingY = 8
+        tagListView.textColor = .label
         tagListView.tagBackgroundColor = .secondarySystemBackground
 
         tagListView.delegate = delegates
@@ -79,6 +80,7 @@ private extension MangaDetailsTagsCell {
 
         if cropped {
             let tagView = tagListView.addTag("+ ещё \(tags.count - maxNonExpandedTags + 1)")
+            tagView.textColor = .white
             tagView.backgroundColor = .tintColor
             tagView.cornerRadius = tagView.frame.height / 2
             tagView.layer.cornerCurve = .continuous

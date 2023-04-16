@@ -15,10 +15,22 @@ struct MvvmCollectionSectionModel: Hashable {
         case insetGrouped
     }
 
+    let id: String
     var style: Style
     var showsSeparators: Bool
     var backgroundColor: UIColor? = .clear
     var items: [MvvmViewModel]
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: MvvmCollectionSectionModel, rhs: MvvmCollectionSectionModel) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.style == rhs.style &&
+        lhs.showsSeparators == rhs.showsSeparators &&
+        lhs.backgroundColor == rhs.backgroundColor
+    }
 }
 
 class MangaDetailsViewModel: BaseViewModelWith<String> {
@@ -51,6 +63,23 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
             tagsVM.tagSelected.bind { [unowned self] tag in
                 Task { await tagSelected(tag) }
             }
+            comments.bind { [unowned self] comments in
+                let allComments = comments?.flatMap { $0.allChildren }
+                allComments?.forEach { comment in
+                    bind(in: comment.disposeBag) {
+                        comment.expandedChanged.bind { [unowned self] _ in
+                            if selectorVM.selected.value == 2 {
+                                Task { await refresh() }
+                            }
+                        }
+                    }
+                }
+
+
+                if selectorVM.selected.value == 2 {
+                    Task { await refresh() }
+                }
+            }
         }
     }
 
@@ -72,10 +101,10 @@ private extension MangaDetailsViewModel {
     }
 
     func selectSegment(_ segment: Int) {
-        let headerSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [statusVM, selectorVM])
+        let headerSection: MvvmCollectionSectionModel = .init(id: "header", style: .plain, showsSeparators: false, items: [statusVM, selectorVM])
         switch segment {
         case 0:
-            var descriptionSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: false, items: [])
+            var descriptionSection: MvvmCollectionSectionModel = .init(id: "description", style: .plain, showsSeparators: false, items: [])
             if !descriptionVM.title.value.isNilOrEmpty {
                 descriptionSection.items.append(descriptionVM)
             }
@@ -88,10 +117,22 @@ private extension MangaDetailsViewModel {
             }
             items.accept([headerSection, descriptionSection])
         case 1:
-            let chaptersSection: MvvmCollectionSectionModel = .init(style: .plain, showsSeparators: true, items: chapters.value)
+            let chaptersSection: MvvmCollectionSectionModel = .init(id: "chapters", style: .plain, showsSeparators: true, items: chapters.value)
             items.accept([headerSection, chaptersSection])
         case 2:
-            let commentsSection = MvvmCollectionSectionModel(style: .plain, showsSeparators: false, items: comments.value ?? [])
+            var commentsSection = MvvmCollectionSectionModel(id: "comments", style: .plain, showsSeparators: false, items: [])
+            if let comments = comments.value {
+
+
+                commentsSection.items.append(contentsOf: comments.flatMap { $0.allExpandedChildren })
+
+                
+            } else {
+                commentsSection.items.append(MangaDetailsLoadingPlaceholderViewModel())
+                // Several empty items to workaround wierd animation bug
+                commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
+                commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
+            }
             items.accept([headerSection, commentsSection])
         default:
             items.accept([headerSection])
@@ -114,7 +155,9 @@ private extension MangaDetailsViewModel {
                 })
             }
 
-            await comments.accept(try api.fetchComments(id: id).map { .init(with: $0) })
+            Task {
+                await comments.accept(try api.fetchComments(id: id).map { .init(with: $0) })
+            }
 
             statusVM.rating.accept(res.rating)
             statusVM.likes.accept(res.likes)
