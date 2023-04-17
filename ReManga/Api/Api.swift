@@ -14,6 +14,8 @@ protocol ApiProtocol: AnyObject {
     func fetchTitleChapters(branch: String, count: Int) async throws -> [ApiMangaChapterModel]
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel]
     func fetchComments(id: String) async throws -> [ApiMangaCommentModel]
+    func markChapterRead(id: String) async throws
+    func setChapterLike(id: String, _ value: Bool) async throws -> Int
 }
 
 extension ApiProtocol {

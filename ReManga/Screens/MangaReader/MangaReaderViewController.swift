@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 import MvvmFoundation
 
 class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM> {
@@ -20,8 +22,12 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
     @IBOutlet private var nextButton: UIButton!
     @IBOutlet private var headerTitleButton: UIButton!
 
+    @IBOutlet private var likeButton: UIButton!
+
     private var dataSource: DataSource!
     private lazy var delegates = Delegates(parent: self)
+
+    var currentDisposeBag = DisposeBag()
 
     private var isNavigationBarVisible: Bool { !navigationBarHiddenConstraint.isActive && !toolBarHiddenConstraint.isActive }
 
@@ -46,6 +52,11 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
         setupCollectionView()
 
         bind(in: disposeBag) {
+            viewModel.current.bind { [unowned self] current in
+                currentDisposeBag = DisposeBag()
+                bindToCurrent(current)
+            }
+
             previousButton.rx.isEnabled <- viewModel.previousActionAvailable
             nextButton.rx.isEnabled <- viewModel.nextActionAvailable
 
@@ -57,10 +68,26 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
                 applyPages(pages)
                 applyMenu()
             }
+
+            viewModel.toggleLike <- likeButton.rx.tap
         }
 
         collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureRecognizer(_:))))
     }
+
+    func bindToCurrent(_ current: MangaDetailsChapterViewModel?) {
+        guard let current else { return }
+        bind(in: currentDisposeBag) {
+            Observable.combineLatest(current.isLiked, current.likes).bind { [unowned self] (isLiked, likes) in
+                let like = isLiked == true
+                likeButton.configuration = like ? .filled() : .tinted()
+                likeButton.configuration?.buttonSize = .mini
+                likeButton.configuration?.image = like ? .init(systemName: "heart.fill") : .init(systemName: "heart")
+                likeButton.configuration?.title = " \(likes)"
+            }
+        }
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         collectionView.layoutMargins = .zero
@@ -109,17 +136,18 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
 private extension MangaReaderViewController {
     func applyMenu() {
         let test: [UIAction] = viewModel.chapters.value.enumerated().map { chapter in
-            UIAction(title: "Том \(chapter.element.tome.value) \(chapter.element.chapter.value)", state: chapter.offset == viewModel.currentChapter.value ? .on : .off) { [weak self] _ in
+            let readed = chapter.element.isReaded.value ? "" : " •"
+            return UIAction(title: "Том \(chapter.element.tome.value) \(chapter.element.chapter.value)" + readed, state: chapter.offset == viewModel.currentChapter.value ? .on : .off) { [weak self] _ in
                 self?.viewModel.currentChapter.accept(chapter.offset)
             }
         }
         headerTitleButton.menu = UIMenu(options: [.singleSelection], children: test)
     }
 
-    func applyPages(_ pages: [ApiMangaChapterPageModel]) {
+    func applyPages(_ pages: [MvvmViewModel]) {
         var snapshot = DataSource.Snapshot()
         snapshot.appendSections([0])
-        snapshot.appendItems(pages, toSection: 0)
+        snapshot.appendItems(pages.map { .init(viewModel: $0) }, toSection: 0)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
@@ -134,12 +162,11 @@ private extension MangaReaderViewController {
 
     func setupCollectionView() {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeue(for: indexPath) as MangaReaderPageCell
-            cell.setup(with: itemIdentifier)
-            return cell
+            itemIdentifier.viewModel.resolveCell(from: collectionView, at: indexPath)
         })
 
-        collectionView.register(type: MangaReaderPageCell.self)
+//        collectionView.register(type: MangaReaderLoadNextCell.self)
+//        collectionView.register(type: MangaReaderPageCell.self)
         collectionView.dataSource = dataSource
         collectionView.delegate = delegates
     }
@@ -156,23 +183,33 @@ private extension MangaReaderViewController {
     var couldHideNavigation: Bool {
         let offset = collectionView.contentOffset.y
         let max = collectionView.contentSize.height - collectionView.frame.height
-        print(max - offset)
+//        print(max - offset)
         return offset > 0 && max - offset > 0
     }
 }
 
 private extension MangaReaderViewController {
-    class DataSource: UICollectionViewDiffableDataSource<Int, ApiMangaChapterPageModel> { }
+    class DataSource: UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MvvmViewModel>> { }
 
     class Delegates: DelegateObject<MangaReaderViewController>, UICollectionViewDelegateFlowLayout, UINavigationBarDelegate {
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            guard let item = parent.dataSource.itemIdentifier(for: indexPath)
-            else { return .zero }
+            if let item = parent.dataSource.itemIdentifier(for: indexPath)?.viewModel as? MangaReaderPageViewModel {
 
-            let width = parent.view.layoutMarginsGuide.layoutFrame.width
-            let height = (width / item.size.width * item.size.height).rounded(.toNearestOrEven)
+                let width = parent.view.layoutMarginsGuide.layoutFrame.width
+                let height = (width / item.imageSize.value.width * item.imageSize.value.height).rounded(.toNearestOrEven)
 
-            return .init(width: collectionView.frame.width, height: height)
+                return .init(width: collectionView.frame.width, height: height)
+            }
+
+            if parent.dataSource.itemIdentifier(for: indexPath)?.viewModel is MangaReaderLoadNextViewModel {
+                return .init(width: collectionView.frame.width, height: 50)
+            }
+
+//            if parent.dataSource.itemIdentifier(for: indexPath)?.viewModel is MangaReaderLoadNextViewModel {
+//                return .init(width: collectionView.frame.width, height: collectionView.layoutMarginsGuide.layoutFrame.height - parent.toolBar.frame.height - parent.navigationBar.frame.height)
+//            }
+
+            return .zero
         }
 
         func scrollViewDidScroll(_ scrollView: UIScrollView) {

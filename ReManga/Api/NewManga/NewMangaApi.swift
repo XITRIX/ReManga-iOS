@@ -11,6 +11,26 @@ class NewMangaApi: ApiProtocol {
     let decoder = JSONDecoder()
     static let imgPath: String = "https://img.newmanga.org/ProjectCard/webp/"
 
+    let userBearer: String? = ""
+
+    func makeRequest(_ url: String) -> URLRequest {
+        var request = URLRequest(url: URL(string: url)!)
+        if let userBearer {
+            request.addValue("user_session=\(userBearer)", forHTTPHeaderField: "cookie")
+        }
+        return request
+    }
+
+    var urlSession: URLSession {
+        let session = URLSession.shared
+        if let userBearer,
+           let cookie = HTTPCookie(properties: [.name: "user_session", .value: userBearer, .domain: ".newmanga.org"])
+        {
+            session.configuration.httpCookieStorage?.setCookie(cookie)
+        }
+        return session
+    }
+
     func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
         try await fetchSearch(query: "", page: page, filters: filters)
     }
@@ -20,12 +40,9 @@ class NewMangaApi: ApiProtocol {
     }
 
     func fetchSearch(query: String, page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel] {
-        let url = URL(string: "https://neo.newmanga.org/catalogue")!
+        let url = "https://neo.newmanga.org/catalogue"
 
-        var request = URLRequest(
-            url: url,
-            cachePolicy: .reloadIgnoringLocalCacheData
-        )
+        var request = makeRequest(url)
 
         var body = NewMangaCatalogRequest()
         body.query = query
@@ -46,7 +63,7 @@ class NewMangaApi: ApiProtocol {
         request.httpMethod = "POST"
         request.httpBody = try JSONEncoder().encode(body)
 
-        let (result, _) = try await URLSession.shared.data(for: request)
+        let (result, _) = try await urlSession.data(for: request)
         let resModel = try decoder.decode(NewMangaCatalogResult.self, from: result)
 
         let mangas = resModel.result.hits?.compactMap { $0.document } ?? []
@@ -56,7 +73,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchDetails(id: String) async throws -> ApiMangaModel {
         let url = "https://api.newmanga.org/v2/projects/\(id)"
-        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaDetailsResult.self, from: result)
 
         return await MainActor.run { ApiMangaModel(from: model) }
@@ -64,7 +81,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchTitleChapters(branch: String, count: Int) async throws -> [ApiMangaChapterModel] {
         let url = "https://api.newmanga.org/v3/branches/\(branch)/chapters/all"
-        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode([NewMangaTitleChapterResultItem].self, from: result)
 
         return await MainActor.run { model.map { .init(from: $0) }.reversed() }
@@ -72,7 +89,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
         let url = "https://api.newmanga.org/v3/chapters/\(id)/pages"
-        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaChapterPagesResult.self, from: result)
 
         return await MainActor.run { model.getPages(chapter: id) }
@@ -80,9 +97,31 @@ class NewMangaApi: ApiProtocol {
 
     func fetchComments(id: String) async throws -> [ApiMangaCommentModel] {
         let url = "https://api.newmanga.org/v2/projects/\(id)/comments?sort_by=new"
-        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaTitleCommentsResult.self, from: result)
 
         return await MainActor.run { model.compactMap { .init(from: $0) } }
+    }
+
+    func markChapterRead(id: String) async throws {
+        let url = "https://api.newmanga.org/v2/chapters/\(id)/read"
+        var request = makeRequest(url)
+        request.httpMethod = "POST"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        _ = try await urlSession.data(for: request)
+    }
+
+    func setChapterLike(id: String, _ value: Bool) async throws -> Int {
+        let url = "https://api.newmanga.org/v2/chapters/\(id)/heart"
+
+        var request = makeRequest(url)
+        request.httpMethod = "POST"
+        request.httpBody = "{ \"value\": \(value) }".data(using: .utf8)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
+        let (result, _) = try await urlSession.data(for: request)
+        let model = try JSONDecoder().decode(NewMangaLikeResultModel.self, from: result)
+        
+        return await MainActor.run { model.setChapterHeart }
     }
 }

@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,6 +15,7 @@
                 <outlet property="collectionView" destination="IHz-P8-UFg" id="AzF-6T-2kV"/>
                 <outlet property="headerTitleButton" destination="5a7-Bt-4ts" id="B3P-ww-ePL"/>
                 <outlet property="headerView" destination="gH7-Oc-kT8" id="M4I-cf-4eR"/>
+                <outlet property="likeButton" destination="Vkw-Yg-qR1" id="oRZ-V7-KTq"/>
                 <outlet property="navigationBar" destination="DyQ-JI-RuD" id="rNu-5g-uBb"/>
                 <outlet property="navigationBarHiddenConstraint" destination="rAc-o5-I1V" id="3YC-pJ-o4i"/>
                 <outlet property="nextButton" destination="Hcg-6C-AKw" id="8Sf-Sl-cBp"/>
@@ -49,7 +51,15 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vkw-Yg-qR1">
                                         <rect key="frame" x="0.0" y="4" width="25" height="28"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" image="heart.fill" catalog="system" buttonSize="mini"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title=" 177" buttonSize="mini">
+                                            <imageReference key="image" image="heart" catalog="system" renderingMode="hierarchical-single">
+                                                <hierarchicalColors>
+                                                    <color name="AccentColor"/>
+                                                    <color systemColor="secondaryLabelColor"/>
+                                                    <color systemColor="tertiaryLabelColor"/>
+                                                </hierarchicalColors>
+                                            </imageReference>
+                                        </buttonConfiguration>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -62,15 +72,15 @@
                             </view>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="skh-KT-vca"/>
-                        <barButtonItem style="plain" id="5aQ-zV-gKb">
+                        <barButtonItem width="44" style="plain" id="5aQ-zV-gKb">
                             <view key="customView" contentMode="scaleToFill" id="awi-gT-nLr">
                                 <rect key="frame" x="311" y="9" width="25" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2p-ud-mPg">
-                                        <rect key="frame" x="0.0" y="4" width="25" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="36"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" image="message.fill" catalog="system" buttonSize="mini"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Коментарии 8" buttonSize="mini"/>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -84,14 +94,17 @@
                         </barButtonItem>
                         <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="kzp-a4-qmg"/>
                         <barButtonItem style="plain" id="7eN-aI-95o">
-                            <view key="customView" contentMode="scaleToFill" id="eJt-Yg-yTC">
+                            <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="eJt-Yg-yTC">
                                 <rect key="frame" x="352" y="9" width="25" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Abq-w3-nYV">
-                                        <rect key="frame" x="0.0" y="4" width="25" height="28"/>
+                                        <rect key="frame" x="0.0" y="4" width="44" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="ReJ-Ln-HqX"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" image="bookmark.fill" catalog="system" buttonSize="mini"/>
+                                        <buttonConfiguration key="configuration" style="tinted" image="bookmark" catalog="system" buttonSize="mini"/>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -182,16 +195,24 @@
         </view>
     </objects>
     <resources>
-        <image name="bookmark.fill" catalog="system" width="110" height="128"/>
+        <image name="bookmark" catalog="system" width="110" height="128"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
-        <image name="heart.fill" catalog="system" width="128" height="107"/>
-        <image name="message.fill" catalog="system" width="128" height="114"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

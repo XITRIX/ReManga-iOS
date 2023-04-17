@@ -6,16 +6,20 @@
 //
 
 import UIKit
+import MvvmFoundation
 import Kingfisher
 
-class MangaReaderPageCell: UICollectionViewCell {
+class MangaReaderPageCell<VM: MangaReaderPageViewModel>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var activityView: UIActivityIndicatorView!
     @IBOutlet private var widthConstraint: NSLayoutConstraint!
     private var imageSize: CGSize?
 
-    func setup(with model: ApiMangaChapterPageModel) {
-        imageSize = model.size
-        imageView.kf.setImage(with: URL(string: model.path))
+    override func setup(with viewModel: VM) {
+        bind(in: disposeBag) {
+            rx.imageSize <- viewModel.imageSize
+            imageView.rx.imageUrl(with: activityView) <- viewModel.imageUrl
+        }
     }
 
     override func layoutSubviews() {

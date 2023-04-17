@@ -14,6 +14,7 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var teamLabel: UILabel!
+    @IBOutlet private var heartImageView: UIImageView!
 
     override func initSetup() {
         accessories = [.disclosureIndicator()]
@@ -26,6 +27,7 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
             dateLabel.rx.text <- viewModel.date
             teamLabel.rx.text <- viewModel.team
             nameLabel.rx.textColor <- viewModel.isReaded.map { $0 ? .secondaryLabel : .label }
+            heartImageView.rx.isHidden <- viewModel.isLiked.map { !$0 }
         }
     }
 }

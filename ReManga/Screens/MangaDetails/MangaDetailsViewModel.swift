@@ -51,7 +51,6 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
 
     override func prepare(with model: String) {
         loadDetails(for: model)
-//        items.accept([.init(style: .plain, showsSeparators: true, items: [statusVM, selectorVM])])
     }
 
     override func binding() {

@@ -126,6 +126,8 @@ extension ApiMangaChapterModel {
         team = model.translator
 
         isReaded = model.isViewed ?? false
+        isLiked = model.hasHeart ?? false
+        likes = model.hearts ?? 0
 
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]

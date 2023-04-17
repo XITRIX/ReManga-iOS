@@ -18,7 +18,17 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
     @Injected var api: ApiProtocol
     let chapters = BehaviorRelay<[MangaDetailsChapterViewModel]>(value: [])
     let currentChapter = BehaviorRelay<Int>(value: -1)
-    let pages = BehaviorRelay<[ApiMangaChapterPageModel]>(value: [])
+    let pages = BehaviorRelay<[MvvmViewModel]>(value: [])
+    let mangaNextLoaderVM = MangaReaderLoadNextViewModel()
+
+    var current: Observable<MangaDetailsChapterViewModel?> {
+        Observable.combineLatest(chapters, currentChapter).map { (chapters, currentChapter) in
+            guard !chapters.isEmpty, currentChapter >= 0
+            else { return nil }
+
+            return chapters[currentChapter]
+        }
+    }
 
     var previousActionAvailable: Observable<Bool> {
         Observable.combineLatest(chapters, currentChapter).map { !$0.0.isEmpty && $0.1 < $0.0.count - 1 }
@@ -44,13 +54,19 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
 
     override func binding() {
         bind(in: disposeBag) {
-            Observable.combineLatest(chapters, currentChapter).bind { [unowned self] (chapters, current) in
-                guard !chapters.isEmpty, current >= 0
-                else { return pages.accept([]) }
+            current.bind { [unowned self] current in
+                guard let current else { return pages.accept([]) }
 
-                Task { await loadPages(for: chapters[current]) }
+                loadPages(for: current)
+            }
+            mangaNextLoaderVM.loadNext.bind { [unowned self] _ in
+                gotoNextChapter()
             }
         }
+    }
+
+    override func willDisappear() {
+        markCurrentChapterReaded()
     }
 
     func gotoPreviousChapter() {
@@ -58,7 +74,32 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
     }
 
     func gotoNextChapter() {
+        markCurrentChapterReaded()
         currentChapter.accept(currentChapter.value - 1)
+    }
+
+    func markCurrentChapterReaded() {
+        guard !chapters.value.isEmpty, currentChapter.value != -1
+        else { return }
+
+        let current = chapters.value[currentChapter.value]
+        Task {
+            try await api.markChapterRead(id: current.id.value)
+            current.isReaded.accept(true)
+        }
+    }
+
+    func toggleLike() {
+        guard !chapters.value.isEmpty, currentChapter.value != -1
+        else { return }
+
+        let current = chapters.value[currentChapter.value]
+        Task {
+            let newValue = !current.isLiked.value
+            _ = try await api.setChapterLike(id: current.id.value, newValue)
+            current.isLiked.accept(newValue)
+            current.likes.accept(current.likes.value + (newValue ? 1 : -1))
+        }
     }
 }
 
@@ -67,7 +108,11 @@ private extension MangaReaderViewModel {
         state.accept(.loading)
         performTask { [self] in
             pages.accept([])
-            pages.accept(try await api.fetchChapter(id: model.id.value))
+            var items: [MvvmViewModel] = try await api.fetchChapter(id: model.id.value).map { MangaReaderPageViewModel(with: $0) }
+            if !chapters.value.isEmpty && currentChapter.value > 0 {
+                items.append(mangaNextLoaderVM)
+            }
+            pages.accept(items)
             state.accept(.default)
         }
     }

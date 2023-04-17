@@ -66,6 +66,11 @@ class ReMangaApi: ApiProtocol {
 
     func fetchComments(id: String) async throws -> [ApiMangaCommentModel] {
         return []
-//        fatalError("fetchComments(id:) has not been implemented")
+    }
+
+    func markChapterRead(id: String) async throws { }
+
+    func setChapterLike(id: String, _ value: Bool) async throws -> Int {
+        0
     }
 }

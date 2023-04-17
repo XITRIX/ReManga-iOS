@@ -15,6 +15,8 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
     let team = BehaviorRelay<String?>(value: "")
     let date = BehaviorRelay<String>(value: "11.11.11")
     let isReaded = BehaviorRelay<Bool>(value: false)
+    let isLiked = BehaviorRelay<Bool>(value: false)
+    let likes = BehaviorRelay<Int>(value: 0)
 
     override func prepare(with model: ApiMangaChapterModel) {
         let dateFormatter = DateFormatter()
@@ -26,5 +28,7 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
         id.accept(model.id)
         team.accept(model.team)
         isReaded.accept(model.isReaded)
+        isLiked.accept(model.isLiked)
+        likes.accept(model.likes)
     }
 }

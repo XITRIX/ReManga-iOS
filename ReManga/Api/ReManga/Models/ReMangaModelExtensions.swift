@@ -60,6 +60,8 @@ extension ApiMangaChapterModel {
         team = model.publishers?.first?.name ?? ""
 
         isReaded = model.viewed ?? false
+        isLiked = model.rated ?? false
+        likes = model.score ?? 0
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
