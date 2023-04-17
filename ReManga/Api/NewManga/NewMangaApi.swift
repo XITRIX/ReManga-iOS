@@ -62,7 +62,7 @@ class NewMangaApi: ApiProtocol {
         return await MainActor.run { ApiMangaModel(from: model) }
     }
 
-    func fetchTitleChapters(branch: String) async throws -> [ApiMangaChapterModel] {
+    func fetchTitleChapters(branch: String, count: Int) async throws -> [ApiMangaChapterModel] {
         let url = "https://api.newmanga.org/v3/branches/\(branch)/chapters/all"
         let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
         let model = try JSONDecoder().decode([NewMangaTitleChapterResultItem].self, from: result)

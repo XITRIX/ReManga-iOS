@@ -47,14 +47,21 @@ class ReMangaApi: ApiProtocol {
         return await MainActor.run { ApiMangaModel(from: model.content) }
     }
 
-    func fetchTitleChapters(branch: String) async throws -> [ApiMangaChapterModel] {
-        return []
+    func fetchTitleChapters(branch: String, count: Int) async throws -> [ApiMangaChapterModel] {
+        let url = "https://api.remanga.org/api/titles/chapters/?branch_id=\(branch)&ordering=-index&user_data=1&count=\(count)&page=1"
+        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let model = try JSONDecoder().decode(ReMangaTitleChaptersResult.self, from: result)
+        
+        return model.content.map { .init(from: $0) }
 //        fatalError("fetchTitleChapters(manga:) has not been implemented")
     }
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
-        return []
-//        fatalError("fetchChapter(id:) has not been implemented")
+        let url = "https://api.remanga.org/api/titles/chapters/\(id)/"
+        let (result, _) = try await URLSession.shared.data(from: URL(string: url)!)
+        let model = try JSONDecoder().decode(ReMangaChapterPagesResult.self, from: result)
+        
+        return model.content.pages.flatMap { $0 }.map { .init(from: $0) }
     }
 
     func fetchComments(id: String) async throws -> [ApiMangaCommentModel] {

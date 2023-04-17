@@ -11,14 +11,20 @@ import RxRelay
 enum ViewModelState {
     case `default`
     case loading
-    case error(Error)
+    case error(Error, (() -> Void)? = nil)
 }
 
 protocol BaseViewModelProtocol: MvvmViewModelProtocol {
     var state: BehaviorRelay<ViewModelState> { get }
 
     func performTask(_ task: @escaping () async throws -> Void) async
-    func handleError(_ error: Error) async
+    func handleError(_ error: Error, task: (() -> Void)?) async
+}
+
+extension BaseViewModelProtocol {
+    func handleError(_ error: Error, task: (() -> Void)? = nil) async {
+        await handleError(error, task: task)
+    }
 }
 
 @MainActor
@@ -26,11 +32,16 @@ class BaseViewModel: MvvmViewModel, BaseViewModelProtocol {
     let state = BehaviorRelay<ViewModelState>(value: .default)
 
     func performTask(_ task: @escaping () async throws -> Void) {
-         Task {
+        Task {
             do {
                 try await task()
             } catch {
-                handleError(error)
+                await handleError(error) { [weak self] in
+                    self?.performTask {
+                        self?.state.accept(.loading)
+                        try await task()
+                    }
+                }
             }
         }
     }
@@ -39,15 +50,20 @@ class BaseViewModel: MvvmViewModel, BaseViewModelProtocol {
         do {
             try await task()
         } catch {
-            handleError(error)
+            await handleError(error) { [weak self] in
+                self?.performTask {
+                    self?.state.accept(.loading)
+                    try await task()
+                }
+            }
         }
     }
 
-    open func handleError(_ error: Error) {
-        state.accept(.error(error))
+    open func handleError(_ error: Error, task: (() -> Void)? = nil) {
+        state.accept(.error(error, task))
     }
 }
 
 class BaseViewModelWith<Model>: BaseViewModel, MvvmViewModelWithProtocol {
-    func prepare(with model: Model) { }
+    func prepare(with model: Model) {}
 }

@@ -52,65 +52,24 @@ extension ApiMangaTranslatorModel {
     }
 }
 
-private extension String {
-//    func htmlToAttributedString() throws -> NSMutableAttributedString? {
-//        let font = UIFont.systemFont(ofSize: 17)
-//        let string = appending(String(format: "<style>body{font-family: '%@'; font-size:%fpx;}</style>", font.fontName, font.pointSize))
-//
-//        guard let data = string.data(using: .utf8)
-//        else { return nil }
-//
-//        let text = try NSMutableAttributedString(
-//            data: data,
-//            options: [.documentType: NSAttributedString.DocumentType.html,
-//                      .characterEncoding: String.Encoding.utf8.rawValue],
-//            documentAttributes: nil)
-//
-//        let attrs: [NSAttributedString.Key: Any] = [
-//            .foregroundColor: UIColor.label
-//        ]
-//
-//        text.addAttributes(attrs, range: .init(location: 0, length: text.length))
-//        return text
-//    }
+extension ApiMangaChapterModel {
+    init(from model: ReMangaTitleChaptersResultContent) {
+        id = String(model.id ?? 0)
+        tome = model.tome ?? 0
+        chapter = model.chapter ?? ""
+        team = model.publishers?.first?.name ?? ""
 
-    func htmlToAttributedString(of size: Int = 17) -> NSMutableAttributedString? {
-        let htmlTemplate = """
-        <!doctype html>
-        <html>
-          <head>
-            <style>
-              body {
-                font-family: -apple-system;
-                font-size: \(size)px;
-              }
-            </style>
-          </head>
-          <body>
-            \(self)
-          </body>
-        </html>
-        """
+        isReaded = model.viewed ?? false
 
-        guard let data = htmlTemplate.data(using: .utf8) else {
-            return nil
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        date = dateFormatter.date(from: model.uploadDate)!
+    }
+}
 
-        guard let attributedString = try? NSMutableAttributedString(
-            data: data,
-            options: [.documentType: NSAttributedString.DocumentType.html,
-                      .characterEncoding: String.Encoding.utf8.rawValue],
-            documentAttributes: nil
-        ) else {
-            return nil
-        }
-
-        let attrs: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.label
-        ]
-
-        attributedString.addAttributes(attrs, range: .init(location: 0, length: attributedString.length))
-
-        return attributedString
+extension ApiMangaChapterPageModel {
+    init(from model: ReMangaChapterPagesResultPage) {
+        size = CGSize(width: model.width, height: model.height)
+        path = model.link
     }
 }

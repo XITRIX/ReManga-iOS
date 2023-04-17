@@ -19,12 +19,16 @@ class BaseViewController<VM: BaseViewModelProtocol>: MvvmViewController<VM> {
             }
 
             if let overlayViewController {
-                addChild(overlayViewController)
-                overlayViewController.view.frame = view.bounds
-                view.addSubview(overlayViewController.view)
-                overlayViewController.didMove(toParent: self)
+                attachOverlayViewController(overlayViewController)
             }
         }
+    }
+
+    open func attachOverlayViewController(_ viewController: UIViewController) {
+        addChild(viewController)
+        viewController.view.frame = view.bounds
+        view.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
     }
 
     override func viewDidLoad() {
@@ -43,8 +47,8 @@ class BaseViewController<VM: BaseViewModelProtocol>: MvvmViewController<VM> {
             overlayViewController = nil
         case .loading:
             overlayViewController = LoadingViewModel.resolveVC()
-        case .error(let error):
-            overlayViewController = ErrorViewModel.resolveVC(with: error)
+        case .error(let error, let task):
+            overlayViewController = ErrorViewModel.resolveVC(with: (error, task))
         }
     }
 }

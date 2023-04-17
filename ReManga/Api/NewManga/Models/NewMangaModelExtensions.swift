@@ -88,48 +88,6 @@ extension ApiMangaCommentModel {
     }
 }
 
-private extension String {
-    func htmlToAttributedString(of size: Int = 17) -> NSMutableAttributedString? {
-        let htmlTemplate = """
-        <!doctype html>
-        <html>
-          <head>
-            <style>
-              body {
-                font-family: -apple-system;
-                font-size: \(size)px;
-              }
-            </style>
-          </head>
-          <body>
-            \(self)
-          </body>
-        </html>
-        """
-
-        guard let data = htmlTemplate.data(using: .utf8) else {
-            return nil
-        }
-
-        guard let attributedString = try? NSMutableAttributedString(
-            data: data,
-            options: [.documentType: NSAttributedString.DocumentType.html,
-                      .characterEncoding: String.Encoding.utf8.rawValue],
-            documentAttributes: nil
-        ) else {
-            return nil
-        }
-
-        let attrs: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.label
-        ]
-
-        attributedString.addAttributes(attrs, range: .init(location: 0, length: attributedString.length))
-
-        return attributedString
-    }
-}
-
 extension ApiMangaBranchModel {
     init(from model: NewMangaDetailsResultBranch) {
         self.init(id: String(model.id),
@@ -167,8 +125,9 @@ extension ApiMangaChapterModel {
         chapter = String(format: "%g", model.number ?? 0)
         team = model.translator
 
+        isReaded = model.isViewed ?? false
+
         let dateFormatter = ISO8601DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss[.SSS]±hh:mm"
         dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
         date = dateFormatter.date(from: model.createdAt)!
     }

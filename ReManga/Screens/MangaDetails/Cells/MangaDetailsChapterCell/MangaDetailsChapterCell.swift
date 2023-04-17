@@ -25,6 +25,7 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
             nameLabel.rx.text <- viewModel.chapter
             dateLabel.rx.text <- viewModel.date
             teamLabel.rx.text <- viewModel.team
+            nameLabel.rx.textColor <- viewModel.isReaded.map { $0 ? .secondaryLabel : .label }
         }
     }
 }

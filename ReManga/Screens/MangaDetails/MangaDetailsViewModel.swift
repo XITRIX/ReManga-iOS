@@ -84,10 +84,12 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     }
 
     func itemSelected(at indexPath: IndexPath) {
-        guard let model = items.value[indexPath.section].items[indexPath.item] as? MangaDetailsChapterViewModel
+        guard let mangaModel = items.value[indexPath.section].items[indexPath.item] as? MangaDetailsChapterViewModel
         else { return }
 
-        navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: true))
+        let model = MangaReaderModel(chapters: chapters.value, current: chapters.value.firstIndex(of: mangaModel) ?? 0)
+
+        navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
     }
 
     func tagSelected(_ tag: ApiMangaTag) {

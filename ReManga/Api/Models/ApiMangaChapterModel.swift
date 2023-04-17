@@ -19,4 +19,5 @@ struct ApiMangaChapterModel: Codable, Hashable {
     var chapter: String
     var date: Date
     var team: String?
+    var isReaded: Bool
 }
