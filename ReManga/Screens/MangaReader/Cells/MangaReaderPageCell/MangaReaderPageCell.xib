@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="164" height="175"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="frM-Ic-kc6">
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="frM-Ic-kc6">
                     <rect key="frame" x="0.0" y="0.0" width="164" height="175"/>
                 </imageView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Cj7-yN-JZN">
@@ -49,10 +49,10 @@
             </variation>
             <variation key="widthClass=regular">
                 <mask key="constraints">
+                    <exclude reference="98v-17-bg9"/>
                     <include reference="HzG-gx-gEE"/>
                     <exclude reference="bFB-lx-uxz"/>
                     <include reference="lbQ-sz-TKx"/>
-                    <exclude reference="98v-17-bg9"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="120.61068702290076" y="249.64788732394368"/>
