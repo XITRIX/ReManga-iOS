@@ -13,18 +13,19 @@ class MangaReaderLoadNextCell<VM: MangaReaderLoadNextViewModel>: MvvmCollectionV
     @IBOutlet private var titleLabel: UILabel!
     private var viewModel: VM!
     private var clicked: Bool = false
+    private var nextText: String = ""
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         collectionView?.panGestureRecognizer.addTarget(self, action: #selector(panGesture(_:)))
     }
 
-    override func initSetup() {
-        titleLabel.text = "Потяните, что бы загрузить следующую главу"
-    }
-
     override func setup(with viewModel: VM) {
         self.viewModel = viewModel
+        bind(in: disposeBag) {
+            rx.nextText <- viewModel.nextAvailable.map { $0 ? "Потяните, что бы загрузить следующую главу" : "Потяните, что бы закрыть" }
+        }
+        titleLabel.text = nextText
     }
 
     @objc func panGesture(_ gesture: UIGestureRecognizer) {
@@ -43,12 +44,12 @@ class MangaReaderLoadNextCell<VM: MangaReaderLoadNextViewModel>: MvvmCollectionV
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
             } else if res <= 100 {
-                titleLabel.text = "Потяните, что бы загрузить следующую главу"
+                titleLabel.text = nextText
                 clicked = false
             }
         } else if gesture.state == .ended {
             clicked = false
-            titleLabel.text = "Потяните, что бы загрузить следующую главу"
+            titleLabel.text = nextText
 
             if bottomConstraint.constant > 100 {
                 viewModel.loadNext.accept(())

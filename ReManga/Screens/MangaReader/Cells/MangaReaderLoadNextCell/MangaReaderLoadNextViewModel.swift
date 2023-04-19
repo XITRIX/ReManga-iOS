@@ -10,4 +10,5 @@ import RxRelay
 
 class MangaReaderLoadNextViewModel: MvvmViewModel {
     let loadNext = PublishRelay<Void>()
+    let nextAvailable = BehaviorRelay<Bool>(value: true)
 }

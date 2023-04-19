@@ -59,8 +59,13 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
 
                 loadPages(for: current)
             }
+            mangaNextLoaderVM.nextAvailable <- nextActionAvailable
             mangaNextLoaderVM.loadNext.bind { [unowned self] _ in
-                gotoNextChapter()
+                if isNextChapterAvailable {
+                    gotoNextChapter()
+                } else {
+                    dismiss()
+                }
             }
         }
     }
@@ -112,6 +117,10 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
 }
 
 private extension MangaReaderViewModel {
+    var isNextChapterAvailable: Bool {
+        !chapters.value.isEmpty && currentChapter.value > 0
+    }
+
     func loadPages(for model: MangaDetailsChapterViewModel) {
         state.accept(.loading)
         performTask { [self] in
@@ -125,9 +134,7 @@ private extension MangaReaderViewModel {
             }
 
             var items: [MvvmViewModel] = try await api.fetchChapter(id: model.id.value).map { MangaReaderPageViewModel(with: $0) }
-            if !chapters.value.isEmpty && currentChapter.value > 0 {
-                items.append(mangaNextLoaderVM)
-            }
+            items.append(mangaNextLoaderVM)
             pages.accept(items)
             state.accept(.default)
         }

@@ -21,7 +21,7 @@ class NewMangaApi: ApiProtocol {
     var kfAuthModifier: AnyModifier {
         AnyModifier { [weak self] request in
             var r = request
-            if let authToken = self?.authToken {
+            if let authToken = self?.authToken.value {
                 r.addValue("user_session=\(authToken)", forHTTPHeaderField: "cookie")
             }
             return r
