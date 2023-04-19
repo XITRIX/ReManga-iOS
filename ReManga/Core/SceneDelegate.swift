@@ -28,7 +28,6 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(ProfileViewController<ProfileViewModel>.self)
 
         router.register(NewMangaAuthViewController<NewMangaAuthViewModel>.self)
-        router.register(TestViewController<MangaReaderViewModel>.self)
 
         // Cells
         router.register(MangaCell<MangaCellViewModel>.self)

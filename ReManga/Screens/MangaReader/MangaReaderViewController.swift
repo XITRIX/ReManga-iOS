@@ -1,12 +1,11 @@
 //
-//  MangaReaderViewController.swift
+//  TestViewController.swift
 //  ReManga
 //
-//  Created by Даниил Виноградов on 15.04.2023.
+//  Created by Даниил Виноградов on 19.04.2023.
 //
 
 import MvvmFoundation
-import RxRelay
 import RxSwift
 import UIKit
 
@@ -14,22 +13,23 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var navigationBar: UINavigationBar!
     @IBOutlet private var toolBar: UIToolbar!
-    @IBOutlet private var headerView: UIView!
-    @IBOutlet private var navigationBarHiddenConstraint: NSLayoutConstraint!
-    @IBOutlet private var toolBarHiddenConstraint: NSLayoutConstraint!
+    @IBOutlet private var navHeaderView: UIView!
+    @IBOutlet private var likeButton: UIButton!
 
     @IBOutlet private var previousButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
     @IBOutlet private var headerTitleButton: UIButton!
 
-    @IBOutlet private var likeButton: UIButton!
-
-    private var dataSource: DataSource!
     private lazy var delegates = Delegates(parent: self)
 
-    var currentDisposeBag = DisposeBag()
+    private var currentDisposeBag = DisposeBag()
 
-    private var isNavigationBarVisible: Bool { !navigationBarHiddenConstraint.isActive && !toolBarHiddenConstraint.isActive }
+    lazy var navigationBarHiddenConstraint: NSLayoutConstraint = { navigationBar.bottomAnchor.constraint(equalTo: view.topAnchor) }()
+    lazy var toolBarHiddenConstraint: NSLayoutConstraint = { toolBar.topAnchor.constraint(equalTo: view.bottomAnchor) }()
+
+    private lazy var dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        itemIdentifier.viewModel.resolveCell(from: collectionView, at: indexPath)
+    }
 
     required init(viewModel: VM) {
         super.init(viewModel: viewModel)
@@ -47,14 +47,26 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
         super.viewDidLoad()
 
         viewRespectsSystemMinimumLayoutMargins = false
+        navigationItem.setLeftBarButton(.init(barButtonSystemItem: .close, target: self, action: #selector(closeAction)), animated: false)
+        navigationItem.titleView = navHeaderView
 
-        setupNavigationItem()
+        toolBar.delegate = delegates
+        navigationBar.delegate = delegates
+        navigationBar.setItems([navigationItem], animated: false)
+
         setupCollectionView()
+
+        collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleBarsHidden)))
 
         bind(in: disposeBag) {
             viewModel.current.bind { [unowned self] current in
                 currentDisposeBag = DisposeBag()
                 bindToCurrent(current)
+            }
+            
+            viewModel.pages.bind { [unowned self] models in
+                applyModels(models)
+                applyMenu()
             }
 
             previousButton.rx.isEnabled <- viewModel.previousActionAvailable
@@ -64,15 +76,59 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
             viewModel.gotoNextChapter <- nextButton.rx.tap
             headerTitleButton.rx.title() <- viewModel.chapterName
 
-            viewModel.pages.bind { [unowned self] pages in
-                applyPages(pages)
-                applyMenu()
-            }
-
             viewModel.toggleLike <- likeButton.rx.tap
         }
+    }
 
-        collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureRecognizer(_:))))
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        collectionView.contentInset.top = navigationBar.frame.height
+        collectionView.contentInset.bottom = toolBar.frame.height
+
+        collectionView.verticalScrollIndicatorInsets.top = collectionView.contentInset.top
+        collectionView.verticalScrollIndicatorInsets.bottom = collectionView.contentInset.bottom
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.layoutMargins = .zero
+
+        let scrollProgress = collectionView.contentOffset.y / (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height)
+        coordinator.animate { [self] _ in
+//            collectionView.reloadData()
+            collectionView.setContentOffset(CGPoint(x: 0, y: (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height) * scrollProgress), animated: false)
+        }
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        isBarsHidden
+    }
+
+    @objc private func closeAction() {
+        dismiss(animated: true)
+    }
+
+    @objc func toggleBarsHidden() {
+        if couldHideNavigation {
+            setBarsHidden(!isBarsHidden)
+        }
+    }
+}
+
+private extension MangaReaderViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MvvmViewModel>>
+
+    var isBarsHidden: Bool { navigationBarHiddenConstraint.isActive && toolBarHiddenConstraint.isActive }
+
+    func setBarsHidden(_ isHidden: Bool) {
+        guard isBarsHidden != isHidden else { return }
+        UIView.animate(withDuration: 0.3) { [self] in
+            navigationBarHiddenConstraint.isActive = isHidden
+            toolBarHiddenConstraint.isActive = isHidden
+            view.layoutIfNeeded()
+            setNeedsStatusBarAppearanceUpdate()
+        }
     }
 
     func bindToCurrent(_ current: MangaDetailsChapterViewModel?) {
@@ -80,69 +136,20 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
         bind(in: currentDisposeBag) {
             Observable.combineLatest(current.isLiked, current.likes).bind { [unowned self] isLiked, likes in
                 let like = isLiked == true
-                likeButton.configuration = like ? .filled() : .tinted()
-                likeButton.configuration?.buttonSize = .mini
+                likeButton.configuration = like ? likeButton.configuration?.toFilled() : likeButton.configuration?.toTinted()
                 likeButton.configuration?.image = like ? .init(systemName: "heart.fill") : .init(systemName: "heart")
                 likeButton.configuration?.title = " \(likes)"
             }
         }
     }
 
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        collectionView.layoutMargins = .zero
-//    }
-
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        collectionView.layoutMargins = .zero
-//    }
-
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        collectionView.layoutMargins = .zero
-//
-//        let scrollProgress = collectionView.contentOffset.y / (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height)
-//        coordinator.animate { [self] _ in
-//            collectionView.reloadData()
-//            collectionView.setContentOffset(CGPoint(x: 0, y: (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height) * scrollProgress), animated: false)
-//        }
-//    }
-
-    @objc private func tapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
-        if couldHideNavigation {
-            setNavigationBarHidden(isNavigationBarVisible)
-        }
+    func applyModels(_ models: [MvvmViewModel]) {
+        var snapshot = DataSource.Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(models.map { .init(viewModel: $0) }, toSection: 0)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
-
-    override var prefersStatusBarHidden: Bool {
-        !isNavigationBarVisible
-    }
-
-    override func viewLayoutMarginsDidChange() {
-        super.viewLayoutMarginsDidChange()
-
-//        let top = navigationBar.frame.height
-//        let bottom = toolBar.frame.height
-//
-//        collectionView.contentInset.top = top
-//        collectionView.verticalScrollIndicatorInsets.top = top
-//
-//        collectionView.contentInset.bottom = bottom
-//        collectionView.verticalScrollIndicatorInsets.bottom = bottom
-    }
-
-    override func stateDidChange(_ state: ViewModelState) {
-        guard case let .error(error, retryAction) = state,
-              let apiError = error as? ApiMangaError,
-              case let .needPayment(chapter) = apiError
-        else { return super.stateDidChange(state) }
-
-        overlayViewController = MangaPaymentViewModel(with: (chapter, retryAction)).resolveVC()
-    }
-}
-
-private extension MangaReaderViewController {
+    
     func applyMenu() {
         let test: [UIAction] = viewModel.chapters.value.enumerated().map { chapter in
             let readed = chapter.element.isReaded.value ? "" : " •"
@@ -153,40 +160,14 @@ private extension MangaReaderViewController {
         headerTitleButton.menu = UIMenu(options: [.singleSelection], children: test)
     }
 
-    func applyPages(_ pages: [MvvmViewModel]) {
-        var snapshot = DataSource.Snapshot()
-        snapshot.appendSections([0])
-        snapshot.appendItems(pages.map { .init(viewModel: $0) }, toSection: 0)
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-
-    func setupNavigationItem() {
-        navigationBar.delegate = delegates
-        navigationBar.setItems([navigationItem], animated: false)
-        navigationItem.titleView = headerView
-        navigationItem.setLeftBarButton(.init(systemItem: .close, primaryAction: .init(handler: { [weak self] _ in
-            self?.dismiss(animated: true)
-        })), animated: false)
-    }
-
     func setupCollectionView() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            itemIdentifier.viewModel.resolveCell(from: collectionView, at: indexPath)
-        })
+//        var section = UICollectionLayoutListConfiguration(appearance: .plain)
+//        section.showsSeparators = false
+//        let layout = UICollectionViewCompositionalLayout.list(using: section)
+//        collectionView.collectionViewLayout = layout
 
-//        collectionView.register(type: MangaReaderLoadNextCell.self)
-//        collectionView.register(type: MangaReaderPageCell.self)
         collectionView.dataSource = dataSource
         collectionView.delegate = delegates
-    }
-
-    func setNavigationBarHidden(_ hidden: Bool) {
-        UIView.animate(withDuration: 0.3) { [self] in
-            navigationBarHiddenConstraint.isActive = hidden
-            toolBarHiddenConstraint.isActive = hidden
-            view.layoutIfNeeded()
-            setNeedsStatusBarAppearanceUpdate()
-        }
     }
 
     var couldHideNavigation: Bool {
@@ -195,48 +176,44 @@ private extension MangaReaderViewController {
 //        print(max - offset)
         return offset > 0 && max - offset > 0
     }
-}
 
-private extension MangaReaderViewController {
-    class DataSource: UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MvvmViewModel>> {}
+    func setNavigationVisibility(_ scrollView: UIScrollView) {
+        let velocity = scrollView.panGestureRecognizer.velocity(in: view).y
+        let couldHide = couldHideNavigation
+        if !couldHide || velocity > 500 {
+            setBarsHidden(false)
+        } else if velocity < -500, couldHide {
+            setBarsHidden(true)
+        }
+    }
 
-    class Delegates: DelegateObject<MangaReaderViewController>, UICollectionViewDelegateFlowLayout, UINavigationBarDelegate {
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            if let item = parent.dataSource.itemIdentifier(for: indexPath)?.viewModel as? MangaReaderPageViewModel {
-                let width = parent.view.layoutMarginsGuide.layoutFrame.width
-                let height = (width / item.imageSize.value.width * item.imageSize.value.height).rounded(.toNearestOrEven)
-
-                return .init(width: collectionView.frame.width, height: height)
+    class Delegates: DelegateObject<MangaReaderViewController>, UINavigationBarDelegate, UIToolbarDelegate, UICollectionViewDelegateFlowLayout {
+        func position(for bar: UIBarPositioning) -> UIBarPosition {
+            if bar === parent.navigationBar {
+                return .topAttached
             }
-
-            if parent.dataSource.itemIdentifier(for: indexPath)?.viewModel is MangaReaderLoadNextViewModel {
-                return .init(width: collectionView.frame.width, height: 50)
+            if bar === parent.toolBar {
+                return .bottom
             }
-
-//            if parent.dataSource.itemIdentifier(for: indexPath)?.viewModel is MangaReaderLoadNextViewModel {
-//                return .init(width: collectionView.frame.width, height: collectionView.layoutMarginsGuide.layoutFrame.height - parent.toolBar.frame.height - parent.navigationBar.frame.height)
-//            }
-
-            return .zero
+            fatalError("Unknown object appears")
         }
 
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            setNavigationVisibility(scrollView)
+            parent.setNavigationVisibility(scrollView)
         }
 
-        func setNavigationVisibility(_ scrollView: UIScrollView) {
-            let velocity = scrollView.panGestureRecognizer.velocity(in: parent.view).y
-            let couldHide = parent.couldHideNavigation
-            if !couldHide || velocity > 500 {
-                parent.setNavigationBarHidden(false)
-            } else if velocity < -500, couldHide {
-                parent.setNavigationBarHidden(true)
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            if let item = parent.viewModel.pages.value[indexPath.row] as? MangaReaderPageViewModel {
+                let width = parent.traitCollection.horizontalSizeClass == .regular ? collectionView.readableContentGuide.layoutFrame.width : collectionView.safeAreaLayoutGuide.layoutFrame.width
+                let height = (width / item.imageSize.value.width * item.imageSize.value.height).rounded(.toNearestOrEven)
+                return .init(width: collectionView.frame.width, height: height)
             }
-        }
 
-        // MARK: - UINavigationBarDelegate
-        func position(for bar: UIBarPositioning) -> UIBarPosition {
-            .topAttached
+            if parent.viewModel.pages.value[indexPath.row] is MangaReaderLoadNextViewModel {
+                return .init(width: collectionView.frame.width, height: 50)
+            }
+
+            return .zero
         }
     }
 }
