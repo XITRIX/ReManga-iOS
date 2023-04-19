@@ -44,6 +44,7 @@ extension ApiMangaCommentModel {
         dislikes = model.dislikes ?? 0
         children = model.children?.compactMap { .init(from: $0) } ?? []
         isPinned = model.isPinned ?? false
+        isLiked = model.currentMark
 
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
@@ -52,7 +53,7 @@ extension ApiMangaCommentModel {
         let imageRoot = "https://img.newmanga.org/AvatarSmall/webp/"
         imagePath = imageRoot + (model.user?.image?.name ?? "")
 
-        guard let text = try? model.html?.htmlToAttributedString()
+        guard let text = model.html?.htmlToAttributedString()
         else { return nil }
 
         self.text = text
@@ -66,6 +67,7 @@ extension ApiMangaCommentModel {
         dislikes = model.dislikes ?? 0
         children = model.children?.compactMap { .init(from: $0) } ?? []
         isPinned = model.isPinned ?? false
+        isLiked = model.currentMark
 
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
@@ -74,7 +76,7 @@ extension ApiMangaCommentModel {
         let imageRoot = "https://img.newmanga.org/AvatarSmall/webp/"
         imagePath = imageRoot + (model.user?.image?.name ?? "")
 
-        guard let text = try? model.html?.htmlToAttributedString()
+        guard let text = model.html?.htmlToAttributedString()
         else { return nil }
 
         self.text = text
@@ -129,6 +131,9 @@ extension ApiMangaChapterModel {
         isLiked = model.hasHeart ?? false
         likes = model.hearts ?? 0
 
+        isAvailable = model.isAvailable ?? true
+        price = model.isExpired ? nil : model.price?.text.appending(" ₽")
+
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withFractionalSeconds, .withColonSeparatorInTimeZone]
         date = dateFormatter.date(from: model.createdAt)!
@@ -145,8 +150,24 @@ extension ApiMangaChapterModel {
 extension NewMangaChapterPagesResult {
     func getPages(chapter id: String) -> [ApiMangaChapterPageModel] {
         let rootPath = "https://storage.newmanga.org/origin_proxy/"
-        let pages = pages.flatMap { $0.slices }.compactMap { $0 }
-        return pages.map { ApiMangaChapterPageModel(size: CGSize(width: $0.size.width, height: $0.size.height), path: "\(rootPath)/\(origin)/\(id)/\($0.path)") }
+        let apiRoot = "https://api.newmanga.org/v3/chapters/\(id)/pages/"
+
+        var slices: [(index: Int, value: NewMangaChapterPagesResultSlice)] = []
+
+        pages.forEach { page in
+            page.slices.forEach { slice in
+                slices.append((page.index, slice))
+            }
+        }
+
+        return slices.map { slice in
+            if isStatic ?? true {
+                return ApiMangaChapterPageModel(size: CGSize(width: slice.value.size.width, height: slice.value.size.height), path: "\(rootPath)/\(origin)/\(id)/\(slice.value.path)")
+            } else {
+                return ApiMangaChapterPageModel(size: CGSize(width: slice.value.size.width, height: slice.value.size.height), path: "\(apiRoot)\(slice.index)/\(slice.value.path)")
+            }
+
+        }
     }
 }
 

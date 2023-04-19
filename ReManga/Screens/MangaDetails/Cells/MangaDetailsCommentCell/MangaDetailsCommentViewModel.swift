@@ -8,7 +8,7 @@
 import MvvmFoundation
 import RxRelay
 
-class MangaDetailsCommentViewModel: MvvmViewModelWith<ApiMangaCommentModel> {
+class MangaDetailsCommentViewModel: BaseViewModelWith<ApiMangaCommentModel> {
     private var id: String = ""
     let name = BehaviorRelay<String?>(value: nil)
     let date = BehaviorRelay<String?>(value: nil)
@@ -19,8 +19,11 @@ class MangaDetailsCommentViewModel: MvvmViewModelWith<ApiMangaCommentModel> {
     let hierarchy = BehaviorRelay<Int>(value: 0)
     let isExpanded = BehaviorRelay<Bool>(value: false)
     let isPinned = BehaviorRelay<Bool>(value: false)
+    let isLiked = BehaviorRelay<Bool?>(value: nil)
     let children = BehaviorRelay<[MangaDetailsCommentViewModel]>(value: [])
     let expandedChanged = PublishRelay<Bool>()
+
+    @Injected var api: ApiProtocol
 
     override func prepare(with model: ApiMangaCommentModel) {
         id = model.id
@@ -31,6 +34,7 @@ class MangaDetailsCommentViewModel: MvvmViewModelWith<ApiMangaCommentModel> {
         content.accept(model.text)
         hierarchy.accept(model.hierarchy)
         isPinned.accept(model.isPinned)
+        isLiked.accept(model.isLiked)
         children.accept(model.children.map { .init(with: $0) })
         
         if model.children.count > 0 {
@@ -51,6 +55,24 @@ class MangaDetailsCommentViewModel: MvvmViewModelWith<ApiMangaCommentModel> {
     override func isEqual(to other: MvvmViewModel) -> Bool {
         guard let other = other as? Self else { return false }
         return id == other.id
+    }
+
+    func toggleLike() {
+        Task {
+            let value = isLiked.value == true ? nil : true
+            let score = try await api.markComment(id: id, value)
+            self.isLiked.accept(value)
+            self.score.accept(score)
+        }
+    }
+
+    func toggleDislike() {
+        Task {
+            let value = isLiked.value == false ? nil : false
+            let score = try await api.markComment(id: id, value)
+            self.isLiked.accept(value)
+            self.score.accept(score)
+        }
     }
 }
 

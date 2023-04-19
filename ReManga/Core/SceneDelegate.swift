@@ -18,12 +18,17 @@ class SceneDelegate: MvvmSceneDelegate {
         // Overlays
         router.register(LoadingViewController<LoadingViewModel>.self)
         router.register(ErrorViewController<ErrorViewModel>.self)
+        router.register(MangaPaymentViewController<MangaPaymentViewModel>.self)
 
         // Screens
         router.register(MvvmTabBarController<MainTabBarViewModel>.self)
         router.register(CatalogViewController<CatalogViewModel>.self)
         router.register(MangaDetailsViewController<MangaDetailsViewModel>.self)
         router.register(MangaReaderViewController<MangaReaderViewModel>.self)
+        router.register(ProfileViewController<ProfileViewModel>.self)
+
+        router.register(NewMangaAuthViewController<NewMangaAuthViewModel>.self)
+        router.register(TestViewController<MangaReaderViewModel>.self)
 
         // Cells
         router.register(MangaCell<MangaCellViewModel>.self)
@@ -39,9 +44,6 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(MangaDetailsCommentCell<MangaDetailsCommentViewModel>.self)
         router.register(MangaReaderPageCell<MangaReaderPageViewModel>.self)
         router.register(MangaReaderLoadNextCell<MangaReaderLoadNextViewModel>.self)
-
-
-
 
     }
 

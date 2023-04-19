@@ -7,6 +7,7 @@
 
 import UIKit
 import MvvmFoundation
+import MarqueeLabel
 
 class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<VM> {
     @IBOutlet private var imageView: UIImageView!
@@ -18,6 +19,10 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
     @IBOutlet private var imageViewHolder: UIView!
     @IBOutlet private var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var collectionView: UICollectionView!
+
+    @IBOutlet private var navTitleView: UIView!
+    @IBOutlet private var navTitleLabel: MarqueeLabel!
+    //    private let navTitleLabel = MarqueeLabel(frame: .init(x: 0, y: 0, width: 900, height: 44), rate: 24, fadeLength: 16)
 
     private var dataSource: DataSource!
     private lazy var delegates = Delegates(parent: self)
@@ -33,6 +38,10 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
         setupCollectionView()
 
         bind(in: disposeBag) {
+            viewModel.title.bind { [unowned self] text in
+                navTitleLabel.text = text
+//                navTitleLabel.sizeToFit()
+            }
             collectionView.rx.itemSelected.bind { [unowned self] indexPath in
                 viewModel.itemSelected(at: indexPath)
             }
@@ -68,16 +77,6 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
             self.collectionView.reloadData()
         }
     }
-
-    let categoryCellregistration: UICollectionView.CellRegistration<UICollectionViewListCell, String> = {
-      // 2
-        return .init { cell, _, item in
-          // 3
-          var configuration = cell.defaultContentConfiguration()
-          configuration.text = item
-          cell.contentConfiguration = configuration
-      }
-    }()
 }
 
 private extension MangaDetailsViewController {
@@ -106,6 +105,11 @@ private extension MangaDetailsViewController {
 
     func setupNavigationAppearance() {
         navigationController?.setOverrideTraitCollection(UITraitCollection(userInterfaceLevel: .elevated), forChild: self)
+
+//        navTitleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
+//        navTitleLabel.numberOfLines = 1
+//        navTitleLabel.textAlignment = .center
+        navigationItem.titleView = navTitleView
 
         let scrollButtonsAppearance = UIBarButtonItemAppearance()
         scrollButtonsAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
@@ -158,6 +162,11 @@ private extension MangaDetailsViewController {
     class Delegates: DelegateObject<MangaDetailsViewController>, UICollectionViewDelegate {
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             parent.imageViewHeightConstraint.constant = -scrollView.contentOffset.y
+
+            let offset = scrollView.contentOffset.y + scrollView.contentInset.top
+            let alpha = max(0, min(offset / 8, 1))
+            parent.navTitleLabel.isHidden = alpha <= 0
+            parent.navTitleLabel.alpha = alpha
         }
     }
 

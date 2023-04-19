@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C124AD829EFEB6B0050873A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C124AD629EFEB6B0050873A /* TestViewController.swift */; };
+		7C124AD929EFEB6B0050873A /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C124AD729EFEB6B0050873A /* TestViewController.xib */; };
 		7C83351B29E064D200B0CD99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83351A29E064D200B0CD99 /* AppDelegate.swift */; };
 		7C83351D29E064D200B0CD99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83351C29E064D200B0CD99 /* SceneDelegate.swift */; };
 		7C83352229E064D200B0CD99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C83352029E064D200B0CD99 /* Main.storyboard */; };
@@ -87,6 +89,21 @@
 		7C8B02C429EDAE190022E724 /* MangaReaderLoadNextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B02C329EDAE190022E724 /* MangaReaderLoadNextViewModel.swift */; };
 		7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */; };
 		7CF6BA7929EDD2D30042FE4E /* NewMangaLikeResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7829EDD2D30042FE4E /* NewMangaLikeResultModel.swift */; };
+		7CF6BA7B29EDF48F0042FE4E /* ApiMangaError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7A29EDF48F0042FE4E /* ApiMangaError.swift */; };
+		7CF6BA7F29EDF91A0042FE4E /* MangaPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7D29EDF91A0042FE4E /* MangaPaymentViewController.swift */; };
+		7CF6BA8029EDF91A0042FE4E /* MangaPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7E29EDF91A0042FE4E /* MangaPaymentViewController.xib */; };
+		7CF6BA8229EDF92E0042FE4E /* MangaPaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA8129EDF92E0042FE4E /* MangaPaymentViewModel.swift */; };
+		7CF6BA8629EE8CBC0042FE4E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA8429EE8CBC0042FE4E /* ProfileViewController.swift */; };
+		7CF6BA8729EE8CBC0042FE4E /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF6BA8529EE8CBC0042FE4E /* ProfileViewController.xib */; };
+		7CF6BA8929EE8CCB0042FE4E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA8829EE8CCB0042FE4E /* ProfileViewModel.swift */; };
+		7CF6BA8C29EEAC980042FE4E /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA8B29EEAC980042FE4E /* UIButton+Extensions.swift */; };
+		7CF6BA8E29EEAF690042FE4E /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA8D29EEAF690042FE4E /* Bool+Extensions.swift */; };
+		7CF6BA9029EEB3240042FE4E /* NewMangaMarkCommentResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA8F29EEB3240042FE4E /* NewMangaMarkCommentResultModel.swift */; };
+		7CF6BA9229EEC4BC0042FE4E /* NewMangaApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA9129EEC4BC0042FE4E /* NewMangaApi+Auth.swift */; };
+		7CF6BA9429EEC5270042FE4E /* ReMangaApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA9329EEC5270042FE4E /* ReMangaApi+Auth.swift */; };
+		7CF6BA9929EEC5830042FE4E /* NewMangaAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA9729EEC5830042FE4E /* NewMangaAuthViewController.swift */; };
+		7CF6BA9A29EEC5830042FE4E /* NewMangaAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF6BA9829EEC5830042FE4E /* NewMangaAuthViewController.xib */; };
+		7CF6BA9C29EEC58B0042FE4E /* NewMangaAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA9B29EEC58B0042FE4E /* NewMangaAuthViewModel.swift */; };
 		7CFCF9AB29E6AFF5008E6150 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCF9AA29E6AFF5008E6150 /* BaseViewController.swift */; };
 		7CFCF9AF29E6B0EC008E6150 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCF9AE29E6B0EC008E6150 /* UIViewController+Extensions.swift */; };
 		7CFCF9B429E6B2EC008E6150 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCF9B229E6B2EC008E6150 /* LoadingViewController.swift */; };
@@ -110,6 +127,9 @@
 
 /* Begin PBXFileReference section */
 		62B817C4B42425409E8A0262 /* Pods-ReManga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.debug.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.debug.xcconfig"; sourceTree = "<group>"; };
+		7C124AD629EFEB6B0050873A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		7C124AD729EFEB6B0050873A /* TestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
+		7C6E261D29EF1966007BAD45 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C83351729E064D200B0CD99 /* ReManga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReManga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C83351A29E064D200B0CD99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C83351C29E064D200B0CD99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +212,21 @@
 		7C8B02C329EDAE190022E724 /* MangaReaderLoadNextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaReaderLoadNextViewModel.swift; sourceTree = "<group>"; };
 		7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		7CF6BA7829EDD2D30042FE4E /* NewMangaLikeResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaLikeResultModel.swift; sourceTree = "<group>"; };
+		7CF6BA7A29EDF48F0042FE4E /* ApiMangaError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMangaError.swift; sourceTree = "<group>"; };
+		7CF6BA7D29EDF91A0042FE4E /* MangaPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaPaymentViewController.swift; sourceTree = "<group>"; };
+		7CF6BA7E29EDF91A0042FE4E /* MangaPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaPaymentViewController.xib; sourceTree = "<group>"; };
+		7CF6BA8129EDF92E0042FE4E /* MangaPaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaPaymentViewModel.swift; sourceTree = "<group>"; };
+		7CF6BA8429EE8CBC0042FE4E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7CF6BA8529EE8CBC0042FE4E /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		7CF6BA8829EE8CCB0042FE4E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		7CF6BA8B29EEAC980042FE4E /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
+		7CF6BA8D29EEAF690042FE4E /* Bool+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extensions.swift"; sourceTree = "<group>"; };
+		7CF6BA8F29EEB3240042FE4E /* NewMangaMarkCommentResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaMarkCommentResultModel.swift; sourceTree = "<group>"; };
+		7CF6BA9129EEC4BC0042FE4E /* NewMangaApi+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewMangaApi+Auth.swift"; sourceTree = "<group>"; };
+		7CF6BA9329EEC5270042FE4E /* ReMangaApi+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReMangaApi+Auth.swift"; sourceTree = "<group>"; };
+		7CF6BA9729EEC5830042FE4E /* NewMangaAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaAuthViewController.swift; sourceTree = "<group>"; };
+		7CF6BA9829EEC5830042FE4E /* NewMangaAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewMangaAuthViewController.xib; sourceTree = "<group>"; };
+		7CF6BA9B29EEC58B0042FE4E /* NewMangaAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaAuthViewModel.swift; sourceTree = "<group>"; };
 		7CFCF9AA29E6AFF5008E6150 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		7CFCF9AE29E6B0EC008E6150 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		7CFCF9B229E6B2EC008E6150 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -234,9 +269,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7C124AD529EFEB550050873A /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				7C124AD629EFEB6B0050873A /* TestViewController.swift */,
+				7C124AD729EFEB6B0050873A /* TestViewController.xib */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		7C83350E29E064D200B0CD99 = {
 			isa = PBXGroup;
 			children = (
+				7C6E261D29EF1966007BAD45 /* MyPlayground.playground */,
 				7C83351929E064D200B0CD99 /* ReManga */,
 				7C83351829E064D200B0CD99 /* Products */,
 				FF0371B0239772BE591CC54C /* Pods */,
@@ -280,6 +325,8 @@
 		7C83352F29E065A900B0CD99 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7C124AD529EFEB550050873A /* Test */,
+				7CF6BA8329EE8CAB0042FE4E /* Profile */,
 				7C8B027E29EAA6970022E724 /* MangaReader */,
 				7C8B022A29E834570022E724 /* MangaDetails */,
 				7CFCF9B029E6B2B6008E6150 /* Overlays */,
@@ -545,6 +592,45 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		7CF6BA7C29EDF8FB0042FE4E /* MangaPayment */ = {
+			isa = PBXGroup;
+			children = (
+				7CF6BA8129EDF92E0042FE4E /* MangaPaymentViewModel.swift */,
+				7CF6BA7D29EDF91A0042FE4E /* MangaPaymentViewController.swift */,
+				7CF6BA7E29EDF91A0042FE4E /* MangaPaymentViewController.xib */,
+			);
+			path = MangaPayment;
+			sourceTree = "<group>";
+		};
+		7CF6BA8329EE8CAB0042FE4E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				7CF6BA8829EE8CCB0042FE4E /* ProfileViewModel.swift */,
+				7CF6BA8429EE8CBC0042FE4E /* ProfileViewController.swift */,
+				7CF6BA8529EE8CBC0042FE4E /* ProfileViewController.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		7CF6BA9529EEC5620042FE4E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				7CF6BA9629EEC56F0042FE4E /* Screen */,
+				7CF6BA9129EEC4BC0042FE4E /* NewMangaApi+Auth.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		7CF6BA9629EEC56F0042FE4E /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				7CF6BA9B29EEC58B0042FE4E /* NewMangaAuthViewModel.swift */,
+				7CF6BA9729EEC5830042FE4E /* NewMangaAuthViewController.swift */,
+				7CF6BA9829EEC5830042FE4E /* NewMangaAuthViewController.xib */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
 		7CFCF9AC29E6B0DA008E6150 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,6 +654,8 @@
 				7CFCF9AE29E6B0EC008E6150 /* UIViewController+Extensions.swift */,
 				7C8B029929EC001D0022E724 /* RxConverters.swift */,
 				7C8B02B629EC99350022E724 /* Int+Extensions.swift */,
+				7CF6BA8B29EEAC980042FE4E /* UIButton+Extensions.swift */,
+				7CF6BA8D29EEAF690042FE4E /* Bool+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -577,6 +665,7 @@
 			children = (
 				7CFCF9B629E6B319008E6150 /* Error */,
 				7CFCF9B129E6B2C3008E6150 /* Loading */,
+				7CF6BA7C29EDF8FB0042FE4E /* MangaPayment */,
 			);
 			path = Overlays;
 			sourceTree = "<group>";
@@ -604,6 +693,7 @@
 		7CFCF9BF29E6C575008E6150 /* NewManga */ = {
 			isa = PBXGroup;
 			children = (
+				7CF6BA9529EEC5620042FE4E /* Auth */,
 				7CFCF9C729E6CC90008E6150 /* Models */,
 				7CFCF9C329E6C5E1008E6150 /* NewMangaApi.swift */,
 			);
@@ -615,6 +705,7 @@
 			children = (
 				7C83353A29E06D5B00B0CD99 /* Models */,
 				7CFCF9C129E6C5D0008E6150 /* ReMangaApi.swift */,
+				7CF6BA9329EEC5270042FE4E /* ReMangaApi+Auth.swift */,
 			);
 			path = ReManga;
 			sourceTree = "<group>";
@@ -630,6 +721,7 @@
 				7C8B027A29EA988C0022E724 /* NewMangaChapterPagesResultModel.swift */,
 				7C8B02A929EC19000022E724 /* NewMangaTitleCommentsResultModel.swift */,
 				7CF6BA7829EDD2D30042FE4E /* NewMangaLikeResultModel.swift */,
+				7CF6BA8F29EEB3240042FE4E /* NewMangaMarkCommentResultModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -642,6 +734,7 @@
 				7C8B027829EA982E0022E724 /* ApiMangaChapterPageModel.swift */,
 				7C8B029029EBF8260022E724 /* ApiMangaTranslatorModel.swift */,
 				7C8B02AB29EC199E0022E724 /* ApiMangaCommentModel.swift */,
+				7CF6BA7A29EDF48F0042FE4E /* ApiMangaError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -721,6 +814,7 @@
 				7C8B024929E9524E0022E724 /* MangaDetailsDescriptionTextCell.xib in Resources */,
 				7C8B028229EAA6B40022E724 /* MangaReaderViewController.xib in Resources */,
 				7C8B025929E964800022E724 /* MangaDetailsTagsCell.xib in Resources */,
+				7C124AD929EFEB6B0050873A /* TestViewController.xib in Resources */,
 				7C8B029629EBFCC90022E724 /* MangaDetailsTranslatorCell.xib in Resources */,
 				7C8B026029E9653E0022E724 /* MangaDetailsTagCell.xib in Resources */,
 				7C8B027329E9CE910022E724 /* MangaDetailsChapterCell.xib in Resources */,
@@ -729,12 +823,15 @@
 				7C83352429E064D400B0CD99 /* Assets.xcassets in Resources */,
 				7CFCF9BA29E6B327008E6150 /* ErrorViewController.xib in Resources */,
 				7C83354629E0728C00B0CD99 /* MangaCell.xib in Resources */,
+				7CF6BA9A29EEC5830042FE4E /* NewMangaAuthViewController.xib in Resources */,
+				7CF6BA8729EE8CBC0042FE4E /* ProfileViewController.xib in Resources */,
 				7C8B028A29EAAF1B0022E724 /* MangaReaderPageCell.xib in Resources */,
 				7C8B029F29EC02C00022E724 /* MangaDetailsHeaderCell.xib in Resources */,
 				7CFCF9B529E6B2EC008E6150 /* LoadingViewController.xib in Resources */,
 				7C8B02A529EC08CF0022E724 /* MangaDetailsLoadingPlaceholderCell.xib in Resources */,
 				7C8B02B129EC21670022E724 /* MangaDetailsCommentCell.xib in Resources */,
 				7C83352229E064D200B0CD99 /* Main.storyboard in Resources */,
+				7CF6BA8029EDF91A0042FE4E /* MangaPaymentViewController.xib in Resources */,
 				7C83353429E065C100B0CD99 /* CatalogViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -794,19 +891,24 @@
 				7C8B022929E832E20022E724 /* NewMangaDetailsResultModel.swift in Sources */,
 				7C8B029E29EC02C00022E724 /* MangaDetailsHeaderCell.swift in Sources */,
 				7C8B02B529EC96B10022E724 /* ReMangaApiDetailsResultModel.swift in Sources */,
+				7CF6BA8629EE8CBC0042FE4E /* ProfileViewController.swift in Sources */,
 				7C8B027B29EA988C0022E724 /* NewMangaChapterPagesResultModel.swift in Sources */,
+				7CF6BA7F29EDF91A0042FE4E /* MangaPaymentViewController.swift in Sources */,
 				7C8B02B729EC99350022E724 /* Int+Extensions.swift in Sources */,
 				7C8B024029E8B5280022E724 /* GradientView.swift in Sources */,
 				7C8B027D29EA9C280022E724 /* CGSize+Extensions.swift in Sources */,
 				7CFCF9D029E6CF6E008E6150 /* ReMangaModelExtensions.swift in Sources */,
+				7CF6BA7B29EDF48F0042FE4E /* ApiMangaError.swift in Sources */,
 				7CFCF9DC29E73869008E6150 /* KeyboardHandler.swift in Sources */,
 				7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */,
 				7C8B024829E9524E0022E724 /* MangaDetailsDescriptionTextCell.swift in Sources */,
 				7C8B02B329EC217A0022E724 /* MangaDetailsCommentViewModel.swift in Sources */,
 				7C8B02C229EDAABD0022E724 /* MangaReaderPageViewModel.swift in Sources */,
 				7C8B023029E8348A0022E724 /* MangaDetailsViewModel.swift in Sources */,
+				7CF6BA9929EEC5830042FE4E /* NewMangaAuthViewController.swift in Sources */,
 				7C8B024229E93B3C0022E724 /* DetailsHeaderCapViewModel.swift in Sources */,
 				7C8B02A429EC08CF0022E724 /* MangaDetailsLoadingPlaceholderCell.swift in Sources */,
+				7CF6BA8C29EEAC980042FE4E /* UIButton+Extensions.swift in Sources */,
 				7C8B026229E965C60022E724 /* MangaDetailsTagViewModel.swift in Sources */,
 				7CFCF9AB29E6AFF5008E6150 /* BaseViewController.swift in Sources */,
 				7C8B027529E9CEA30022E724 /* MangaDetailsChapterViewModel.swift in Sources */,
@@ -838,6 +940,7 @@
 				7CFCF9D829E706D3008E6150 /* MainTabBarViewModel.swift in Sources */,
 				7C8B026829E99BED0022E724 /* CloseButton.swift in Sources */,
 				7C8B026929E99BED0022E724 /* TagView.swift in Sources */,
+				7CF6BA9429EEC5270042FE4E /* ReMangaApi+Auth.swift in Sources */,
 				7C8B02BF29EDA6000022E724 /* MangaReaderLoadNextCell.swift in Sources */,
 				7C8B028C29EB41990022E724 /* String+Extensions.swift in Sources */,
 				7C8B026A29E99BED0022E724 /* TagListView.swift in Sources */,
@@ -845,23 +948,30 @@
 				7CFCF9C629E6C862008E6150 /* NewMangaCatalogRequest.swift in Sources */,
 				7C8B025829E964800022E724 /* MangaDetailsTagsCell.swift in Sources */,
 				7C8B02C429EDAE190022E724 /* MangaReaderLoadNextViewModel.swift in Sources */,
+				7CF6BA9029EEB3240042FE4E /* NewMangaMarkCommentResultModel.swift in Sources */,
 				7C8B025F29E9653E0022E724 /* MangaDetailsTagCell.swift in Sources */,
+				7CF6BA8E29EEAF690042FE4E /* Bool+Extensions.swift in Sources */,
 				7C8B022D29E8347D0022E724 /* MangaDetailsViewController.swift in Sources */,
 				7C8B029829EBFCE10022E724 /* MangaDetailsTranslatorViewModel.swift in Sources */,
 				7C8B025129E95BA40022E724 /* MangaDetailsSelectorCell.swift in Sources */,
+				7CF6BA8929EE8CCB0042FE4E /* ProfileViewModel.swift in Sources */,
+				7C124AD829EFEB6B0050873A /* TestViewController.swift in Sources */,
 				7C8B028129EAA6B40022E724 /* MangaReaderViewController.swift in Sources */,
 				7C8B02B929ED31C70022E724 /* ReMangaTitleChaptersResultModel.swift in Sources */,
 				7C8B026C29E9CB810022E724 /* NewMangaTitleChapterResultModel.swift in Sources */,
 				7C8B026E29E9CC2B0022E724 /* ApiMangaChapterModel.swift in Sources */,
 				7C8B024B29E952C30022E724 /* MangaDetailsDescriptionTextViewModel.swift in Sources */,
+				7CF6BA8229EDF92E0042FE4E /* MangaPaymentViewModel.swift in Sources */,
 				7C8B029529EBFCC90022E724 /* MangaDetailsTranslatorCell.swift in Sources */,
 				7C83351D29E064D200B0CD99 /* SceneDelegate.swift in Sources */,
 				7CFCF9BE29E6B4C5008E6150 /* LoadingViewModel.swift in Sources */,
 				7C83353629E065DA00B0CD99 /* CatalogViewModel.swift in Sources */,
+				7CF6BA9C29EEC58B0042FE4E /* NewMangaAuthViewModel.swift in Sources */,
 				7CFCF9C229E6C5D0008E6150 /* ReMangaApi.swift in Sources */,
 				7C83354529E0728C00B0CD99 /* MangaCell.swift in Sources */,
 				7C8B029A29EC001D0022E724 /* RxConverters.swift in Sources */,
 				7CFCF9B429E6B2EC008E6150 /* LoadingViewController.swift in Sources */,
+				7CF6BA9229EEC4BC0042FE4E /* NewMangaApi+Auth.swift in Sources */,
 				7C8B027929EA982E0022E724 /* ApiMangaChapterPageModel.swift in Sources */,
 				7C83353C29E06D7400B0CD99 /* ReMangaApiMangaModel.swift in Sources */,
 				7C8B029129EBF8260022E724 /* ApiMangaTranslatorModel.swift in Sources */,
@@ -1010,11 +1120,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D59DHVRS87;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = D59DHVRS87;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1028,6 +1142,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.xitrix.ReManga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Wildcard;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1040,11 +1156,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D59DHVRS87;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = D59DHVRS87;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1058,6 +1178,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.xitrix.ReManga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Wildcard;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

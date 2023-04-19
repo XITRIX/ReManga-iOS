@@ -6,6 +6,7 @@
 //
 
 import MvvmFoundation
+import RxSwift
 import RxRelay
 
 class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
@@ -17,6 +18,15 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
     let isReaded = BehaviorRelay<Bool>(value: false)
     let isLiked = BehaviorRelay<Bool>(value: false)
     let likes = BehaviorRelay<Int>(value: 0)
+    let isAvailable = BehaviorRelay<Bool>(value: true)
+    let price = BehaviorRelay<String?>(value: nil)
+    var unlocked: Observable<Bool?> {
+        Observable.combineLatest(isAvailable, price).map { (isAvailable, price) in
+            if isAvailable, price != nil { return true }
+            else if !isAvailable, price != nil { return false }
+            else { return nil }
+        }
+    }
 
     override func prepare(with model: ApiMangaChapterModel) {
         let dateFormatter = DateFormatter()
@@ -30,5 +40,7 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
         isReaded.accept(model.isReaded)
         isLiked.accept(model.isLiked)
         likes.accept(model.likes)
+        isAvailable.accept(model.isAvailable)
+        price.accept(model.price)
     }
 }

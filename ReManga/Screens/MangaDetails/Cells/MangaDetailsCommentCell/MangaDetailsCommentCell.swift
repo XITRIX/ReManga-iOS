@@ -22,6 +22,8 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
     @IBOutlet private var hierarchyStack: UIStackView!
     @IBOutlet private var pinImageView: UIImageView!
     @IBOutlet private var activityView: UIActivityIndicatorView!
+    @IBOutlet private var likeButton: UIButton!
+    @IBOutlet private var dislikeButton: UIButton!
 
     private var viewModel: VM!
 
@@ -42,6 +44,15 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
             dateLabel.rx.text <- viewModel.date
             scoreLabel.rx.text <- viewModel.score.map(String.init)
             imageView.rx.imageUrl(with: activityView) <- viewModel.image
+
+            viewModel.toggleLike <- likeButton.rx.tap
+            viewModel.toggleDislike <- dislikeButton.rx.tap
+
+            viewModel.isLiked.bind { [unowned self] liked in
+                likeButton.configuration = liked == true ? likeButton.configuration?.toFilled() : likeButton.configuration?.toTinted()
+                dislikeButton.configuration = liked == false ? dislikeButton.configuration?.toFilled() : dislikeButton.configuration?.toTinted()
+            }
+
             Observable.combineLatest(viewModel.score, viewModel.isPinned).bind { [unowned self] (score, pinned) in
                 applyScore(score, pinned)
             }

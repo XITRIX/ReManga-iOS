@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="ReManga" customModuleProvider="target">
+            <connections>
+                <outlet property="authButton" destination="81a-ya-U1c" id="0Ga-qk-CZz"/>
+                <outlet property="textField" destination="yf6-id-XZS" id="tR4-7Q-WpU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Auth token" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yf6-id-XZS">
+                    <rect key="frame" x="16" y="409" width="361" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81a-ya-U1c">
+                    <rect key="frame" x="16" y="353" width="361" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="nWE-Jj-Mex"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Авторизоваться">
+                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
+                    </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRaduis">
+                            <integer key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <keyboardLayoutGuide key="keyboard" id="PGE-C3-vfv"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailingMargin" secondItem="yf6-id-XZS" secondAttribute="trailing" id="7pX-x0-xXF"/>
+                <constraint firstItem="yf6-id-XZS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="91A-jM-EcP"/>
+                <constraint firstItem="yf6-id-XZS" firstAttribute="top" secondItem="81a-ya-U1c" secondAttribute="bottom" constant="8" symbolic="YES" id="DW3-iZ-evM"/>
+                <constraint firstItem="PGE-C3-vfv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yf6-id-XZS" secondAttribute="bottom" constant="16" id="Gin-5v-A8x"/>
+                <constraint firstItem="81a-ya-U1c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="IG5-Tt-caT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="81a-ya-U1c" secondAttribute="trailing" constant="16" id="Uom-dA-xrg"/>
+                <constraint firstItem="yf6-id-XZS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="sMi-9X-3Tu"/>
+                <constraint firstItem="yf6-id-XZS" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" priority="750" id="vl1-yG-nt3"/>
+            </constraints>
+            <point key="canvasLocation" x="15" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

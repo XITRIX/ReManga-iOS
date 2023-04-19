@@ -83,6 +83,10 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
         else { return }
 
         let current = chapters.value[currentChapter.value]
+
+        guard current.isAvailable.value
+        else { return }
+
         Task {
             try await api.markChapterRead(id: current.id.value)
             current.isReaded.accept(true)
@@ -94,6 +98,10 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
         else { return }
 
         let current = chapters.value[currentChapter.value]
+
+        guard current.isAvailable.value
+        else { return }
+        
         Task {
             let newValue = !current.isLiked.value
             _ = try await api.setChapterLike(id: current.id.value, newValue)
@@ -108,6 +116,14 @@ private extension MangaReaderViewModel {
         state.accept(.loading)
         performTask { [self] in
             pages.accept([])
+
+            guard model.isAvailable.value else {
+                state.accept(.error(ApiMangaError.needPayment(model)) { [weak self] in
+                    self?.loadPages(for: model)
+                })
+                return
+            }
+
             var items: [MvvmViewModel] = try await api.fetchChapter(id: model.id.value).map { MangaReaderPageViewModel(with: $0) }
             if !chapters.value.isEmpty && currentChapter.value > 0 {
                 items.append(mangaNextLoaderVM)

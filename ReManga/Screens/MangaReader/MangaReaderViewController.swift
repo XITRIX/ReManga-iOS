@@ -5,10 +5,10 @@
 //  Created by Даниил Виноградов on 15.04.2023.
 //
 
-import UIKit
-import RxSwift
-import RxRelay
 import MvvmFoundation
+import RxRelay
+import RxSwift
+import UIKit
 
 class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
@@ -78,7 +78,7 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
     func bindToCurrent(_ current: MangaDetailsChapterViewModel?) {
         guard let current else { return }
         bind(in: currentDisposeBag) {
-            Observable.combineLatest(current.isLiked, current.likes).bind { [unowned self] (isLiked, likes) in
+            Observable.combineLatest(current.isLiked, current.likes).bind { [unowned self] isLiked, likes in
                 let like = isLiked == true
                 likeButton.configuration = like ? .filled() : .tinted()
                 likeButton.configuration?.buttonSize = .mini
@@ -88,26 +88,26 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
         }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        collectionView.layoutMargins = .zero
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        collectionView.layoutMargins = .zero
+//    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        collectionView.layoutMargins = .zero
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        collectionView.layoutMargins = .zero
+//    }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        collectionView.layoutMargins = .zero
-
-        let scrollProgress = collectionView.contentOffset.y / (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height)
-        coordinator.animate { [self] context in
-            collectionView.reloadData()
-            collectionView.setContentOffset(CGPoint(x: 0, y: (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height) * scrollProgress), animated: false)
-        }
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        collectionView.layoutMargins = .zero
+//
+//        let scrollProgress = collectionView.contentOffset.y / (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height)
+//        coordinator.animate { [self] _ in
+//            collectionView.reloadData()
+//            collectionView.setContentOffset(CGPoint(x: 0, y: (collectionView.contentSize.height - collectionView.layoutMarginsGuide.layoutFrame.height) * scrollProgress), animated: false)
+//        }
+//    }
 
     @objc private func tapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
         if couldHideNavigation {
@@ -122,14 +122,23 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
     override func viewLayoutMarginsDidChange() {
         super.viewLayoutMarginsDidChange()
 
-        let top = navigationBar.frame.height
-        let bottom = toolBar.frame.height
+//        let top = navigationBar.frame.height
+//        let bottom = toolBar.frame.height
+//
+//        collectionView.contentInset.top = top
+//        collectionView.verticalScrollIndicatorInsets.top = top
+//
+//        collectionView.contentInset.bottom = bottom
+//        collectionView.verticalScrollIndicatorInsets.bottom = bottom
+    }
 
-        collectionView.contentInset.top = top
-        collectionView.verticalScrollIndicatorInsets.top = top
+    override func stateDidChange(_ state: ViewModelState) {
+        guard case let .error(error, retryAction) = state,
+              let apiError = error as? ApiMangaError,
+              case let .needPayment(chapter) = apiError
+        else { return super.stateDidChange(state) }
 
-        collectionView.contentInset.bottom = bottom
-        collectionView.verticalScrollIndicatorInsets.bottom = bottom
+        overlayViewController = MangaPaymentViewModel(with: (chapter, retryAction)).resolveVC()
     }
 }
 
@@ -189,12 +198,11 @@ private extension MangaReaderViewController {
 }
 
 private extension MangaReaderViewController {
-    class DataSource: UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MvvmViewModel>> { }
+    class DataSource: UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MvvmViewModel>> {}
 
     class Delegates: DelegateObject<MangaReaderViewController>, UICollectionViewDelegateFlowLayout, UINavigationBarDelegate {
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             if let item = parent.dataSource.itemIdentifier(for: indexPath)?.viewModel as? MangaReaderPageViewModel {
-
                 let width = parent.view.layoutMarginsGuide.layoutFrame.width
                 let height = (width / item.imageSize.value.width * item.imageSize.value.height).rounded(.toNearestOrEven)
 
@@ -221,7 +229,7 @@ private extension MangaReaderViewController {
             let couldHide = parent.couldHideNavigation
             if !couldHide || velocity > 500 {
                 parent.setNavigationBarHidden(false)
-            } else if velocity < -500 && couldHide {
+            } else if velocity < -500, couldHide {
                 parent.setNavigationBarHidden(true)
             }
         }

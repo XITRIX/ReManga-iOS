@@ -5,9 +5,18 @@
 //  Created by Даниил Виноградов on 07.04.2023.
 //
 
-import Foundation
+import MvvmFoundation
+import Kingfisher
+import RxRelay
 
-protocol ApiProtocol: AnyObject {
+protocol ApiAuthProtocol: AnyObject {
+    func showAuthScreen(from vm: MvvmViewModel)
+}
+
+protocol ApiProtocol: AnyObject, ApiAuthProtocol {
+    var authToken: BehaviorRelay<String?> { get set }
+    var kfAuthModifier: AnyModifier { get }
+
     func fetchCatalog(page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel]
     func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel]
     func fetchDetails(id: String) async throws -> ApiMangaModel
@@ -16,6 +25,8 @@ protocol ApiProtocol: AnyObject {
     func fetchComments(id: String) async throws -> [ApiMangaCommentModel]
     func markChapterRead(id: String) async throws
     func setChapterLike(id: String, _ value: Bool) async throws -> Int
+    func buyChapter(id: String) async throws
+    func markComment(id: String, _ value: Bool?) async throws -> Int
 }
 
 extension ApiProtocol {

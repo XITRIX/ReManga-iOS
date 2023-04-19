@@ -6,9 +6,16 @@
 //
 
 import Foundation
+import Kingfisher
+import RxRelay
 
 class ReMangaApi: ApiProtocol {
     static let imgPath: String = "https://remanga.org/"
+    var authToken = BehaviorRelay<String?>(value: nil)
+
+    var kfAuthModifier: Kingfisher.AnyModifier {
+        AnyModifier { $0 }
+    }
     
     func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
         var tags = ""
@@ -71,6 +78,14 @@ class ReMangaApi: ApiProtocol {
     func markChapterRead(id: String) async throws { }
 
     func setChapterLike(id: String, _ value: Bool) async throws -> Int {
+        0
+    }
+
+    func buyChapter(id: String) async throws {
+
+    }
+    
+    func markComment(id: String, _ value: Bool?) async throws -> Int {
         0
     }
 }

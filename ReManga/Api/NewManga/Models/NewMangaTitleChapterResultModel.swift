@@ -34,7 +34,7 @@ struct NewMangaTitleChapterResultItem: Codable, Hashable {
     let translator: String?
     let expiresAt: String?
     let createdAt: String
-    let isExpired: Bool?
+    let isExpired: Bool
     let pages: Int?
     let isPublished, isParsed: Bool?
 //    let origin: NewMangaTitleChapterResultOrigin?

@@ -54,7 +54,7 @@ struct NewMangaTitleCommentsResultChild: Codable, Hashable {
     let likes, dislikes, parentID: Int?
     let createdAt: String
     let rating: Int?
-//    let currentMark: JSONNull?
+    let currentMark: Bool?
     let isPinned, canPin, canUnpin: Bool?
     let children: [NewMangaTitleCommentsResultChild]?
 
@@ -63,7 +63,7 @@ struct NewMangaTitleCommentsResultChild: Codable, Hashable {
         case parentID = "parent_id"
         case createdAt = "created_at"
         case rating
-//        case currentMark = "current_mark"
+        case currentMark = "current_mark"
         case isPinned = "is_pinned"
         case canPin = "can_pin"
         case canUnpin = "can_unpin"

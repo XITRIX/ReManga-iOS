@@ -57,10 +57,10 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
         super.binding()
         bind(in: disposeBag) {
             selectorVM.selected.bind { [unowned self] segment in
-                Task { await selectSegment(segment) }
+                selectSegment(segment)
             }
             tagsVM.tagSelected.bind { [unowned self] tag in
-                Task { await tagSelected(tag) }
+                tagSelected(tag)
             }
             comments.bind { [unowned self] comments in
                 let allComments = comments?.flatMap { $0.allChildren }
@@ -68,15 +68,14 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
                     bind(in: comment.disposeBag) {
                         comment.expandedChanged.bind { [unowned self] _ in
                             if selectorVM.selected.value == 2 {
-                                Task { await refresh() }
+                                refresh()
                             }
                         }
                     }
                 }
 
-
                 if selectorVM.selected.value == 2 {
-                    Task { await refresh() }
+                    refresh()
                 }
             }
         }
@@ -89,6 +88,7 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
         let model = MangaReaderModel(chapters: chapters.value, current: chapters.value.firstIndex(of: mangaModel) ?? 0)
 
         navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
+//        navigate(to: TestViewModel.self, by: .present(wrapInNavigation: false))
     }
 
     func tagSelected(_ tag: ApiMangaTag) {
@@ -123,11 +123,7 @@ private extension MangaDetailsViewModel {
         case 2:
             var commentsSection = MvvmCollectionSectionModel(id: "comments", style: .plain, showsSeparators: false, items: [])
             if let comments = comments.value {
-
-
                 commentsSection.items.append(contentsOf: comments.flatMap { $0.allExpandedChildren })
-
-                
             } else {
                 commentsSection.items.append(MangaDetailsLoadingPlaceholderViewModel())
                 // Several empty items to workaround wierd animation bug

@@ -6,25 +6,49 @@
 //
 
 import Foundation
+import Kingfisher
+import MvvmFoundation
+import RxSwift
+import RxRelay
 
 class NewMangaApi: ApiProtocol {
+    let disposeBag = DisposeBag()
     let decoder = JSONDecoder()
     static let imgPath: String = "https://img.newmanga.org/ProjectCard/webp/"
 
-    let userBearer: String? = ""
+    var authToken = BehaviorRelay<String?>(value: nil)
+
+    var kfAuthModifier: AnyModifier {
+        AnyModifier { [weak self] request in
+            var r = request
+            if let authToken = self?.authToken {
+                r.addValue("user_session=\(authToken)", forHTTPHeaderField: "cookie")
+            }
+            return r
+        }
+    }
+
+    init() {
+        authToken.accept(UserDefaults.standard.string(forKey: "AuthToken"))
+        bind(in: disposeBag) {
+            authToken.bind { token in
+                UserDefaults.standard.set(token, forKey: "AuthToken")
+            }
+        }
+    }
 
     func makeRequest(_ url: String) -> URLRequest {
         var request = URLRequest(url: URL(string: url)!)
-        if let userBearer {
-            request.addValue("user_session=\(userBearer)", forHTTPHeaderField: "cookie")
+        if let authToken = authToken.value {
+            request.addValue("user_session=\(authToken)", forHTTPHeaderField: "cookie")
         }
         return request
     }
 
     var urlSession: URLSession {
         let session = URLSession.shared
-        if let userBearer,
-           let cookie = HTTPCookie(properties: [.name: "user_session", .value: userBearer, .domain: ".newmanga.org"])
+        if let authToken = authToken.value,
+           let cookie = HTTPCookie(properties: [.name: "user_session", .value: authToken, .domain: ".newmanga.org"])
         {
             session.configuration.httpCookieStorage?.setCookie(cookie)
         }
@@ -123,5 +147,27 @@ class NewMangaApi: ApiProtocol {
         let model = try JSONDecoder().decode(NewMangaLikeResultModel.self, from: result)
         
         return await MainActor.run { model.setChapterHeart }
+    }
+
+    func buyChapter(id: String) async throws {
+        let url = "https://api.newmanga.org/v2/chapters/\(id)/buy"
+        var request = makeRequest(url)
+        request.httpMethod = "POST"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        _ = try await urlSession.data(for: request)
+    }
+
+    func markComment(id: String, _ value: Bool?) async throws -> Int {
+        let url = "https://api.newmanga.org/v2/comments/\(id)/mark"
+
+        var request = makeRequest(url)
+        request.httpMethod = "POST"
+        request.httpBody = "{ \"value\": \(String(describing: value?.toString ?? "null")) }".data(using: .utf8)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
+        let (result, _) = try await urlSession.data(for: request)
+        let model = try JSONDecoder().decode(NewMangaMarkCommentResultModel.self, from: result)
+
+        return await MainActor.run { model.likes - model.dislikes }
     }
 }

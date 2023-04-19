@@ -31,7 +31,7 @@ struct NewMangaChapterPagesResult: Codable, Hashable {
 
 // MARK: - NewMangaChapterPagesResultPage
 struct NewMangaChapterPagesResultPage: Codable, Hashable {
-    let index: Int?
+    let index: Int
     let slices: [NewMangaChapterPagesResultSlice]
 }
 

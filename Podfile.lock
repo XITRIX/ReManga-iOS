@@ -1,5 +1,6 @@
 PODS:
   - Kingfisher (7.6.2)
+  - MarqueeLabel (4.3.0)
   - MvvmFoundation (0.1.0):
     - RxBiBinding
     - RxCocoa (~> 6.5.0)
@@ -16,11 +17,13 @@ PODS:
 
 DEPENDENCIES:
   - Kingfisher (~> 7.0)
+  - MarqueeLabel
   - MvvmFoundation (from `submodules/MvvmFoundation`)
 
 SPEC REPOS:
   trunk:
     - Kingfisher
+    - MarqueeLabel
     - RxBiBinding
     - RxCocoa
     - RxRelay
@@ -32,12 +35,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
   MvvmFoundation: 44794136a81e1f993fa09da54831f9eefd506a01
   RxBiBinding: c4de0aad6ee668fa73ea6ba423bc0ab5d77b986b
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
 
-PODFILE CHECKSUM: dd0342e9b80d9216b4e31c3c509c58bb068609dc
+PODFILE CHECKSUM: 794228b2e568fb3a43407eb6696a615c011f9ab7
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

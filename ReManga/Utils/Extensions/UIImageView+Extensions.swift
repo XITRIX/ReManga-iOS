@@ -26,11 +26,17 @@ extension UIImageView {
 }
 
 extension Reactive where Base: UIImageView {
-    public func imageUrl(with activityIndicator: UIActivityIndicatorView? = nil) -> Binder<String?> {
+    public func imageUrl(with activityIndicator: UIActivityIndicatorView? = nil, auth modifier: AnyModifier? = nil) -> Binder<String?> {
         Binder(self.base) { imageView, image in
             guard let image else { return }
             activityIndicator?.startAnimating()
-            imageView.kf.setImage(with: URL(string: image)) { _ in
+
+            var options: KingfisherOptionsInfo = []
+            if let modifier {
+                options.append(.requestModifier(modifier))
+            }
+            
+            imageView.kf.setImage(with: URL(string: image), options: options) { _ in
                 activityIndicator?.stopAnimating()
             }
         }

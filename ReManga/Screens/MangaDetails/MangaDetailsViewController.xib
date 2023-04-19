@@ -17,6 +17,8 @@
                 <outlet property="imageView" destination="KGD-Pz-SNx" id="O2h-TJ-zaI"/>
                 <outlet property="imageViewHeightConstraint" destination="beV-B1-i8A" id="MkR-vm-aD7"/>
                 <outlet property="imageViewHolder" destination="N6T-j3-mCH" id="hHX-1A-nMr"/>
+                <outlet property="navTitleLabel" destination="46q-dx-v6h" id="wvO-Rn-dga"/>
+                <outlet property="navTitleView" destination="9Mr-EH-Y9F" id="83N-hy-cdf"/>
                 <outlet property="subtitleLabel" destination="TC2-h9-krX" id="Lc7-bh-iXv"/>
                 <outlet property="titleLabel" destination="kln-bh-e9G" id="lTa-GV-IDl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -127,6 +129,36 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-317" y="-613"/>
+        </view>
+        <view contentMode="scaleToFill" id="9Mr-EH-Y9F">
+            <rect key="frame" x="0.0" y="0.0" width="349" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46q-dx-v6h" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                    <rect key="frame" x="153" y="0.0" width="43.333333333333343" height="44"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="fadeLength">
+                            <real key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="trailingBuffer">
+                            <real key="value" value="36"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="w8i-Lf-Pbw"/>
+            <constraints>
+                <constraint firstItem="46q-dx-v6h" firstAttribute="centerX" secondItem="w8i-Lf-Pbw" secondAttribute="centerX" id="12P-ND-ETW"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="46q-dx-v6h" secondAttribute="trailing" id="56R-uC-6F8"/>
+                <constraint firstItem="46q-dx-v6h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9Mr-EH-Y9F" secondAttribute="leading" id="OSw-bC-EXj"/>
+                <constraint firstItem="46q-dx-v6h" firstAttribute="top" secondItem="9Mr-EH-Y9F" secondAttribute="top" id="gqJ-ck-qLz"/>
+                <constraint firstAttribute="bottom" secondItem="46q-dx-v6h" secondAttribute="bottom" id="tQ8-ti-F48"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="608.39694656488552" y="-341.54929577464793"/>
         </view>
     </objects>
     <resources>

@@ -18,6 +18,7 @@ struct ApiMangaCommentModel: Hashable {
     var imagePath: String
     var hierarchy: Int = 0
     var isPinned: Bool = false
+    var isLiked: Bool?
 }
 
 extension ApiMangaCommentModel {

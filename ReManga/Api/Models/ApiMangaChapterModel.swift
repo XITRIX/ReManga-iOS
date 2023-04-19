@@ -22,4 +22,6 @@ struct ApiMangaChapterModel: Codable, Hashable {
     var isReaded: Bool
     var isLiked: Bool
     var likes: Int
+    var isAvailable: Bool
+    var price: String?
 }
