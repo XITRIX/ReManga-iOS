@@ -10,8 +10,8 @@ import MvvmFoundation
 
 class SceneDelegate: MvvmSceneDelegate {
     override func register(in container: Container) {
-        container.registerSingleton(type: ApiProtocol.self, factory: NewMangaApi.init)
-//        container.registerSingleton(type: ApiProtocol.self, factory: ReMangaApi.init)
+//        container.registerSingleton(type: ApiProtocol.self, factory: NewMangaApi.init)
+        container.registerSingleton(type: ApiProtocol.self, factory: ReMangaApi.init)
     }
 
     override func routing(in router: Router) {
@@ -28,6 +28,7 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(ProfileViewController<ProfileViewModel>.self)
 
         router.register(NewMangaAuthViewController<NewMangaAuthViewModel>.self)
+        router.register(ReMangaAuthViewController<ReMangaAuthViewModel>.self)
 
         // Cells
         router.register(MangaCell<MangaCellViewModel>.self)

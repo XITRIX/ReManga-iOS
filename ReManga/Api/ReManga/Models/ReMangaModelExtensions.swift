@@ -64,7 +64,7 @@ extension ApiMangaChapterModel {
         likes = model.score ?? 0
 
         isAvailable = !(model.isPaid ?? false)
-        price = model.price
+        price = model.isPaid == false ? nil : model.price
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"

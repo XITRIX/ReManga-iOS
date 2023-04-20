@@ -29,10 +29,10 @@ class NewMangaApi: ApiProtocol {
     }
 
     init() {
-        authToken.accept(UserDefaults.standard.string(forKey: "AuthToken"))
+        authToken.accept(UserDefaults.standard.string(forKey: "NewAuthToken"))
         bind(in: disposeBag) {
             authToken.bind { token in
-                UserDefaults.standard.set(token, forKey: "AuthToken")
+                UserDefaults.standard.set(token, forKey: "NewAuthToken")
             }
         }
     }
