@@ -61,7 +61,7 @@
                                         </imageView>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gAz-jX-6wZ">
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gAz-jX-6wZ">
                                     <rect key="frame" x="0.0" y="24.333333333333339" width="142.66666666666666" height="15.666666666666668"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="XITRIX team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZx-W0-J5B">
@@ -84,6 +84,7 @@
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="YEc-vA-dWf"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="xdJ-lU-7iL" firstAttribute="leading" secondItem="tj0-wb-qCl" secondAttribute="leadingMargin" id="0dj-nr-lQf"/>
                 <constraint firstItem="xdJ-lU-7iL" firstAttribute="top" secondItem="tj0-wb-qCl" secondAttribute="top" constant="8" id="DLX-oN-mHI"/>
@@ -102,6 +103,9 @@
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

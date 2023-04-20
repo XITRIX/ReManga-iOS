@@ -21,4 +21,12 @@ extension UILabel {
 
         return labelTextSize.height > bounds.size.height
     }
+
+    var textWithVisibility: String? {
+        get { text }
+        set {
+            text = newValue
+            isHidden = newValue.isNilOrEmpty
+        }
+    }
 }

@@ -17,7 +17,7 @@ extension ApiMangaModel {
     }
 
     init(from model: ReMangaApiDetailsResultContent) {
-        self.id = model.dir ?? ""
+        self.id = model.id?.text ?? ""
         title = model.enName ?? ""
         rusTitle = model.rusName ?? ""
         img = ReMangaApi.imgPath + (model.img?.high ?? "")
@@ -68,7 +68,12 @@ extension ApiMangaChapterModel {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-        date = dateFormatter.date(from: model.uploadDate)!
+        if let d = dateFormatter.date(from: model.uploadDate) {
+            date = d
+        } else {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            date = dateFormatter.date(from: model.uploadDate)!
+        }
     }
 }
 
@@ -76,5 +81,47 @@ extension ApiMangaChapterPageModel {
     init(from model: ReMangaChapterPagesResultPage) {
         size = CGSize(width: model.width, height: model.height)
         path = model.link
+    }
+}
+
+extension ApiMangaCommentModel {
+    init?(from model: ReMangaCommentsResultContent) {
+        id = String(model.id)
+        name = model.user.username
+        likes = model.score ?? 0
+        dislikes = 0
+        children = []
+        replies = model.countReplies ?? 0
+        isPinned = model.isPinned ?? false
+
+        if model.rated == 0 {
+            isLiked = true
+        } else if model.rated == 1 {
+            isLiked = true
+        } else if model.rated == nil {
+            isLiked = nil
+        }
+
+        guard let date = model.date
+        else { return nil }
+        
+        self.date = Date(timeIntervalSince1970: TimeInterval(date))
+
+        let imageRoot = "https://remanga.org"
+        imagePath = imageRoot + (model.user.avatar?.low ?? "")
+
+        guard let text = model.text
+        else { return nil }
+
+        self.text = .init(string: text)
+
+        applyHierarchy(0)
+    }
+
+    private mutating func applyHierarchy(_ value: Int) {
+        hierarchy = value
+        for i in 0 ..< children.count {
+            children[i].applyHierarchy(hierarchy + 1)
+        }
     }
 }

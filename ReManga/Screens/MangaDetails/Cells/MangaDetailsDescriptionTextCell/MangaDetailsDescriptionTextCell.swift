@@ -22,7 +22,7 @@ class MangaDetailsDescriptionTextCell<VM: MangaDetailsDescriptionTextViewModel>:
             }
             viewModel.isExpanded.bind { [unowned self] expanded in
                 textLabel.numberOfLines = expanded ? 0 : 4
-                expandButton.isHidden = expanded || !textLabel.isTruncated
+                expandButton.superview?.isHidden = expanded || !textLabel.isTruncated
                 invalidateIntrinsicContentSize()
             }
         }

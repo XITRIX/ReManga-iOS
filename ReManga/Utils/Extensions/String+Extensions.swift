@@ -55,6 +55,6 @@ extension String {
 
         attributedString.addAttributes(attrs, range: .init(location: 0, length: attributedString.length))
 
-        return attributedString
+        return attributedString.trimedCharactersInSet(charSet: .whitespacesAndNewlines)
     }
 }

@@ -91,6 +91,8 @@
 		7C934AE329F0A46800709295 /* ReMangaAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C934AE129F0A46800709295 /* ReMangaAuthViewController.xib */; };
 		7C934AE529F0A47100709295 /* ReMangaAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C934AE429F0A47100709295 /* ReMangaAuthViewModel.swift */; };
 		7C934AE729F133D100709295 /* ReMangaAuthResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C934AE629F133D100709295 /* ReMangaAuthResultModel.swift */; };
+		7C934AE929F19B5700709295 /* NSMutableAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C934AE829F19B5700709295 /* NSMutableAttributedString+Extensions.swift */; };
+		7C934AEB29F1ABC500709295 /* ReMangaCommentsResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C934AEA29F1ABC500709295 /* ReMangaCommentsResultModel.swift */; };
 		7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */; };
 		7CF6BA7929EDD2D30042FE4E /* NewMangaLikeResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7829EDD2D30042FE4E /* NewMangaLikeResultModel.swift */; };
 		7CF6BA7B29EDF48F0042FE4E /* ApiMangaError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7A29EDF48F0042FE4E /* ApiMangaError.swift */; };
@@ -133,7 +135,6 @@
 		62B817C4B42425409E8A0262 /* Pods-ReManga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.debug.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.debug.xcconfig"; sourceTree = "<group>"; };
 		7C124AD629EFEB6B0050873A /* MangaReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaReaderViewController.swift; sourceTree = "<group>"; };
 		7C124AD729EFEB6B0050873A /* MangaReaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaReaderViewController.xib; sourceTree = "<group>"; };
-		7C6E261D29EF1966007BAD45 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7C83351729E064D200B0CD99 /* ReManga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReManga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C83351A29E064D200B0CD99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C83351C29E064D200B0CD99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -218,6 +219,8 @@
 		7C934AE129F0A46800709295 /* ReMangaAuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReMangaAuthViewController.xib; sourceTree = "<group>"; };
 		7C934AE429F0A47100709295 /* ReMangaAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReMangaAuthViewModel.swift; sourceTree = "<group>"; };
 		7C934AE629F133D100709295 /* ReMangaAuthResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReMangaAuthResultModel.swift; sourceTree = "<group>"; };
+		7C934AE829F19B5700709295 /* NSMutableAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		7C934AEA29F1ABC500709295 /* ReMangaCommentsResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReMangaCommentsResultModel.swift; sourceTree = "<group>"; };
 		7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		7CF6BA7829EDD2D30042FE4E /* NewMangaLikeResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaLikeResultModel.swift; sourceTree = "<group>"; };
 		7CF6BA7A29EDF48F0042FE4E /* ApiMangaError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMangaError.swift; sourceTree = "<group>"; };
@@ -280,7 +283,6 @@
 		7C83350E29E064D200B0CD99 = {
 			isa = PBXGroup;
 			children = (
-				7C6E261D29EF1966007BAD45 /* MyPlayground.playground */,
 				7C83351929E064D200B0CD99 /* ReManga */,
 				7C83351829E064D200B0CD99 /* Products */,
 				FF0371B0239772BE591CC54C /* Pods */,
@@ -366,6 +368,7 @@
 				7C8B02B829ED31C70022E724 /* ReMangaTitleChaptersResultModel.swift */,
 				7C8B02BA29ED3D1B0022E724 /* ReMangaChapterPagesResultModel.swift */,
 				7C934AE629F133D100709295 /* ReMangaAuthResultModel.swift */,
+				7C934AEA29F1ABC500709295 /* ReMangaCommentsResultModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 				7C8B028E29EB539D0022E724 /* UILabel+Extensions.swift */,
 				7CFCF9AE29E6B0EC008E6150 /* UIViewController+Extensions.swift */,
 				7C934ADC29F08FDE00709295 /* CGRect+Extensions.swift */,
+				7C934AE829F19B5700709295 /* NSMutableAttributedString+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -929,6 +933,7 @@
 				7C8B023029E8348A0022E724 /* MangaDetailsViewModel.swift in Sources */,
 				7CF6BA9929EEC5830042FE4E /* NewMangaAuthViewController.swift in Sources */,
 				7C8B024229E93B3C0022E724 /* DetailsHeaderCapViewModel.swift in Sources */,
+				7C934AEB29F1ABC500709295 /* ReMangaCommentsResultModel.swift in Sources */,
 				7C8B02A429EC08CF0022E724 /* MangaDetailsLoadingPlaceholderCell.swift in Sources */,
 				7CF6BA8C29EEAC980042FE4E /* UIButton+Extensions.swift in Sources */,
 				7C8B026229E965C60022E724 /* MangaDetailsTagViewModel.swift in Sources */,
@@ -984,6 +989,7 @@
 				7C8B026C29E9CB810022E724 /* NewMangaTitleChapterResultModel.swift in Sources */,
 				7C8B026E29E9CC2B0022E724 /* ApiMangaChapterModel.swift in Sources */,
 				7C8B024B29E952C30022E724 /* MangaDetailsDescriptionTextViewModel.swift in Sources */,
+				7C934AE929F19B5700709295 /* NSMutableAttributedString+Extensions.swift in Sources */,
 				7CF6BA8229EDF92E0042FE4E /* MangaPaymentViewModel.swift in Sources */,
 				7C934ADB29F08F9500709295 /* CGPoint+Extensions.swift in Sources */,
 				7C8B029529EBFCC90022E724 /* MangaDetailsTranslatorCell.swift in Sources */,

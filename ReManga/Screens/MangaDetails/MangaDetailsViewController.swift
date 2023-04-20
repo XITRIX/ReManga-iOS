@@ -167,6 +167,10 @@ private extension MangaDetailsViewController {
             let alpha = max(0, min(offset / 8, 1))
             parent.navTitleLabel.isHidden = alpha <= 0
             parent.navTitleLabel.alpha = alpha
+
+            if scrollView.contentOffset.y + scrollView.bounds.height > scrollView.contentSize.height - 400 {
+                parent.viewModel.bottomReached()
+            }
         }
     }
 

@@ -103,7 +103,7 @@ class NewMangaApi: ApiProtocol {
         return await MainActor.run { ApiMangaModel(from: model) }
     }
 
-    func fetchTitleChapters(branch: String, count: Int) async throws -> [ApiMangaChapterModel] {
+    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel] {
         let url = "https://api.newmanga.org/v3/branches/\(branch)/chapters/all"
         let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode([NewMangaTitleChapterResultItem].self, from: result)
@@ -119,12 +119,16 @@ class NewMangaApi: ApiProtocol {
         return await MainActor.run { model.getPages(chapter: id) }
     }
 
-    func fetchComments(id: String) async throws -> [ApiMangaCommentModel] {
+    func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
         let url = "https://api.newmanga.org/v2/projects/\(id)/comments?sort_by=new"
         let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaTitleCommentsResult.self, from: result)
 
         return await MainActor.run { model.compactMap { .init(from: $0) } }
+    }
+
+    func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
+        throw ApiMangaError.operationNotSupported(message: "No need to fetch replies on NewManga backend")
     }
 
     func markChapterRead(id: String) async throws {
@@ -135,7 +139,7 @@ class NewMangaApi: ApiProtocol {
         _ = try await urlSession.data(for: request)
     }
 
-    func setChapterLike(id: String, _ value: Bool) async throws -> Int {
+    func setChapterLike(id: String, _ value: Bool) async throws {
         let url = "https://api.newmanga.org/v2/chapters/\(id)/heart"
 
         var request = makeRequest(url)
@@ -144,9 +148,7 @@ class NewMangaApi: ApiProtocol {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
         let (result, _) = try await urlSession.data(for: request)
-        let model = try JSONDecoder().decode(NewMangaLikeResultModel.self, from: result)
-        
-        return await MainActor.run { model.setChapterHeart }
+        _ = try JSONDecoder().decode(NewMangaLikeResultModel.self, from: result)
     }
 
     func buyChapter(id: String) async throws {

@@ -10,4 +10,5 @@ import RxRelay
 
 class MangaDetailsLoadingPlaceholderViewModel: MvvmViewModel {
     let isLoading = BehaviorRelay<Bool>(value: true)
+    let isCompact = BehaviorRelay<Bool>(value: false)
 }

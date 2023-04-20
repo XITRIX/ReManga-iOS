@@ -26,8 +26,8 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
             viewModel.chapter.bind(to: tomeLabel.rx.text)
             tomeLabel.rx.text <- viewModel.tome
             nameLabel.rx.text <- viewModel.chapter
-            dateLabel.rx.text <- viewModel.date
-            teamLabel.rx.text <- viewModel.team
+            dateLabel.rx.textWithVisibility <- viewModel.date
+            teamLabel.rx.textWithVisibility <- viewModel.team
             nameLabel.rx.textColor <- viewModel.isReaded.map { $0 ? .secondaryLabel : .label }
             heartImageView.rx.isHidden <- viewModel.isLiked.map { !$0 }
             viewModel.unlocked.bind { [unowned self] unlocked in

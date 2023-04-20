@@ -9,6 +9,7 @@ import Foundation
 
 struct ApiMangaCommentModel: Hashable {
     var id: String
+    var replies: Int
     var children: [ApiMangaCommentModel]
     var text: NSMutableAttributedString
     var name: String

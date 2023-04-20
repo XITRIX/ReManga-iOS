@@ -36,7 +36,6 @@ struct MvvmCollectionSectionModel: Hashable {
 class MangaDetailsViewModel: BaseViewModelWith<String> {
     @Injected var api: ApiProtocol
     let image = BehaviorRelay<String?>(value: nil)
-//    let titleVM = DetailsTitleHeaderViewModel()
 
     let statusVM = DetailsHeaderCapViewModel()
     let descriptionVM = MangaDetailsDescriptionTextViewModel()
@@ -47,7 +46,18 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     let items = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
     let chapters = BehaviorRelay<[MangaDetailsChapterViewModel]>(value: [])
     let translators = BehaviorRelay<[MangaDetailsTranslatorViewModel]>(value: [])
-    let comments = BehaviorRelay<[MangaDetailsCommentViewModel]?>(value: nil)
+    let comments = BehaviorRelay<[MangaDetailsCommentViewModel]>(value: [])
+
+    var branch: ApiMangaBranchModel?
+    var isChaptersDone = false
+    var chaptersPage = 1
+    var chaptersIsLoading = false
+
+    var isCommentsDone = false
+    var commentsPage = 1
+    var commentsIsLoading = false
+
+    var id: String!
 
     override func prepare(with model: String) {
         loadDetails(for: model)
@@ -62,9 +72,14 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
             tagsVM.tagSelected.bind { [unowned self] tag in
                 tagSelected(tag)
             }
+            chapters.bind { [unowned self] chapters in
+                if selectorVM.selected.value == 1 {
+                    refresh()
+                }
+            }
             comments.bind { [unowned self] comments in
-                let allComments = comments?.flatMap { $0.allChildren }
-                allComments?.forEach { comment in
+                let allComments = comments.flatMap { $0.allChildren }
+                allComments.forEach { comment in
                     bind(in: comment.disposeBag) {
                         comment.expandedChanged.bind { [unowned self] _ in
                             if selectorVM.selected.value == 2 {
@@ -94,6 +109,16 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     func tagSelected(_ tag: ApiMangaTag) {
         navigate(to: CatalogViewModel.self, with: .init(title: tag.name.capitalizedSentence, isSearchAvailable: false, filters: [tag]), by: .show)
     }
+
+    func bottomReached() {
+        switch selectorVM.selected.value {
+        case 1:
+            performTask { try await self.loadNextChapters() }
+            break
+        default:
+            break
+        }
+    }
 }
 
 private extension MangaDetailsViewModel {
@@ -118,12 +143,17 @@ private extension MangaDetailsViewModel {
             }
             items.accept([headerSection, descriptionSection])
         case 1:
-            let chaptersSection: MvvmCollectionSectionModel = .init(id: "chapters", style: .plain, showsSeparators: true, items: chapters.value)
+            var chaptersSection: MvvmCollectionSectionModel = .init(id: "chapters", style: .plain, showsSeparators: true, items: chapters.value)
+            if !isChaptersDone {
+                let loader = MangaDetailsLoadingPlaceholderViewModel()
+                loader.isCompact.accept(true)
+                chaptersSection.items.append(loader)
+            }
             items.accept([headerSection, chaptersSection])
         case 2:
             var commentsSection = MvvmCollectionSectionModel(id: "comments", style: .plain, showsSeparators: false, items: [])
-            if let comments = comments.value {
-                commentsSection.items.append(contentsOf: comments.flatMap { $0.allExpandedChildren })
+            if !comments.value.isEmpty || commentsIsLoading {
+                commentsSection.items.append(contentsOf: comments.value.flatMap { $0.allExpandedChildren })
             } else {
                 commentsSection.items.append(MangaDetailsLoadingPlaceholderViewModel())
                 // Several empty items to workaround wierd animation bug
@@ -143,17 +173,18 @@ private extension MangaDetailsViewModel {
             title.accept(res.rusTitle ?? res.title)
             image.accept(res.img)
 
-            if let branch = res.branches.first {
-                let chaptersRes = try await api.fetchTitleChapters(branch: branch.id)
-                chapters.accept(chaptersRes.map { chapter in
-                    let res = MangaDetailsChapterViewModel()
-                    res.prepare(with: chapter)
-                    return res
-                })
-            }
+            self.id = res.id
+
+            branch = res.branches.first
+            try await loadNextChapters()
 
             Task {
-                await comments.accept(try api.fetchComments(id: id).map { .init(with: $0) })
+                do {
+                    try await loadNextComments()
+                } catch {
+                    print(error)
+                }
+//                await comments.accept(try api.fetchComments(id: id, count: 30, page: commentsPage).map { .init(with: $0) })
             }
 
             statusVM.rating.accept(res.rating)
@@ -178,5 +209,37 @@ private extension MangaDetailsViewModel {
             refresh()
             state.accept(.default)
         }
+    }
+
+    func loadNextChapters() async throws {
+        guard !chaptersIsLoading, !isChaptersDone else { return }
+        defer { chaptersIsLoading = false }
+        chaptersIsLoading = true
+
+        if let branch {
+            let count = 30
+            let chaptersRes = try await api.fetchTitleChapters(branch: branch.id, count: count, page: chaptersPage)
+            isChaptersDone = chaptersRes.count != count
+            chaptersPage += 1
+
+            chapters.accept(chapters.value + chaptersRes.map { chapter in
+                let res = MangaDetailsChapterViewModel()
+                res.prepare(with: chapter)
+                return res
+            })
+        }
+    }
+
+    func loadNextComments() async throws {
+        guard !commentsIsLoading, !isCommentsDone else { return }
+        defer { commentsIsLoading = false }
+        commentsIsLoading = true
+
+        let count = 20
+        let commentsRes = try await api.fetchComments(id: id, count: count, page: commentsPage)
+        isCommentsDone = commentsRes.count != count
+        commentsPage += 1
+
+        comments.accept(comments.value + commentsRes.map { .init(with: $0) })
     }
 }

@@ -20,18 +20,19 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchCatalog(page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel]
     func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel]
     func fetchDetails(id: String) async throws -> ApiMangaModel
-    func fetchTitleChapters(branch: String, count: Int) async throws -> [ApiMangaChapterModel]
+    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel]
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel]
-    func fetchComments(id: String) async throws -> [ApiMangaCommentModel]
+    func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
+    func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
     func markChapterRead(id: String) async throws
-    func setChapterLike(id: String, _ value: Bool) async throws -> Int
+    func setChapterLike(id: String, _ value: Bool) async throws
     func buyChapter(id: String) async throws
     func markComment(id: String, _ value: Bool?) async throws -> Int
 }
 
 extension ApiProtocol {
-    func fetchTitleChapters(branch: String, count: Int = 30) async throws -> [ApiMangaChapterModel] {
-        try await fetchTitleChapters(branch: branch, count: count)
+    func fetchTitleChapters(branch: String, count: Int = 30, page: Int = 1) async throws -> [ApiMangaChapterModel] {
+        try await fetchTitleChapters(branch: branch, count: count, page: page)
     }
     
     func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {

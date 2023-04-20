@@ -12,17 +12,22 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsLoadingPlaceholderCell" customModule="ReManga" customModuleProvider="target">
             <connections>
                 <outlet property="activityView" destination="aZi-eP-GSa" id="Vmj-tn-FkD"/>
+                <outletCollection property="largeConstraints" destination="Ib0-Pp-7FF" collectionClass="NSMutableArray" id="sMK-Mj-yJI"/>
+                <outletCollection property="largeConstraints" destination="ZAa-Vc-uKG" collectionClass="NSMutableArray" id="4Q8-J8-8Gs"/>
+                <outletCollection property="compactConstraints" destination="0PL-Db-wCE" collectionClass="NSMutableArray" id="F4f-S7-uFA"/>
+                <outletCollection property="compactConstraints" destination="ZNo-Si-H48" collectionClass="NSMutableArray" id="gmJ-21-jQt"/>
+                <outletCollection property="compactConstraints" destination="o97-j0-qwz" collectionClass="NSMutableArray" id="Dr2-q0-jIT"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="heK-r2-U7u">
-            <rect key="frame" x="0.0" y="0.0" width="312" height="540"/>
+            <rect key="frame" x="0.0" y="0.0" width="312" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ME5-EF-DsD">
-                    <rect key="frame" x="137" y="48" width="38" height="38"/>
+                    <rect key="frame" x="137" y="3" width="38" height="38"/>
                     <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aZi-eP-GSa">
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="aZi-eP-GSa">
                             <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
                         </activityIndicatorView>
                     </subviews>
@@ -39,9 +44,12 @@
             <viewLayoutGuide key="safeArea" id="6GE-Pa-LMp"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="ME5-EF-DsD" secondAttribute="bottom" constant="3" id="0PL-Db-wCE"/>
                 <constraint firstItem="ME5-EF-DsD" firstAttribute="centerX" secondItem="heK-r2-U7u" secondAttribute="centerX" id="Cz7-0R-hvD"/>
-                <constraint firstItem="ME5-EF-DsD" firstAttribute="top" secondItem="heK-r2-U7u" secondAttribute="top" constant="48" id="Ib0-Pp-7FF"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ME5-EF-DsD" secondAttribute="bottom" constant="48" id="ZAa-Vc-uKG"/>
+                <constraint firstItem="ME5-EF-DsD" firstAttribute="top" secondItem="heK-r2-U7u" secondAttribute="top" priority="999" constant="48" id="Ib0-Pp-7FF"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ME5-EF-DsD" secondAttribute="bottom" priority="999" constant="48" id="ZAa-Vc-uKG"/>
+                <constraint firstItem="ME5-EF-DsD" firstAttribute="top" secondItem="heK-r2-U7u" secondAttribute="top" constant="3" id="ZNo-Si-H48"/>
+                <constraint firstItem="ME5-EF-DsD" firstAttribute="centerY" secondItem="heK-r2-U7u" secondAttribute="centerY" id="o97-j0-qwz"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-158.77862595419847" y="121.12676056338029"/>
