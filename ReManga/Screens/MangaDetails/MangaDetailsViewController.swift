@@ -44,6 +44,7 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
             collectionView.rx.isEditing <- viewModel.downloadingTableState
             navTitleLabel.rx.text <- viewModel.title
             viewModel.itemSelected <- collectionView.rx.itemSelected
+            viewModel.selectedItems <-> collectionView.rx.indexPathsForSelectedItems
             imageView.rx.imageUrl(with: activityIndicator) <- viewModel.image
             viewModel.items.bind { [unowned self] models in
                 applyModels(models)

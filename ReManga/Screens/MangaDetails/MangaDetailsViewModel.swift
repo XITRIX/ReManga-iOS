@@ -34,6 +34,14 @@ struct MvvmCollectionSectionModel: Hashable {
 }
 
 class MangaDetailsViewModel: BaseViewModelWith<String> {
+    enum Id: String {
+        case inset
+        case header
+        case description
+        case chapters
+        case comments
+    }
+
     @Injected var api: ApiProtocol
     let image = BehaviorRelay<String?>(value: nil)
 
@@ -49,6 +57,8 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     let chapters = BehaviorRelay<[MangaDetailsChapterViewModel]>(value: [])
     let translators = BehaviorRelay<[MangaDetailsTranslatorViewModel]>(value: [])
     let comments = BehaviorRelay<[MangaDetailsCommentViewModel]>(value: [])
+
+    let selectedItems = BehaviorRelay<[IndexPath]>(value: [])
 
     let bookmarks = BehaviorRelay<[ApiMangaBookmarkModel]>(value: [])
     let currentBookmark = BehaviorRelay<ApiMangaBookmarkModel?>(value: nil)
@@ -77,8 +87,16 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     override func binding() {
         super.binding()
         bind(in: disposeBag) {
-            downloadingTableState.bind { [unowned self] state in
+
+            chaptersMenuVM.selectAll.bind { [unowned self] _ in
+                guard let id = items.value.firstIndex(where: { $0.id == Id.chapters.rawValue })
+                else { return }
                 
+                selectedItems.accept(chapters.value.enumerated().map { .init(item: $0.offset, section: id) })
+            }
+
+            downloadingTableState.bind { [unowned self] state in
+                refresh()
             }
             selectorVM.selected.bind { [unowned self] segment in
                 selectSegment(segment)
@@ -151,11 +169,17 @@ private extension MangaDetailsViewModel {
     }
 
     func selectSegment(_ segment: Int) {
-        let insetSection: MvvmCollectionSectionModel = .init(id: "inset", style: .plain, showsSeparators: false, backgroundColor: .clear, items: [insetVM])
-        let headerSection: MvvmCollectionSectionModel = .init(id: "header", style: .plain, showsSeparators: false, items: [statusVM, selectorVM])
+        let insetSection: MvvmCollectionSectionModel = .init(id: Id.inset.rawValue, style: .plain, showsSeparators: false, backgroundColor: .clear, items: [insetVM])
+        var headerSection: MvvmCollectionSectionModel = .init(id: Id.header.rawValue, style: .plain, showsSeparators: false, items: [statusVM])
+
+        if !downloadingTableState.value {
+            headerSection.items.append(selectorVM)
+        }
+
+        var sections: [MvvmCollectionSectionModel] = [insetSection, headerSection]
         switch segment {
         case 0:
-            var descriptionSection: MvvmCollectionSectionModel = .init(id: "description", style: .plain, showsSeparators: false, items: [])
+            var descriptionSection: MvvmCollectionSectionModel = .init(id: Id.description.rawValue, style: .plain, showsSeparators: false, items: [])
             if !(descriptionVM.text.value?.string.isEmpty ?? true) {
                 descriptionSection.items.append(descriptionVM)
             }
@@ -166,9 +190,10 @@ private extension MangaDetailsViewModel {
                 descriptionSection.items.append(MangaDetailsHeaderViewModel(with: "Переводчики"))
                 translators.value.forEach { descriptionSection.items.append($0) }
             }
-            items.accept([insetSection, headerSection, descriptionSection])
+            sections.append(descriptionSection)
+            items.accept(sections)
         case 1:
-            var chaptersSection: MvvmCollectionSectionModel = .init(id: "chapters", style: .plain, showsSeparators: true, items: [])
+            var chaptersSection: MvvmCollectionSectionModel = .init(id: Id.chapters.rawValue, style: .plain, showsSeparators: true, items: [])
 
             chaptersSection.items.append(chaptersMenuVM)
             chaptersSection.items.append(contentsOf: chapters.value)
@@ -178,9 +203,10 @@ private extension MangaDetailsViewModel {
                 loader.isCompact.accept(true)
                 chaptersSection.items.append(loader)
             }
-            items.accept([insetSection, headerSection, chaptersSection])
+            sections.append(chaptersSection)
+            items.accept(sections)
         case 2:
-            var commentsSection = MvvmCollectionSectionModel(id: "comments", style: .plain, showsSeparators: false, items: [])
+            var commentsSection = MvvmCollectionSectionModel(id: Id.comments.rawValue, style: .plain, showsSeparators: false, items: [])
             if !comments.value.isEmpty || commentsIsLoading {
                 commentsSection.items.append(contentsOf: comments.value.flatMap { $0.allExpandedChildren })
                 if !isCommentsDone {
@@ -194,9 +220,10 @@ private extension MangaDetailsViewModel {
                 commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
                 commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
             }
-            items.accept([insetSection, headerSection, commentsSection])
+            sections.append(commentsSection)
+            items.accept(sections)
         default:
-            items.accept([insetSection, headerSection])
+            items.accept(sections)
         }
     }
 
