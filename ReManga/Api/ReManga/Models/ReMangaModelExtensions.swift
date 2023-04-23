@@ -91,7 +91,7 @@ extension ApiMangaCommentModel {
         likes = model.score ?? 0
         dislikes = 0
         children = []
-        replies = model.countReplies ?? 0
+        childrenCount = model.countReplies ?? 0
         isPinned = model.isPinned ?? false
 
         if model.rated == 0 {
@@ -123,5 +123,19 @@ extension ApiMangaCommentModel {
         for i in 0 ..< children.count {
             children[i].applyHierarchy(hierarchy + 1)
         }
+    }
+}
+
+extension ApiMangaUserModel {
+    init(from model: ReMangaUserResultContent) {
+        id = model.id
+        username = model.username
+    }
+}
+
+extension ApiMangaBookmarkModel {
+    init(from model: ReMangaBookmarksResultContent) {
+        id = model.id
+        name = model.name
     }
 }

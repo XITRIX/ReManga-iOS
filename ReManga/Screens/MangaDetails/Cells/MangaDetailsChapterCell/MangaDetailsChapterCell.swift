@@ -18,7 +18,7 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
     @IBOutlet private var heartImageView: UIImageView!
 
     override func initSetup() {
-        accessories = [.disclosureIndicator()]
+        accessories = [.disclosureIndicator(displayed: .whenNotEditing), .multiselect(displayed: .whenEditing)]
     }
 
     override func setup(with viewModel: VM) {

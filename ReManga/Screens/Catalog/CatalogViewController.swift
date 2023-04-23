@@ -33,6 +33,7 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
 
         navigationItem.largeTitleDisplayMode = .always
         searchController.searchBar.placeholder = "Поиск"
+        searchController.delegate = delegates
 
         bind(in: disposeBag) {
             viewModel.searchQuery <- searchController.searchBar.rx.text.throttle(.seconds(1), scheduler: MainScheduler.instance)
@@ -82,5 +83,8 @@ private extension CatalogViewController {
         }
 
         // MARK: - UISearchControllerDelegate
+        func willDismissSearchController(_ searchController: UISearchController) {
+            parent.viewModel.searchQuery.accept("")
+        }
     }
 }

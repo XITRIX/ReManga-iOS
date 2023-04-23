@@ -13,21 +13,20 @@ class MangaCell<VM: MangaCellViewModelProtocol>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var bookmarkHolderView: UIVisualEffectView!
+    @IBOutlet private var bookmarkLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    override func initSetup() {
+        bookmarkHolderView.layer.cornerRadius = 8
+        bookmarkHolderView.layer.cornerCurve = .continuous
     }
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
             titleLabel.rx.text <- viewModel.title
-            viewModel.img.bind { [unowned self] url in
-                activityIndicator.startAnimating()
-                imageView.setImage(url) { [weak self] in
-                    self?.activityIndicator.stopAnimating()
-                }
-            }
+            imageView.rx.imageUrl(with: activityIndicator) <- viewModel.img
+            bookmarkHolderView.rx.isHidden <- viewModel.bookmark.map { $0 == nil }
+            bookmarkLabel.rx.text <- viewModel.bookmark.map { $0?.name }
         }
     }
 

@@ -12,16 +12,19 @@ import RxRelay
 protocol MangaCellViewModelProtocol: MvvmViewModelWithProtocol {
     var img: BehaviorRelay<String?> { get }
     var id: BehaviorRelay<String> { get }
+    var bookmark: BehaviorRelay<ApiMangaBookmarkModel?> { get }
 }
 
 class MangaCellViewModel: MvvmViewModelWith<ApiMangaModel>, MangaCellViewModelProtocol {
     let img = BehaviorRelay<String?>(value: nil)
     let id = BehaviorRelay<String>(value: "")
+    let bookmark = BehaviorRelay<ApiMangaBookmarkModel?>(value: nil)
 
     override func prepare(with model: ApiMangaModel) {
         title.accept(model.rusTitle ?? model.title)
         img.accept(model.img)
         id.accept(model.id)
+        bookmark.accept(model.bookmark)
     }
 
     override func hash(into hasher: inout Hasher) {

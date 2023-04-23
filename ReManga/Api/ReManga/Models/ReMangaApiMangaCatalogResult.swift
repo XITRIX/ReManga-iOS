@@ -24,3 +24,27 @@ struct ReMangaApiMangaCatalogProps: Codable {
         case page
     }
 }
+
+// MARK: - ApiMangaModel
+struct ReMangaApiMangaModel: Codable, Hashable {
+    let id: Int
+    let img: ReMangaApiImg
+    let enName: String
+    let rusName: String
+    let dir: String
+    let bookmarkType: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, img
+        case enName = "en_name"
+        case rusName = "rus_name"
+        case bookmarkType = "bookmark_type"
+        case dir
+    }
+}
+
+// MARK: - ApiImg
+struct ReMangaApiImg: Codable, Hashable {
+    let high, mid, low: String
+}
+

@@ -12,6 +12,12 @@
 import Foundation
 
 // MARK: - ReMangaCommentsResult
+struct ReMangaCommentsCountResult: Codable, Hashable {
+    let msg: String?
+    let content: Int
+}
+
+// MARK: - ReMangaCommentsResult
 struct ReMangaCommentsResult: Codable, Hashable {
     let msg: String?
     let content: [ReMangaCommentsResultContent]

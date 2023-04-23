@@ -43,7 +43,7 @@ extension ApiMangaCommentModel {
         likes = model.likes ?? 0
         dislikes = model.dislikes ?? 0
         children = model.children?.compactMap { .init(from: $0) } ?? []
-        replies = children.count
+        childrenCount = children.count
         isPinned = model.isPinned ?? false
         isLiked = model.currentMark
 
@@ -67,7 +67,7 @@ extension ApiMangaCommentModel {
         likes = model.likes ?? 0
         dislikes = model.dislikes ?? 0
         children = model.children?.compactMap { .init(from: $0) } ?? []
-        replies = children.count
+        childrenCount = children.count
         isPinned = model.isPinned ?? false
         isLiked = model.currentMark
 

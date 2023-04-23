@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaCell" customModule="ReManga" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="IT0-2Q-gaV" id="222-eC-nqU"/>
+                <outlet property="bookmarkHolderView" destination="gft-Rh-IqB" id="S4F-CZ-IE4"/>
+                <outlet property="bookmarkLabel" destination="vlz-Vi-gZs" id="5Uw-Qe-2J7"/>
                 <outlet property="imageView" destination="msb-YP-hvr" id="6RQ-cU-3ig"/>
                 <outlet property="titleLabel" destination="bYg-bD-wSs" id="gfx-e7-a5f"/>
             </connections>
@@ -42,9 +44,51 @@
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="IT0-2Q-gaV">
                                     <rect key="frame" x="56" y="86.666666666666671" width="37" height="37"/>
                                 </activityIndicatorView>
+                                <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gft-Rh-IqB">
+                                    <rect key="frame" x="4" y="186" width="51" height="20"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Oki-gD-Rgx">
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wzs-rr-m3C">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uo1-sG-N8i">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlz-Vi-gZs">
+                                                            <rect key="frame" x="8" y="1.9999999999999991" width="34.333333333333336" height="15.666666666666664"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="vlz-Vi-gZs" firstAttribute="top" secondItem="uo1-sG-N8i" secondAttribute="top" constant="2" id="GfW-w6-xJT"/>
+                                                        <constraint firstAttribute="trailing" secondItem="vlz-Vi-gZs" secondAttribute="trailing" constant="8" id="Oxu-CU-Nlk"/>
+                                                        <constraint firstItem="vlz-Vi-gZs" firstAttribute="leading" secondItem="uo1-sG-N8i" secondAttribute="leading" constant="8" id="dPS-qb-YOC"/>
+                                                        <constraint firstAttribute="bottom" secondItem="vlz-Vi-gZs" secondAttribute="bottom" constant="2" id="x9V-GD-2w4"/>
+                                                    </constraints>
+                                                </view>
+                                                <vibrancyEffect>
+                                                    <blurEffect style="regular"/>
+                                                </vibrancyEffect>
+                                            </visualEffectView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Wzs-rr-m3C" firstAttribute="top" secondItem="Oki-gD-Rgx" secondAttribute="top" id="FbQ-EW-vUG"/>
+                                            <constraint firstAttribute="bottom" secondItem="Wzs-rr-m3C" secondAttribute="bottom" id="I1z-R5-MUY"/>
+                                            <constraint firstAttribute="trailing" secondItem="Wzs-rr-m3C" secondAttribute="trailing" id="hk5-wk-Veb"/>
+                                            <constraint firstItem="Wzs-rr-m3C" firstAttribute="leading" secondItem="Oki-gD-Rgx" secondAttribute="leading" id="hsO-tf-NtS"/>
+                                        </constraints>
+                                    </view>
+                                    <blurEffect style="regular"/>
+                                </visualEffectView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="msb-YP-hvr" firstAttribute="top" secondItem="2xv-7i-8yk" secondAttribute="top" id="9hy-xJ-jPc"/>
+                                <constraint firstAttribute="bottom" secondItem="gft-Rh-IqB" secondAttribute="bottom" constant="4" id="A5C-tf-50X"/>
+                                <constraint firstItem="gft-Rh-IqB" firstAttribute="leading" secondItem="2xv-7i-8yk" secondAttribute="leading" constant="4" id="BoG-TB-9Ng"/>
                                 <constraint firstItem="IT0-2Q-gaV" firstAttribute="centerY" secondItem="2xv-7i-8yk" secondAttribute="centerY" id="CMY-1K-cka"/>
                                 <constraint firstItem="IT0-2Q-gaV" firstAttribute="centerX" secondItem="2xv-7i-8yk" secondAttribute="centerX" id="Olt-G6-K7z"/>
                                 <constraint firstAttribute="bottom" secondItem="msb-YP-hvr" secondAttribute="bottom" id="aG8-pN-v34"/>

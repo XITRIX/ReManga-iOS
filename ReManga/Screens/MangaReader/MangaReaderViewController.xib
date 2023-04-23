@@ -12,7 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaReaderViewController" customModule="ReManga" customModuleProvider="target">
             <connections>
+                <outlet property="bookmarkButton" destination="WXt-bl-ueV" id="LEs-6C-OHd"/>
                 <outlet property="collectionView" destination="ZHe-xM-qC6" id="jkL-Gl-S7z"/>
+                <outlet property="commentsButton" destination="A0j-v4-kn6" id="9Jk-QG-Ak7"/>
                 <outlet property="headerTitleButton" destination="IdO-MF-kDR" id="GXt-YR-fgy"/>
                 <outlet property="likeButton" destination="Chh-Ow-pVc" id="npO-GT-h72"/>
                 <outlet property="navHeaderView" destination="3qp-3q-ipM" id="B67-p0-2aO"/>
@@ -102,7 +104,7 @@
                                 <rect key="frame" x="352" y="9" width="25" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-bl-ueV">
+                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-bl-ueV">
                                         <rect key="frame" x="0.0" y="4" width="44" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="arj-r3-RtC"/>

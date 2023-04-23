@@ -33,12 +33,12 @@ struct ReMangaChapterPagesResultContent: Codable, Hashable {
     let uploadDate: String?
     let isPaid: Bool?
     let titleID: Int?
-    let volumeID: JSONNull?
+//    let volumeID: JSONNull?
     let branchID: Int?
-    let price, pubDate: JSONNull?
+//    let price, pubDate: JSONNull?
     let index: Int?
     let publishers: [ReMangaChapterPagesResultPublisher]?
-    let delayPubDate: JSONNull?
+//    let delayPubDate: JSONNull?
     let isPublished: Bool?
     let pages: [[ReMangaChapterPagesResultPage]]
 
@@ -47,12 +47,12 @@ struct ReMangaChapterPagesResultContent: Codable, Hashable {
         case uploadDate = "upload_date"
         case isPaid = "is_paid"
         case titleID = "title_id"
-        case volumeID = "volume_id"
+//        case volumeID = "volume_id"
         case branchID = "branch_id"
-        case price
-        case pubDate = "pub_date"
+//        case price
+//        case pubDate = "pub_date"
         case index, publishers
-        case delayPubDate = "delay_pub_date"
+//        case delayPubDate = "delay_pub_date"
         case isPublished = "is_published"
         case pages
     }
@@ -88,13 +88,13 @@ struct ReMangaChapterPagesResultPublisher: Codable, Hashable {
     let id: Int?
     let name, dir: String?
     let showDonate: Bool?
-    let donatePageText: JSONNull?
+//    let donatePageText: JSONNull?
     let img: ReMangaChapterPagesResultImg?
 
     enum CodingKeys: String, CodingKey {
         case id, name, dir
         case showDonate = "show_donate"
-        case donatePageText = "donate_page_text"
+//        case donatePageText = "donate_page_text"
         case img
     }
 }
@@ -118,31 +118,4 @@ struct ReMangaChapterPagesResultImg: Codable, Hashable {
 
 // MARK: - ReMangaChapterPagesResultProps
 struct ReMangaChapterPagesResultProps: Codable, Hashable {
-}
-
-// MARK: - Encode/decode helpers
-
-class JSONNull: Codable, Hashable {
-
-    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
-        return true
-    }
-
-    public var hashValue: Int {
-        return 0
-    }
-
-    public init() {}
-
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encodeNil()
-    }
 }

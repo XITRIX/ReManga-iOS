@@ -23,11 +23,17 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel]
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel]
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
+    func fetchCommentsCount(id: String) async throws -> Int
+    func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
+    func fetchChapterCommentsCount(id: String) async throws -> Int
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
     func markChapterRead(id: String) async throws
     func setChapterLike(id: String, _ value: Bool) async throws
     func buyChapter(id: String) async throws
     func markComment(id: String, _ value: Bool?) async throws -> Int
+    func fetchUserInfo() async throws -> ApiMangaUserModel
+    func fetchBookmarks() async throws -> [ApiMangaBookmarkModel]
+    func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws
 }
 
 extension ApiProtocol {

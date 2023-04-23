@@ -8,6 +8,7 @@
 import UIKit
 import MvvmFoundation
 import MarqueeLabel
+import RxSwift
 
 class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<VM> {
     @IBOutlet private var imageView: UIImageView!
@@ -24,6 +25,8 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
     @IBOutlet private var navTitleLabel: MarqueeLabel!
     //    private let navTitleLabel = MarqueeLabel(frame: .init(x: 0, y: 0, width: 900, height: 44), rate: 24, fadeLength: 16)
 
+    @IBOutlet private var bookmarkButton: UIButton!
+
     private var dataSource: DataSource!
     private lazy var delegates = Delegates(parent: self)
 
@@ -38,25 +41,26 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
         setupCollectionView()
 
         bind(in: disposeBag) {
-            viewModel.title.bind { [unowned self] text in
-                navTitleLabel.text = text
-//                navTitleLabel.sizeToFit()
-            }
-            collectionView.rx.itemSelected.bind { [unowned self] indexPath in
-                viewModel.itemSelected(at: indexPath)
-            }
-            viewModel.image.bind { [unowned self] img in
-                activityIndicator.startAnimating()
-                imageView.setImage(img) { [weak self] in
-                    self?.activityIndicator.stopAnimating()
-                }
-            }
+            collectionView.rx.isEditing <- viewModel.downloadingTableState
+            navTitleLabel.rx.text <- viewModel.title
+            viewModel.itemSelected <- collectionView.rx.itemSelected
+            imageView.rx.imageUrl(with: activityIndicator) <- viewModel.image
             viewModel.items.bind { [unowned self] models in
                 applyModels(models)
             }
             titleLabel.rx.text <- viewModel.title
             subtitleLabel.rx.text <- viewModel.detail
+
+            bookmarkButton.rx.isHidden <- viewModel.bookmarks.map { $0.isEmpty }
+            bookmarkButton.rx.image() <- viewModel.currentBookmark.map { $0 == nil ? .init(systemName: "bookmark") : .init(systemName: "bookmark.fill") }
+            Observable.combineLatest(viewModel.bookmarks, viewModel.currentBookmark).bind { [unowned self] (bookmarks, current) in
+                applyBookmarksMenu(bookmarks, current)
+            }
         }
+    }
+
+    deinit {
+        print("DETAILS DEINITED!!!!!!!!!!!")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -91,10 +95,20 @@ private extension MangaDetailsViewController {
         }
     }
 
-    func updateCollectionViewInset() {
-        DispatchQueue.main.async { [self] in
-            collectionView.contentInset.top = contentOffset
+    func applyBookmarksMenu(_ bookmarks: [ApiMangaBookmarkModel], _ current: ApiMangaBookmarkModel?) {
+        let actions: [UIAction] = bookmarks.map { bookmark in
+                .init(title: bookmark.name, state: bookmark == current ? .on : .off) { [unowned self] _ in
+                    viewModel.selectBookmark(bookmark)
+                }
         }
+        bookmarkButton.menu = UIMenu(children: actions)
+    }
+
+    func updateCollectionViewInset() {
+//        DispatchQueue.main.async { [self] in
+//            collectionView.contentInset.top = contentOffset
+        viewModel.insetVM.height.accept(contentOffset)
+//        }
     }
 
     func setupCap() {
@@ -132,6 +146,8 @@ private extension MangaDetailsViewController {
         collectionView.backgroundView = imageViewHolder
         collectionView.delegate = delegates
 
+        collectionView.allowsMultipleSelectionDuringEditing = true
+
         collectionView.collectionViewLayout =
         UICollectionViewCompositionalLayout(sectionProvider: { [unowned self] section, env in
             let sectionModel = viewModel.items.value[section]
@@ -161,7 +177,7 @@ private extension MangaDetailsViewController {
 private extension MangaDetailsViewController {
     class Delegates: DelegateObject<MangaDetailsViewController>, UICollectionViewDelegate {
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            parent.imageViewHeightConstraint.constant = -scrollView.contentOffset.y
+            parent.imageViewHeightConstraint.constant = -scrollView.contentOffset.y + parent.contentOffset
 
             let offset = scrollView.contentOffset.y + scrollView.contentInset.top
             let alpha = max(0, min(offset / 8, 1))
@@ -191,4 +207,3 @@ extension MvvmCollectionSectionModel.Style {
         }
     }
 }
-

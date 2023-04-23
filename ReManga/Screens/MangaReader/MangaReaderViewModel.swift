@@ -10,16 +10,27 @@ import RxSwift
 import RxRelay
 
 struct MangaReaderModel {
+    var titleVM: MangaDetailsViewModel
     var chapters: [MangaDetailsChapterViewModel]
     var current: Int
 }
 
 class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
     @Injected var api: ApiProtocol
+    var titleVM: MangaDetailsViewModel!
     let chapters = BehaviorRelay<[MangaDetailsChapterViewModel]>(value: [])
     let currentChapter = BehaviorRelay<Int>(value: -1)
     let pages = BehaviorRelay<[MvvmViewModel]>(value: [])
     let mangaNextLoaderVM = MangaReaderLoadNextViewModel()
+    let commentsCount = BehaviorRelay<Int>(value: 0)
+
+    var bookmarks: BehaviorRelay<[ApiMangaBookmarkModel]> {
+        titleVM.bookmarks
+    }
+
+    var currentBookmark: BehaviorRelay<ApiMangaBookmarkModel?> {
+        titleVM.currentBookmark
+    }
 
     var current: Observable<MangaDetailsChapterViewModel?> {
         Observable.combineLatest(chapters, currentChapter).map { (chapters, currentChapter) in
@@ -48,6 +59,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
     }
 
     override func prepare(with model: MangaReaderModel) {
+        titleVM = model.titleVM
         chapters.accept(model.chapters)
         currentChapter.accept(model.current)
     }
@@ -58,6 +70,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
                 guard let current else { return pages.accept([]) }
 
                 loadPages(for: current)
+                loadCommentsCount(for: current)
             }
             mangaNextLoaderVM.nextAvailable <- nextActionAvailable
             mangaNextLoaderVM.loadNext.bind { [unowned self] _ in
@@ -81,6 +94,10 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
     func gotoNextChapter() {
         markCurrentChapterReaded()
         currentChapter.accept(currentChapter.value - 1)
+    }
+
+    func selectBookmark(_ bookmark: ApiMangaBookmarkModel) {
+        titleVM.selectBookmark(bookmark)
     }
 
     func markCurrentChapterReaded() {
@@ -119,6 +136,11 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
 private extension MangaReaderViewModel {
     var isNextChapterAvailable: Bool {
         !chapters.value.isEmpty && currentChapter.value > 0
+    }
+
+    func loadCommentsCount(for model: MangaDetailsChapterViewModel) {
+        commentsCount.accept(0)
+        Task { try await commentsCount.accept(api.fetchChapterCommentsCount(id: model.id.value)) }
     }
 
     func loadPages(for model: MangaDetailsChapterViewModel) {

@@ -127,8 +127,20 @@ class NewMangaApi: ApiProtocol {
         return await MainActor.run { model.compactMap { .init(from: $0) } }
     }
 
+    func fetchCommentsCount(id: String) async throws -> Int {
+        throw ApiMangaError.operationNotSupported(message: "No need to fetch comments count on NewManga backend")
+    }
+
+    func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
+        []
+    }
+
+    func fetchChapterCommentsCount(id: String) async throws -> Int {
+        0
+    }
+
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
-        throw ApiMangaError.operationNotSupported(message: "No need to fetch replies on NewManga backend")
+        throw ApiMangaError.operationNotSupported(message: "No need to fetch comments replies on NewManga backend")
     }
 
     func markChapterRead(id: String) async throws {
@@ -171,5 +183,17 @@ class NewMangaApi: ApiProtocol {
         let model = try JSONDecoder().decode(NewMangaMarkCommentResultModel.self, from: result)
 
         return await MainActor.run { model.likes - model.dislikes }
+    }
+
+    func fetchUserInfo() async throws -> ApiMangaUserModel {
+        .init(id: 0, username: "")
+    }
+
+    func fetchBookmarks() async throws -> [ApiMangaBookmarkModel] {
+        []
+    }
+
+    func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws {
+
     }
 }

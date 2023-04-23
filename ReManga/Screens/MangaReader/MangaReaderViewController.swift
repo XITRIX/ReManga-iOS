@@ -15,6 +15,8 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
     @IBOutlet private var toolBar: UIToolbar!
     @IBOutlet private var navHeaderView: UIView!
     @IBOutlet private var likeButton: UIButton!
+    @IBOutlet private var commentsButton: UIButton!
+    @IBOutlet private var bookmarkButton: UIButton!
 
     @IBOutlet private var previousButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
@@ -77,6 +79,17 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
             headerTitleButton.rx.title() <- viewModel.chapterName
 
             viewModel.toggleLike <- likeButton.rx.tap
+
+            viewModel.currentBookmark.bind { [unowned self] bookmark in
+                bookmarkButton.configuration = bookmark == nil ? bookmarkButton.configuration?.toTinted() : bookmarkButton.configuration?.toFilled()
+                bookmarkButton.setImage( bookmark == nil ? .init(systemName: "bookmark") : .init(systemName: "bookmark.fill"), for: .normal)
+            }
+
+            Observable.combineLatest(viewModel.bookmarks, viewModel.currentBookmark).bind { [unowned self] bookmarks, currentBookmark in
+                applyBookmarksMenu(bookmarks, currentBookmark)
+            }
+
+            commentsButton.rx.title() <- viewModel.commentsCount.map { "Коментарии \($0)" }
         }
     }
 
@@ -129,6 +142,15 @@ private extension MangaReaderViewController {
             view.layoutIfNeeded()
             setNeedsStatusBarAppearanceUpdate()
         }
+    }
+
+    func applyBookmarksMenu(_ bookmarks: [ApiMangaBookmarkModel], _ current: ApiMangaBookmarkModel?) {
+        let actions: [UIAction] = bookmarks.map { bookmark in
+                .init(title: bookmark.name, state: bookmark == current ? .on : .off) { [unowned self] _ in
+                    viewModel.selectBookmark(bookmark)
+                }
+        }
+        bookmarkButton.menu = UIMenu(children: actions)
     }
 
     func bindToCurrent(_ current: MangaDetailsChapterViewModel?) {

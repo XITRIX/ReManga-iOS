@@ -22,6 +22,7 @@
                 <outlet property="messageContainer" destination="vbS-qO-9L5" id="u2c-E4-Ljf"/>
                 <outlet property="nameLabel" destination="dEA-B7-WHz" id="l5q-Xv-cBI"/>
                 <outlet property="pinImageView" destination="n9i-dr-r15" id="ygA-9s-Myg"/>
+                <outlet property="repliesActivityView" destination="zBh-d8-jNb" id="ZgM-ET-ewK"/>
                 <outlet property="repliesButton" destination="PHm-RE-fir" id="9Tt-uC-PLZ"/>
                 <outlet property="scoreLabel" destination="sMv-Ge-MCR" id="P4m-yb-9k1"/>
                 <outlet property="textLabel" destination="LKv-wi-3YR" id="Q3k-U7-mgG"/>
@@ -155,14 +156,31 @@
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="tinted" image="arrowshape.turn.up.left" catalog="system" buttonSize="mini"/>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHm-RE-fir">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbS-Yv-CQa">
                                                             <rect key="frame" x="209" y="0.0" width="97" height="32"/>
-                                                            <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="tinted" title="Ответы (8)" buttonSize="mini"/>
-                                                            <connections>
-                                                                <action selector="repliesAction:" destination="-1" eventType="touchUpInside" id="aKw-ep-ZHa"/>
-                                                            </connections>
-                                                        </button>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHm-RE-fir">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="97" height="32"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <buttonConfiguration key="configuration" style="tinted" title="Ответы (8)" buttonSize="mini"/>
+                                                                    <connections>
+                                                                        <action selector="repliesAction:" destination="-1" eventType="touchUpInside" id="aKw-ep-ZHa"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zBh-d8-jNb">
+                                                                    <rect key="frame" x="38.666666666666686" y="6" width="20" height="20"/>
+                                                                </activityIndicatorView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="PHm-RE-fir" secondAttribute="trailing" id="8tt-TU-MMb"/>
+                                                                <constraint firstItem="zBh-d8-jNb" firstAttribute="centerX" secondItem="mbS-Yv-CQa" secondAttribute="centerX" id="HAX-t4-Fan"/>
+                                                                <constraint firstItem="PHm-RE-fir" firstAttribute="top" secondItem="mbS-Yv-CQa" secondAttribute="top" id="HyN-oP-Y43"/>
+                                                                <constraint firstItem="PHm-RE-fir" firstAttribute="leading" secondItem="mbS-Yv-CQa" secondAttribute="leading" id="dBd-TI-PmW"/>
+                                                                <constraint firstItem="zBh-d8-jNb" firstAttribute="centerY" secondItem="mbS-Yv-CQa" secondAttribute="centerY" id="eVN-Er-HAf"/>
+                                                                <constraint firstAttribute="bottom" secondItem="PHm-RE-fir" secondAttribute="bottom" id="wWH-6V-5uv"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>

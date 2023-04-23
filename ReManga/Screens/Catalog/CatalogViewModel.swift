@@ -43,9 +43,9 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
             return search
         }
     }
-    
-    required init() {
-        super.init()
+
+    override func binding() {
+        super.binding()
 
         bind(in: disposeBag) {
             searchQuery.bind { [unowned self] _ in
@@ -101,6 +101,7 @@ extension CatalogViewModel {
 
             let res = try await api.fetchSearch(query: query, page: 1)
             searchItems.accept(res.map { $0.cellModel })
+            state.accept(.default)
         }
     }
 }

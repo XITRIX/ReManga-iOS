@@ -20,8 +20,10 @@ class MangaDetailsCommentViewModel: BaseViewModelWith<ApiMangaCommentModel> {
     let isExpanded = BehaviorRelay<Bool>(value: false)
     let isPinned = BehaviorRelay<Bool>(value: false)
     let isLiked = BehaviorRelay<Bool?>(value: nil)
+    let childrenCount = BehaviorRelay<Int>(value: 0)
     let children = BehaviorRelay<[MangaDetailsCommentViewModel]>(value: [])
     let expandedChanged = PublishRelay<Bool>()
+    let repliesLoading = BehaviorRelay<Bool>(value: false)
 
     @Injected var api: ApiProtocol
 
@@ -36,9 +38,10 @@ class MangaDetailsCommentViewModel: BaseViewModelWith<ApiMangaCommentModel> {
         isPinned.accept(model.isPinned)
         isLiked.accept(model.isLiked)
         children.accept(model.children.map { .init(with: $0) })
-        
-        if model.children.count > 0 {
-            moreButtonText.accept("Ответы (\(model.allChildrenCount))")
+        childrenCount.accept(model.childrenCount)
+
+        if model.childrenCount > 0 {
+            moreButtonText.accept("Ответы (\(model.childrenCount))")
         } else {
             moreButtonText.accept(nil)
         }
@@ -55,6 +58,29 @@ class MangaDetailsCommentViewModel: BaseViewModelWith<ApiMangaCommentModel> {
     override func isEqual(to other: MvvmViewModel) -> Bool {
         guard let other = other as? Self else { return false }
         return id == other.id
+    }
+
+    func toggleReplies() {
+        Task {
+            if !isExpanded.value,
+               childrenCount.value != 0,
+               children.value.isEmpty
+            {
+                var page = 1
+                repliesLoading.accept(true)
+                // TODO: Rework to support pagination
+                while children.value.count < childrenCount.value {
+                    let newComments: [MangaDetailsCommentViewModel] = try await api.fetchCommentsReplies(id: id, count: 20, page: page).map { .init(with: $0) }
+                    newComments.forEach { $0.hierarchy.accept(hierarchy.value + 1) }
+                    children.accept(children.value + newComments)
+                    page += 1
+                }
+                repliesLoading.accept(false)
+            }
+
+            isExpanded.accept(!isExpanded.value)
+            expandedChanged.accept(isExpanded.value)
+        }
     }
 
     func toggleLike() {

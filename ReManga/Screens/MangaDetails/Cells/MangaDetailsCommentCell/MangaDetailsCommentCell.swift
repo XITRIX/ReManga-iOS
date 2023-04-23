@@ -24,6 +24,7 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
     @IBOutlet private var activityView: UIActivityIndicatorView!
     @IBOutlet private var likeButton: UIButton!
     @IBOutlet private var dislikeButton: UIButton!
+    @IBOutlet private var repliesActivityView: UIActivityIndicatorView!
 
     private var viewModel: VM!
 
@@ -48,6 +49,10 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
             viewModel.toggleLike <- likeButton.rx.tap
             viewModel.toggleDislike <- dislikeButton.rx.tap
 
+            viewModel.repliesLoading.bind { [unowned self] loading in
+                setRepliesLoading(loading)
+            }
+
             viewModel.isLiked.bind { [unowned self] liked in
                 likeButton.configuration = liked == true ? likeButton.configuration?.toFilled() : likeButton.configuration?.toTinted()
                 dislikeButton.configuration = liked == false ? dislikeButton.configuration?.toFilled() : dislikeButton.configuration?.toTinted()
@@ -58,7 +63,7 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
             }
             viewModel.moreButtonText.bind { [unowned self] text in
                 repliesButton.setTitle(text, for: .normal)
-                repliesButton.isHidden = text.isNilOrEmpty
+                repliesButton.superview?.isHidden = text.isNilOrEmpty
             }
             viewModel.content.bind { [unowned self] text in
                 textLabel.attributedText = text
@@ -71,17 +76,27 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
                 var config: UIButton.Configuration = expanded ? .filled() : .tinted()
                 config.buttonSize = .mini
                 repliesButton.configuration = config
+                repliesButton.setTitle(viewModel.moreButtonText.value, for: .normal)
             }
         }
     }
 
     @IBAction func repliesAction(_ sender: UIButton) {
-        viewModel.isExpanded.accept(!viewModel.isExpanded.value)
-        viewModel.expandedChanged.accept(viewModel.isExpanded.value)
+        viewModel.toggleReplies()
     }
 }
 
 private extension MangaDetailsCommentCell {
+    func setRepliesLoading(_ loading: Bool) {
+        if loading {
+            guard let title = repliesButton.configuration?.title
+            else { return }
+            repliesButton.configuration?.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor : UIColor.clear]))
+        }
+
+        repliesActivityView.setAnimation(loading)
+    }
+
     func applyScore(_ score: Int, _ pinned: Bool) {
         pinImageView.isHidden = !pinned
 

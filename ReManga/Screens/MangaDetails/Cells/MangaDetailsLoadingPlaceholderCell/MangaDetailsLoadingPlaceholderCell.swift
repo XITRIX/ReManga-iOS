@@ -22,11 +22,7 @@ class MangaDetailsLoadingPlaceholderCell<VM: MangaDetailsLoadingPlaceholderViewM
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
             viewModel.isLoading.bind { [unowned self] loading in
-                if loading {
-                    activityView.startAnimating()
-                } else {
-                    activityView.stopAnimating()
-                }
+                activityView.setAnimation(loading)
                 invalidateIntrinsicContentSize()
             }
 

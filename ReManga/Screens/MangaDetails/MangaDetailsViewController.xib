@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsViewController" customModule="ReManga" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="Ehf-4Q-sX9" id="Cwm-gp-hYb"/>
+                <outlet property="bookmarkButton" destination="vfT-Jw-hWT" id="IVX-QA-tQn"/>
                 <outlet property="collectionView" destination="FsN-FQ-f27" id="iyB-rk-LCr"/>
                 <outlet property="headerCapView" destination="Yfj-eX-be3" id="6Mk-Ha-U4N"/>
                 <outlet property="imageView" destination="KGD-Pz-SNx" id="O2h-TJ-zaI"/>
@@ -84,7 +85,7 @@
                                         </label>
                                     </subviews>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfT-Jw-hWT">
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfT-Jw-hWT">
                                     <rect key="frame" x="252.33333333333334" y="11.000000000000004" width="50.333333333333343" height="50.333333333333343"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" image="bookmark" catalog="system" cornerStyle="capsule" buttonSize="large"/>
