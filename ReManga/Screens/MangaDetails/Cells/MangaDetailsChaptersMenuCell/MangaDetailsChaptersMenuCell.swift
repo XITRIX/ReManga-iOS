@@ -12,6 +12,8 @@ class MangaDetailsChaptersMenuCell<VM: MangaDetailsChaptersMenuViewModel>: MvvmC
     @IBOutlet private var downloadButton: UIButton!
     @IBOutlet private var downloadCancelButton: UIButton!
     @IBOutlet private var selectAllButton: UIButton!
+    @IBOutlet private var revertChaptersButton: UIButton!
+    @IBOutlet private var unrevertChaptersButton: UIButton!
 
     @IBOutlet private var editViews: [UIView]!
     @IBOutlet private var nonEditViews: [UIView]!
@@ -35,6 +37,12 @@ class MangaDetailsChaptersMenuCell<VM: MangaDetailsChaptersMenuViewModel>: MvvmC
                     editViews.forEach { $0.collectionHidden = !download }
                 }
             }
+
+            viewModel.revertChapters <- revertChaptersButton.rx.tap
+            viewModel.unrevertChapters <- unrevertChaptersButton.rx.tap
+
+            revertChaptersButton.rx.tintColor <- viewModel.chaptersReverted.map { $0 ? .tintColor : .secondaryLabel }
+            unrevertChaptersButton.rx.tintColor <- viewModel.chaptersReverted.map { $0 ? .secondaryLabel : .tintColor }
         }
     }
 }

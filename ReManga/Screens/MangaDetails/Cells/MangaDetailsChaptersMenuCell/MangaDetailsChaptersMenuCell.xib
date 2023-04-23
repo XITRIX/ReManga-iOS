@@ -14,82 +14,65 @@
             <connections>
                 <outlet property="downloadButton" destination="US5-S4-l67" id="ugT-U9-2EN"/>
                 <outlet property="downloadCancelButton" destination="TPG-Vb-xru" id="b0y-4r-Gif"/>
+                <outlet property="revertChaptersButton" destination="sKY-cW-55t" id="fvU-14-0ud"/>
                 <outlet property="selectAllButton" destination="o6C-xR-vOL" id="zev-T6-I7Y"/>
+                <outlet property="unrevertChaptersButton" destination="1pN-sB-PJ6" id="3B5-Pp-XWT"/>
                 <outletCollection property="nonEditViews" destination="0xs-nd-GNI" collectionClass="NSMutableArray" id="KMz-ba-xcU"/>
-                <outletCollection property="nonEditViews" destination="RJc-SG-e8M" collectionClass="NSMutableArray" id="4Ct-vH-Vcv"/>
-                <outletCollection property="nonEditViews" destination="6M1-OX-JPJ" collectionClass="NSMutableArray" id="WUk-aZ-bVI"/>
                 <outletCollection property="editViews" destination="1aK-nY-usw" collectionClass="NSMutableArray" id="Mu4-wM-M6Z"/>
                 <outletCollection property="editViews" destination="TPG-Vb-xru" collectionClass="NSMutableArray" id="rSU-kt-axe"/>
                 <outletCollection property="editViews" destination="o6C-xR-vOL" collectionClass="NSMutableArray" id="PaW-VA-tlg"/>
+                <outletCollection property="nonEditViews" destination="sKY-cW-55t" collectionClass="NSMutableArray" id="d7Y-bI-Vfd"/>
+                <outletCollection property="nonEditViews" destination="1pN-sB-PJ6" collectionClass="NSMutableArray" id="xID-V7-tnc"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="uU5-T6-T28">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="52"/>
+            <rect key="frame" x="0.0" y="0.0" width="565" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dJj-K7-JYG">
-                    <rect key="frame" x="16" y="0.0" width="361" height="52"/>
+                    <rect key="frame" x="20" y="0.0" width="525" height="36"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-Vb-xru">
-                            <rect key="frame" x="0.0" y="12" width="75.333333333333329" height="28"/>
+                            <rect key="frame" x="0.0" y="4" width="133" height="28"/>
                             <color key="tintColor" systemColor="systemRedColor"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Отмена"/>
                             <buttonConfiguration key="configuration" style="plain" title="Отмена" buttonSize="mini"/>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aK-nY-usw">
-                            <rect key="frame" x="83.333333333333329" y="1" width="49.999999999999986" height="50"/>
+                        <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="1aK-nY-usw">
+                            <rect key="frame" x="141" y="0.0" width="50" height="36"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-xR-vOL">
-                            <rect key="frame" x="141.33333333333334" y="12" width="112" height="28"/>
+                            <rect key="frame" x="199" y="4" width="110.33333333333331" height="28"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Выбрать всё" buttonSize="mini"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US5-S4-l67">
-                            <rect key="frame" x="261.33333333333331" y="12" width="99.666666666666686" height="28"/>
+                            <rect key="frame" x="317.33333333333331" y="4" width="99.666666666666686" height="28"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="tinted" title=" Скачать" buttonSize="mini">
                                 <imageReference key="image" image="arrow.down.circle.fill" catalog="system" symbolScale="medium"/>
                             </buttonConfiguration>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xs-nd-GNI">
-                            <rect key="frame" x="361" y="1" width="0.0" height="50"/>
+                            <rect key="frame" x="421" y="-7" width="0.0" height="50"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="RJc-SG-e8M" customClass="UIControl" customModule="ReManga" customModuleProvider="target">
-                            <rect key="frame" x="361" y="4" width="44" height="44"/>
-                            <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P7S-xv-T38">
-                                    <rect key="frame" x="9.6666666666666856" y="12.666666666666666" width="24" height="18.33333333333335"/>
-                                    <imageReference key="image" image="text.line.first.and.arrowtriangle.forward" catalog="system" symbolScale="medium"/>
-                                </imageView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="44" id="GlG-tt-Jdu"/>
-                                <constraint firstItem="P7S-xv-T38" firstAttribute="centerX" secondItem="RJc-SG-e8M" secondAttribute="centerX" id="T6L-cS-GNu"/>
-                                <constraint firstItem="P7S-xv-T38" firstAttribute="centerY" secondItem="RJc-SG-e8M" secondAttribute="centerY" id="j04-5d-Tue"/>
-                                <constraint firstAttribute="height" constant="44" id="t29-Qj-OvC"/>
-                            </constraints>
-                        </view>
-                        <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="6M1-OX-JPJ" customClass="UIControl" customModule="ReManga" customModuleProvider="target">
-                            <rect key="frame" x="361" y="4" width="44" height="44"/>
-                            <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vbC-UG-3bc">
-                                    <rect key="frame" x="9.6666666666666856" y="13.666666666666666" width="24" height="18.33333333333335"/>
-                                    <imageReference key="image" image="text.line.last.and.arrowtriangle.forward" catalog="system" symbolScale="medium"/>
-                                </imageView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="vbC-UG-3bc" firstAttribute="centerX" secondItem="6M1-OX-JPJ" secondAttribute="centerX" id="XZu-dZ-2xz"/>
-                                <constraint firstAttribute="width" constant="44" id="exv-Nj-Zjk"/>
-                                <constraint firstAttribute="height" constant="44" id="s3f-BA-x1C"/>
-                                <constraint firstItem="vbC-UG-3bc" firstAttribute="centerY" secondItem="6M1-OX-JPJ" secondAttribute="centerY" id="xsj-I4-XUM"/>
-                            </constraints>
-                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKY-cW-55t">
+                            <rect key="frame" x="425" y="4" width="46" height="28"/>
+                            <color key="tintColor" systemColor="secondaryLabelColor"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="text.line.first.and.arrowtriangle.forward" catalog="system" buttonSize="mini"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pN-sB-PJ6">
+                            <rect key="frame" x="479" y="4" width="46" height="28"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="text.line.last.and.arrowtriangle.forward" catalog="system" buttonSize="mini"/>
+                        </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="CWJ-iD-SRP"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="FYH-TE-rb9"/>
                     </constraints>
                 </stackView>
             </subviews>
@@ -97,18 +80,21 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="dJj-K7-JYG" firstAttribute="leading" secondItem="uU5-T6-T28" secondAttribute="leadingMargin" id="5VN-QT-Gjv"/>
-                <constraint firstItem="dJj-K7-JYG" firstAttribute="top" secondItem="uU5-T6-T28" secondAttribute="top" id="AhR-0V-ek8"/>
-                <constraint firstAttribute="bottom" secondItem="dJj-K7-JYG" secondAttribute="bottom" id="Jvr-x7-7hv"/>
+                <constraint firstAttribute="bottom" secondItem="dJj-K7-JYG" secondAttribute="bottom" constant="8" id="Jvr-x7-7hv"/>
+                <constraint firstItem="dJj-K7-JYG" firstAttribute="top" secondItem="uU5-T6-T28" secondAttribute="top" id="ZyK-Iy-UFi"/>
                 <constraint firstAttribute="trailingMargin" secondItem="dJj-K7-JYG" secondAttribute="trailing" id="aDX-9B-FKf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-182.44274809160305" y="290.14084507042253"/>
+            <point key="canvasLocation" x="-179.38931297709922" y="289.43661971830988"/>
         </view>
     </objects>
     <resources>
         <image name="arrow.down.circle.fill" catalog="system" width="128" height="123"/>
         <image name="text.line.first.and.arrowtriangle.forward" catalog="system" width="128" height="97"/>
         <image name="text.line.last.and.arrowtriangle.forward" catalog="system" width="128" height="97"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

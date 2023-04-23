@@ -91,11 +91,14 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
             chaptersMenuVM.selectAll.bind { [unowned self] _ in
                 guard let id = items.value.firstIndex(where: { $0.id == Id.chapters.rawValue })
                 else { return }
-                
+
                 selectedItems.accept(chapters.value.enumerated().map { .init(item: $0.offset, section: id) })
             }
 
             downloadingTableState.bind { [unowned self] state in
+                refresh()
+            }
+            chaptersMenuVM.chaptersReverted.bind { [unowned self] _ in
                 refresh()
             }
             selectorVM.selected.bind { [unowned self] segment in
@@ -196,7 +199,7 @@ private extension MangaDetailsViewModel {
             var chaptersSection: MvvmCollectionSectionModel = .init(id: Id.chapters.rawValue, style: .plain, showsSeparators: true, items: [])
 
             chaptersSection.items.append(chaptersMenuVM)
-            chaptersSection.items.append(contentsOf: chapters.value)
+            chaptersSection.items.append(contentsOf: chaptersMenuVM.chaptersReverted.value ? chapters.value.reversed() : chapters.value)
 
             if !isChaptersDone {
                 let loader = MangaDetailsLoadingPlaceholderViewModel()
@@ -282,7 +285,13 @@ private extension MangaDetailsViewModel {
 
     func loadNextChapters() async throws {
         guard !chaptersIsLoading, !isChaptersDone else { return }
-        defer { chaptersIsLoading = false }
+        defer {
+            chaptersIsLoading = false
+            Task {
+                guard !isChaptersDone else { return }
+                try await loadNextChapters()
+            }
+        }
         chaptersIsLoading = true
 
         if let branch {
