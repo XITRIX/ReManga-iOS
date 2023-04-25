@@ -8,10 +8,24 @@
 import UIKit
 import MvvmFoundation
 
+public extension ContainerKey {
+    enum Backend {
+        case remanga
+        case newmanga
+
+        var key: ContainerKey {
+            switch self {
+            case .remanga: return .init(key: "remanga", isDefault: true)
+            case .newmanga: return .init(key: "newmanga")
+            }
+        }
+    }
+}
+
 class SceneDelegate: MvvmSceneDelegate {
     override func register(in container: Container) {
-//        container.registerSingleton(type: ApiProtocol.self, factory: NewMangaApi.init)
-        container.registerSingleton(type: ApiProtocol.self, factory: ReMangaApi.init)
+        container.registerSingleton(type: ApiProtocol.self, key: .Backend.newmanga.key, factory: NewMangaApi.init)
+        container.registerSingleton(type: ApiProtocol.self, key: .Backend.remanga.key, factory: ReMangaApi.init)
     }
 
     override func routing(in router: Router) {

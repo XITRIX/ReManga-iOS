@@ -90,6 +90,7 @@ extension CatalogViewModel {
             let res = try await api.fetchCatalog(page: page, filters: filters.value)
             allItems.accept(allItems.value + res.map { $0.cellModel })
             isLoading = false
+            state.accept(.default)
         }
     }
 

@@ -26,8 +26,6 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
     @IBOutlet private var dislikeButton: UIButton!
     @IBOutlet private var repliesActivityView: UIActivityIndicatorView!
 
-    private var viewModel: VM!
-
     override func initSetup() {
         imageView.layer.cornerRadius = 12
         imageView.layer.cornerCurve = .continuous
@@ -38,8 +36,6 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
     }
 
     override func setup(with viewModel: VM) {
-        self.viewModel = viewModel
-
         bind(in: disposeBag) {
             nameLabel.rx.text <- viewModel.name
             dateLabel.rx.text <- viewModel.date

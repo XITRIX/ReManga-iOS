@@ -41,7 +41,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="zSi-H1-5dG" firstAttribute="top" secondItem="wom-zu-WTw" secondAttribute="top" id="XAn-Lm-Pnt"/>
                                 <constraint firstItem="zSi-H1-5dG" firstAttribute="leading" secondItem="wom-zu-WTw" secondAttribute="leading" id="hlP-OV-j3m"/>

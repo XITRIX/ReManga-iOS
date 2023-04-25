@@ -12,7 +12,6 @@ import RxCocoa
 
 class MangaDetailsTagsCell<VM: MangaDetailsTagsViewModel>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var tagListView: TagListView!
-    private var viewModel: VM!
     private lazy var delegates = Delegates(parent: self)
     private let maxNonExpandedTags = 6
     private var cropped = false
@@ -30,7 +29,6 @@ class MangaDetailsTagsCell<VM: MangaDetailsTagsViewModel>: MvvmCollectionViewCel
     }
 
     override func setup(with viewModel: VM) {
-        self.viewModel = viewModel
         bind(in: disposeBag) {
             Observable.combineLatest(viewModel.tags, viewModel.isExpanded).bind { [unowned self] (tags, expanded) in
                 updateTags(tags, isExpanded: expanded)

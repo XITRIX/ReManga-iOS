@@ -11,7 +11,6 @@ import UIKit
 class MangaReaderLoadNextCell<VM: MangaReaderLoadNextViewModel>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var bottomConstraint: NSLayoutConstraint!
     @IBOutlet private var titleLabel: UILabel!
-    private var viewModel: VM!
     private var clicked: Bool = false
     private var nextText: String = ""
 
@@ -21,7 +20,6 @@ class MangaReaderLoadNextCell<VM: MangaReaderLoadNextViewModel>: MvvmCollectionV
     }
 
     override func setup(with viewModel: VM) {
-        self.viewModel = viewModel
         bind(in: disposeBag) {
             rx.nextText <- viewModel.nextAvailable.map { $0 ? "Потяните, что бы загрузить следующую главу" : "Потяните, что бы закрыть" }
         }

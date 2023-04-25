@@ -11,7 +11,8 @@ import RxBiBinding
 
 class ProfileViewModel: BaseViewModel {
     let authToken = BehaviorRelay<String?>(value: nil)
-    @Injected private var api: ApiProtocol
+    @Injected(key: .Backend.remanga.key) private var remangaApi: ApiProtocol
+    @Injected(key: .Backend.newmanga.key) private var newmangaApi: ApiProtocol
 
     required init() {
         super.init()
@@ -20,11 +21,11 @@ class ProfileViewModel: BaseViewModel {
 
     override func binding() {
         bind(in: disposeBag) {
-            authToken <-> api.authToken
+            authToken <-> remangaApi.authToken
         }
     }
 
     func auth() {
-        api.showAuthScreen(from: self)
+        remangaApi.showAuthScreen(from: self)
     }
 }

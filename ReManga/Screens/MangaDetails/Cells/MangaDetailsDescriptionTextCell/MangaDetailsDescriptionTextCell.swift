@@ -11,10 +11,8 @@ import MvvmFoundation
 class MangaDetailsDescriptionTextCell<VM: MangaDetailsDescriptionTextViewModel>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var expandButton: UIButton!
-    private var viewModel: VM!
 
     override func setup(with viewModel: VM) {
-        self.viewModel = viewModel
         bind(in: disposeBag) {
             viewModel.text.bind { [unowned self] text in
                 textLabel.attributedText = text

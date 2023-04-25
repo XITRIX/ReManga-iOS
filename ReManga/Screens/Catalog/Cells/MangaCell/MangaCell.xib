@@ -45,18 +45,18 @@
                                     <rect key="frame" x="56" y="86.666666666666671" width="37" height="37"/>
                                 </activityIndicatorView>
                                 <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gft-Rh-IqB">
-                                    <rect key="frame" x="4" y="186" width="51" height="20"/>
+                                    <rect key="frame" x="4" y="186.33333333333334" width="50.666666666666664" height="19.666666666666657"/>
                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Oki-gD-Rgx">
-                                        <rect key="frame" x="0.0" y="0.0" width="51" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50.666666666666664" height="19.666666666666657"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wzs-rr-m3C">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="19"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uo1-sG-N8i">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="51" height="19"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlz-Vi-gZs">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlz-Vi-gZs">
                                                             <rect key="frame" x="8" y="1.9999999999999991" width="34.333333333333336" height="15.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                             <nil key="textColor"/>
@@ -86,6 +86,7 @@
                                 </visualEffectView>
                             </subviews>
                             <constraints>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gft-Rh-IqB" secondAttribute="trailing" constant="4" id="9X0-kN-SHg"/>
                                 <constraint firstItem="msb-YP-hvr" firstAttribute="top" secondItem="2xv-7i-8yk" secondAttribute="top" id="9hy-xJ-jPc"/>
                                 <constraint firstAttribute="bottom" secondItem="gft-Rh-IqB" secondAttribute="bottom" constant="4" id="A5C-tf-50X"/>
                                 <constraint firstItem="gft-Rh-IqB" firstAttribute="leading" secondItem="2xv-7i-8yk" secondAttribute="leading" constant="4" id="BoG-TB-9Ng"/>
