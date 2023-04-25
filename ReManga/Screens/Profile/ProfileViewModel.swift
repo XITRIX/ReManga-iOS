@@ -10,22 +10,46 @@ import RxRelay
 import RxBiBinding
 
 class ProfileViewModel: BaseViewModel {
-    let authToken = BehaviorRelay<String?>(value: nil)
     @Injected(key: .Backend.remanga.key) private var remangaApi: ApiProtocol
     @Injected(key: .Backend.newmanga.key) private var newmangaApi: ApiProtocol
+
+    let items = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
 
     required init() {
         super.init()
         title.accept("Профиль")
+        Task { await reload() }
     }
 
     override func binding() {
         bind(in: disposeBag) {
-            authToken <-> remangaApi.authToken
+//            authToken <-> remangaApi.authToken
         }
     }
 
-    func auth() {
-        remangaApi.showAuthScreen(from: self)
+    func reload() {
+        var sections: [MvvmCollectionSectionModel] = []
+
+        let reMangaProfileVM = ProfileAccountViewModel()
+        reMangaProfileVM.image.accept(nil)
+        reMangaProfileVM.title.accept("Re:Manga")
+        reMangaProfileVM.subtitle.accept("Читай мангу ёпта")
+        
+        sections.append(.init(id: "ReManga", header: "Аккаунты", style: .insetGrouped, showsSeparators: true, items: [
+            reMangaProfileVM,
+            ProfileUserAccountViewModel()
+        ]))
+
+        let newMangaProfileVM = ProfileAccountViewModel()
+        newMangaProfileVM.image.accept(nil)
+        newMangaProfileVM.title.accept("NewManga")
+        newMangaProfileVM.subtitle.accept("Читай ещё мангу ёпта")
+
+        sections.append(.init(id: "NewManga", style: .insetGrouped, showsSeparators: true, items: [
+            newMangaProfileVM,
+            ProfileUserAccountViewModel()
+        ]))
+
+        items.accept(sections)
     }
 }

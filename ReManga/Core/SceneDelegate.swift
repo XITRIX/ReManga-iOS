@@ -61,6 +61,10 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(MangaReaderLoadNextCell<MangaReaderLoadNextViewModel>.self)
         router.register(MangaDetailsInsetCell<MangaDetailsInsetViewModel>.self)
 
+        // Profile cells
+        router.register(ProfileAccountCell<ProfileAccountViewModel>.self)
+        router.register(ProfileUserAccountCell<ProfileUserAccountViewModel>.self)
+
 
     }
 

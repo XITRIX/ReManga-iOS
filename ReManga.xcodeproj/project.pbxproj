@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7C124AD829EFEB6B0050873A /* MangaReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C124AD629EFEB6B0050873A /* MangaReaderViewController.swift */; };
 		7C124AD929EFEB6B0050873A /* MangaReaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C124AD729EFEB6B0050873A /* MangaReaderViewController.xib */; };
+		7C228C1629F80DEF00BCC872 /* ProfileUserAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */; };
+		7C228C1729F80DEF00BCC872 /* ProfileUserAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C228C1529F80DEF00BCC872 /* ProfileUserAccountCell.xib */; };
+		7C228C1929F80E3700BCC872 /* ProfileUserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C228C1829F80E3700BCC872 /* ProfileUserAccountViewModel.swift */; };
 		7C83351B29E064D200B0CD99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83351A29E064D200B0CD99 /* AppDelegate.swift */; };
 		7C83351D29E064D200B0CD99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83351C29E064D200B0CD99 /* SceneDelegate.swift */; };
 		7C83352229E064D200B0CD99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C83352029E064D200B0CD99 /* Main.storyboard */; };
@@ -34,7 +37,6 @@
 		7C8B024829E9524E0022E724 /* MangaDetailsDescriptionTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B024629E9524E0022E724 /* MangaDetailsDescriptionTextCell.swift */; };
 		7C8B024929E9524E0022E724 /* MangaDetailsDescriptionTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C8B024729E9524E0022E724 /* MangaDetailsDescriptionTextCell.xib */; };
 		7C8B024B29E952C30022E724 /* MangaDetailsDescriptionTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B024A29E952C30022E724 /* MangaDetailsDescriptionTextViewModel.swift */; };
-		7C8B024D29E955300022E724 /* UICollectionViewDiffableDataSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B024C29E955300022E724 /* UICollectionViewDiffableDataSource+Extensions.swift */; };
 		7C8B025129E95BA40022E724 /* MangaDetailsSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B024F29E95BA40022E724 /* MangaDetailsSelectorCell.swift */; };
 		7C8B025229E95BA40022E724 /* MangaDetailsSelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C8B025029E95BA40022E724 /* MangaDetailsSelectorCell.xib */; };
 		7C8B025429E95BB10022E724 /* MangaDetailsSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B025329E95BB10022E724 /* MangaDetailsSelectorViewModel.swift */; };
@@ -149,6 +151,9 @@
 		62B817C4B42425409E8A0262 /* Pods-ReManga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.debug.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.debug.xcconfig"; sourceTree = "<group>"; };
 		7C124AD629EFEB6B0050873A /* MangaReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaReaderViewController.swift; sourceTree = "<group>"; };
 		7C124AD729EFEB6B0050873A /* MangaReaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaReaderViewController.xib; sourceTree = "<group>"; };
+		7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserAccountCell.swift; sourceTree = "<group>"; };
+		7C228C1529F80DEF00BCC872 /* ProfileUserAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileUserAccountCell.xib; sourceTree = "<group>"; };
+		7C228C1829F80E3700BCC872 /* ProfileUserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserAccountViewModel.swift; sourceTree = "<group>"; };
 		7C83351729E064D200B0CD99 /* ReManga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReManga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C83351A29E064D200B0CD99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C83351C29E064D200B0CD99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,7 +181,6 @@
 		7C8B024629E9524E0022E724 /* MangaDetailsDescriptionTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsDescriptionTextCell.swift; sourceTree = "<group>"; };
 		7C8B024729E9524E0022E724 /* MangaDetailsDescriptionTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaDetailsDescriptionTextCell.xib; sourceTree = "<group>"; };
 		7C8B024A29E952C30022E724 /* MangaDetailsDescriptionTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsDescriptionTextViewModel.swift; sourceTree = "<group>"; };
-		7C8B024C29E955300022E724 /* UICollectionViewDiffableDataSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewDiffableDataSource+Extensions.swift"; sourceTree = "<group>"; };
 		7C8B024F29E95BA40022E724 /* MangaDetailsSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsSelectorCell.swift; sourceTree = "<group>"; };
 		7C8B025029E95BA40022E724 /* MangaDetailsSelectorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaDetailsSelectorCell.xib; sourceTree = "<group>"; };
 		7C8B025329E95BB10022E724 /* MangaDetailsSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsSelectorViewModel.swift; sourceTree = "<group>"; };
@@ -306,6 +310,16 @@
 				B73FB497FA1DF9E2AB0C00AB /* Pods_ReManga.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C228C1329F80DDA00BCC872 /* ProfileUserAccountCell */ = {
+			isa = PBXGroup;
+			children = (
+				7C228C1829F80E3700BCC872 /* ProfileUserAccountViewModel.swift */,
+				7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */,
+				7C228C1529F80DEF00BCC872 /* ProfileUserAccountCell.xib */,
+			);
+			path = ProfileUserAccountCell;
 			sourceTree = "<group>";
 		};
 		7C83350E29E064D200B0CD99 = {
@@ -658,6 +672,7 @@
 		7C934B2229F68A9A00709295 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7C228C1329F80DDA00BCC872 /* ProfileUserAccountCell */,
 				7C934B2329F68AA200709295 /* ProfileAccountCell */,
 			);
 			path = Cells;
@@ -744,7 +759,6 @@
 				7C8B029929EC001D0022E724 /* RxConverters.swift */,
 				7C8B028B29EB41990022E724 /* String+Extensions.swift */,
 				7CF6BA8B29EEAC980042FE4E /* UIButton+Extensions.swift */,
-				7C8B024C29E955300022E724 /* UICollectionViewDiffableDataSource+Extensions.swift */,
 				7CFCF9D129E6FC95008E6150 /* UIImageView+Extensions.swift */,
 				7C8B028E29EB539D0022E724 /* UILabel+Extensions.swift */,
 				7CFCF9AE29E6B0EC008E6150 /* UIViewController+Extensions.swift */,
@@ -925,6 +939,7 @@
 				7C83354629E0728C00B0CD99 /* MangaCell.xib in Resources */,
 				7CF6BA9A29EEC5830042FE4E /* NewMangaAuthViewController.xib in Resources */,
 				7C934AFA29F5A33C00709295 /* MangaDetailsChaptersMenuCell.xib in Resources */,
+				7C228C1729F80DEF00BCC872 /* ProfileUserAccountCell.xib in Resources */,
 				7CF6BA8729EE8CBC0042FE4E /* ProfileViewController.xib in Resources */,
 				7C8B028A29EAAF1B0022E724 /* MangaReaderPageCell.xib in Resources */,
 				7C8B029F29EC02C00022E724 /* MangaDetailsHeaderCell.xib in Resources */,
@@ -986,7 +1001,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C8B024D29E955300022E724 /* UICollectionViewDiffableDataSource+Extensions.swift in Sources */,
 				7C83353329E065C100B0CD99 /* CatalogViewController.swift in Sources */,
 				7C8B024429E9489A0022E724 /* KMBFormatter.swift in Sources */,
 				7C8B022929E832E20022E724 /* NewMangaDetailsResultModel.swift in Sources */,
@@ -1000,6 +1014,7 @@
 				7C8B024029E8B5280022E724 /* GradientView.swift in Sources */,
 				7C8B027D29EA9C280022E724 /* CGSize+Extensions.swift in Sources */,
 				7C934AE729F133D100709295 /* ReMangaAuthResultModel.swift in Sources */,
+				7C228C1929F80E3700BCC872 /* ProfileUserAccountViewModel.swift in Sources */,
 				7CFCF9D029E6CF6E008E6150 /* ReMangaModelExtensions.swift in Sources */,
 				7CF6BA7B29EDF48F0042FE4E /* ApiMangaError.swift in Sources */,
 				7CFCF9DC29E73869008E6150 /* KeyboardHandler.swift in Sources */,
@@ -1018,6 +1033,7 @@
 				7CFCF9AB29E6AFF5008E6150 /* BaseViewController.swift in Sources */,
 				7C8B027529E9CEA30022E724 /* MangaDetailsChapterViewModel.swift in Sources */,
 				7C83354A29E0747400B0CD99 /* MangaCellViewModel.swift in Sources */,
+				7C228C1629F80DEF00BCC872 /* ProfileUserAccountCell.swift in Sources */,
 				7CFCF9C429E6C5E1008E6150 /* NewMangaApi.swift in Sources */,
 				7C8B02AC29EC199E0022E724 /* ApiMangaCommentModel.swift in Sources */,
 				7C8B02B029EC21670022E724 /* MangaDetailsCommentCell.swift in Sources */,

@@ -8,30 +8,6 @@
 import MvvmFoundation
 import RxRelay
 
-struct MvvmCollectionSectionModel: Hashable {
-    enum Style {
-        case plain
-        case grouped
-        case insetGrouped
-    }
-
-    let id: String
-    var style: Style
-    var showsSeparators: Bool
-    var backgroundColor: UIColor? = .systemBackground
-    var items: [MvvmViewModel]
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-
-    static func == (lhs: MvvmCollectionSectionModel, rhs: MvvmCollectionSectionModel) -> Bool {
-        lhs.id == rhs.id &&
-        lhs.style == rhs.style &&
-        lhs.showsSeparators == rhs.showsSeparators &&
-        lhs.backgroundColor == rhs.backgroundColor
-    }
-}
 
 class MangaDetailsViewModel: BaseViewModelWith<String> {
     enum Id: String {
@@ -173,7 +149,7 @@ private extension MangaDetailsViewModel {
 
     func selectSegment(_ segment: Int) {
         let insetSection: MvvmCollectionSectionModel = .init(id: Id.inset.rawValue, style: .plain, showsSeparators: false, backgroundColor: .clear, items: [insetVM])
-        var headerSection: MvvmCollectionSectionModel = .init(id: Id.header.rawValue, style: .plain, showsSeparators: false, items: [statusVM])
+        var headerSection: MvvmCollectionSectionModel = .init(id: Id.header.rawValue, style: .plain, showsSeparators: false, backgroundColor: .systemBackground, items: [statusVM])
 
         if !downloadingTableState.value {
             headerSection.items.append(selectorVM)

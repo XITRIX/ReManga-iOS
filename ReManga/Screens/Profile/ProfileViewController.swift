@@ -5,22 +5,23 @@
 //  Created by Даниил Виноградов on 18.04.2023.
 //
 
-import UIKit
 import MvvmFoundation
 import RxBiBinding
+import UIKit
 
 class ProfileViewController<VM: ProfileViewModel>: BaseViewController<VM> {
-    @IBOutlet private var authButton: UIButton!
-    @IBOutlet private var textField: UITextField!
+    @IBOutlet private var collectionView: UICollectionView!
+    private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        setupCollectionView()
 
         bind(in: disposeBag) {
-            viewModel.auth <- authButton.rx.tap
-            textField.rx.text <-> viewModel.authToken
+            viewModel.items.bind { [unowned self] items in
+                dataSource.applyModels(items)
+            }
         }
     }
 
@@ -28,4 +29,8 @@ class ProfileViewController<VM: ProfileViewModel>: BaseViewController<VM> {
         view.endEditing(true)
     }
 
+    func setupCollectionView() {
+        collectionView.dataSource = dataSource
+        collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
+    }
 }
