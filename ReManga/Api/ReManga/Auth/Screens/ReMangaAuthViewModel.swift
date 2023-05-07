@@ -8,8 +8,8 @@
 import MvvmFoundation
 
 class ReMangaAuthViewModel: BaseViewModel {
-    @Injected var api: ApiProtocol
-    let authUrl = "https://id.vk.com/auth?app_id=6758074&state=dmssL21hbmdhL3NvbG8tbGV2ZWxpbmcsYXV0aA==&response_type=code&redirect_uri=https://remanga.org/social&redirect_uri_hash=a4c5222b2d022b0c11&code_challenge=&code_challenge_method=&return_auth_hash=d6a4d0ba2cb677f18e&scope=4194304&force_hash="
+    @Injected(key: .Backend.remanga.key) var api: ApiProtocol
+    let authUrl = "https://id.vk.com/auth?app_id=6758074&state=dmssLyxhdXRo&response_type=code&redirect_uri=https%3A%2F%2Fremanga.org%2Fsocial&redirect_uri_hash=5b0f01862fd522f962&code_challenge=&code_challenge_method=&scope=4194304&force_hash="
 
     func fetchToken(code: String) {
         guard let api = api as? ReMangaApi else { return }

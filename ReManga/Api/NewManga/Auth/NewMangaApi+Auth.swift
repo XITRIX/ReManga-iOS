@@ -8,6 +8,7 @@
 import MvvmFoundation
 
 extension NewMangaApi: ApiAuthProtocol {
+    @MainActor
     func showAuthScreen(from vm: MvvmViewModel) {
         vm.navigate(to: NewMangaAuthViewModel.self, by: .present(wrapInNavigation: true))
     }

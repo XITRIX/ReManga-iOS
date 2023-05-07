@@ -10,12 +10,15 @@ import Kingfisher
 import RxRelay
 
 protocol ApiAuthProtocol: AnyObject {
+    @MainActor
     func showAuthScreen(from vm: MvvmViewModel)
 }
 
 protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     var authToken: BehaviorRelay<String?> { get set }
     var kfAuthModifier: AnyModifier { get }
+
+    var name: String { get }
 
     func fetchCatalog(page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel]
     func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel]
@@ -34,6 +37,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchUserInfo() async throws -> ApiMangaUserModel
     func fetchBookmarks() async throws -> [ApiMangaBookmarkModel]
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws
+    func deauth() async throws
 }
 
 extension ApiProtocol {

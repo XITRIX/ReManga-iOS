@@ -28,6 +28,10 @@ class NewMangaApi: ApiProtocol {
         }
     }
 
+    var name: String {
+        "NewManga"
+    }
+
     init() {
         authToken.accept(UserDefaults.standard.string(forKey: "NewAuthToken"))
         bind(in: disposeBag) {
@@ -186,7 +190,16 @@ class NewMangaApi: ApiProtocol {
     }
 
     func fetchUserInfo() async throws -> ApiMangaUserModel {
-        .init(id: 0, username: "")
+        do {
+            let url = "https://api.newmanga.org/v2/user"
+            let (result, _) = try await urlSession.data(for: makeRequest(url))
+            let model = try JSONDecoder().decode(NewMangaUserResult.self, from: result)
+
+            return .init(from: model)
+        } catch {
+            authToken.accept(nil)
+            throw error
+        }
     }
 
     func fetchBookmarks() async throws -> [ApiMangaBookmarkModel] {
@@ -195,5 +208,9 @@ class NewMangaApi: ApiProtocol {
 
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws {
 
+    }
+
+    func deauth() async throws {
+        authToken.accept(nil)
     }
 }

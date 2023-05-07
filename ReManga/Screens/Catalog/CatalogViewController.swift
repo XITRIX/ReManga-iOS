@@ -71,7 +71,7 @@ private extension CatalogViewController {
             let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
             let columns: Double = collectionView.bounds.width < 600 ? 3 : 5
             let usableWidth = collectionView.bounds.width - collectionView.layoutMargins.left - collectionView.layoutMargins.right
-            let itemWidth = (usableWidth - (columns - 1) * (flowLayout.minimumInteritemSpacing)) / columns
+            let itemWidth = ((usableWidth - (columns - 1) * (flowLayout.minimumInteritemSpacing)) / columns).rounded(.down)
             let itemHeight = itemWidth * 1.41 + 42
             return CGSize(width: itemWidth, height: itemHeight)
         }

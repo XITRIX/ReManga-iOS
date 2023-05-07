@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsChapterCell" customModule="ReManga" customModuleProvider="target">
             <connections>
                 <outlet property="dateLabel" destination="4gB-jK-gkF" id="Qsw-ND-hzE"/>
+                <outlet property="downloadProgressView" destination="Y0I-R3-jam" id="ves-aZ-CQt"/>
+                <outlet property="downloadedImageView" destination="2tR-zJ-drK" id="ZvK-e7-f1A"/>
                 <outlet property="heartImageView" destination="1C4-iA-Dzt" id="L7J-E0-1tg"/>
                 <outlet property="lockImageView" destination="8vq-bP-3Qn" id="ZWP-pz-twj"/>
                 <outlet property="nameLabel" destination="3Vz-B9-S4T" id="T1C-kf-nFm"/>
@@ -34,10 +37,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fwL-eX-map">
-                            <rect key="frame" x="24.333333333333343" y="0.0" width="336.66666666666663" height="40"/>
+                            <rect key="frame" x="24.333333333333343" y="0.0" width="296.66666666666663" height="40"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cXk-oW-icy">
-                                    <rect key="frame" x="0.0" y="0.0" width="97.333333333333329" height="20.333333333333332"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="117.33333333333333" height="20.333333333333332"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Глава 11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vz-B9-S4T">
                                             <rect key="frame" x="0.0" y="0.0" width="57.333333333333336" height="20.333333333333332"/>
@@ -57,6 +60,13 @@
                                             <color key="tintColor" systemColor="systemPinkColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="12" id="2tu-Wn-m7H"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2tR-zJ-drK">
+                                            <rect key="frame" x="105.33333333333331" y="-3.5527136788005009e-15" width="12" height="20.000000000000004"/>
+                                            <color key="tintColor" systemColor="systemGreenColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="12" id="3XK-7s-O24"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
@@ -80,6 +90,25 @@
                                 </stackView>
                             </subviews>
                         </stackView>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Y0I-R3-jam" customClass="RoundedProgress" customModule="ReManga" customModuleProvider="target">
+                            <rect key="frame" x="337" y="8" width="24" height="24"/>
+                            <color key="tintColor" name="AccentColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="24" id="A6u-RN-yBn"/>
+                                <constraint firstAttribute="height" constant="24" id="q0i-Co-71p"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="progress">
+                                    <real key="value" value="0.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="trackTint">
+                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="strokeWidth">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                 </stackView>
             </subviews>
@@ -98,6 +127,10 @@
     <resources>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="lock.fill" catalog="system" width="125" height="128"/>
+        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -106,6 +139,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

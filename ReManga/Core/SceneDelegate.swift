@@ -5,8 +5,8 @@
 //  Created by Даниил Виноградов on 07.04.2023.
 //
 
-import UIKit
 import MvvmFoundation
+import UIKit
 
 public extension ContainerKey {
     enum Backend {
@@ -26,6 +26,7 @@ class SceneDelegate: MvvmSceneDelegate {
     override func register(in container: Container) {
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.newmanga.key, factory: NewMangaApi.init)
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.remanga.key, factory: ReMangaApi.init)
+        container.registerSingleton(factory: MangaDownloadManager.init)
     }
 
     override func routing(in router: Router) {
@@ -40,6 +41,9 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(MangaDetailsViewController<MangaDetailsViewModel>.self)
         router.register(MangaReaderViewController<MangaReaderViewModel>.self)
         router.register(ProfileViewController<ProfileViewModel>.self)
+        router.register(ProfileDetailsViewController<ProfileDetailsViewModel>.self)
+        router.register(DownloadsViewController<DownloadsViewModel>.self)
+        router.register(DownloadDetailsViewController<DownloadDetailsViewModel>.self)
 
         router.register(NewMangaAuthViewController<NewMangaAuthViewModel>.self)
         router.register(ReMangaAuthViewController<ReMangaAuthViewModel>.self)
@@ -65,7 +69,11 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(ProfileAccountCell<ProfileAccountViewModel>.self)
         router.register(ProfileUserAccountCell<ProfileUserAccountViewModel>.self)
 
+        // Profile details cells
+        router.register(ProfileDetailsButtonCell<ProfileDetailsButtonViewModel>.self)
 
+        // Downloads cells
+        router.register(DownloadsMangaCell<DownloadsMangaViewModel>.self)
     }
 
     override func resolveRootVC() -> UIViewController {
@@ -75,4 +83,3 @@ class SceneDelegate: MvvmSceneDelegate {
         return MainTabBarViewModel.resolveVC()
     }
 }
-

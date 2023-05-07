@@ -210,3 +210,18 @@ extension NewMangaCatalogResultStatus {
         }
     }
 }
+
+extension ApiMangaUserModel {
+    init(from model: NewMangaUserResult) {
+        id = model.id
+        username = model.name ?? ""
+        
+        if let avatar = model.image?.name {
+            image = "https://img.newmanga.org/AvatarSmall/webp/" + avatar
+        }
+
+        if let balance = model.balance {
+            currency = "\(Double(balance)) ₽"
+        }
+    }
+}

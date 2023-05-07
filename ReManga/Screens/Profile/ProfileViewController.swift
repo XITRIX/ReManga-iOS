@@ -19,9 +19,9 @@ class ProfileViewController<VM: ProfileViewModel>: BaseViewController<VM> {
         setupCollectionView()
 
         bind(in: disposeBag) {
-            viewModel.items.bind { [unowned self] items in
-                dataSource.applyModels(items)
-            }
+            viewModel.modelSelected <- dataSource.modelSelected
+            dataSource.applyModels <- viewModel.items
+            dataSource.deselectItems <- viewModel.deselectItems
         }
     }
 
@@ -32,5 +32,10 @@ class ProfileViewController<VM: ProfileViewModel>: BaseViewController<VM> {
     func setupCollectionView() {
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        smoothlyDeselectItems(in: collectionView)
     }
 }

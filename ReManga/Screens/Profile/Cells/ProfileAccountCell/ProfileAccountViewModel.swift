@@ -9,6 +9,6 @@ import MvvmFoundation
 import RxRelay
 
 class ProfileAccountViewModel: MvvmViewModel {
-    let image = BehaviorRelay<String?>(value: nil)
     let subtitle = BehaviorRelay<String?>(value: nil)
+    let image = BehaviorRelay<Image?>(value: nil)
 }

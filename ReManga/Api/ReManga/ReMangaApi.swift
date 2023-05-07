@@ -39,6 +39,10 @@ class ReMangaApi: ApiProtocol {
         return session
     }
 
+    var name: String {
+        "Re:Manga"
+    }
+
     init() {
         authToken.accept(UserDefaults.standard.string(forKey: "ReAuthToken"))
         bind(in: disposeBag) {
@@ -213,11 +217,16 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchUserInfo() async throws -> ApiMangaUserModel {
-        let url = "https://api.remanga.org/api/users/current/"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
-        let model = try JSONDecoder().decode(ReMangaUserResult.self, from: result)
+        do {
+            let url = "https://api.remanga.org/api/users/current/"
+            let (result, _) = try await urlSession.data(for: makeRequest(url))
+            let model = try JSONDecoder().decode(ReMangaUserResult.self, from: result)
 
-        return .init(from: model.content)
+            return .init(from: model.content)
+        } catch {
+            authToken.accept(nil)
+            throw error
+        }
     }
 
     func fetchBookmarks() async throws -> [ApiMangaBookmarkModel] {
@@ -245,5 +254,9 @@ class ReMangaApi: ApiProtocol {
         }
 
         _ = try await urlSession.data(for: request)
+    }
+    
+    func deauth() async throws {
+        authToken.accept(nil)
     }
 }

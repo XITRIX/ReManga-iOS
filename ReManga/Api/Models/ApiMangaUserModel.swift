@@ -10,4 +10,6 @@ import Foundation
 struct ApiMangaUserModel: Hashable {
     var id: Int
     var username: String
+    var image: String?
+    var currency: String?
 }

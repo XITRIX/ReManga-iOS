@@ -11,6 +11,7 @@ import RxRelay
 class MangaDetailsChaptersMenuViewModel: MvvmViewModel {
     let downloadState = BehaviorRelay<Bool>(value: false)
     let chaptersReverted = BehaviorRelay<Bool>(value: false)
+    let downloadSelected = PublishRelay<Void>()
     let selectAll = PublishRelay<Void>()
 
     func toggleDownload() {
@@ -18,10 +19,11 @@ class MangaDetailsChaptersMenuViewModel: MvvmViewModel {
     }
 
     func downloadButtonTap() {
-        if !downloadState.value {
-            downloadState.accept(true)
-            return
+        if downloadState.value {
+            downloadSelected.accept(())
         }
+
+        downloadState.accept(!downloadState.value)
     }
 
     func downloadCancelTap() {

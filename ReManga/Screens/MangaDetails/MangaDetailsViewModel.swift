@@ -19,6 +19,8 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     }
 
     @Injected var api: ApiProtocol
+    @Injected var downloadManager: MangaDownloadManager
+
     let image = BehaviorRelay<String?>(value: nil)
 
     let insetVM = MangaDetailsInsetViewModel()
@@ -40,11 +42,11 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
     let currentBookmark = BehaviorRelay<ApiMangaBookmarkModel?>(value: nil)
 
     var branch: ApiMangaBranchModel?
-    var isChaptersDone = false
+    var isChaptersFetchingDone = false
     var chaptersPage = 1
     var chaptersIsLoading = false
 
-    var isCommentsDone = false
+    var isCommentsFetchingDone = false
     var commentsPage = 1
     var commentsIsLoading = false
     var commentsCount: Int = 0
@@ -69,6 +71,11 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
                 else { return }
 
                 selectedItems.accept(chapters.value.enumerated().map { .init(item: $0.offset, section: id) })
+            }
+
+            chaptersMenuVM.downloadSelected.bind { [unowned self] _ in
+                let chapters = selectedItems.value.compactMap { items.value[$0.section].items[$0.item] as? MangaDetailsChapterViewModel }
+                Task { try await downloadManager.downloadChapters(api: api, manga: self, chapters: chapters) }
             }
 
             downloadingTableState.bind { [unowned self] state in
@@ -140,6 +147,14 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
             currentBookmark.accept(bookmark)
         }
     }
+
+    func shouldSelectModel(_ model: MvvmViewModel) -> Bool {
+        guard let chapter = model as? MangaDetailsChapterViewModel,
+              downloadingTableState.value
+        else { return true }
+
+        return chapter.loadingProgress.value == nil
+    }
 }
 
 private extension MangaDetailsViewModel {
@@ -177,7 +192,7 @@ private extension MangaDetailsViewModel {
             chaptersSection.items.append(chaptersMenuVM)
             chaptersSection.items.append(contentsOf: chaptersMenuVM.chaptersReverted.value ? chapters.value.reversed() : chapters.value)
 
-            if !isChaptersDone {
+            if !isChaptersFetchingDone {
                 let loader = MangaDetailsLoadingPlaceholderViewModel()
                 loader.isCompact.accept(true)
                 chaptersSection.items.append(loader)
@@ -188,7 +203,7 @@ private extension MangaDetailsViewModel {
             var commentsSection = MvvmCollectionSectionModel(id: Id.comments.rawValue, style: .plain, showsSeparators: false, items: [])
             if !comments.value.isEmpty || commentsIsLoading {
                 commentsSection.items.append(contentsOf: comments.value.flatMap { $0.allExpandedChildren })
-                if !isCommentsDone {
+                if !isCommentsFetchingDone {
                     let loader = MangaDetailsLoadingPlaceholderViewModel()
                     loader.isCompact.accept(true)
                     commentsSection.items.append(loader)
@@ -260,11 +275,11 @@ private extension MangaDetailsViewModel {
     }
 
     func loadNextChapters() async throws {
-        guard !chaptersIsLoading, !isChaptersDone else { return }
+        guard !chaptersIsLoading, !isChaptersFetchingDone else { return }
         defer {
             chaptersIsLoading = false
             Task {
-                guard !isChaptersDone else { return }
+                guard !isChaptersFetchingDone else { return }
                 try await loadNextChapters()
             }
         }
@@ -273,19 +288,20 @@ private extension MangaDetailsViewModel {
         if let branch {
             let count = 30
             let chaptersRes = try await api.fetchTitleChapters(branch: branch.id, count: count, page: chaptersPage)
-            isChaptersDone = chaptersRes.count != count
+            isChaptersFetchingDone = chaptersRes.count != count
             chaptersPage += 1
 
             chapters.accept(chapters.value + chaptersRes.map { chapter in
                 let res = MangaDetailsChapterViewModel()
                 res.prepare(with: chapter)
+                downloadManager.bindChapterToDownloadManager(chapter: res, of: self, from: api)
                 return res
             })
         }
     }
 
     func loadNextComments() async throws {
-        guard !commentsIsLoading, !isCommentsDone else { return }
+        guard !commentsIsLoading, !isCommentsFetchingDone else { return }
         defer { commentsIsLoading = false }
         commentsIsLoading = true
 
@@ -294,7 +310,7 @@ private extension MangaDetailsViewModel {
         commentsPage += 1
 
         let newValue = comments.value + commentsRes.map { .init(with: $0) }
-        isCommentsDone = newValue.count >= commentsCount
+        isCommentsFetchingDone = newValue.count >= commentsCount
         comments.accept(newValue)
     }
 }

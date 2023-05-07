@@ -8,6 +8,7 @@
 import MvvmFoundation
 
 extension ReMangaApi: ApiAuthProtocol {
+    @MainActor
     func showAuthScreen(from vm: MvvmViewModel) {
         vm.navigate(to: ReMangaAuthViewModel.self, by: .present(wrapInNavigation: true))
     }

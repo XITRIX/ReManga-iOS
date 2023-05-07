@@ -130,6 +130,16 @@ extension ApiMangaUserModel {
     init(from model: ReMangaUserResultContent) {
         id = model.id
         username = model.username
+
+        if let avatar = model.avatar {
+            image = ReMangaApi.imgPath + avatar
+        }
+
+        if let sbalance = model.balance,
+           let balance = Double(sbalance)
+        {
+            currency = "\(balance) монет"
+        }
     }
 }
 

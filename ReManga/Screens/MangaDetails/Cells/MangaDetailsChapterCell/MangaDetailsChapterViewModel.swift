@@ -28,6 +28,8 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
         }
     }
 
+    let loadingProgress = BehaviorRelay<CGFloat?>(value: nil)
+
     override func prepare(with model: ApiMangaChapterModel) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"

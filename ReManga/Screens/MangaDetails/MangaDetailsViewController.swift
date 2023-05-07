@@ -156,5 +156,10 @@ private extension MangaDetailsViewController {
                 parent.viewModel.bottomReached()
             }
         }
+
+        func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+            let model = parent.dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
+            return parent.viewModel.shouldSelectModel(model)
+        }
     }
 }

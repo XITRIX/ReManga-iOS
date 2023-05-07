@@ -21,7 +21,7 @@ class ProfileAccountCell<VM: ProfileAccountViewModel>: MvvmCollectionViewListCel
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
-            image.rx.imageUrl() <- viewModel.image
+            image.rx.setImage() <- viewModel.image
             title.rx.text <- viewModel.title
             subtitle.rx.text <- viewModel.subtitle
         }
