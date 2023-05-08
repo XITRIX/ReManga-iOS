@@ -30,6 +30,8 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
 
     let loadingProgress = BehaviorRelay<CGFloat?>(value: nil)
 
+    var unlockedValue: Bool?
+
     override func prepare(with model: ApiMangaChapterModel) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
@@ -44,5 +46,11 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
         likes.accept(model.likes)
         isAvailable.accept(model.isAvailable)
         price.accept(model.price)
+
+        bind(in: disposeBag) {
+            unlocked.bind { [unowned self] unlocked in
+                unlockedValue = unlocked
+            }
+        }
     }
 }

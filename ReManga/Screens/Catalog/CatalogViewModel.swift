@@ -60,6 +60,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
         title.accept(model.title)
         isSearchAvailable.accept(model.isSearchAvailable)
         filters.accept(model.filters)
+        state.accept(.loading)
     }
 
     func loadNext() {

@@ -153,7 +153,7 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
               downloadingTableState.value
         else { return true }
 
-        return chapter.loadingProgress.value == nil
+        return chapter.loadingProgress.value == nil && chapter.unlockedValue != false
     }
 }
 

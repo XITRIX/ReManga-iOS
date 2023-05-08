@@ -40,9 +40,9 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
                 guard let unlocked else { return }
                 lockImageView.image = unlocked ? .init(systemName: "lock.open.fill")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal) : .init(systemName: "lock.fill")
             }
-            viewModel.loadingProgress.map { $0 == nil }.bind { [unowned self] ableToDownload in
+            Observable.combineLatest(viewModel.loadingProgress, viewModel.unlocked).map { ($0 == nil, $1) }.bind { [unowned self] ableToDownload, unlocked in
                 accessories = [.disclosureIndicator(displayed: .whenNotEditing)]
-                if ableToDownload { accessories.append(.multiselect(displayed: .whenEditing)) }
+                if ableToDownload && unlocked != false { accessories.append(.multiselect(displayed: .whenEditing)) }
             }
         }
     }

@@ -28,7 +28,7 @@ struct ReMangaTitleChaptersResult: Codable, Hashable {
 struct ReMangaTitleChaptersResultContent: Codable, Hashable {
     let id: Int?
     let rated, viewed: Bool?
-//    let isBought: JSONNull?
+    let isBought: Bool?
     let publishers: [ReMangaTitleChaptersResultPublisher]?
     let index, tome: Int?
     let chapter: String?
@@ -41,7 +41,7 @@ struct ReMangaTitleChaptersResultContent: Codable, Hashable {
 
     enum CodingKeys: String, CodingKey {
         case id, rated, viewed
-//        case isBought = "is_bought"
+        case isBought = "is_bought"
         case publishers, index, tome, chapter, name, price, score
         case uploadDate = "upload_date"
         case pubDate = "pub_date"

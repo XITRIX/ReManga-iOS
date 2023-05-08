@@ -63,7 +63,7 @@ extension ApiMangaChapterModel {
         isLiked = model.rated ?? false
         likes = model.score ?? 0
 
-        isAvailable = !(model.isPaid ?? false)
+        isAvailable = !(model.isPaid ?? false) || (model.isBought ?? false)
         price = model.isPaid == false ? nil : model.price
 
         let dateFormatter = DateFormatter()
