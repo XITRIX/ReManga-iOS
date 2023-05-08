@@ -125,7 +125,7 @@ extension ApiMangaTranslatorModel {
 extension ApiMangaChapterModel {
     init(from model: NewMangaTitleChapterResultItem) {
         id = String(model.id ?? 0)
-        tome = model.tom ?? 0
+        tome = String(model.tom ?? 0)
         chapter = String(format: "%g", model.number ?? 0)
         team = model.translator
 

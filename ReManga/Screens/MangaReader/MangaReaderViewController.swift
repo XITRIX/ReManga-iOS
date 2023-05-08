@@ -9,7 +9,7 @@ import MvvmFoundation
 import RxSwift
 import UIKit
 
-class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM> {
+class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var navigationBar: UINavigationBar!
     @IBOutlet private var toolBar: UIToolbar!
@@ -47,6 +47,8 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        toolBarHiddenConstraint.isActive = !viewModel.isActionsAvailable.value
 
         viewRespectsSystemMinimumLayoutMargins = false
         navigationItem.setLeftBarButton(.init(barButtonSystemItem: .close, target: self, action: #selector(closeAction)), animated: false)
@@ -132,13 +134,13 @@ class MangaReaderViewController<VM: MangaReaderViewModel>: BaseViewController<VM
 private extension MangaReaderViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MvvmViewModel>>
 
-    var isBarsHidden: Bool { navigationBarHiddenConstraint.isActive && toolBarHiddenConstraint.isActive }
+    var isBarsHidden: Bool { navigationBarHiddenConstraint.isActive }
 
     func setBarsHidden(_ isHidden: Bool) {
         guard isBarsHidden != isHidden else { return }
         UIView.animate(withDuration: 0.3) { [self] in
             navigationBarHiddenConstraint.isActive = isHidden
-            toolBarHiddenConstraint.isActive = isHidden
+            toolBarHiddenConstraint.isActive = isHidden || !viewModel.isActionsAvailable.value
             view.layoutIfNeeded()
             setNeedsStatusBarAppearanceUpdate()
         }

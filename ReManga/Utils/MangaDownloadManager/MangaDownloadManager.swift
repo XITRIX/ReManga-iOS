@@ -33,7 +33,14 @@ class MangaDownloadManager {
             await bindChapterModelToProgress(chapter, api: api)
         }
 
-        for chapter in chapters {
+        let sortedChapters = chapters.sorted { l, r in
+            if l.tome.value == r.tome.value {
+                return l.chapter.value < r.chapter.value
+            }
+            return l.tome.value < r.tome.value
+        }
+
+        for chapter in sortedChapters {
             let pages = try await downloadChapter(api: api, chapter: chapter, progressCallback: { [progressBindings] progress in
                 progressBindings[chapter.id.value]?.accept(progress)
             })
@@ -51,7 +58,7 @@ class MangaDownloadManager {
                 _ = Task {
                     let key = await keyFrom(manga, api: api)
                     guard let manga = downloads[key],
-                          manga.chapters.contains(where: { $0.id == chapter.id.value })
+                          manga.chapters.value.contains(where: { $0.id == chapter.id.value })
                     else { return }
 
                     chapter.loadingProgress.accept(1)
@@ -85,11 +92,16 @@ private extension MangaDownloadManager {
         var current = downloadedManga.value[key]
 
         if current == nil {
-            current = MangaDownloadModel(name: manga.title.value,
-                                         image: manga.image.value,
-                                         chapters: [])
+            current = await MangaDownloadModel(
+                id: manga.id,
+                name: manga.title.value,
+                image: manga.image.value,
+                date: .now,
+                chapters: []
+            )
         }
 
+        current?.date.accept(.now)
         let chapter = MangaChapterDownloadModel(
             id: chapter.id.value,
             tome: chapter.tome.value,
@@ -99,9 +111,11 @@ private extension MangaDownloadManager {
         )
 
         if current != nil,
-           !current!.chapters.contains(where: { $0.id == chapter.id })
+           !current!.chapters.value.contains(where: { $0.id == chapter.id })
         {
-            current?.chapters.append(chapter)
+            var chapters = current!.chapters.value
+            chapters.append(chapter)
+            current?.chapters.accept(chapters)
         }
 
         var value = downloadedManga.value

@@ -15,7 +15,7 @@ struct ApiMangaBranchModel: Codable, Hashable {
 
 struct ApiMangaChapterModel: Codable, Hashable {
     var id: String
-    var tome: Int
+    var tome: String
     var chapter: String
     var date: Date
     var team: String?

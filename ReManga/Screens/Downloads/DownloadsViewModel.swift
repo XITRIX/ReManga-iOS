@@ -26,14 +26,18 @@ class DownloadsViewModel: BaseViewModel {
     }
 
     func modelSelected(_ model: MvvmViewModel) {
-        navigate(to: DownloadDetailsViewModel.self, by: .show)
+        guard let model = model as? DownloadsMangaViewModel
+        else { return }
+
+        navigate(to: DownloadDetailsViewModel.self, with: model, by: .show)
     }
 }
 
 @MainActor
 private extension DownloadsViewModel {
     func reload(with items: [MangaDownloadModel]) {
-        let section = MvvmCollectionSectionModel(id: "Manga", style: .plain, showsSeparators: true, items: items.map { DownloadsMangaViewModel.init(with: $0) })
+        let items = items.sorted(by: { $0.date.value > $1.date.value }).map { DownloadsMangaViewModel(with: $0) }
+        let section = MvvmCollectionSectionModel(id: "Manga", style: .plain, showsSeparators: true, items: items)
         self.items.accept([section])
     }
 }

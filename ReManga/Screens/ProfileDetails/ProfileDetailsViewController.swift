@@ -15,6 +15,7 @@ class ProfileDetailsViewController<VM: ProfileDetailsViewModel>: MvvmViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.largeTitleDisplayMode = .never
         collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
 
         bind(in: disposeBag) {

@@ -40,6 +40,7 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(CatalogViewController<CatalogViewModel>.self)
         router.register(MangaDetailsViewController<MangaDetailsViewModel>.self)
         router.register(MangaReaderViewController<MangaReaderViewModel>.self)
+        router.register(MangaReaderViewController<OfflineMangaReaderViewModel>.self)
         router.register(ProfileViewController<ProfileViewModel>.self)
         router.register(ProfileDetailsViewController<ProfileDetailsViewModel>.self)
         router.register(DownloadsViewController<DownloadsViewModel>.self)
@@ -74,6 +75,7 @@ class SceneDelegate: MvvmSceneDelegate {
 
         // Downloads cells
         router.register(DownloadsMangaCell<DownloadsMangaViewModel>.self)
+        router.register(DownloadDetailsChapterCell<DownloadDetailsChapterViewModel>.self)
     }
 
     override func resolveRootVC() -> UIViewController {

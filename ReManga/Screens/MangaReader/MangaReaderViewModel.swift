@@ -15,8 +15,31 @@ struct MangaReaderModel {
     var current: Int
 }
 
-class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel> {
+protocol MangaReaderViewModelProtocol: BaseViewModelProtocol {
+    var isActionsAvailable: BehaviorRelay<Bool> { get }
+    var chapters: BehaviorRelay<[MangaDetailsChapterViewModel]> { get }
+    var currentChapter: BehaviorRelay<Int> { get }
+
+    var current: Observable<MangaDetailsChapterViewModel?> { get }
+    var pages: BehaviorRelay<[MvvmViewModel]> { get }
+    var previousActionAvailable: Observable<Bool> { get }
+    var nextActionAvailable: Observable<Bool> { get }
+    var chapterName: Observable<String?> { get }
+    var bookmarks: BehaviorRelay<[ApiMangaBookmarkModel]> { get }
+    var currentBookmark: BehaviorRelay<ApiMangaBookmarkModel?> { get }
+    var commentsCount: BehaviorRelay<Int> { get }
+    
+    func gotoPreviousChapter()
+    func gotoNextChapter()
+    func toggleLike()
+    func selectBookmark(_ bookmark: ApiMangaBookmarkModel)
+}
+
+class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderViewModelProtocol {
     @Injected var api: ApiProtocol
+
+    let isActionsAvailable = BehaviorRelay<Bool>(value: true)
+
     var titleVM: MangaDetailsViewModel!
     let chapters = BehaviorRelay<[MangaDetailsChapterViewModel]>(value: [])
     let currentChapter = BehaviorRelay<Int>(value: -1)
