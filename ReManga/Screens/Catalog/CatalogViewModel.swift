@@ -12,10 +12,12 @@ import RxRelay
 struct CatalogViewConfig {
     var title: String
     var isSearchAvailable: Bool
+    var isApiSwitchAvailable: Bool
     var filters: [ApiMangaTag]
+    var apiKey: ContainerKey.Backend?
 
     static var `default`: CatalogViewConfig {
-        .init(title: "Каталог", isSearchAvailable: true, filters: [])
+        .init(title: "Каталог", isSearchAvailable: true, isApiSwitchAvailable: true, filters: [], apiKey: nil)
     }
 }
 
@@ -24,6 +26,7 @@ protocol CatalogViewModelProtocol: BaseViewModelProtocol {
     var searchQuery: BehaviorRelay<String?> { get }
     var isSearchAvailable: BehaviorRelay<Bool> { get }
     var filters: BehaviorRelay<[ApiMangaTag]> { get }
+
     func loadNext()
     func showDetails(for model: MangaCellViewModel)
 }
@@ -47,16 +50,26 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     override func binding() {
         super.binding()
 
+        if apiKey == nil {
+            ($apiKey <- Properties.shared.$backendKey).disposed(by: disposeBag)
+        }
+
         bind(in: disposeBag) {
             searchQuery.bind { [unowned self] _ in
                 _ = Task {
                     await fetchSearchItems()
                 }
             }
+
+            $apiKey.bind { [unowned self] key in
+                api = Mvvm.shared.container.resolve(key: key?.key)
+                resetVM()
+            }
         }
     }
 
     override func prepare(with model: CatalogViewConfig) {
+        apiKey = model.apiKey
         title.accept(model.title)
         isSearchAvailable.accept(model.isSearchAvailable)
         filters.accept(model.filters)
@@ -67,21 +80,31 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
         guard searchQuery.value.isNilOrEmpty
         else { return }
 
-        Task { await fetchItems() }
+        currentFetchTask = Task { await fetchItems() }
     }
 
     func showDetails(for model: MangaCellViewModel) {
-        navigate(to: MangaDetailsViewModel.self, with: model.id.value, by: .show)
+        navigate(to: MangaDetailsViewModel.self, with: .init(id: model.id.value, api: api), by: .show)
     }
 
     // MARK: - Private
     private var isLoading = false
     private var page = 0
-    @Injected private var api: ApiProtocol
+    private var currentFetchTask: Task<(), Never>?
+    private var api: ApiProtocol = Mvvm.shared.container.resolve()
+    @Binding private var apiKey: ContainerKey.Backend?
 }
 
 // MARK: - Private functions
 extension CatalogViewModel {
+    private func resetVM() {
+        isLoading = false
+        page = 0
+        allItems.accept([])
+        currentFetchTask?.cancel()
+        loadNext()
+    }
+
     private func fetchItems() async {
         if isLoading { return }
         isLoading = true

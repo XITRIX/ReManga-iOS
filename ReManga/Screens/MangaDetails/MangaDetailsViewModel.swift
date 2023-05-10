@@ -8,8 +8,12 @@
 import MvvmFoundation
 import RxRelay
 
+struct MangaDetailsModel {
+    var id: String
+    var api: ApiProtocol
+}
 
-class MangaDetailsViewModel: BaseViewModelWith<String> {
+class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     enum Id: String {
         case inset
         case header
@@ -18,7 +22,7 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
         case comments
     }
 
-    @Injected var api: ApiProtocol
+    var api: ApiProtocol!
     @Injected var downloadManager: MangaDownloadManager
 
     let image = BehaviorRelay<String?>(value: nil)
@@ -58,8 +62,9 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
         chaptersMenuVM.downloadState
     }
 
-    override func prepare(with model: String) {
-        loadDetails(for: model)
+    override func prepare(with model: MangaDetailsModel) {
+        api = model.api
+        loadDetails(for: model.id)
     }
 
     override func binding() {
@@ -119,14 +124,14 @@ class MangaDetailsViewModel: BaseViewModelWith<String> {
               let mangaModel = items.value[indexPath.section].items[indexPath.item] as? MangaDetailsChapterViewModel
         else { return }
 
-        let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: chapters.value.firstIndex(of: mangaModel) ?? 0)
+        let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: chapters.value.firstIndex(of: mangaModel) ?? 0, api: api)
 
         navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
 //        navigate(to: TestViewModel.self, by: .present(wrapInNavigation: false))
     }
 
     func tagSelected(_ tag: ApiMangaTag) {
-        navigate(to: CatalogViewModel.self, with: .init(title: tag.name.capitalizedSentence, isSearchAvailable: false, filters: [tag]), by: .show)
+        navigate(to: CatalogViewModel.self, with: .init(title: tag.name.capitalizedSentence, isSearchAvailable: false, isApiSwitchAvailable: false, filters: [tag]), by: .show)
     }
 
     func bottomReached() {
@@ -178,6 +183,7 @@ private extension MangaDetailsViewModel {
                 descriptionSection.items.append(descriptionVM)
             }
             if !tagsVM.tags.value.isEmpty {
+                descriptionSection.items.append(MangaDetailsHeaderViewModel(with: "Теги"))
                 descriptionSection.items.append(tagsVM)
             }
             if !translators.value.isEmpty {

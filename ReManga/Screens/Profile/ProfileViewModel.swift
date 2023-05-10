@@ -45,6 +45,21 @@ private extension ProfileViewModel {
     func reload() {
         var sections: [MvvmCollectionSectionModel] = []
 
+        let backendVM = ProfileActiveBackendViewModel()
+        backendVM.detailsTitle.accept(Properties.shared.backendKey.title)
+
+        backendVM.selectAction = { [unowned self] in
+            if Properties.shared.backendKey == .newmanga {
+                Properties.shared.backendKey = .remanga
+            } else {
+                Properties.shared.backendKey = .newmanga
+            }
+            backendVM.detailsTitle.accept(Properties.shared.backendKey.title)
+            deselectItems.accept()
+        }
+        
+        sections.append(.init(id: "Backend", style: .insetGrouped, showsSeparators: true, items: [backendVM]))
+
         let reMangaProfileVM = ProfileAccountViewModel()
         reMangaProfileVM.image.accept(.local(name: "ReManga"))
         reMangaProfileVM.title.accept("Re:Manga")

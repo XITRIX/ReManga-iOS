@@ -136,6 +136,11 @@
 		7CC8887D2A094E4E00B65564 /* DownloadDetailsChapterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC8887B2A094E4E00B65564 /* DownloadDetailsChapterCell.swift */; };
 		7CC8887E2A094E4E00B65564 /* DownloadDetailsChapterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CC8887C2A094E4E00B65564 /* DownloadDetailsChapterCell.xib */; };
 		7CC888802A094E5A00B65564 /* DownloadDetailsChapterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC8887F2A094E5A00B65564 /* DownloadDetailsChapterViewModel.swift */; };
+		7CF49E5E2A0C0E5400565DFA /* UserDetault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF49E5D2A0C0E5400565DFA /* UserDetault.swift */; };
+		7CF49E602A0C0F3500565DFA /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF49E5F2A0C0F3500565DFA /* Properties.swift */; };
+		7CF49E642A0C256800565DFA /* ProfileActiveBackendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF49E622A0C256800565DFA /* ProfileActiveBackendCell.swift */; };
+		7CF49E652A0C256800565DFA /* ProfileActiveBackendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CF49E632A0C256800565DFA /* ProfileActiveBackendCell.xib */; };
+		7CF49E672A0C257200565DFA /* ProfileActiveBackendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF49E662A0C257200565DFA /* ProfileActiveBackendViewModel.swift */; };
 		7CF6BA7929EDD2D30042FE4E /* NewMangaLikeResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7829EDD2D30042FE4E /* NewMangaLikeResultModel.swift */; };
 		7CF6BA7B29EDF48F0042FE4E /* ApiMangaError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7A29EDF48F0042FE4E /* ApiMangaError.swift */; };
 		7CF6BA7F29EDF91A0042FE4E /* MangaPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6BA7D29EDF91A0042FE4E /* MangaPaymentViewController.swift */; };
@@ -306,6 +311,11 @@
 		7CC8887B2A094E4E00B65564 /* DownloadDetailsChapterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDetailsChapterCell.swift; sourceTree = "<group>"; };
 		7CC8887C2A094E4E00B65564 /* DownloadDetailsChapterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadDetailsChapterCell.xib; sourceTree = "<group>"; };
 		7CC8887F2A094E5A00B65564 /* DownloadDetailsChapterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDetailsChapterViewModel.swift; sourceTree = "<group>"; };
+		7CF49E5D2A0C0E5400565DFA /* UserDetault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetault.swift; sourceTree = "<group>"; };
+		7CF49E5F2A0C0F3500565DFA /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
+		7CF49E622A0C256800565DFA /* ProfileActiveBackendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileActiveBackendCell.swift; sourceTree = "<group>"; };
+		7CF49E632A0C256800565DFA /* ProfileActiveBackendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileActiveBackendCell.xib; sourceTree = "<group>"; };
+		7CF49E662A0C257200565DFA /* ProfileActiveBackendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileActiveBackendViewModel.swift; sourceTree = "<group>"; };
 		7CF6BA7829EDD2D30042FE4E /* NewMangaLikeResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaLikeResultModel.swift; sourceTree = "<group>"; };
 		7CF6BA7A29EDF48F0042FE4E /* ApiMangaError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMangaError.swift; sourceTree = "<group>"; };
 		7CF6BA7D29EDF91A0042FE4E /* MangaPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaPaymentViewController.swift; sourceTree = "<group>"; };
@@ -729,6 +739,7 @@
 		7C934B2229F68A9A00709295 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7CF49E612A0C254F00565DFA /* ProfileActiveBackendCell */,
 				7C228C1329F80DDA00BCC872 /* ProfileUserAccountCell */,
 				7C934B2329F68AA200709295 /* ProfileAccountCell */,
 			);
@@ -868,6 +879,16 @@
 			path = DownloadDetailsChapterCell;
 			sourceTree = "<group>";
 		};
+		7CF49E612A0C254F00565DFA /* ProfileActiveBackendCell */ = {
+			isa = PBXGroup;
+			children = (
+				7CF49E662A0C257200565DFA /* ProfileActiveBackendViewModel.swift */,
+				7CF49E622A0C256800565DFA /* ProfileActiveBackendCell.swift */,
+				7CF49E632A0C256800565DFA /* ProfileActiveBackendCell.xib */,
+			);
+			path = ProfileActiveBackendCell;
+			sourceTree = "<group>";
+		};
 		7CF6BA7C29EDF8FB0042FE4E /* MangaPayment */ = {
 			isa = PBXGroup;
 			children = (
@@ -917,6 +938,8 @@
 				7CFCF9AD29E6B0E0008E6150 /* Extensions */,
 				7CFCF9DB29E73869008E6150 /* KeyboardHandler.swift */,
 				7CC888682A08059C00B65564 /* Math.swift */,
+				7CF49E5D2A0C0E5400565DFA /* UserDetault.swift */,
+				7CF49E5F2A0C0F3500565DFA /* Properties.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1096,6 +1119,7 @@
 			files = (
 				7C8B02C029EDA6000022E724 /* MangaReaderLoadNextCell.xib in Resources */,
 				7C8B022E29E8347D0022E724 /* MangaDetailsViewController.xib in Resources */,
+				7CF49E652A0C256800565DFA /* ProfileActiveBackendCell.xib in Resources */,
 				7C8B023629E853C10022E724 /* DetailsHeaderCap.xib in Resources */,
 				7C934AE329F0A46800709295 /* ReMangaAuthViewController.xib in Resources */,
 				7C8B024929E9524E0022E724 /* MangaDetailsDescriptionTextCell.xib in Resources */,
@@ -1188,6 +1212,7 @@
 				7C8B029E29EC02C00022E724 /* MangaDetailsHeaderCell.swift in Sources */,
 				7C8B02B529EC96B10022E724 /* ReMangaApiDetailsResultModel.swift in Sources */,
 				7C6D267F2A0955560052A5F3 /* OfflineMangaReaderViewModel.swift in Sources */,
+				7CF49E672A0C257200565DFA /* ProfileActiveBackendViewModel.swift in Sources */,
 				7CF6BA8629EE8CBC0042FE4E /* ProfileViewController.swift in Sources */,
 				7C8B027B29EA988C0022E724 /* NewMangaChapterPagesResultModel.swift in Sources */,
 				7CF6BA7F29EDF91A0042FE4E /* MangaPaymentViewController.swift in Sources */,
@@ -1204,6 +1229,7 @@
 				7CFCF9DC29E73869008E6150 /* KeyboardHandler.swift in Sources */,
 				7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */,
 				7C8B024829E9524E0022E724 /* MangaDetailsDescriptionTextCell.swift in Sources */,
+				7CF49E5E2A0C0E5400565DFA /* UserDetault.swift in Sources */,
 				7C8B02B329EC217A0022E724 /* MangaDetailsCommentViewModel.swift in Sources */,
 				7C8B02C229EDAABD0022E724 /* MangaReaderPageViewModel.swift in Sources */,
 				7C8B023029E8348A0022E724 /* MangaDetailsViewModel.swift in Sources */,
@@ -1259,6 +1285,7 @@
 				7CFCF9D829E706D3008E6150 /* MainTabBarViewModel.swift in Sources */,
 				7C934AE229F0A46800709295 /* ReMangaAuthViewController.swift in Sources */,
 				7CC8887D2A094E4E00B65564 /* DownloadDetailsChapterCell.swift in Sources */,
+				7CF49E642A0C256800565DFA /* ProfileActiveBackendCell.swift in Sources */,
 				7C8B026829E99BED0022E724 /* CloseButton.swift in Sources */,
 				7C8B026929E99BED0022E724 /* TagView.swift in Sources */,
 				7CF6BA9429EEC5270042FE4E /* ReMangaApi+Auth.swift in Sources */,
@@ -1278,6 +1305,7 @@
 				7CF6BA9029EEB3240042FE4E /* NewMangaMarkCommentResultModel.swift in Sources */,
 				7C8B025F29E9653E0022E724 /* MangaDetailsTagCell.swift in Sources */,
 				7CF6BA8E29EEAF690042FE4E /* Bool+Extensions.swift in Sources */,
+				7CF49E602A0C0F3500565DFA /* Properties.swift in Sources */,
 				7C8B022D29E8347D0022E724 /* MangaDetailsViewController.swift in Sources */,
 				7C8B029829EBFCE10022E724 /* MangaDetailsTranslatorViewModel.swift in Sources */,
 				7C8B025129E95BA40022E724 /* MangaDetailsSelectorCell.swift in Sources */,
@@ -1462,6 +1490,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = D59DHVRS87;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Re:Manga";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1498,6 +1527,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = D59DHVRS87;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Re:Manga";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

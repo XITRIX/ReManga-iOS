@@ -19,6 +19,9 @@ class MangaCell<VM: MangaCellViewModelProtocol>: MvvmCollectionViewCell<VM> {
     override func initSetup() {
         bookmarkHolderView.layer.cornerRadius = 8
         bookmarkHolderView.layer.cornerCurve = .continuous
+
+        imageView.layer.cornerRadius = 12
+        imageView.layer.cornerCurve = .continuous
     }
 
     override func setup(with viewModel: VM) {

@@ -9,7 +9,7 @@ import MvvmFoundation
 import UIKit
 
 public extension ContainerKey {
-    enum Backend {
+    enum Backend: Codable {
         case remanga
         case newmanga
 
@@ -17,6 +17,13 @@ public extension ContainerKey {
             switch self {
             case .remanga: return .init(key: "remanga", isDefault: true)
             case .newmanga: return .init(key: "newmanga")
+            }
+        }
+
+        var title: String {
+            switch self {
+            case .remanga: return "Re:Manga"
+            case .newmanga: return "NewManga"
             }
         }
     }
@@ -69,6 +76,7 @@ class SceneDelegate: MvvmSceneDelegate {
         // Profile cells
         router.register(ProfileAccountCell<ProfileAccountViewModel>.self)
         router.register(ProfileUserAccountCell<ProfileUserAccountViewModel>.self)
+        router.register(ProfileActiveBackendCell<ProfileActiveBackendViewModel>.self)
 
         // Profile details cells
         router.register(ProfileDetailsButtonCell<ProfileDetailsButtonViewModel>.self)

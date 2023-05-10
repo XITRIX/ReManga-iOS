@@ -13,6 +13,7 @@ struct MangaReaderModel {
     var titleVM: MangaDetailsViewModel
     var chapters: [MangaDetailsChapterViewModel]
     var current: Int
+    var api: ApiProtocol
 }
 
 protocol MangaReaderViewModelProtocol: BaseViewModelProtocol {
@@ -36,7 +37,7 @@ protocol MangaReaderViewModelProtocol: BaseViewModelProtocol {
 }
 
 class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderViewModelProtocol {
-    @Injected var api: ApiProtocol
+    var api: ApiProtocol!
 
     let isActionsAvailable = BehaviorRelay<Bool>(value: true)
 
@@ -82,6 +83,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
     }
 
     override func prepare(with model: MangaReaderModel) {
+        api = model.api
         titleVM = model.titleVM
         chapters.accept(model.chapters)
         currentChapter.accept(model.current)
