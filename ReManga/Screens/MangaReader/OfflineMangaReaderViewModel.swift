@@ -65,7 +65,7 @@ class OfflineMangaReaderViewModel: BaseViewModelWith<OfflineMangaReaderModel>, M
             currentChapter.bind { [unowned self] current in
                 pages.accept([])
                 
-                var items: [MvvmViewModel] = rawChapters[current].pages.value.map { MangaReaderPageViewModel(with: $0) }
+                var items: [MvvmViewModel] = rawChapters[current].pages.value.map { MangaReaderPageViewModel(with: .init(pageModel: $0)) }
                 items.append(mangaNextLoaderVM)
                 pages.accept(items)
             }

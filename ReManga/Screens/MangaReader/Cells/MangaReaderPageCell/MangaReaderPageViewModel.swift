@@ -8,12 +8,19 @@
 import MvvmFoundation
 import RxRelay
 
-class MangaReaderPageViewModel: MvvmViewModelWith<ApiMangaChapterPageModel> {
+struct MangaReaderPageModel {
+    var pageModel: ApiMangaChapterPageModel
+    var api: ApiProtocol?
+}
+
+class MangaReaderPageViewModel: MvvmViewModelWith<MangaReaderPageModel> {
+    var api: ApiProtocol?
     let imageSize = BehaviorRelay<CGSize>(value: .zero)
     let imageUrl = BehaviorRelay<String?>(value: nil)
 
-    override func prepare(with model: ApiMangaChapterPageModel) {
-        imageSize.accept(model.size)
-        imageUrl.accept(model.path)
+    override func prepare(with model: MangaReaderPageModel) {
+        api = model.api
+        imageSize.accept(model.pageModel.size)
+        imageUrl.accept(model.pageModel.path)
     }
 }

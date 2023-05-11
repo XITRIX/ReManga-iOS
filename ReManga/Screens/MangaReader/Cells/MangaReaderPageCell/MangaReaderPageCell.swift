@@ -15,15 +15,13 @@ class MangaReaderPageCell<VM: MangaReaderPageViewModel>: MvvmCollectionViewCell<
     private var aspectRatioConstraint: NSLayoutConstraint!
     private var startZoomImageFrame: CGRect = .zero
 
-    @Injected var api: ApiProtocol
-
     override func initSetup() {
         imageView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(zoomAction(_:))))
     }
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
-            imageView.rx.imageUrl(with: activityView, auth: api.kfAuthModifier) <- viewModel.imageUrl
+            imageView.rx.imageUrl(with: activityView, auth: viewModel.api?.kfAuthModifier) <- viewModel.imageUrl
             viewModel.imageSize.bind { [unowned self] size in
                 if aspectRatioConstraint != nil {
                     aspectRatioConstraint.isActive = false

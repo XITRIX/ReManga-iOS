@@ -8,7 +8,7 @@
 import Foundation
 
 enum ApiMangaError: Error {
-    case needPayment(MangaDetailsChapterViewModel)
+    case needPayment(MangaDetailsChapterViewModel, ApiProtocol)
     case operationNotSupported(message: String)
     case wrongUrl
 }

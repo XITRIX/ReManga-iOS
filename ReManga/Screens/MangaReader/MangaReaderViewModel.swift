@@ -174,13 +174,13 @@ private extension MangaReaderViewModel {
             pages.accept([])
 
             guard model.isAvailable.value else {
-                state.accept(.error(ApiMangaError.needPayment(model)) { [weak self] in
-                    self?.loadPages(for: model)
+                state.accept(.error(ApiMangaError.needPayment(model, api)) { [unowned self] in
+                    currentChapter.accept(currentChapter.value)
                 })
                 return
             }
 
-            var items: [MvvmViewModel] = try await api.fetchChapter(id: model.id.value).map { MangaReaderPageViewModel(with: $0) }
+            var items: [MvvmViewModel] = try await api.fetchChapter(id: model.id.value).map { MangaReaderPageViewModel(with: .init(pageModel: $0, api: api)) }
             items.append(mangaNextLoaderVM)
             pages.accept(items)
             state.accept(.default)

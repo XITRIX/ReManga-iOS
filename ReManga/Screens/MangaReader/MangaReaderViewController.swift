@@ -45,6 +45,15 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
         viewController.didMove(toParent: self)
     }
 
+    override func stateDidChange(_ state: ViewModelState) {
+        guard case let .error(error, task) = state,
+           let error = error as? ApiMangaError,
+           case let .needPayment(vm, api) = error
+        else { return super.stateDidChange(state) }
+
+        overlayViewController = MangaPaymentViewModel.resolveVC(with: .init(mangaVM: vm, completion: task, api: api))
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

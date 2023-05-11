@@ -9,8 +9,14 @@ import MvvmFoundation
 import RxRelay
 import RxSwift
 
-class MangaPaymentViewModel: BaseViewModelWith<(MangaDetailsChapterViewModel, (() -> Void)?)> {
-    @Injected private var api: ApiProtocol
+struct MangaPaymentModel {
+    var mangaVM: MangaDetailsChapterViewModel
+    var completion: (() -> Void)?
+    var api: ApiProtocol
+}
+
+class MangaPaymentViewModel: BaseViewModelWith<MangaPaymentModel> {
+    private var api: ApiProtocol!
     private var model: MangaDetailsChapterViewModel!
     private var completion: (()->Void)?
 
@@ -18,9 +24,10 @@ class MangaPaymentViewModel: BaseViewModelWith<(MangaDetailsChapterViewModel, ((
         model.price.map { "Стоимость \($0 ?? "")" }
     }
 
-    override func prepare(with model: (MangaDetailsChapterViewModel, (() -> Void)?)) {
-        self.model = model.0
-        self.completion = model.1
+    override func prepare(with model: MangaPaymentModel) {
+        self.api = model.api
+        self.model = model.mangaVM
+        self.completion = model.completion
     }
 
     @MainActor
@@ -28,6 +35,7 @@ class MangaPaymentViewModel: BaseViewModelWith<(MangaDetailsChapterViewModel, ((
         state.accept(.loading)
         performTask { [self] in
             try await api.buyChapter(id: model.id.value)
+            model.isAvailable.accept(true)
             completion?()
             state.accept(.default)
         }
