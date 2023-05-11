@@ -15,6 +15,8 @@ class ReMangaApi: ApiProtocol {
     static let imgPath: String = "https://remanga.org/"
     var authToken = BehaviorRelay<String?>(value: nil)
 
+    let profile = BehaviorRelay<ApiMangaUserModel?>(value: nil)
+
     var kfAuthModifier: Kingfisher.AnyModifier {
         AnyModifier { [weak self] request in
             var r = request
@@ -46,10 +48,13 @@ class ReMangaApi: ApiProtocol {
     init() {
         authToken.accept(UserDefaults.standard.string(forKey: "ReAuthToken"))
         bind(in: disposeBag) {
-            authToken.bind { token in
+            authToken.bind { [unowned self] token in
                 UserDefaults.standard.set(token, forKey: "ReAuthToken")
+                Task { await refreshUserInfo() }
             }
         }
+
+        Task { await refreshUserInfo() }
     }
     
     func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
@@ -198,8 +203,18 @@ class ReMangaApi: ApiProtocol {
         _ = try await urlSession.data(for: request)
     }
 
-    func buyChapter(id: String) async throws {
+    func buyChapter(id: String) async throws -> Bool {
+        let url = "https://api.remanga.org/api/billing/buy-chapter/"
 
+        var request = makeRequest(url)
+        request.httpMethod = "POST"
+        request.httpBody = "{ \"chapter\": \(id) }".data(using: .utf8)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
+        let (result, _) = try await urlSession.data(for: request)
+        let model = try JSONDecoder().decode(ReMangaChapterBuyResultModel.self, from: result)
+
+        return model.msg == "Ok"
     }
     
     func markComment(id: String, _ value: Bool?) async throws -> Int {
@@ -258,5 +273,6 @@ class ReMangaApi: ApiProtocol {
     
     func deauth() async throws {
         authToken.accept(nil)
+        profile.accept(nil)
     }
 }

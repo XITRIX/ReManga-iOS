@@ -20,6 +20,8 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
 
     var name: String { get }
 
+    var profile: BehaviorRelay<ApiMangaUserModel?> { get }
+
     func fetchCatalog(page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel]
     func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel]
     func fetchDetails(id: String) async throws -> ApiMangaModel
@@ -32,7 +34,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
     func markChapterRead(id: String) async throws
     func setChapterLike(id: String, _ value: Bool) async throws
-    func buyChapter(id: String) async throws
+    func buyChapter(id: String) async throws -> Bool
     func markComment(id: String, _ value: Bool?) async throws -> Int
     func fetchUserInfo() async throws -> ApiMangaUserModel
     func fetchBookmarks() async throws -> [ApiMangaBookmarkModel]
@@ -47,5 +49,15 @@ extension ApiProtocol {
     
     func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
         try await fetchCatalog(page: page, filters: filters)
+    }
+}
+
+extension ApiProtocol {
+    func refreshUserInfo() async {
+        do {
+            profile.accept(try await self.fetchUserInfo())
+        } catch {
+            profile.accept(nil)
+        }
     }
 }

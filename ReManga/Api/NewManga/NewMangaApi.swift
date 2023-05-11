@@ -12,11 +12,12 @@ import RxSwift
 import RxRelay
 
 class NewMangaApi: ApiProtocol {
+    static let imgPath: String = "https://img.newmanga.org/ProjectCard/webp/"
     let disposeBag = DisposeBag()
     let decoder = JSONDecoder()
-    static let imgPath: String = "https://img.newmanga.org/ProjectCard/webp/"
-
     var authToken = BehaviorRelay<String?>(value: nil)
+
+    let profile = BehaviorRelay<ApiMangaUserModel?>(value: nil)
 
     var kfAuthModifier: AnyModifier {
         AnyModifier { [weak self] request in
@@ -35,10 +36,13 @@ class NewMangaApi: ApiProtocol {
     init() {
         authToken.accept(UserDefaults.standard.string(forKey: "NewAuthToken"))
         bind(in: disposeBag) {
-            authToken.bind { token in
+            authToken.bind { [unowned self] token in
                 UserDefaults.standard.set(token, forKey: "NewAuthToken")
+                Task { await refreshUserInfo() }
             }
         }
+
+        Task { await refreshUserInfo() }
     }
 
     func makeRequest(_ url: String) -> URLRequest {
@@ -167,12 +171,13 @@ class NewMangaApi: ApiProtocol {
         _ = try JSONDecoder().decode(NewMangaLikeResultModel.self, from: result)
     }
 
-    func buyChapter(id: String) async throws {
+    func buyChapter(id: String) async throws -> Bool {
         let url = "https://api.newmanga.org/v2/chapters/\(id)/buy"
         var request = makeRequest(url)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         _ = try await urlSession.data(for: request)
+        return true
     }
 
     func markComment(id: String, _ value: Bool?) async throws -> Int {
@@ -212,5 +217,6 @@ class NewMangaApi: ApiProtocol {
 
     func deauth() async throws {
         authToken.accept(nil)
+        profile.accept(nil)
     }
 }

@@ -34,8 +34,10 @@ class MangaPaymentViewModel: BaseViewModelWith<MangaPaymentModel> {
     func pay() {
         state.accept(.loading)
         performTask { [self] in
-            try await api.buyChapter(id: model.id.value)
-            model.isAvailable.accept(true)
+            if try await api.buyChapter(id: model.id.value) {
+                model.isAvailable.accept(true)
+                Task { await api.refreshUserInfo() }
+            }
             completion?()
             state.accept(.default)
         }

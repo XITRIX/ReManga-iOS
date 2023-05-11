@@ -77,6 +77,7 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(ProfileAccountCell<ProfileAccountViewModel>.self)
         router.register(ProfileUserAccountCell<ProfileUserAccountViewModel>.self)
         router.register(ProfileActiveBackendCell<ProfileActiveBackendViewModel>.self)
+        router.register(ProfileBookmarksCell<ProfileBookmarksViewModel>.self)
 
         // Profile details cells
         router.register(ProfileDetailsButtonCell<ProfileDetailsButtonViewModel>.self)

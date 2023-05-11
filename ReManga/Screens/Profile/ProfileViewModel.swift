@@ -8,6 +8,7 @@
 import MvvmFoundation
 import RxBiBinding
 import RxRelay
+import RxSwift
 
 class ProfileViewModel: BaseViewModel {
     @Injected(key: .Backend.remanga.key) private var remangaApi: ApiProtocol
@@ -24,10 +25,10 @@ class ProfileViewModel: BaseViewModel {
 
     override func binding() {
         bind(in: disposeBag) {
-            remangaApi.authToken.distinctUntilChanged().bind { [unowned self] _ in
-                reload()
-            }
-            newmangaApi.authToken.distinctUntilChanged().bind { [unowned self] _ in
+            Observable.combineLatest(
+                remangaApi.profile.distinctUntilChanged(),
+                newmangaApi.profile.distinctUntilChanged()
+            ).bind { [unowned self] _ in
                 reload()
             }
         }
@@ -60,19 +61,24 @@ private extension ProfileViewModel {
         
         sections.append(.init(id: "Backend", style: .insetGrouped, showsSeparators: true, items: [backendVM]))
 
+        var remangaItems: [MvvmViewModel] = []
+
         let reMangaProfileVM = ProfileAccountViewModel()
         reMangaProfileVM.image.accept(.local(name: "ReManga"))
         reMangaProfileVM.title.accept("Re:Manga")
         reMangaProfileVM.subtitle.accept("Читай мангу ёпта")
 
-        let reMangaProfileAuthVM = ProfileUserAccountViewModel()
-        if remangaApi.authToken.value == nil {
-            reMangaProfileAuthVM.title.accept("Залогинься плз")
-        }
+        remangaItems.append(reMangaProfileVM)
 
-        Task {
-            let user = try await remangaApi.fetchUserInfo()
-            reMangaProfileAuthVM.prepare(with: user)
+        let reMangaProfileAuthVM = ProfileUserAccountViewModel()
+        if let profile = remangaApi.profile.value {
+            reMangaProfileAuthVM.prepare(with: profile)
+
+            let bookmarksVM = ProfileBookmarksViewModel()
+            bookmarksVM.title.accept("Закладки")
+//            remangaItems.append(bookmarksVM)
+        } else {
+            reMangaProfileAuthVM.title.accept("Залогинься плз")
         }
 
         reMangaProfileAuthVM.selectAction = { [unowned self] in
@@ -83,22 +89,30 @@ private extension ProfileViewModel {
             deselectItems.accept(())
         }
 
-        sections.append(.init(id: "ReManga", header: "Аккаунты", style: .insetGrouped, showsSeparators: true, items: [
-            reMangaProfileVM,
-            reMangaProfileAuthVM
-        ]))
+        remangaItems.append(reMangaProfileAuthVM)
+
+        sections.append(.init(id: "ReManga", header: "Аккаунты", style: .insetGrouped, showsSeparators: true, items: remangaItems))
+
+        var newMangaItems: [MvvmViewModel] = []
 
         let newMangaProfileVM = ProfileAccountViewModel()
         newMangaProfileVM.image.accept(.local(name: "NewManga"))
         newMangaProfileVM.title.accept("NewManga")
         newMangaProfileVM.subtitle.accept("Читай ещё мангу ёпта")
 
-        let newMangaProfileAuthVM = ProfileUserAccountViewModel()
-        newMangaProfileAuthVM.title.accept("Залогинься плз")
+        newMangaItems.append(newMangaProfileVM)
 
-        Task {
-            let user = try await newmangaApi.fetchUserInfo()
-            newMangaProfileAuthVM.prepare(with: user)
+        let newMangaProfileAuthVM = ProfileUserAccountViewModel()
+        newMangaItems.append(newMangaProfileAuthVM)
+
+        if let profile = newmangaApi.profile.value {
+            newMangaProfileAuthVM.prepare(with: profile)
+
+            let bookmarksVM = ProfileBookmarksViewModel()
+            bookmarksVM.title.accept("Закладки")
+//            newMangaItems.append(bookmarksVM)
+        } else {
+            newMangaProfileAuthVM.title.accept("Залогинься плз")
         }
 
         newMangaProfileAuthVM.selectAction = { [unowned self] in
@@ -109,10 +123,7 @@ private extension ProfileViewModel {
             deselectItems.accept(())
         }
 
-        sections.append(.init(id: "NewManga", style: .insetGrouped, showsSeparators: true, items: [
-            newMangaProfileVM,
-            newMangaProfileAuthVM
-        ]))
+        sections.append(.init(id: "NewManga", style: .insetGrouped, showsSeparators: true, items: newMangaItems))
 
         items.accept(sections)
     }
