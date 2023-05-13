@@ -66,7 +66,7 @@ private extension ProfileViewModel {
         let reMangaProfileVM = ProfileAccountViewModel()
         reMangaProfileVM.image.accept(.local(name: "ReManga"))
         reMangaProfileVM.title.accept("Re:Manga")
-        reMangaProfileVM.subtitle.accept("Читай мангу ёпта")
+        reMangaProfileVM.subtitle.accept("Самый крупный источник манги")
 
         remangaItems.append(reMangaProfileVM)
 
@@ -82,7 +82,7 @@ private extension ProfileViewModel {
         }
 
         reMangaProfileAuthVM.selectAction = { [unowned self] in
-            guard remangaApi.authToken.value == nil
+            guard remangaApi.profile.value == nil
             else { return navigate(to: ProfileDetailsViewModel.self, with: remangaApi, by: .show) }
 
             remangaApi.showAuthScreen(from: self)
@@ -98,7 +98,7 @@ private extension ProfileViewModel {
         let newMangaProfileVM = ProfileAccountViewModel()
         newMangaProfileVM.image.accept(.local(name: "NewManga"))
         newMangaProfileVM.title.accept("NewManga")
-        newMangaProfileVM.subtitle.accept("Читай ещё мангу ёпта")
+        newMangaProfileVM.subtitle.accept("Новый и преспективный источник манги")
 
         newMangaItems.append(newMangaProfileVM)
 
@@ -116,7 +116,7 @@ private extension ProfileViewModel {
         }
 
         newMangaProfileAuthVM.selectAction = { [unowned self] in
-            guard newmangaApi.authToken.value == nil
+            guard newmangaApi.profile.value == nil
             else { return navigate(to: ProfileDetailsViewModel.self, with: newmangaApi, by: .show) }
 
             newmangaApi.showAuthScreen(from: self)

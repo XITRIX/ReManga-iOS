@@ -19,6 +19,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     var kfAuthModifier: AnyModifier { get }
 
     var name: String { get }
+    var key: ContainerKey.Backend { get }
 
     var profile: BehaviorRelay<ApiMangaUserModel?> { get }
 
@@ -54,6 +55,9 @@ extension ApiProtocol {
 
 extension ApiProtocol {
     func refreshUserInfo() async {
+        guard !authToken.value.isNilOrEmpty
+        else { return }
+
         do {
             profile.accept(try await self.fetchUserInfo())
         } catch {

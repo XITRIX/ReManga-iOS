@@ -23,7 +23,7 @@ class ProfileAccountCell<VM: ProfileAccountViewModel>: MvvmCollectionViewListCel
         bind(in: disposeBag) {
             image.rx.setImage() <- viewModel.image
             title.rx.text <- viewModel.title
-            subtitle.rx.text <- viewModel.subtitle
+            subtitle.rx.textWithVisibility <- viewModel.subtitle
         }
     }
 

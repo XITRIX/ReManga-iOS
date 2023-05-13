@@ -11,6 +11,16 @@ import RxRelay
 import RxSwift
 
 class MangaDownloadManager {
+    private static var imageLocalPath: URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0].appendingPathComponent("downloads")
+    }
+
+    @MainActor
+    private static func imagePathFor(manga: MangaDetailsViewModel, chapter: MangaDetailsChapterViewModel, page: Int, api: ApiProtocol) -> URL {
+        imageLocalPath.appendingPathComponent("\(api.name)-\(manga.id ?? "")/\(chapter.id.value)/\(page).png")
+    }
+
     private static let userDefaultsKey = "MangaDownloadManager:Downloads"
 
     private var disposeBag = DisposeBag()
@@ -41,7 +51,7 @@ class MangaDownloadManager {
         }
 
         for chapter in sortedChapters {
-            let pages = try await downloadChapter(api: api, chapter: chapter, progressCallback: { [progressBindings] progress in
+            let pages = try await downloadChapter(api: api, manga: manga, chapter: chapter, progressCallback: { [progressBindings] progress in
                 progressBindings[chapter.id.value]?.accept(progress)
             })
             await finalizeDownloading(of: manga, with: chapter, api: api, pages: pages)
@@ -56,7 +66,7 @@ class MangaDownloadManager {
         bind(in: chapter.disposeBag) {
             downloadedManga.bind { [unowned self] downloads in
                 _ = Task {
-                    let key = await keyFrom(manga, api: api)
+                    let key = keyFrom(manga.id, api: api)
                     guard let manga = downloads[key],
                           manga.chapters.value.contains(where: { $0.id == chapter.id.value })
                     else { return }
@@ -65,6 +75,60 @@ class MangaDownloadManager {
                 }
             }
         }
+    }
+
+    func downloadChapter(api: ApiProtocol, manga: MangaDetailsViewModel, chapter: MangaDetailsChapterViewModel, saveFiles: Bool = true, progressCallback: ((Double) -> ())? = nil) async throws -> [ApiMangaChapterPageModel] {
+        var pages = try await api.fetchChapter(id: chapter.id.value)
+        let kingfisher = KingfisherManager.shared
+
+        var progress: Double = 0
+
+        for page in pages.enumerated() {
+            guard let url = URL(string: page.element.path)
+            else { throw ApiMangaError.wrongUrl }
+
+            var options: KingfisherOptionsInfo = []
+            options.append(.requestModifier(api.kfAuthModifier))
+
+            let image = try await withCheckedThrowingContinuation { continuation in
+                kingfisher.retrieveImage(with: url, options: options) { receivedSize, totalSize in
+                    let localProgress: Double = .init(receivedSize) / Double(totalSize) / Double(pages.count)
+                    progressCallback?(progress + localProgress)
+                } completionHandler: { result in
+                    progress += 1 / Double(pages.count)
+                    progressCallback?(progress)
+                    continuation.resume(with: result)
+                }
+            }
+
+            if saveFiles {
+                let path = await Self.imagePathFor(manga: manga, chapter: chapter, page: page.offset, api: api)
+                try FileManager.default.createDirectory(at: path.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try image.image.pngData()?.write(to: path)
+                pages[page.offset].path = path.absoluteString
+            }
+        }
+
+        return pages
+    }
+
+    func deleteChapters(of mangaId: String) {
+        guard let mangaModel = downloadedManga.value[mangaId]
+        else { return }
+
+        for chapter in mangaModel.chapters.value {
+            for page in chapter.pages {
+                try? FileManager.default.removeItem(atPath: page.path)
+            }
+        }
+
+        var tmp = downloadedManga.value
+        tmp[mangaId] = nil
+        downloadedManga.accept(tmp)
+    }
+
+    func deleteChapter(_ chapter: MangaDetailsChapterViewModel, of manga: DownloadsMangaViewModel) {
+
     }
 }
 
@@ -88,12 +152,12 @@ private extension MangaDownloadManager {
 
 private extension MangaDownloadManager {
     func finalizeDownloading(of manga: MangaDetailsViewModel, with chapter: MangaDetailsChapterViewModel, api: ApiProtocol, pages: [ApiMangaChapterPageModel]) async {
-        let key = await keyFrom(manga, api: api)
+        let key = await keyFrom(manga.id, api: api)
         var current = downloadedManga.value[key]
 
         if current == nil {
-            current = await MangaDownloadModel(
-                id: manga.id,
+            current = MangaDownloadModel(
+                id: key,
                 name: manga.title.value,
                 image: manga.image.value,
                 date: .now,
@@ -123,34 +187,6 @@ private extension MangaDownloadManager {
         downloadedManga.accept(value)
     }
 
-    func downloadChapter(api: ApiProtocol, chapter: MangaDetailsChapterViewModel, progressCallback: ((Double) -> ())?) async throws -> [ApiMangaChapterPageModel] {
-        let pages = try await api.fetchChapter(id: chapter.id.value)
-        let kingfisher = KingfisherManager.shared
-
-        var progress: Double = 0
-
-        for page in pages {
-            guard let url = URL(string: page.path)
-            else { throw ApiMangaError.wrongUrl }
-
-            var options: KingfisherOptionsInfo = []
-            options.append(.requestModifier(api.kfAuthModifier))
-
-            _ = try await withCheckedThrowingContinuation { continuation in
-                kingfisher.retrieveImage(with: url, options: options) { receivedSize, totalSize in
-                    let localProgress: Double = .init(receivedSize) / Double(totalSize) / Double(pages.count)
-                    progressCallback?(progress + localProgress)
-                } completionHandler: { result in
-                    progress += 1 / Double(pages.count)
-                    progressCallback?(progress)
-                    continuation.resume(with: result)
-                }
-            }
-        }
-
-        return pages
-    }
-
     @MainActor
     func bindChapterModelToProgress(_ model: MangaDetailsChapterViewModel, api: ApiProtocol) {
         guard let progressBinding = progressBindings[model.id.value]
@@ -161,7 +197,7 @@ private extension MangaDownloadManager {
         }
     }
 
-    func keyFrom(_ manga: MangaDetailsViewModel, api: ApiProtocol) async -> String {
-        await "\(api.name):\(manga.id ?? "")"
+    func keyFrom(_ mangaId: String, api: ApiProtocol) -> String {
+        "\(api.name):\(mangaId)"
     }
 }

@@ -37,7 +37,11 @@ protocol MangaReaderViewModelProtocol: BaseViewModelProtocol {
 }
 
 class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderViewModelProtocol {
-    var api: ApiProtocol!
+    @Injected private var downloadManager: MangaDownloadManager
+    @Injected private var historyManager: MangaHistoryManager
+
+    private var api: ApiProtocol!
+    private var currentPreloadingTask: Task<[ApiMangaChapterPageModel], Error>?
 
     let isActionsAvailable = BehaviorRelay<Bool>(value: true)
 
@@ -152,8 +156,10 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
         Task {
             let newValue = !current.isLiked.value
             _ = try await api.setChapterLike(id: current.id.value, newValue)
-            current.isLiked.accept(newValue)
-            current.likes.accept(current.likes.value + (newValue ? 1 : -1))
+            if current.isLiked.value != newValue {
+                current.isLiked.accept(newValue)
+                current.likes.accept(current.likes.value + (newValue ? 1 : -1))
+            }
         }
     }
 }
@@ -184,6 +190,11 @@ private extension MangaReaderViewModel {
             items.append(mangaNextLoaderVM)
             pages.accept(items)
             state.accept(.default)
+
+            historyManager.addItem(.init(id: titleVM.dir, title: titleVM.title.value, image: titleVM.image.value, details: "Том \(model.tome.value) - \(model.chapter.value)", chapterId: model.id.value, apiKey: api.key))
+
+            currentPreloadingTask?.cancel()
+            currentPreloadingTask = Task { try await downloadManager.downloadChapter(api: api, manga: titleVM, chapter: model, saveFiles: false) }
         }
     }
 }

@@ -33,6 +33,10 @@ extension ApiMangaModel {
         tags = model.categories?.compactMap { .init(id: String($0.id), name: $0.name ?? "", kind: .tag) } ?? []
 
         branches = model.branches?.compactMap { .init(from: $0) } ?? []
+
+        if let continueModel = model.continueReading {
+            continueChapter = .init(from: continueModel)
+        }
     }
 }
 
@@ -74,6 +78,18 @@ extension ApiMangaChapterModel {
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             date = dateFormatter.date(from: model.uploadDate)!
         }
+    }
+
+    init(from model: ReMangaApiDetailsResultContinueReading) {
+        id = String(model.id ?? 0)
+        tome = String(model.tome ?? 0)
+        chapter = model.chapter ?? ""
+
+        date = Date()
+        isReaded = false
+        isLiked = false
+        likes = 0
+        isAvailable = true
     }
 }
 

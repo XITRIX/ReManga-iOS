@@ -1,5 +1,5 @@
 //
-//  DownloadsMangaCell.swift
+//  ListViewMangaCell.swift
 //  ReManga
 //
 //  Created by Даниил Виноградов on 07.05.2023.
@@ -9,7 +9,7 @@ import UIKit
 import MvvmFoundation
 import Kingfisher
 
-class DownloadsMangaCell<VM: DownloadsMangaViewModel>: MvvmCollectionViewListCell<VM> {
+class ListViewMangaCell<VM: ListViewMangaViewModelProtocol>: MvvmCollectionViewListCell<VM> {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
@@ -23,7 +23,7 @@ class DownloadsMangaCell<VM: DownloadsMangaViewModel>: MvvmCollectionViewListCel
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
             titleLabel.rx.text <- viewModel.title
-            subtitleLabel.rx.text <- viewModel.chapters
+            subtitleLabel.rx.text <- viewModel.subtitle
             imageView.rx.imageUrl() <- viewModel.image
         }
     }

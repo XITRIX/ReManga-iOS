@@ -14,6 +14,8 @@
                 <outlet property="activityIndicator" destination="Ehf-4Q-sX9" id="Cwm-gp-hYb"/>
                 <outlet property="bookmarkButton" destination="vfT-Jw-hWT" id="IVX-QA-tQn"/>
                 <outlet property="collectionView" destination="FsN-FQ-f27" id="iyB-rk-LCr"/>
+                <outlet property="continueButton" destination="Y1E-CK-qP5" id="Hzy-qw-NaA"/>
+                <outlet property="continueButtonLoadingIndicator" destination="ZEO-Xk-cTX" id="EVh-x5-3lD"/>
                 <outlet property="headerCapView" destination="Yfj-eX-be3" id="6Mk-Ha-U4N"/>
                 <outlet property="imageView" destination="KGD-Pz-SNx" id="O2h-TJ-zaI"/>
                 <outlet property="imageViewHeightConstraint" destination="beV-B1-i8A" id="MkR-vm-aD7"/>
@@ -69,16 +71,16 @@
                             <rect key="frame" x="16" y="48" width="361" height="61.333333333333343"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9nT-IA-9i2">
-                                    <rect key="frame" x="0.0" y="0.0" width="244.33333333333334" height="61.333333333333336"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="245" height="61.333333333333336"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kln-bh-e9G">
-                                            <rect key="frame" x="0.0" y="0.0" width="244.33333333333334" height="25.333333333333332"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="245" height="25.333333333333332"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TC2-h9-krX">
-                                            <rect key="frame" x="0.0" y="25.333333333333314" width="244.33333333333334" height="36"/>
+                                            <rect key="frame" x="0.0" y="25.333333333333314" width="245" height="36"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
@@ -86,15 +88,40 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfT-Jw-hWT">
-                                    <rect key="frame" x="252.33333333333334" y="11.000000000000004" width="50.333333333333343" height="50.333333333333343"/>
+                                    <rect key="frame" x="253" y="11.333333333333314" width="50" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="Q0k-zs-dJP"/>
+                                        <constraint firstAttribute="height" constant="50" id="QGR-ES-bIJ"/>
+                                    </constraints>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" image="bookmark" catalog="system" cornerStyle="capsule" buttonSize="large"/>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y1E-CK-qP5">
-                                    <rect key="frame" x="310.66666666666669" y="11.000000000000004" width="50.333333333333314" height="50.333333333333343"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" image="play.fill" catalog="system" cornerStyle="capsule" buttonSize="large"/>
-                                </button>
+                                <view contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Oio-hn-rsf">
+                                    <rect key="frame" x="311" y="11.333333333333314" width="50" height="50"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y1E-CK-qP5">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="62x-9n-wgC"/>
+                                                <constraint firstAttribute="width" constant="50" id="Kc9-wR-fqj"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule" buttonSize="large"/>
+                                        </button>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZEO-Xk-cTX">
+                                            <rect key="frame" x="15" y="15" width="20" height="20"/>
+                                            <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Y1E-CK-qP5" secondAttribute="bottom" id="9vG-Z2-MaP"/>
+                                        <constraint firstItem="Y1E-CK-qP5" firstAttribute="top" secondItem="Oio-hn-rsf" secondAttribute="top" id="PjT-q0-oOy"/>
+                                        <constraint firstItem="ZEO-Xk-cTX" firstAttribute="centerY" secondItem="Oio-hn-rsf" secondAttribute="centerY" id="WYP-KO-6xw"/>
+                                        <constraint firstAttribute="trailing" secondItem="Y1E-CK-qP5" secondAttribute="trailing" id="f5F-Q9-8H9"/>
+                                        <constraint firstItem="ZEO-Xk-cTX" firstAttribute="centerX" secondItem="Oio-hn-rsf" secondAttribute="centerX" id="mqR-k1-BFy"/>
+                                        <constraint firstItem="Y1E-CK-qP5" firstAttribute="leading" secondItem="Oio-hn-rsf" secondAttribute="leading" id="qng-ju-1Vx"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                         </stackView>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yfj-eX-be3">
@@ -184,7 +211,6 @@
     </designables>
     <resources>
         <image name="bookmark" catalog="system" width="110" height="128"/>
-        <image name="play.fill" catalog="system" width="117" height="128"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

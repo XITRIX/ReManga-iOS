@@ -33,6 +33,10 @@ class NewMangaApi: ApiProtocol {
         "NewManga"
     }
 
+    var key: ContainerKey.Backend {
+        .newmanga
+    }
+
     init() {
         authToken.accept(UserDefaults.standard.string(forKey: "NewAuthToken"))
         bind(in: disposeBag) {

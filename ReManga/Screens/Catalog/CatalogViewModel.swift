@@ -84,7 +84,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     }
 
     func showDetails(for model: MangaCellViewModel) {
-        navigate(to: MangaDetailsViewModel.self, with: .init(id: model.id.value, api: api), by: .show)
+        navigate(to: MangaDetailsViewModel.self, with: .init(id: model.id.value, apiKey: api.key), by: .show)
     }
 
     // MARK: - Private

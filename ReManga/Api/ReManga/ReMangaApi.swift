@@ -45,6 +45,10 @@ class ReMangaApi: ApiProtocol {
         "Re:Manga"
     }
 
+    var key: ContainerKey.Backend {
+        .remanga
+    }
+
     init() {
         authToken.accept(UserDefaults.standard.string(forKey: "ReAuthToken"))
         bind(in: disposeBag) {

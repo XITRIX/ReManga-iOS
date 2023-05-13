@@ -8,10 +8,15 @@
 import MvvmFoundation
 import RxRelay
 
-class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel> {
-    var id: String?
+protocol ListViewMangaViewModelProtocol: MvvmViewModelProtocol {
+    var subtitle: BehaviorRelay<String?> { get }
+    var image: BehaviorRelay<String?> { get }
+}
+
+class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel>, ListViewMangaViewModelProtocol {
+    var id: String!
     let image = BehaviorRelay<String?>(value: nil)
-    let chapters = BehaviorRelay<String?>(value: nil)
+    let subtitle = BehaviorRelay<String?>(value: nil)
     var date = BehaviorRelay<Date?>(value: nil)
 
     override func prepare(with model: MangaDownloadModel) {
@@ -21,7 +26,7 @@ class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel> {
             title <- model.name
             image <- model.image
             date <- model.date
-            chapters <- model.chapters.map { "Глав скачано: \($0.count)" }
+            subtitle <- model.chapters.map { "Глав скачано: \($0.count)" }
         }
     }
 

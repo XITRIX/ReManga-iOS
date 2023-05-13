@@ -33,6 +33,7 @@ struct ApiMangaModel: Hashable {
     var tags: [ApiMangaTag] = []
     var branches: [ApiMangaBranchModel] = []
     var translators: [ApiMangaTranslatorModel] = []
+    var continueChapter: ApiMangaChapterModel?
 
     var bookmark: ApiMangaBookmarkModel?
 }

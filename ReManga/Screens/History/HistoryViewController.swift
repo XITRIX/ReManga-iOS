@@ -1,20 +1,25 @@
 //
-//  DownloadsViewController.swift
+//  HistoryViewController.swift
 //  ReManga
 //
-//  Created by Даниил Виноградов on 07.05.2023.
+//  Created by Даниил Виноградов on 13.05.2023.
 //
 
 import MvvmFoundation
 import UIKit
 
-class DownloadsViewController<VM: DownloadsViewModel>: BaseViewController<VM> {
+class HistoryViewController<VM: HistoryViewModel>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
     private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+
+        bind(in: disposeBag) {
+            dataSource.applyModels <- viewModel.sections
+            viewModel.itemSelected <- dataSource.modelSelected
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -23,20 +28,15 @@ class DownloadsViewController<VM: DownloadsViewModel>: BaseViewController<VM> {
     }
 }
 
-private extension DownloadsViewController {
+private extension HistoryViewController {
     func setupCollectionView() {
-        collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
         collectionView.dataSource = dataSource
-
-        bind(in: disposeBag) {
-            dataSource.applyModels <- viewModel.items
-            viewModel.modelSelected <- dataSource.modelSelected
-        }
+        collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
 
         dataSource.trailingSwipeActionsConfigurationProvider = { indexPath in
             .init(actions: [.init(style: .destructive, title: "Удалить", handler: { [unowned self] _, _, _ in
-                let model = dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
-                viewModel.deleteModel(model)
+                let item = dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
+                viewModel.removeItem(item)
             })])
         }
     }

@@ -25,6 +25,8 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
     @IBOutlet private var navTitleLabel: MarqueeLabel!
 
     @IBOutlet private var bookmarkButton: UIButton!
+    @IBOutlet private var continueButton: UIButton!
+    @IBOutlet private var continueButtonLoadingIndicator: UIActivityIndicatorView!
 
     private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
     private lazy var delegates = Delegates(parent: self)
@@ -58,6 +60,10 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
             Observable.combineLatest(viewModel.bookmarks, viewModel.currentBookmark).bind { [unowned self] bookmarks, current in
                 applyBookmarksMenu(bookmarks, current)
             }
+
+            viewModel.continueReading <- continueButton.rx.tap
+            continueButton.rx.image() <- viewModel.$isChaptersFetchingDone.map { $0 ? .init(systemName: "play.fill") : nil }
+            continueButtonLoadingIndicator.rx.isAnimating <- viewModel.$isChaptersFetchingDone.map { !$0 }
         }
     }
 

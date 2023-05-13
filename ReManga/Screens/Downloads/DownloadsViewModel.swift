@@ -31,6 +31,13 @@ class DownloadsViewModel: BaseViewModel {
 
         navigate(to: DownloadDetailsViewModel.self, with: model, by: .show)
     }
+
+    func deleteModel(_ model: MvvmViewModel) {
+        guard let model = model as? DownloadsMangaViewModel
+        else { return }
+
+        downloadManager.deleteChapters(of: model.id)
+    }
 }
 
 @MainActor

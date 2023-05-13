@@ -10,7 +10,7 @@ import RxRelay
 
 struct MangaDetailsModel {
     var id: String
-    var api: ApiProtocol
+    var apiKey: ContainerKey.Backend
 }
 
 class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
@@ -22,8 +22,9 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
         case comments
     }
 
-    var api: ApiProtocol!
+    @Injected var api: ApiProtocol
     @Injected var downloadManager: MangaDownloadManager
+    @Injected var historyManager: MangaHistoryManager
 
     let image = BehaviorRelay<String?>(value: nil)
 
@@ -40,15 +41,16 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     let translators = BehaviorRelay<[MangaDetailsTranslatorViewModel]>(value: [])
     let comments = BehaviorRelay<[MangaDetailsCommentViewModel]>(value: [])
 
+    let currentChapter = BehaviorRelay<ApiMangaChapterModel?>(value: nil)
     let selectedItems = BehaviorRelay<[IndexPath]>(value: [])
 
     let bookmarks = BehaviorRelay<[ApiMangaBookmarkModel]>(value: [])
     let currentBookmark = BehaviorRelay<ApiMangaBookmarkModel?>(value: nil)
 
     var branch: ApiMangaBranchModel?
-    var isChaptersFetchingDone = false
     var chaptersPage = 1
     var chaptersIsLoading = false
+    @Binding var isChaptersFetchingDone = false
 
     var isCommentsFetchingDone = false
     var commentsPage = 1
@@ -63,7 +65,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     }
 
     override func prepare(with model: MangaDetailsModel) {
-        api = model.api
+        api = Mvvm.shared.container.resolve(key: model.apiKey.key)
         loadDetails(for: model.id)
     }
 
@@ -127,7 +129,6 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
         let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: chapters.value.firstIndex(of: mangaModel) ?? 0, api: api)
 
         navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
-//        navigate(to: TestViewModel.self, by: .present(wrapInNavigation: false))
     }
 
     func tagSelected(_ tag: ApiMangaTag) {
@@ -159,6 +160,27 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
         else { return true }
 
         return chapter.loadingProgress.value == nil && chapter.unlockedValue != false
+    }
+
+    func continueReading() {
+        guard isChaptersFetchingDone else { return }
+
+        if let historyItem = historyManager.history.first(where: { $0.id == dir && $0.apiKey == api.key }) {
+            let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: chapters.value.firstIndex(where: { $0.id.value == historyItem.chapterId }) ?? 0, api: api)
+
+            navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
+            return
+        }
+
+        if let current = currentChapter.value {
+            let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: chapters.value.firstIndex(where: { $0.id.value == current.id }) ?? 0, api: api)
+
+            navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
+            return
+        }
+
+        let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: 0, api: api)
+        navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
     }
 }
 
@@ -236,6 +258,8 @@ private extension MangaDetailsViewModel {
 
             self.dir = id
             self.id = res.id
+
+            currentChapter.accept(res.continueChapter)
 
             branch = res.branches.first
             try await loadNextChapters()

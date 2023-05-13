@@ -34,6 +34,7 @@ class SceneDelegate: MvvmSceneDelegate {
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.newmanga.key, factory: NewMangaApi.init)
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.remanga.key, factory: ReMangaApi.init)
         container.registerSingleton(factory: MangaDownloadManager.init)
+        container.registerSingleton(factory: MangaHistoryManager.init)
     }
 
     override func routing(in router: Router) {
@@ -45,6 +46,7 @@ class SceneDelegate: MvvmSceneDelegate {
         // Screens
         router.register(MvvmTabBarController<MainTabBarViewModel>.self)
         router.register(CatalogViewController<CatalogViewModel>.self)
+        router.register(HistoryViewController<HistoryViewModel>.self)
         router.register(MangaDetailsViewController<MangaDetailsViewModel>.self)
         router.register(MangaReaderViewController<MangaReaderViewModel>.self)
         router.register(MangaReaderViewController<OfflineMangaReaderViewModel>.self)
@@ -83,8 +85,11 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(ProfileDetailsButtonCell<ProfileDetailsButtonViewModel>.self)
 
         // Downloads cells
-        router.register(DownloadsMangaCell<DownloadsMangaViewModel>.self)
+        router.register(ListViewMangaCell<DownloadsMangaViewModel>.self)
         router.register(DownloadDetailsChapterCell<DownloadDetailsChapterViewModel>.self)
+
+        // History cells
+        router.register(ListViewMangaCell<HistoryMangaItemViewModel>.self)
     }
 
     override func resolveRootVC() -> UIViewController {
