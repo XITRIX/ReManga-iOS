@@ -44,6 +44,12 @@ extension ApiMangaModel {
         title = model.title.enName ?? ""
         rusTitle = model.title.rusName
         img = ReMangaApi.imgPath + model.title.img.mid
+
+        if model.viewState == 2 {
+            newChapterType = .free
+        } else if model.viewState == 1 {
+            newChapterType = .paid
+        }
     }
 }
 

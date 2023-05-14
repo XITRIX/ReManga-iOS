@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum ApiMangaNewChapterType {
+    case free
+    case paid
+}
+
 struct ApiMangaTag: Codable, Hashable {
     enum Kind: Codable {
         case tag, type, genre
@@ -34,6 +39,7 @@ struct ApiMangaModel: Hashable {
     var branches: [ApiMangaBranchModel] = []
     var translators: [ApiMangaTranslatorModel] = []
     var continueChapter: ApiMangaChapterModel?
+    var newChapterType: ApiMangaNewChapterType?
 
     var bookmark: ApiMangaBookmarkModel?
 }

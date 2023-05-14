@@ -13,8 +13,10 @@ class MangaCell<VM: MangaCellViewModelProtocol>: MvvmCollectionViewCell<VM> {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet private var bookmarkHolderView: UIVisualEffectView!
+    @IBOutlet private var bookmarkHolderView: UIView!
     @IBOutlet private var bookmarkLabel: UILabel!
+
+    private var type: ApiMangaNewChapterType?
 
     override func initSetup() {
         bookmarkHolderView.layer.cornerRadius = 8
@@ -24,13 +26,41 @@ class MangaCell<VM: MangaCellViewModelProtocol>: MvvmCollectionViewCell<VM> {
         imageView.layer.cornerCurve = .continuous
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? false {
+            applyBorderType()
+        }
+    }
+
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
             titleLabel.rx.text <- viewModel.title
             imageView.rx.imageUrl(with: activityIndicator) <- viewModel.img
             bookmarkHolderView.rx.isHidden <- viewModel.bookmark.map { $0 == nil }
             bookmarkLabel.rx.text <- viewModel.bookmark.map { $0?.name }
+            viewModel.newChapterType.bind { [unowned self] type in
+                imageView.layer.borderWidth = type != nil ? 1 : 0
+                self.type = type
+                applyBorderType()
+            }
         }
     }
 
+    private func applyBorderType() {
+        imageView.layer.borderColor = type.color?.withAlphaComponent(0.6).cgColor
+//        bookmarkHolderView.backgroundColor = type.color?.withAlphaComponent(0.6)
+    }
+}
+
+private extension Optional where Wrapped == ApiMangaNewChapterType {
+    var color: UIColor? {
+        switch self {
+        case .none:
+            return nil
+        case .free:
+            return .systemBlue
+        case .paid:
+            return .systemRed
+        }
+    }
 }

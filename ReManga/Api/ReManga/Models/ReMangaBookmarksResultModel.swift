@@ -31,7 +31,7 @@ struct ReMangaBookmarksResultContent: Codable, Hashable {
     let title: ReMangaBookmarksResultTitle
     let readProgress, readProgressTotal: Int?
     let isNotifyPaidChapters: Bool?
-    let viewState: Int?
+    let viewState: Int
 
     enum CodingKeys: String, CodingKey {
         case id, type, rated, title

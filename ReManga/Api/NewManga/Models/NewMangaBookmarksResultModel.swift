@@ -15,7 +15,7 @@ import Foundation
 struct NewMangaBookmarksResultElement: Codable, Hashable {
     let type: String
     let project: NewMangaBookmarksResultProject
-    let newChaptersFree, newChaptersPaid: Int?
+    let newChaptersFree, newChaptersPaid: Int
 
     enum CodingKeys: String, CodingKey {
         case type, project

@@ -51,8 +51,8 @@ private extension ProfileViewController {
     }
 
     func setupNavigationItem() {
-        navigationController?.tabBarItem.badgeValue = "2"
-        navigationItem.trailingItemGroups.append(.fixedGroup(items: [notificationButton]))
+//        navigationController?.tabBarItem.badgeValue = "2"
+//        navigationItem.trailingItemGroups.append(.fixedGroup(items: [notificationButton]))
         notificationButton.primaryAction = .init { _ in
             print("")
         }

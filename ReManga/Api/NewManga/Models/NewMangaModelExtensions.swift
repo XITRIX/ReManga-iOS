@@ -41,6 +41,12 @@ extension ApiMangaModel {
         rusTitle = model.project.title.ru
         img = NewMangaApi.imgPath + model.project.image.name
         bookmark = .init(id: model.type, name: model.type)
+
+        if model.newChaptersPaid > 0 {
+            newChapterType = .paid
+        } else if model.newChaptersFree > 0 {
+            newChapterType = .free
+        }
     }
 }
 
