@@ -1,20 +1,15 @@
 //
-//  CatalogViewController.swift
+//  BookmarksViewController.swift
 //  ReManga
 //
-//  Created by Даниил Виноградов on 07.04.2023.
+//  Created by Даниил Виноградов on 14.05.2023.
 //
 
 import MvvmFoundation
-import RxBiBinding
-import RxCocoa
-import RxSwift
 import UIKit
 
-class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM> {
+class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
-    private var keyboardToken: KeyboardHandler!
-    private let searchController = UISearchController()
 
     private var collectionViewFlowLayout: UICollectionViewFlowLayout { collectionView.collectionViewLayout as! UICollectionViewFlowLayout }
 
@@ -26,25 +21,17 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        keyboardToken = KeyboardHandler(collectionView)
+        collectionView.dataSource = dataSource
         collectionView.delegate = delegates
 
-        navigationItem.largeTitleDisplayMode = .always
-        searchController.searchBar.placeholder = "Поиск"
-        searchController.delegate = delegates
-
         bind(in: disposeBag) {
-            viewModel.searchQuery <- searchController.searchBar.rx.text.throttle(.seconds(1), scheduler: MainScheduler.instance)
             viewModel.items.bind { [unowned self] models in
                 applyModels(models)
             }
+
             collectionView.rx.itemSelected.bind { [unowned self] indexPath in
                 let item = dataSource.snapshot().itemIdentifiers(inSection: indexPath.section)[indexPath.item]
                 viewModel.showDetails(for: item.viewModel)
-            }
-            viewModel.isSearchAvailable.bind { [unowned self] available in
-                navigationItem.searchController = available ? searchController : nil
-                collectionView.setContentOffset(.init(x: 0, y: -200), animated: false)
             }
         }
     }
@@ -53,8 +40,10 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
         super.viewLayoutMarginsDidChange()
         collectionViewFlowLayout.minimumInteritemSpacing = systemMinimumLayoutMargins.leading
     }
+}
 
-    private func applyModels(_ models: [MangaCellViewModel]) {
+private extension BookmarksViewController {
+    func applyModels(_ models: [MangaCellViewModel]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, MvvmCellViewModelWrapper<MangaCellViewModel>>()
         snapshot.appendSections([0])
         snapshot.appendItems(models.map { .init(viewModel: $0) })
@@ -62,8 +51,8 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
     }
 }
 
-private extension CatalogViewController {
-    class Delegates: DelegateObject<CatalogViewController>, UICollectionViewDelegateFlowLayout, UISearchControllerDelegate {
+private extension BookmarksViewController {
+    class Delegates: DelegateObject<BookmarksViewController>, UICollectionViewDelegateFlowLayout {
         // MARK: - UICollectionViewDelegateFlowLayout
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
@@ -72,17 +61,6 @@ private extension CatalogViewController {
             let itemWidth = ((usableWidth - (columns - 1) * (flowLayout.minimumInteritemSpacing)) / columns).rounded(.down)
             let itemHeight = itemWidth * 1.41 + 42
             return CGSize(width: itemWidth, height: itemHeight)
-        }
-
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            if scrollView.contentOffset.y + scrollView.bounds.height > scrollView.contentSize.height - 400 {
-                parent.viewModel.loadNext()
-            }
-        }
-
-        // MARK: - UISearchControllerDelegate
-        func willDismissSearchController(_ searchController: UISearchController) {
-            parent.viewModel.searchQuery.accept("")
         }
     }
 }

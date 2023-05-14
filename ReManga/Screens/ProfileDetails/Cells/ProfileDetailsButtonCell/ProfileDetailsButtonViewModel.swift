@@ -12,11 +12,14 @@ class ProfileDetailsButtonViewModel: MvvmViewModel, MvvmSelectableProtocol {
     var selectAction: (() -> Void)?
 
     let style = BehaviorRelay<Style>(value: .normal)
+    let disclosure = BehaviorRelay<Bool>(value: false)
+    var image = BehaviorRelay<Image?>(value: nil)
 }
 
 extension ProfileDetailsButtonViewModel {
     enum Style {
         case normal
+        case tinted
         case destructive
     }
 }

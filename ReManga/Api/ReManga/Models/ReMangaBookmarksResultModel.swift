@@ -26,17 +26,58 @@ struct ReMangaBookmarksResult: Codable, Hashable {
 
 // MARK: - ReMangaBookmarksResultContent
 struct ReMangaBookmarksResultContent: Codable, Hashable {
-    let id: Int
-    let count: Int?
-    let name: String
-    let isDefault, isVisible, isNotify: Bool?
+    let id, type: Int
+    let rated: Int?
+    let title: ReMangaBookmarksResultTitle
+    let readProgress, readProgressTotal: Int?
+    let isNotifyPaidChapters: Bool?
+    let viewState: Int?
 
     enum CodingKeys: String, CodingKey {
-        case id, count, name
-        case isDefault = "is_default"
-        case isVisible = "is_visible"
-        case isNotify = "is_notify"
+        case id, type, rated, title
+        case readProgress = "read_progress"
+        case readProgressTotal = "read_progress_total"
+        case isNotifyPaidChapters = "is_notify_paid_chapters"
+        case viewState = "view_state"
     }
+}
+
+//
+// Hashable or Equatable:
+// The compiler will not be able to synthesize the implementation of Hashable or Equatable
+// for types that require the use of JSONAny, nor will the implementation of Hashable be
+// synthesized for types that have collections (such as arrays or dictionaries).
+
+// MARK: - ReMangaBookmarksResultTitle
+struct ReMangaBookmarksResultTitle: Codable, Hashable {
+    let id: Int
+    let dir: String
+    let enName, rusName: String?
+    let img: ReMangaBookmarksResultImg
+    let totalVotes, countChapters: Int?
+    let isYaoi, isErotic: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case enName = "en_name"
+        case rusName = "rus_name"
+        case dir, img
+        case totalVotes = "total_votes"
+        case countChapters = "count_chapters"
+        case isYaoi = "is_yaoi"
+        case isErotic = "is_erotic"
+    }
+}
+
+//
+// Hashable or Equatable:
+// The compiler will not be able to synthesize the implementation of Hashable or Equatable
+// for types that require the use of JSONAny, nor will the implementation of Hashable be
+// synthesized for types that have collections (such as arrays or dictionaries).
+
+// MARK: - ReMangaBookmarksResultImg
+struct ReMangaBookmarksResultImg: Codable, Hashable {
+    let high, mid, low: String
 }
 
 //
@@ -47,4 +88,5 @@ struct ReMangaBookmarksResultContent: Codable, Hashable {
 
 // MARK: - ReMangaBookmarksResultProps
 struct ReMangaBookmarksResultProps: Codable, Hashable {
+    let page: Int?
 }

@@ -38,6 +38,13 @@ extension ApiMangaModel {
             continueChapter = .init(from: continueModel)
         }
     }
+
+    init(from model: ReMangaBookmarksResultContent) {
+        id = model.title.dir
+        title = model.title.enName ?? ""
+        rusTitle = model.title.rusName
+        img = ReMangaApi.imgPath + model.title.img.mid
+    }
 }
 
 extension ApiMangaBranchModel {
@@ -160,8 +167,8 @@ extension ApiMangaUserModel {
 }
 
 extension ApiMangaBookmarkModel {
-    init(from model: ReMangaBookmarksResultContent) {
-        id = model.id
+    init(from model: ReMangaBookmarkTypesResultContent) {
+        id = String(model.id)
         name = model.name
     }
 }

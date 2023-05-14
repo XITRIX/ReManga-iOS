@@ -8,6 +8,6 @@
 import Foundation
 
 struct ApiMangaBookmarkModel: Hashable {
-    var id: Int
+    var id: String
     var name: String
 }

@@ -22,7 +22,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
         case comments
     }
 
-    @Injected var api: ApiProtocol
+    var api: ApiProtocol!
     @Injected var downloadManager: MangaDownloadManager
     @Injected var historyManager: MangaHistoryManager
 
@@ -65,7 +65,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     }
 
     override func prepare(with model: MangaDetailsModel) {
-        api = Mvvm.shared.container.resolve(key: model.apiKey.key)
+        api = model.apiKey.resolve()
         loadDetails(for: model.id)
     }
 
@@ -265,7 +265,7 @@ private extension MangaDetailsViewModel {
             try await loadNextChapters()
 
             do {
-                bookmarks.accept(try await api.fetchBookmarks())
+                bookmarks.accept(try await api.fetchBookmarkTypes())
             } catch {}
 
             currentBookmark.accept(res.bookmark)

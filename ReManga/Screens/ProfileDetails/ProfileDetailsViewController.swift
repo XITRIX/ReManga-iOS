@@ -23,4 +23,9 @@ class ProfileDetailsViewController<VM: ProfileDetailsViewModel>: MvvmViewControl
             viewModel.itemSelected <- dataSource.modelSelected
         }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        smoothlyDeselectItems(in: collectionView)
+    }
 }

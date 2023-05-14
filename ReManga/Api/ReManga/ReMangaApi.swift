@@ -79,7 +79,7 @@ class ReMangaApi: ApiProtocol {
         let model = try JSONDecoder().decode(ReMangaApiMangaCatalogResult.self, from: result)
 
         var bookmarks: [ApiMangaBookmarkModel] = []
-        do { bookmarks = try await fetchBookmarks() }
+        do { bookmarks = try await fetchBookmarkTypes() }
         catch { print(error) }
 
         let res = model.content.map { model in
@@ -98,7 +98,7 @@ class ReMangaApi: ApiProtocol {
         let model = try JSONDecoder().decode(ReMangaApiMangaCatalogResult.self, from: result)
 
         var bookmarks: [ApiMangaBookmarkModel] = []
-        do { bookmarks = try await fetchBookmarks() }
+        do { bookmarks = try await fetchBookmarkTypes() }
         catch { print(error) }
 
         let res = model.content.map { model in
@@ -119,8 +119,11 @@ class ReMangaApi: ApiProtocol {
         var res = ApiMangaModel(from: model.content)
 
         do {
-            let bookmarks = try await fetchBookmarks()
-            res.bookmark = bookmarks.first(where: { $0.id == model.content.bookmarkType })
+            let bookmarks = try await fetchBookmarkTypes()
+            if let bookmark = model.content.bookmarkType {
+                let bookmark = String(bookmark)
+                res.bookmark = bookmarks.first(where: { $0.id == bookmark })
+            }
         } catch {
             print(error)
         }
@@ -248,12 +251,12 @@ class ReMangaApi: ApiProtocol {
         }
     }
 
-    func fetchBookmarks() async throws -> [ApiMangaBookmarkModel] {
+    func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel] {
         let user = try await fetchUserInfo()
 
         let url = "https://api.remanga.org/api/users/\(user.id)/user_bookmarks/"
         let (result, _) = try await urlSession.data(for: makeRequest(url))
-        let model = try JSONDecoder().decode(ReMangaBookmarksResult.self, from: result)
+        let model = try JSONDecoder().decode(ReMangaBookmarkTypesResult.self, from: result)
 
         return model.content.compactMap { .init(from: $0) }
     }
@@ -273,6 +276,25 @@ class ReMangaApi: ApiProtocol {
         }
 
         _ = try await urlSession.data(for: request)
+    }
+
+    func fetchBookmarks() async throws -> [ApiMangaModel] {
+        let url = "https://api.remanga.org/api/users/11724/bookmarks/?ordering=-chapter_date&type=0&count=99999"
+
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let model = try JSONDecoder().decode(ReMangaBookmarksResult.self, from: result)
+
+        var bookmarks: [ApiMangaBookmarkModel] = []
+        do { bookmarks = try await fetchBookmarkTypes() }
+        catch { print(error) }
+
+        let res = model.content.map { model in
+            var item = ApiMangaModel(from: model)
+            item.bookmark = bookmarks.first(where: { String(model.type) == $0.id })
+            return item
+        }
+
+        return res
     }
     
     func deauth() async throws {

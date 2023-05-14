@@ -34,6 +34,15 @@ private extension ProfileDetailsViewModel {
     func reload() {
         var items: [MvvmCollectionSectionModel] = []
 
+        let bookmarksButton = ProfileDetailsButtonViewModel()
+        bookmarksButton.title.accept("Закладки")
+        bookmarksButton.image.accept(.system(name: "bookmark.circle.fill"))
+        bookmarksButton.disclosure.accept(true)
+        bookmarksButton.selectAction = { [unowned self] in
+            Task { await navigate(to: BookmarksViewModel.self, with: .init(apiKey: api.key), by: .show) }
+        }
+        items.append(.init(id: "Bookmarks", style: .insetGrouped, showsSeparators: true, items: [bookmarksButton]))
+
         let exitButton = ProfileDetailsButtonViewModel()
         exitButton.title.accept("Выйти из профиля")
         exitButton.style.accept(.destructive)

@@ -38,8 +38,9 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func buyChapter(id: String) async throws -> Bool
     func markComment(id: String, _ value: Bool?) async throws -> Int
     func fetchUserInfo() async throws -> ApiMangaUserModel
-    func fetchBookmarks() async throws -> [ApiMangaBookmarkModel]
+    func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel]
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws
+    func fetchBookmarks() async throws -> [ApiMangaModel]
     func deauth() async throws
 }
 

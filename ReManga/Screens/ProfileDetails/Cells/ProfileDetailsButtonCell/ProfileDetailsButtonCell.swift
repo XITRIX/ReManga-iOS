@@ -9,21 +9,34 @@ import UIKit
 import MvvmFoundation
 
 class ProfileDetailsButtonCell<VM: ProfileDetailsButtonViewModel>: MvvmCollectionViewListCell<VM> {
-    @IBOutlet var label: UILabel!
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var label: UILabel!
+
+    override func initSetup() {
+        label.textColor = .tintColor
+    }
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
+            rx.tintColor <- viewModel.style.map { $0.color }
             label.rx.text <- viewModel.title
-            label.rx.textColor <- viewModel.style.map { $0.textColor }
+            imageView.rx.setImageWithVisibility() <- viewModel.image
+            viewModel.disclosure.bind { [unowned self] disclosure in
+                var accessories = accessories.filter { $0.accessoryType != .disclosureIndicator }
+                if disclosure { accessories.append(.disclosureIndicator()) }
+                self.accessories = accessories
+            }
         }
     }
 
 }
 
 extension ProfileDetailsButtonViewModel.Style {
-    var textColor: UIColor {
+    var color: UIColor {
         switch self {
         case .normal:
+            return .label
+        case .tinted:
             return .tintColor
         case .destructive:
             return .systemRed

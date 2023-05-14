@@ -26,6 +26,10 @@ public extension ContainerKey {
             case .newmanga: return "NewManga"
             }
         }
+
+        func resolve() -> ApiProtocol {
+            Mvvm.shared.container.resolve(key: self.key)
+        }
     }
 }
 
@@ -54,6 +58,7 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(ProfileDetailsViewController<ProfileDetailsViewModel>.self)
         router.register(DownloadsViewController<DownloadsViewModel>.self)
         router.register(DownloadDetailsViewController<DownloadDetailsViewModel>.self)
+        router.register(BookmarksViewController<BookmarksViewModel>.self)
 
         router.register(NewMangaAuthViewController<NewMangaAuthViewModel>.self)
         router.register(ReMangaAuthViewController<ReMangaAuthViewModel>.self)

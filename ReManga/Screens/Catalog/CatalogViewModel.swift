@@ -38,6 +38,8 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     public let isSearchAvailable = BehaviorRelay<Bool>(value: true)
     public let filters = BehaviorRelay<[ApiMangaTag]>(value: [])
 
+    private var currentSearchTask: Task<Void, Never>?
+
     public var items: Observable<[MangaCellViewModel]> {
         Observable.combineLatest(allItems, searchItems).map { [unowned self] (all, search) in
             if searchQuery.value.isNilOrEmpty {
@@ -56,7 +58,8 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
 
         bind(in: disposeBag) {
             searchQuery.bind { [unowned self] _ in
-                _ = Task {
+                currentSearchTask?.cancel()
+                currentSearchTask = Task {
                     await fetchSearchItems()
                 }
             }

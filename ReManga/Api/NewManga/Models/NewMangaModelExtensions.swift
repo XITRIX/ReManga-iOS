@@ -34,6 +34,14 @@ extension ApiMangaModel {
 
         branches = model.branches?.compactMap { .init(from: $0) } ?? []
     }
+
+    init(from model: NewMangaBookmarksResultElement) {
+        self.id = model.project.slug
+        title = model.project.title.en ?? ""
+        rusTitle = model.project.title.ru
+        img = NewMangaApi.imgPath + model.project.image.name
+        bookmark = .init(id: model.type, name: model.type)
+    }
 }
 
 extension ApiMangaCommentModel {

@@ -15,6 +15,7 @@ class ProfileViewModel: BaseViewModel {
     @Injected(key: .Backend.newmanga.key) private var newmangaApi: ApiProtocol
 
     let items = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
+    let hasNewNotification = BehaviorRelay<Bool>(value: true)
     let deselectItems = PublishRelay<Void>()
 
     required init() {
@@ -59,7 +60,7 @@ private extension ProfileViewModel {
             deselectItems.accept()
         }
         
-        sections.append(.init(id: "Backend", style: .insetGrouped, showsSeparators: true, items: [backendVM]))
+        sections.append(.init(id: "Backend", header: "", style: .insetGrouped, showsSeparators: true, items: [backendVM]))
 
         var remangaItems: [MvvmViewModel] = []
 

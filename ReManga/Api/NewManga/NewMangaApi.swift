@@ -8,8 +8,8 @@
 import Foundation
 import Kingfisher
 import MvvmFoundation
-import RxSwift
 import RxRelay
+import RxSwift
 
 class NewMangaApi: ApiProtocol {
     static let imgPath: String = "https://img.newmanga.org/ProjectCard/webp/"
@@ -112,7 +112,18 @@ class NewMangaApi: ApiProtocol {
         let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaDetailsResult.self, from: result)
 
-        return await MainActor.run { ApiMangaModel(from: model) }
+        var res = await MainActor.run { ApiMangaModel(from: model) }
+
+        do {
+            let bookmarks = try await fetchBookmarkTypes()
+            if let bookmark = model.bookmark?.type {
+                res.bookmark = bookmarks.first(where: { $0.id == bookmark })
+            }
+        } catch {
+            print(error)
+        }
+
+        return res
     }
 
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel] {
@@ -211,12 +222,42 @@ class NewMangaApi: ApiProtocol {
         }
     }
 
-    func fetchBookmarks() async throws -> [ApiMangaBookmarkModel] {
-        []
+    func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel] {
+        let user = try await fetchUserInfo()
+
+        let url = "https://api.newmanga.org/v2/users/\(user.id)/bookmarks/types"
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let model = try JSONDecoder().decode(NewMangaBookmarkTypesResult.self, from: result)
+
+        let apiResults: [ApiMangaBookmarkModel] = model.compactMap { .init(id: $0.type, name: $0.type) }
+
+        var defaultResults: [ApiMangaBookmarkModel] = ["Читаю", "Буду читать", "Прочитано", "Отложено", "Брошено", "Не интересно"].map { .init(id: $0, name: $0) }
+        defaultResults.append(contentsOf: apiResults.filter { !defaultResults.contains($0) })
+
+        return defaultResults
     }
 
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws {
+        let url = "https://api.newmanga.org/v2/projects/\(title)/bookmark"
 
+        var request = makeRequest(url)
+        if let bookmark {
+            request.httpMethod = "POST"
+            request.httpBody = "{ \"type\": \"\(bookmark.id)\" }".data(using: .utf8)
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        } else {
+            request.httpMethod = "DELETE"
+        }
+
+        _ = try await urlSession.data(for: request)
+    }
+
+    func fetchBookmarks() async throws -> [ApiMangaModel] {
+        let url = "https://api.newmanga.org/v2/user/bookmarks"
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let model = try JSONDecoder().decode(NewMangaBookmarksResult.self, from: result)
+
+        return model.map { .init(from: $0) }
     }
 
     func deauth() async throws {
