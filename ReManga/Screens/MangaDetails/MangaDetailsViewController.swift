@@ -48,8 +48,8 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
             viewModel.selectedItems <-> collectionView.rx.indexPathsForSelectedItems
             imageView.rx.imageUrl(with: activityIndicator) <- viewModel.image
             viewModel.items.bind { [unowned self] models in
-                dataSource.applyModels(models) {
-                    self.updateCollectionViewInset()
+                dataSource.applyModels(models) { [weak self] in
+                    self?.updateCollectionViewInset()
                 }
             }
             titleLabel.rx.text <- viewModel.title
