@@ -17,11 +17,13 @@ struct MangaPaymentModel {
 
 class MangaPaymentViewModel: BaseViewModelWith<MangaPaymentModel> {
     private var api: ApiProtocol!
-    private var model: MangaDetailsChapterViewModel!
+    var model: MangaDetailsChapterViewModel!
     private var completion: (()->Void)?
 
     var cost: Observable<String> {
-        model.price.map { "Стоимость \($0 ?? "")" }
+        model.price.map { [unowned self] in
+            "Стоимость \($0 ?? "")\nНа вашем счету \(api.profile.value?.currency ?? "")"
+        }
     }
 
     override func prepare(with model: MangaPaymentModel) {
@@ -32,6 +34,7 @@ class MangaPaymentViewModel: BaseViewModelWith<MangaPaymentModel> {
 
     @MainActor
     func pay() {
+//        navigate(to: MvvmAlertViewModel.self, with: .init(title: "Подтверждение оплаты", message: "С вашего счёта будет списано \(model.price.value ?? "")"), by: .present(wrapInNavigation: false))
         state.accept(.loading)
         performTask { [self] in
             if try await api.buyChapter(id: model.id.value) {
