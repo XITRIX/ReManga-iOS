@@ -11,4 +11,5 @@ enum ApiMangaError: Error {
     case needPayment(MangaDetailsChapterViewModel, ApiProtocol)
     case operationNotSupported(message: String)
     case wrongUrl
+    case unauthorized
 }

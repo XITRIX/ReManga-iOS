@@ -8,13 +8,21 @@
 import UIKit
 import WebKit
 import MvvmFoundation
+import AuthenticationServices
 
-class ReMangaAuthViewController<VM: ReMangaAuthViewModel>: BaseViewController<VM> {
+class ReMangaAuthViewController<VM: OAuthViewModel>: BaseViewController<VM> {
     @IBOutlet var webView: WKWebView!
     private lazy var delegates = Delegates(parent: self)
 
+    lazy var session = ASWebAuthenticationSession(url: URL(string: viewModel.authUrl)!, callbackURLScheme: "https") { url, error in
+        print(url)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        session.presentationContextProvider = delegates
+//        session.start()
 
         webView.navigationDelegate = delegates
         webView.load(.init(url: URL(string: viewModel.authUrl)!))
@@ -22,32 +30,17 @@ class ReMangaAuthViewController<VM: ReMangaAuthViewModel>: BaseViewController<VM
 }
 
 extension ReMangaAuthViewController {
-    class Delegates: DelegateObject<ReMangaAuthViewController>, WKNavigationDelegate {
+    class Delegates: DelegateObject<ReMangaAuthViewController>, WKNavigationDelegate, ASWebAuthenticationPresentationContextProviding {
+        @MainActor
         func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-            if let url = navigationResponse.response.url?.absoluteString,
-               url.starts(with: "https://remanga.org/social?code=")
-            {
-                guard let code = navigationResponse.response.url?.queryParameters?["code"]
-                else { return decisionHandler(.allow) }
+            guard parent.viewModel.performWebViewNavigation(from: navigationResponse.response)
+            else { return decisionHandler(.allow) }
 
-                Task {
-                    decisionHandler(.cancel)
-                    await parent.viewModel.fetchToken(code: code)
-                }
-            } else {
-                decisionHandler(.allow)
-            }
+            decisionHandler(.cancel)
         }
-    }
-}
 
-private extension URL {
-    var queryParameters: [String: String]? {
-        guard
-            let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
-            let queryItems = components.queryItems else { return nil }
-        return queryItems.reduce(into: [String: String]()) { (result, item) in
-            result[item.name] = item.value
+        func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+            parent.parent!.view.window!
         }
     }
 }

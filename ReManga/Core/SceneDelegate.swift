@@ -61,7 +61,8 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(BookmarksViewController<BookmarksViewModel>.self)
 
         router.register(NewMangaAuthViewController<NewMangaAuthViewModel>.self)
-        router.register(ReMangaAuthViewController<ReMangaAuthViewModel>.self)
+        router.register(ReMangaAuthViewController<ReMangaVKAuthViewModel>.self)
+        router.register(ReMangaAuthViewController<ReMangaGoogleAuthViewModel>.self)
 
         // Cells
         router.register(MangaCell<MangaCellViewModel>.self)

@@ -9,6 +9,12 @@ import MvvmFoundation
 import Kingfisher
 import RxRelay
 
+enum ApiAuthSource {
+    case vk
+    case google
+    case yandex
+}
+
 protocol ApiAuthProtocol: AnyObject {
     @MainActor
     func showAuthScreen(from vm: MvvmViewModel)

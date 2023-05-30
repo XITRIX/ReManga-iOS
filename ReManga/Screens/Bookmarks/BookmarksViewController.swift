@@ -7,10 +7,12 @@
 
 import MvvmFoundation
 import UIKit
+import RxSwift
 
 class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
 
+    private let filterButton = UIBarButtonItem(title: nil, image: nil, target: nil, action: nil)
     private var collectionViewFlowLayout: UICollectionViewFlowLayout { collectionView.collectionViewLayout as! UICollectionViewFlowLayout }
 
     private lazy var delegates = Delegates(parent: self)
@@ -24,6 +26,8 @@ class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
         collectionView.dataSource = dataSource
         collectionView.delegate = delegates
 
+        navigationItem.trailingItemGroups = [.fixedGroup(items: [filterButton])]
+
         bind(in: disposeBag) {
             viewModel.items.bind { [unowned self] models in
                 applyModels(models)
@@ -33,6 +37,14 @@ class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
                 let item = dataSource.snapshot().itemIdentifiers(inSection: indexPath.section)[indexPath.item]
                 viewModel.showDetails(for: item.viewModel)
             }
+
+            filterButton.rx.isHidden <- viewModel.isFilterButtonAvailable.inverted
+
+            filterButton.rx.image <- viewModel.selectedBookmarkType.map { bookmarkType in
+                bookmarkType == nil ? .init(systemName: "line.3.horizontal.decrease.circle") : .init(systemName: "line.3.horizontal.decrease.circle.fill")
+            }
+
+            delegates.setupFilterSelectionMenu <- Observable.combineLatest(viewModel.bookmarkTypes, viewModel.selectedBookmarkType)
         }
     }
 
@@ -61,6 +73,17 @@ private extension BookmarksViewController {
             let itemWidth = ((usableWidth - (columns - 1) * (flowLayout.minimumInteritemSpacing)) / columns).rounded(.down)
             let itemHeight = itemWidth * 1.41 + 42
             return CGSize(width: itemWidth, height: itemHeight)
+        }
+
+        // MARK: - Binding functions
+        func setupFilterSelectionMenu(from models: [ApiMangaBookmarkModel], with selectedModel: ApiMangaBookmarkModel?) {
+            var actions = [UIAction(title: "Все", state: selectedModel == nil ? .on : .off) { [weak self] _ in self?.parent.viewModel.selectedBookmarkType.accept(nil) }]
+
+            for model in models {
+                actions.append(.init(title: model.name, state: selectedModel == model ? .on : .off) { [weak self] _ in self?.parent.viewModel.selectedBookmarkType.accept(model) })
+            }
+
+            parent.filterButton.menu = .init(children: actions)
         }
     }
 }

@@ -210,16 +210,15 @@ class NewMangaApi: ApiProtocol {
     }
 
     func fetchUserInfo() async throws -> ApiMangaUserModel {
-        do {
-            let url = "https://api.newmanga.org/v2/user"
-            let (result, _) = try await urlSession.data(for: makeRequest(url))
-            let model = try JSONDecoder().decode(NewMangaUserResult.self, from: result)
-
-            return .init(from: model)
-        } catch {
+        let url = "https://api.newmanga.org/v2/user"
+        let (result, response) = try await urlSession.data(for: makeRequest(url))
+        if (response as? HTTPURLResponse)?.statusCode == 401 {
             authToken.accept(nil)
-            throw error
+            throw ApiMangaError.unauthorized
         }
+
+        let model = try JSONDecoder().decode(NewMangaUserResult.self, from: result)
+        return .init(from: model)
     }
 
     func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel] {
