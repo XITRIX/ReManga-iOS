@@ -19,8 +19,12 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
     @IBOutlet private var downloadedImageView: UIImageView!
     @IBOutlet private var downloadProgressView: RoundedProgress!
 
+    private var trailingSeparatorConstraint: NSLayoutConstraint!
+
     override func initSetup() {
         accessories = [.disclosureIndicator(displayed: .whenNotEditing), .multiselect(displayed: .whenEditing)]
+        separatorLayoutGuide.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
+        trailingSeparatorConstraint = separatorLayoutGuide.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
     }
 
     override func setup(with viewModel: VM) {
@@ -45,5 +49,10 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
                 if ableToDownload && unlocked != false { accessories.append(.multiselect(displayed: .whenEditing)) }
             }
         }
+    }
+
+    override func layoutMarginsDidChange() {
+        super.layoutMarginsDidChange()
+        trailingSeparatorConstraint.isActive = layoutMargins.right > window?.rootViewController?.systemMinimumLayoutMargins.trailing ?? 0
     }
 }

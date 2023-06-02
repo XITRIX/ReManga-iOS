@@ -98,19 +98,19 @@ private extension MangaDetailsCommentCell {
 
         if pinned {
             messageContainer.layer.borderWidth = 1
-            messageContainer.layer.borderColor = UIColor.tintColor.cgColor
+            messageContainer.borderColor = UIColor.tintColor
             return
         }
 
         if score >= 10 {
             messageContainer.layer.borderWidth = 1
-            messageContainer.layer.borderColor = CGColor(red: 205/255, green: 127/255, blue: 50/255, alpha: 1)
+            messageContainer.borderColor = UIColor(red: 205/255, green: 127/255, blue: 50/255, alpha: 1)
         } else if score >= 25 {
             messageContainer.layer.borderWidth = 1
-            messageContainer.layer.borderColor = CGColor(red: 217/255, green: 170/255, blue:6/255, alpha: 1)
+            messageContainer.borderColor = UIColor(red: 217/255, green: 170/255, blue:6/255, alpha: 1)
         } else {
             messageContainer.layer.borderWidth = 0
-            messageContainer.layer.borderColor = nil
+            messageContainer.borderColor = nil
         }
     }
 

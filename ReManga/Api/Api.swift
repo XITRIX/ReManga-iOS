@@ -25,6 +25,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     var kfAuthModifier: AnyModifier { get }
 
     var name: String { get }
+    var logo: Image { get }
     var key: ContainerKey.Backend { get }
 
     var profile: BehaviorRelay<ApiMangaUserModel?> { get }

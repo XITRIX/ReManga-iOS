@@ -11,11 +11,13 @@ import RxRelay
 protocol ListViewMangaViewModelProtocol: MvvmViewModelProtocol {
     var subtitle: BehaviorRelay<String?> { get }
     var image: BehaviorRelay<String?> { get }
+    var backendImage: BehaviorRelay<Image?> { get }
 }
 
 class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel>, ListViewMangaViewModelProtocol {
     var id: String!
     let image = BehaviorRelay<String?>(value: nil)
+    let backendImage = BehaviorRelay<Image?>(value: nil)
     let subtitle = BehaviorRelay<String?>(value: nil)
     var date = BehaviorRelay<Date?>(value: nil)
 

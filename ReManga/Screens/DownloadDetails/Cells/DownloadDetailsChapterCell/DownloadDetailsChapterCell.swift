@@ -14,8 +14,12 @@ class DownloadDetailsChapterCell<VM: DownloadDetailsChapterViewModel>: MvvmColle
     @IBOutlet private var teamLabel: UILabel!
     @IBOutlet private var dateLabel: UILabel!
 
+    var trailingSeparatorConstraint: NSLayoutConstraint!
+
     override func initSetup() {
         accessories = [.disclosureIndicator()]
+        separatorLayoutGuide.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
+        trailingSeparatorConstraint = separatorLayoutGuide.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
     }
 
     override func setup(with viewModel: VM) {
@@ -25,4 +29,8 @@ class DownloadDetailsChapterCell<VM: DownloadDetailsChapterViewModel>: MvvmColle
         }
     }
 
+    override func layoutMarginsDidChange() {
+        super.layoutMarginsDidChange()
+        trailingSeparatorConstraint.isActive = layoutMargins.right > window?.rootViewController?.systemMinimumLayoutMargins.trailing ?? 0
+    }
 }

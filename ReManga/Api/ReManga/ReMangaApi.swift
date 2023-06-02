@@ -45,6 +45,10 @@ class ReMangaApi: ApiProtocol {
         "Re:Manga"
     }
 
+    var logo: Image {
+        .local(name: "ReManga").with(tint: .label)
+    }
+
     var key: ContainerKey.Backend {
         .remanga
     }

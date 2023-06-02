@@ -33,6 +33,10 @@ class NewMangaApi: ApiProtocol {
         "NewManga"
     }
 
+    var logo: Image {
+        .local(name: "NewManga")
+    }
+
     var key: ContainerKey.Backend {
         .newmanga
     }

@@ -47,7 +47,7 @@ class MangaCell<VM: MangaCellViewModelProtocol>: MvvmCollectionViewCell<VM> {
     }
 
     private func applyBorderType() {
-        imageView.layer.borderColor = type.color?.withAlphaComponent(0.6).cgColor
+        imageView.borderColor = type.color?.withAlphaComponent(0.6)
 //        bookmarkHolderView.backgroundColor = type.color?.withAlphaComponent(0.6)
     }
 }

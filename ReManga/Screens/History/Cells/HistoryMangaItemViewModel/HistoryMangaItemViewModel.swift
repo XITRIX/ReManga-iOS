@@ -11,6 +11,7 @@ import RxRelay
 class HistoryMangaItemViewModel: MvvmViewModelWith<MangaHistoryItem>, ListViewMangaViewModelProtocol {
     var model: MangaHistoryItem?
     let image = BehaviorRelay<String?>(value: nil)
+    let backendImage = BehaviorRelay<Image?>(value: nil)
     let subtitle = BehaviorRelay<String?>(value: nil)
 
     override func prepare(with model: MangaHistoryItem) {
@@ -18,6 +19,7 @@ class HistoryMangaItemViewModel: MvvmViewModelWith<MangaHistoryItem>, ListViewMa
         title.accept(model.title)
         subtitle.accept(model.details)
         image.accept(model.image)
+        backendImage.accept(model.apiKey.resolve().logo)
     }
 
     override func hash(into hasher: inout Hasher) {

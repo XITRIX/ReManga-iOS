@@ -18,10 +18,15 @@ class MangaDetailsChaptersMenuCell<VM: MangaDetailsChaptersMenuViewModel>: MvvmC
     @IBOutlet private var editViews: [UIView]!
     @IBOutlet private var nonEditViews: [UIView]!
 
+    private var trailingSeparatorConstraint: NSLayoutConstraint!
+
     override func initSetup() {
         var conf = defaultBackgroundConfiguration()
         conf.backgroundColor = .clear
         backgroundConfiguration = conf
+
+        separatorLayoutGuide.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
+        trailingSeparatorConstraint = separatorLayoutGuide.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
     }
 
     override func setup(with viewModel: VM) {
@@ -44,5 +49,10 @@ class MangaDetailsChaptersMenuCell<VM: MangaDetailsChaptersMenuViewModel>: MvvmC
             revertChaptersButton.rx.tintColor <- viewModel.chaptersReverted.map { $0 ? .tintColor : .secondaryLabel }
             unrevertChaptersButton.rx.tintColor <- viewModel.chaptersReverted.map { $0 ? .secondaryLabel : .tintColor }
         }
+    }
+
+    override func layoutMarginsDidChange() {
+        super.layoutMarginsDidChange()
+        trailingSeparatorConstraint.isActive = layoutMargins.right > window?.rootViewController?.systemMinimumLayoutMargins.trailing ?? 0
     }
 }

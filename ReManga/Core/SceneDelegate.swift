@@ -90,6 +90,7 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(ProfileUserAccountCell<ProfileUserAccountViewModel>.self)
         router.register(ProfileActiveBackendCell<ProfileActiveBackendViewModel>.self)
         router.register(ProfileBookmarksCell<ProfileBookmarksViewModel>.self)
+        router.register(ProfileColorPickerCell<ProfileColorPickerViewModel>.self)
 
         // Profile details cells
         router.register(ProfileDetailsButtonCell<ProfileDetailsButtonViewModel>.self)
@@ -107,5 +108,11 @@ class SceneDelegate: MvvmSceneDelegate {
 //        return UINavigationController(rootViewController: main)
 
         return MainTabBarViewModel.resolveVC()
+    }
+
+    override func binding() {
+        bind(in: disposeBag) {
+            window!.rx.tintColor <- Properties.shared.$tintColor
+        }
     }
 }

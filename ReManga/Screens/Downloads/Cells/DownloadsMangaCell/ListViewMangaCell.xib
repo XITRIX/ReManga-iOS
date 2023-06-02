@@ -12,6 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListViewMangaCell" customModule="ReManga" customModuleProvider="target">
             <connections>
+                <outlet property="backendLogo" destination="xSC-bM-7Uc" id="sfS-yE-tfh"/>
+                <outlet property="backendLogoHolder" destination="CvK-6d-Xan" id="OSd-5b-2K6"/>
                 <outlet property="imageView" destination="POE-Du-9AG" id="DiV-ze-Qso"/>
                 <outlet property="subtitleLabel" destination="c1z-Nr-S3r" id="Nc2-3f-ooK"/>
                 <outlet property="titleLabel" destination="GVw-hk-xEK" id="lat-bD-p9k"/>
@@ -25,13 +27,49 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bGk-wv-0nC">
                     <rect key="frame" x="16" y="8" width="361" height="76"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="POE-Du-9AG">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECh-8j-uVa">
                             <rect key="frame" x="0.0" y="0.0" width="54" height="76"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="POE-Du-9AG">
+                                    <rect key="frame" x="0.0" y="0.0" width="54" height="76"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="POE-Du-9AG" secondAttribute="height" multiplier="1:1.41" id="VZx-Uj-vSI"/>
+                                        <constraint firstAttribute="height" constant="76" id="zxb-aV-SMt"/>
+                                    </constraints>
+                                </imageView>
+                                <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CvK-6d-Xan">
+                                    <rect key="frame" x="40" y="4" width="22" height="22"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="DXM-J8-nh5">
+                                        <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xSC-bM-7Uc">
+                                                <rect key="frame" x="2" y="2" width="18" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="18" id="uhN-7N-j11"/>
+                                                    <constraint firstAttribute="height" constant="18" id="wvQ-Ch-k5x"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="xSC-bM-7Uc" secondAttribute="bottom" constant="2" id="8dE-Nf-phV"/>
+                                            <constraint firstAttribute="trailing" secondItem="xSC-bM-7Uc" secondAttribute="trailing" constant="2" id="L74-kb-59n"/>
+                                            <constraint firstItem="xSC-bM-7Uc" firstAttribute="top" secondItem="DXM-J8-nh5" secondAttribute="top" constant="2" id="gqR-tY-nsx"/>
+                                            <constraint firstItem="xSC-bM-7Uc" firstAttribute="leading" secondItem="DXM-J8-nh5" secondAttribute="leading" constant="2" id="h8q-bQ-Xbw"/>
+                                        </constraints>
+                                    </view>
+                                    <blurEffect style="regular"/>
+                                </visualEffectView>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="POE-Du-9AG" secondAttribute="height" multiplier="1:1.41" id="VZx-Uj-vSI"/>
-                                <constraint firstAttribute="height" constant="76" id="zxb-aV-SMt"/>
+                                <constraint firstItem="CvK-6d-Xan" firstAttribute="top" secondItem="ECh-8j-uVa" secondAttribute="top" constant="4" id="6fu-j8-jgP"/>
+                                <constraint firstItem="POE-Du-9AG" firstAttribute="leading" secondItem="ECh-8j-uVa" secondAttribute="leading" id="FnW-7o-a82"/>
+                                <constraint firstAttribute="trailing" secondItem="CvK-6d-Xan" secondAttribute="trailing" constant="-8" id="Jwh-TQ-boW"/>
+                                <constraint firstItem="POE-Du-9AG" firstAttribute="top" secondItem="ECh-8j-uVa" secondAttribute="top" id="Tyr-c7-MJx"/>
+                                <constraint firstAttribute="trailing" secondItem="POE-Du-9AG" secondAttribute="trailing" id="tdm-rU-Dxx"/>
+                                <constraint firstAttribute="bottom" secondItem="POE-Du-9AG" secondAttribute="bottom" id="uuA-cV-Scd"/>
                             </constraints>
-                        </imageView>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mWe-an-Fet">
                             <rect key="frame" x="70" y="15.000000000000004" width="291" height="46.333333333333343"/>
                             <subviews>

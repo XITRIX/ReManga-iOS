@@ -78,6 +78,15 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        /// WORKAROUND: - Setting window.tintColor cause some colors in viewController lose
+        /// their userInterfaceLevel context on viewWillDisappear,
+        /// so we reset it manually
+        setupElevationContext()
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateCollectionViewInset()
@@ -111,9 +120,12 @@ private extension MangaDetailsViewController {
         headerCapView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 
-    func setupNavigationAppearance() {
+    func setupElevationContext() {
         navigationController?.setOverrideTraitCollection(UITraitCollection(userInterfaceLevel: .elevated), forChild: self)
+    }
 
+    func setupNavigationAppearance() {
+        setupElevationContext()
         navigationItem.titleView = navTitleView
 
         let scrollButtonsAppearance = UIBarButtonItemAppearance()

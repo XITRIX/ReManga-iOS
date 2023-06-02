@@ -65,7 +65,7 @@ private extension ProfileViewModel {
         var remangaItems: [MvvmViewModel] = []
 
         let reMangaProfileVM = ProfileAccountViewModel()
-        reMangaProfileVM.image.accept(.local(name: "ReManga"))
+        reMangaProfileVM.image.accept(remangaApi.logo)
         reMangaProfileVM.title.accept("Re:Manga")
         reMangaProfileVM.subtitle.accept("Самый крупный источник манги")
 
@@ -97,7 +97,7 @@ private extension ProfileViewModel {
         var newMangaItems: [MvvmViewModel] = []
 
         let newMangaProfileVM = ProfileAccountViewModel()
-        newMangaProfileVM.image.accept(.local(name: "NewManga"))
+        newMangaProfileVM.image.accept(newmangaApi.logo)
         newMangaProfileVM.title.accept("NewManga")
         newMangaProfileVM.subtitle.accept("Новый и преспективный источник манги")
 
@@ -125,6 +125,10 @@ private extension ProfileViewModel {
         }
 
         sections.append(.init(id: "NewManga", style: .insetGrouped, showsSeparators: true, items: newMangaItems))
+
+        var appearanceItems: [MvvmViewModel] = []
+        appearanceItems.append(ProfileColorPickerViewModel())
+        sections.append(.init(id: "Appearance", header: "Appearance", style: .insetGrouped, showsSeparators: false, items: appearanceItems))
 
         items.accept(sections)
     }
