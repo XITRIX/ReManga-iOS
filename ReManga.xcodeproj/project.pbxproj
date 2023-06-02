@@ -149,6 +149,7 @@
 		7CD354202A114582006F1DFE /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD3541F2A114582006F1DFE /* BookmarksViewModel.swift */; };
 		7CD354222A1153FA006F1DFE /* ReMangaBookmarksResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD354212A1153FA006F1DFE /* ReMangaBookmarksResultModel.swift */; };
 		7CD354242A115E09006F1DFE /* NewMangaBookmarksResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD354232A115E09006F1DFE /* NewMangaBookmarksResultModel.swift */; };
+		7CE8B3032A2B73DB00BE8404 /* UIView+LayerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8B3022A2B73DB00BE8404 /* UIView+LayerColors.swift */; };
 		7CF49E5E2A0C0E5400565DFA /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF49E5D2A0C0E5400565DFA /* UserDefault.swift */; };
 		7CF49E602A0C0F3500565DFA /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF49E5F2A0C0F3500565DFA /* Properties.swift */; };
 		7CF49E642A0C256800565DFA /* ProfileActiveBackendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF49E622A0C256800565DFA /* ProfileActiveBackendCell.swift */; };
@@ -341,6 +342,7 @@
 		7CD3541F2A114582006F1DFE /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		7CD354212A1153FA006F1DFE /* ReMangaBookmarksResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReMangaBookmarksResultModel.swift; sourceTree = "<group>"; };
 		7CD354232A115E09006F1DFE /* NewMangaBookmarksResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaBookmarksResultModel.swift; sourceTree = "<group>"; };
+		7CE8B3022A2B73DB00BE8404 /* UIView+LayerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+LayerColors.swift"; sourceTree = "<group>"; };
 		7CF49E5D2A0C0E5400565DFA /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		7CF49E5F2A0C0F3500565DFA /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		7CF49E622A0C256800565DFA /* ProfileActiveBackendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileActiveBackendCell.swift; sourceTree = "<group>"; };
@@ -1051,6 +1053,7 @@
 		7CFCF9AD29E6B0E0008E6150 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7CE8B3022A2B73DB00BE8404 /* UIView+LayerColors.swift */,
 				7CF6BA8D29EEAF690042FE4E /* Bool+Extensions.swift */,
 				7C934ADA29F08F9500709295 /* CGPoint+Extensions.swift */,
 				7C934ADC29F08FDE00709295 /* CGRect+Extensions.swift */,
@@ -1333,6 +1336,7 @@
 				7CD3540C2A0FCA02006F1DFE /* HistoryViewController.swift in Sources */,
 				7CC888502A0694DD00B65564 /* ProfileDetailsButtonCell.swift in Sources */,
 				7C934AE729F133D100709295 /* ReMangaAuthResultModel.swift in Sources */,
+				7CE8B3032A2B73DB00BE8404 /* UIView+LayerColors.swift in Sources */,
 				7CC888752A08578F00B65564 /* DownloadDetailsViewController.swift in Sources */,
 				7C228C1929F80E3700BCC872 /* ProfileUserAccountViewModel.swift in Sources */,
 				7CD354242A115E09006F1DFE /* NewMangaBookmarksResultModel.swift in Sources */,

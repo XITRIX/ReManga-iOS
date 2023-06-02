@@ -34,6 +34,10 @@ public extension ContainerKey {
 }
 
 class SceneDelegate: MvvmSceneDelegate {
+    override func initialSetup() {
+        UIView.enableUIColorsToLayer()
+    }
+
     override func register(in container: Container) {
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.newmanga.key, factory: NewMangaApi.init)
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.remanga.key, factory: ReMangaApi.init)

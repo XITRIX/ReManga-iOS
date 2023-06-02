@@ -79,10 +79,10 @@ open class TagListView: UIView {
         }
     }
     
-    @IBInspectable open dynamic var borderColor: UIColor? {
+    @IBInspectable open dynamic var tagBorderColor: UIColor? {
         didSet {
             tagViews.forEach {
-                $0.borderColor = borderColor
+                $0.tagBorderColor = tagBorderColor
             }
         }
     }
@@ -134,7 +134,7 @@ open class TagListView: UIView {
             rearrangeViews()
         }
     }
-    @IBInspectable open dynamic var shadowColor: UIColor = .white {
+    @IBInspectable open dynamic var tagShadowColor: UIColor = .white {
         didSet {
             rearrangeViews()
         }
@@ -288,7 +288,7 @@ open class TagListView: UIView {
                 x: currentRowWidth,
                 y: 0)
             tagBackgroundView.frame.size = tagView.bounds.size
-            tagBackgroundView.layer.shadowColor = shadowColor.cgColor
+            tagBackgroundView.layer.shadowColor = tagShadowColor.cgColor
             tagBackgroundView.layer.shadowPath = UIBezierPath(roundedRect: tagBackgroundView.bounds, cornerRadius: cornerRadius).cgPath
             tagBackgroundView.layer.shadowOffset = shadowOffset
             tagBackgroundView.layer.shadowOpacity = shadowOpacity
