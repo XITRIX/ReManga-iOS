@@ -134,7 +134,7 @@ extension ApiMangaCommentModel {
         guard let date = model.date
         else { return nil }
         
-        self.date = Date(timeIntervalSince1970: TimeInterval(date))
+        self.date = Date() - TimeInterval(Double(date) / 1000)
 
         let imageRoot = "https://remanga.org"
         imagePath = imageRoot + (model.user.avatar?.low ?? "")
