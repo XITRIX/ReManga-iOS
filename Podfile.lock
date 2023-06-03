@@ -14,11 +14,13 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
+  - XTBottomSheet (0.1.0)
 
 DEPENDENCIES:
   - Kingfisher (~> 7.0)
   - MarqueeLabel
   - MvvmFoundation (from `submodules/MvvmFoundation`)
+  - XTBottomSheet (from `submodules/XTBottomSheet`)
 
 SPEC REPOS:
   trunk:
@@ -32,6 +34,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   MvvmFoundation:
     :path: submodules/MvvmFoundation
+  XTBottomSheet:
+    :path: submodules/XTBottomSheet
 
 SPEC CHECKSUMS:
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
@@ -41,7 +45,8 @@ SPEC CHECKSUMS:
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  XTBottomSheet: 6611fbef438af4c4243aeddbeaa2c7f21cbd1131
 
-PODFILE CHECKSUM: 794228b2e568fb3a43407eb6696a615c011f9ab7
+PODFILE CHECKSUM: 4a837641784aa78bc886056b264cc800cce01281
 
 COCOAPODS: 1.12.0

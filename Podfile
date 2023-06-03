@@ -7,6 +7,7 @@ target 'ReManga' do
 
   # Pods for ReManga
   pod 'MvvmFoundation', :path => 'submodules/MvvmFoundation'
+  pod 'XTBottomSheet', :path => 'submodules/XTBottomSheet'
   pod 'Kingfisher', '~> 7.0'
   pod 'MarqueeLabel'
 

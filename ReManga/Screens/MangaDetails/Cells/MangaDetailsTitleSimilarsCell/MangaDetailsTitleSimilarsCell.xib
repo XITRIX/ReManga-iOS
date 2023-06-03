@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsTitleSimilarsCell" customModule="ReManga" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="Qay-zV-IUV" id="CX2-wq-xs1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" ambiguous="YES" id="JhH-KN-lCs">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="144"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Qay-zV-IUV">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="180"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="180" id="MOB-uZ-RAm"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="16" minimumInteritemSpacing="16" sectionInsetReference="layoutMargins" id="LZk-E3-CVI">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="joK-dA-SX4"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Qay-zV-IUV" firstAttribute="trailing" secondItem="JhH-KN-lCs" secondAttribute="trailing" id="0PL-5I-bXJ"/>
+                <constraint firstAttribute="bottom" secondItem="Qay-zV-IUV" secondAttribute="bottom" id="Mez-DP-t2D"/>
+                <constraint firstItem="Qay-zV-IUV" firstAttribute="top" secondItem="JhH-KN-lCs" secondAttribute="top" id="Q6z-9f-pmf"/>
+                <constraint firstItem="Qay-zV-IUV" firstAttribute="leading" secondItem="JhH-KN-lCs" secondAttribute="leading" id="rFE-kw-Rvd"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-170.22900763358777" y="254.92957746478874"/>
+        </view>
+    </objects>
+</document>

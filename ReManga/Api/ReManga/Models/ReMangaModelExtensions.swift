@@ -51,6 +51,13 @@ extension ApiMangaModel {
             newChapterType = .paid
         }
     }
+
+    init(from model: ReMangaApiSimilarResultModelContent) {
+        id = model.title.dir
+        title = model.title.enName
+        rusTitle = model.title.rusName
+        img = ReMangaApi.imgPath + model.title.img.mid
+    }
 }
 
 extension ApiMangaBranchModel {
@@ -126,7 +133,7 @@ extension ApiMangaCommentModel {
         if model.rated == 0 {
             isLiked = true
         } else if model.rated == 1 {
-            isLiked = true
+            isLiked = false
         } else if model.rated == nil {
             isLiked = nil
         }

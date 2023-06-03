@@ -128,7 +128,7 @@ private extension ProfileViewModel {
 
         var appearanceItems: [MvvmViewModel] = []
         appearanceItems.append(ProfileColorPickerViewModel())
-        sections.append(.init(id: "Appearance", header: "Appearance", style: .insetGrouped, showsSeparators: false, items: appearanceItems))
+        sections.append(.init(id: "Appearance", header: "Оформление", style: .insetGrouped, showsSeparators: false, items: appearanceItems))
 
         items.accept(sections)
     }

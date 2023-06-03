@@ -61,7 +61,7 @@ class MangaReaderLoadNextCell<VM: MangaReaderLoadNextViewModel>: MvvmCollectionV
     }
 }
 
-extension UICollectionViewCell {
+private extension UICollectionViewCell {
     var collectionView: UICollectionView? {
         var view = superview
         while view != nil {

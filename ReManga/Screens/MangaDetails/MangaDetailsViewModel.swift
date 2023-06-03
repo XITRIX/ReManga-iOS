@@ -34,6 +34,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     let selectorVM = MangaDetailsSelectorViewModel()
     let tagsVM = MangaDetailsTagsViewModel()
     let chaptersMenuVM = MangaDetailsChaptersMenuViewModel()
+    let similarsVM = MangaDetailsTitleSimilarsViewModel()
 
     let detail = BehaviorRelay<String?>(value: nil)
     let items = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
@@ -117,6 +118,9 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
                 if selectorVM.selected.value == 2 {
                     refresh()
                 }
+            }
+            similarsVM.selected.bind { [unowned self] id in
+                navigate(to: MangaDetailsViewModel.self, with: .init(id: id, apiKey: api.key), by: .show)
             }
         }
     }
@@ -212,6 +216,10 @@ private extension MangaDetailsViewModel {
                 descriptionSection.items.append(MangaDetailsHeaderViewModel(with: "Переводчики"))
                 translators.value.forEach { descriptionSection.items.append($0) }
             }
+            if !similarsVM.similars.value.isEmpty {
+                descriptionSection.items.append(MangaDetailsHeaderViewModel(with: "Похожее"))
+                descriptionSection.items.append(similarsVM)
+            }
             sections.append(descriptionSection)
             items.accept(sections)
         case 1:
@@ -263,6 +271,8 @@ private extension MangaDetailsViewModel {
 
             branch = res.branches.first
             try await loadNextChapters()
+
+            similarsVM.similars.accept(try await api.fetchSimilarTitles(id: id))
 
             do {
                 bookmarks.accept(try await api.fetchBookmarkTypes())

@@ -35,7 +35,7 @@ public extension ContainerKey {
 
 class SceneDelegate: MvvmSceneDelegate {
     override func initialSetup() {
-        UIView.enableUIColorsToLayer()
+//        UIView.enableUIColorsToLayer()
     }
 
     override func register(in container: Container) {
@@ -84,6 +84,7 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(MangaReaderPageCell<MangaReaderPageViewModel>.self)
         router.register(MangaReaderLoadNextCell<MangaReaderLoadNextViewModel>.self)
         router.register(MangaDetailsInsetCell<MangaDetailsInsetViewModel>.self)
+        router.register(MangaDetailsTitleSimilarsCell<MangaDetailsTitleSimilarsViewModel>.self)
 
         // Profile cells
         router.register(ProfileAccountCell<ProfileAccountViewModel>.self)

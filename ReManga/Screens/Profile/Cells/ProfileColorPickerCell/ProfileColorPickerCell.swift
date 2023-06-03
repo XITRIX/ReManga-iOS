@@ -13,6 +13,7 @@ class ProfileColorPickerCell<VM: ProfileColorPickerViewModel>: MvvmCollectionVie
     @IBOutlet private var scrollView: UIScrollView!
     private let colors: [UIColor] = [.systemBlue, .systemPurple, .systemPink, .systemRed, .systemOrange, .systemYellow, .systemGreen, .systemCyan]
     private let colorViewSize: Double = 38
+    private lazy var delegates = Delegates(parent: self)
 
     override func initSetup() {
         fillWithColors()
@@ -30,7 +31,15 @@ class ProfileColorPickerCell<VM: ProfileColorPickerViewModel>: MvvmCollectionVie
 
 
     @objc private func changeTintColor(_ sender: UIControl) {
-        Properties.shared.tintColor = sender.backgroundColor!
+        guard sender.backgroundColor == .clear else {
+            Properties.shared.tintColor = sender.backgroundColor!
+            return
+        }
+
+        let vc = UIColorPickerViewController()
+        vc.selectedColor = Properties.shared.tintColor
+        vc.delegate = delegates
+        viewController?.present(vc, animated: true)
     }
 }
 
@@ -39,20 +48,32 @@ private extension ProfileColorPickerCell {
         for color in colors {
             colorsStack.addArrangedSubview(makeColorView(color))
         }
+
+        for view in colorsStack.arrangedSubviews {
+            view.layer.cornerRadius = colorViewSize / 2
+            view.layer.borderWidth = 1
+            view.borderColor = .label
+
+            (view as? UIControl)?.addTarget(self, action: #selector(changeTintColor(_:)), for: .touchUpInside)
+        }
     }
 
     func makeColorView(_ color: UIColor) -> UIView {
         let view = UIControl()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = color
-        view.layer.cornerRadius = colorViewSize / 2
-        view.layer.borderWidth = 1
-        view.borderColor = .label
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: colorViewSize),
             view.heightAnchor.constraint(equalToConstant: colorViewSize)
         ])
-        view.addTarget(self, action: #selector(changeTintColor(_:)), for: .touchUpInside)
         return view
+    }
+}
+
+extension ProfileColorPickerCell {
+    class Delegates: DelegateObject<ProfileColorPickerCell>, UIColorPickerViewControllerDelegate {
+        func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+            Properties.shared.tintColor = color
+        }
     }
 }

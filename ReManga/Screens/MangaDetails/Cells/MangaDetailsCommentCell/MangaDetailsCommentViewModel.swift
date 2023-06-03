@@ -25,7 +25,9 @@ class MangaDetailsCommentViewModel: BaseViewModelWith<ApiMangaCommentModel> {
     let expandedChanged = PublishRelay<Bool>()
     let repliesLoading = BehaviorRelay<Bool>(value: false)
 
-    @Injected var api: ApiProtocol
+    private var isLikeDislikeProcessing = false
+
+    @Injected private var api: ApiProtocol
 
     override func prepare(with model: ApiMangaCommentModel) {
         id = model.id
@@ -84,20 +86,61 @@ class MangaDetailsCommentViewModel: BaseViewModelWith<ApiMangaCommentModel> {
     }
 
     func toggleLike() {
+        guard !isLikeDislikeProcessing else { return }
+        isLikeDislikeProcessing = true
+
         Task {
+            let oldLiked = isLiked.value
             let value = isLiked.value == true ? nil : true
-            let score = try await api.markComment(id: id, value)
+            try await api.markComment(id: id, value, true)
             self.isLiked.accept(value)
-            self.score.accept(score)
+            updateScore(from: oldLiked)
+            isLikeDislikeProcessing = false
         }
     }
 
     func toggleDislike() {
+        guard !isLikeDislikeProcessing else { return }
+        isLikeDislikeProcessing = true
+
         Task {
+            let oldLiked = isLiked.value
             let value = isLiked.value == false ? nil : false
-            let score = try await api.markComment(id: id, value)
+            try await api.markComment(id: id, value, false)
             self.isLiked.accept(value)
-            self.score.accept(score)
+            updateScore(from: oldLiked)
+            isLikeDislikeProcessing = false
+        }
+    }
+}
+
+private extension MangaDetailsCommentViewModel {
+    func updateScore(from oldLiked: Bool?) {
+        let newLiked = isLiked.value
+        let score = self.score.value
+
+        if oldLiked == false && newLiked == nil {
+            return self.score.accept(score + 1)
+        }
+
+        if oldLiked == false && newLiked == true {
+            return self.score.accept(score + 2)
+        }
+
+        if oldLiked == nil && newLiked == true {
+            return self.score.accept(score + 1)
+        }
+
+        if oldLiked == nil && newLiked == false {
+            return self.score.accept(score - 1)
+        }
+
+        if oldLiked == true && newLiked == false {
+            return self.score.accept(score - 2)
+        }
+
+        if oldLiked == true && newLiked == nil {
+            return self.score.accept(score - 1)
         }
     }
 }

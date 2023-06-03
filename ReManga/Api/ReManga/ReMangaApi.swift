@@ -135,6 +135,15 @@ class ReMangaApi: ApiProtocol {
         return res
     }
 
+    func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel] {
+        let url = "https://api.remanga.org/api/titles/\(id)/similar/?count=10"
+        let req = makeRequest(url)
+        let (result, _) = try await urlSession.data(for: req)
+        let model = try JSONDecoder().decode(ReMangaApiSimilarResultModel.self, from: result)
+
+        return model.content.map { ApiMangaModel(from: $0) }
+    }
+
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel] {
         let url = "https://api.remanga.org/api/titles/chapters/?branch_id=\(branch)&ordering=-index&user_data=1&count=\(count)&page=\(page)"
         let (result, _) = try await urlSession.data(for: makeRequest(url))
@@ -228,12 +237,14 @@ class ReMangaApi: ApiProtocol {
         return model.msg == "Ok"
     }
 
-    func markComment(id: String, _ value: Bool?) async throws -> Int {
+    func markComment(id: String, _ value: Bool?, _ isLikeButton: Bool) async throws -> Int {
         let url = "https://api.remanga.org/api/activity/votes/"
+
+        let type: Int = isLikeButton ? 0 : 1
 
         var request = makeRequest(url)
         request.httpMethod = "POST"
-        request.httpBody = "{ \"type\": 0, \"comment\": \(id) }".data(using: .utf8)
+        request.httpBody = "{ \"type\": \(type), \"comment\": \(id) }".data(using: .utf8)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
         _ = try await urlSession.data(for: request)

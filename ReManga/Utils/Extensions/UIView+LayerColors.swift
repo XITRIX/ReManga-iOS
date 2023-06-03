@@ -37,7 +37,7 @@ public extension UIView {
         let aClass: AnyClass = object_getClass(UIView())!
 
         if let orig = class_getInstanceMethod(aClass, #selector(traitCollectionDidChange(_:))),
-           let new = class_getInstanceMethod(aClass, #selector(_traitCollectionDidChange(_:)))
+           let new = class_getInstanceMethod(aClass, #selector(swzl_traitCollectionDidChange(_:)))
         { method_exchangeImplementations(orig, new) }
 
         if let orig = class_getInstanceMethod(aClass, #selector(tintColorDidChange)),
@@ -45,8 +45,8 @@ public extension UIView {
         { method_exchangeImplementations(orig, new) }
     }
 
-    @objc private func _traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        _traitCollectionDidChange(previousTraitCollection)
+    @objc private func swzl_traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        swzl_traitCollectionDidChange(previousTraitCollection)
 
         guard let previousTraitCollection,
               previousTraitCollection.hasDifferentColorAppearance(comparedTo: traitCollection)

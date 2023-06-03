@@ -130,6 +130,10 @@ class NewMangaApi: ApiProtocol {
         return res
     }
 
+    func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel] {
+        []
+    }
+
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel] {
         let url = "https://api.newmanga.org/v3/branches/\(branch)/chapters/all"
         let (result, _) = try await urlSession.data(for: makeRequest(url))
@@ -199,7 +203,7 @@ class NewMangaApi: ApiProtocol {
         return true
     }
 
-    func markComment(id: String, _ value: Bool?) async throws -> Int {
+    func markComment(id: String, _ value: Bool?, _ isLikeButton: Bool) async throws -> Int {
         let url = "https://api.newmanga.org/v2/comments/\(id)/mark"
 
         var request = makeRequest(url)

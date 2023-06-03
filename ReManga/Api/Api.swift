@@ -33,6 +33,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchCatalog(page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel]
     func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel]
     func fetchDetails(id: String) async throws -> ApiMangaModel
+    func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel]
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel]
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel]
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
@@ -43,7 +44,8 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func markChapterRead(id: String) async throws
     func setChapterLike(id: String, _ value: Bool) async throws
     func buyChapter(id: String) async throws -> Bool
-    func markComment(id: String, _ value: Bool?) async throws -> Int
+    @discardableResult
+    func markComment(id: String, _ value: Bool?, _ isLikeButton: Bool) async throws -> Int
     func fetchUserInfo() async throws -> ApiMangaUserModel
     func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel]
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws
