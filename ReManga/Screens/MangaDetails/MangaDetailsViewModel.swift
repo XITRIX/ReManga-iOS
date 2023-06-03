@@ -246,7 +246,8 @@ private extension MangaDetailsViewModel {
                 }
             } else {
                 commentsSection.items.append(MangaDetailsLoadingPlaceholderViewModel())
-                // Several empty items to workaround wierd animation bug
+                
+                /// WORKAROUND: -  Several empty items to workaround wierd animation bug
                 commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
                 commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
             }

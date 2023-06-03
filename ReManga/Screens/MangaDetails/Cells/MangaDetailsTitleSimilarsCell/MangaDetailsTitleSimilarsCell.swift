@@ -15,9 +15,11 @@ class MangaDetailsTitleSimilarsCell<VM: MangaDetailsTitleSimilarsViewModel>: Mvv
         itemIdentifier.viewModel.resolveCell(from: collectionView, at: indexPath)
     }
 
+    override var attachCellToContentView: Bool { false }
+
     override func initSetup() {
-        collectionView.dataSource = dataSource
         collectionView.delegate = delegates
+        collectionView.dataSource = dataSource
     }
 
     override func setup(with viewModel: VM) {
@@ -28,6 +30,31 @@ class MangaDetailsTitleSimilarsCell<VM: MangaDetailsTitleSimilarsViewModel>: Mvv
                 let items = viewModel.similars.value[indexPath.item]
                 viewModel.selected.accept(items.id)
             }
+        }
+    }
+
+    override func layoutMarginsDidChange() {
+        super.layoutMarginsDidChange()
+
+        let insets = layoutMargins - safeAreaInsets
+        collectionView.contentInset.left = insets.left
+        collectionView.contentInset.right = insets.right
+
+        collectionView.horizontalScrollIndicatorInsets.left = insets.left
+        collectionView.horizontalScrollIndicatorInsets.right = insets.right
+
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        /// WORKAROUND: - Collection cells appears with abnormal Y offset for several frames
+        /// As workaround just force cell's frame Y to 0 so they will not appear in incorrect place
+        for view in collectionView.subviews {
+            guard let cell = view as? UICollectionViewCell
+            else { continue }
+
+            cell.frame.origin.y = 0
         }
     }
 }
