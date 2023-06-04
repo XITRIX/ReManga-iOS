@@ -10,4 +10,5 @@ import Foundation
 struct ApiMangaChapterPageModel: Codable, Hashable {
     var size: CGSize
     var path: String
+    var page: Int
 }

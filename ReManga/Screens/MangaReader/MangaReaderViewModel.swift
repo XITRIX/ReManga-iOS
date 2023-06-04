@@ -6,8 +6,8 @@
 //
 
 import MvvmFoundation
-import RxSwift
 import RxRelay
+import RxSwift
 
 struct MangaReaderModel {
     var titleVM: MangaDetailsViewModel
@@ -29,11 +29,12 @@ protocol MangaReaderViewModelProtocol: BaseViewModelProtocol {
     var bookmarks: BehaviorRelay<[ApiMangaBookmarkModel]> { get }
     var currentBookmark: BehaviorRelay<ApiMangaBookmarkModel?> { get }
     var commentsCount: BehaviorRelay<Int> { get }
-    
+
     func gotoPreviousChapter()
     func gotoNextChapter()
     func toggleLike()
     func selectBookmark(_ bookmark: ApiMangaBookmarkModel)
+    func showComments()
 }
 
 class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderViewModelProtocol {
@@ -43,6 +44,8 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
     private var api: ApiProtocol!
     private var currentPreloadingTask: Task<[ApiMangaChapterPageModel], Error>?
 
+    private var currentChapterTasks: [Task<Void, Error>] = []
+
     let isActionsAvailable = BehaviorRelay<Bool>(value: true)
 
     var titleVM: MangaDetailsViewModel!
@@ -51,6 +54,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
     let pages = BehaviorRelay<[MvvmViewModel]>(value: [])
     let mangaNextLoaderVM = MangaReaderLoadNextViewModel()
     let commentsCount = BehaviorRelay<Int>(value: 0)
+    let commentsVM = BehaviorRelay<[MangaDetailsCommentViewModel]>(value: [])
 
     var bookmarks: BehaviorRelay<[ApiMangaBookmarkModel]> {
         titleVM.bookmarks
@@ -61,7 +65,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
     }
 
     var current: Observable<MangaDetailsChapterViewModel?> {
-        Observable.combineLatest(chapters, currentChapter).map { (chapters, currentChapter) in
+        Observable.combineLatest(chapters, currentChapter).map { chapters, currentChapter in
             guard !chapters.isEmpty, currentChapter >= 0
             else { return nil }
 
@@ -78,10 +82,10 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
     }
 
     var chapterName: Observable<String?> {
-        Observable.combineLatest(chapters, currentChapter).map { (chapters, currentChapter) in
+        Observable.combineLatest(chapters, currentChapter).map { chapters, currentChapter in
             guard !chapters.isEmpty, currentChapter >= 0
             else { return "" }
-            
+
             return chapters[currentChapter].chapter.value
         }
     }
@@ -98,8 +102,12 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
             current.bind { [unowned self] current in
                 guard let current else { return pages.accept([]) }
 
+                currentChapterTasks.forEach { $0.cancel() }
+                currentChapterTasks.removeAll()
+
                 loadPages(for: current)
                 loadCommentsCount(for: current)
+                loadComments(for: current)
             }
             mangaNextLoaderVM.nextAvailable <- nextActionAvailable
             mangaNextLoaderVM.loadNext.bind { [unowned self] _ in
@@ -129,6 +137,10 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
         titleVM.selectBookmark(bookmark)
     }
 
+    func showComments() {
+        navigate(to: MangaReaderCommentsViewModel.self, with: commentsVM, by: .present(wrapInNavigation: true))
+    }
+
     func markCurrentChapterReaded() {
         guard !chapters.value.isEmpty, currentChapter.value != -1
         else { return }
@@ -152,7 +164,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
 
         guard current.isAvailable.value
         else { return }
-        
+
         Task {
             let newValue = !current.isLiked.value
             _ = try await api.setChapterLike(id: current.id.value, newValue)
@@ -171,7 +183,24 @@ private extension MangaReaderViewModel {
 
     func loadCommentsCount(for model: MangaDetailsChapterViewModel) {
         commentsCount.accept(0)
-        Task { try await commentsCount.accept(api.fetchChapterCommentsCount(id: model.id.value)) }
+        let task = Task { try await commentsCount.accept(api.fetchChapterCommentsCount(id: model.id.value)) }
+        currentChapterTasks.append(task)
+    }
+
+    func loadComments(for model: MangaDetailsChapterViewModel) {
+        commentsVM.accept([])
+        let task = Task {
+            var i = 1
+            while true {
+                let items = try await api.fetchChapterComments(id: model.id.value, count: 20, page: i)
+                    .map { MangaDetailsCommentViewModel(with: $0) }
+
+                commentsVM.accept(commentsVM.value + items)
+                if items.count != 20 { break }
+                i += 1
+            }
+        }
+        currentChapterTasks.append(task)
     }
 
     func loadPages(for model: MangaDetailsChapterViewModel) {

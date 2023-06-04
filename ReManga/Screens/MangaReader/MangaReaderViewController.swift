@@ -25,6 +25,7 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
     private lazy var delegates = Delegates(parent: self)
 
     private var currentDisposeBag = DisposeBag()
+    private let dismissItem = UIBarButtonItem(systemItem: .close)
 
     lazy var navigationBarHiddenConstraint: NSLayoutConstraint = { navigationBar.bottomAnchor.constraint(equalTo: view.topAnchor) }()
     lazy var toolBarHiddenConstraint: NSLayoutConstraint = { toolBar.topAnchor.constraint(equalTo: view.bottomAnchor) }()
@@ -60,8 +61,8 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
         toolBarHiddenConstraint.isActive = !viewModel.isActionsAvailable.value
 
         viewRespectsSystemMinimumLayoutMargins = false
-        navigationItem.setLeftBarButton(.init(barButtonSystemItem: .close, target: self, action: #selector(closeAction)), animated: false)
         navigationItem.titleView = navHeaderView
+        navigationItem.trailingItemGroups.append(.fixedGroup(items: [dismissItem]))
 
         toolBar.delegate = delegates
         navigationBar.delegate = delegates
@@ -72,6 +73,8 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
         collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleBarsHidden)))
 
         bind(in: disposeBag) {
+            viewModel.dismiss <- dismissItem.rx.tap
+
             viewModel.current.bind { [unowned self] current in
                 currentDisposeBag = DisposeBag()
                 bindToCurrent(current)
@@ -101,6 +104,7 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
             }
 
             commentsButton.rx.title() <- viewModel.commentsCount.map { "Коментарии \($0)" }
+            viewModel.showComments <- commentsButton.rx.tap
         }
     }
 
@@ -127,10 +131,6 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
 
     override var prefersStatusBarHidden: Bool {
         isBarsHidden
-    }
-
-    @objc private func closeAction() {
-        dismiss(animated: true)
     }
 
     @objc func toggleBarsHidden() {

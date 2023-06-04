@@ -48,6 +48,13 @@ extension ApiMangaModel {
             newChapterType = .free
         }
     }
+
+    init(from model: NewMangaApiSimilarModel) {
+        self.id = model.slug
+        title = model.title.en ?? ""
+        rusTitle = model.title.ru
+        img = NewMangaApi.imgPath + model.image.name
+    }
 }
 
 extension ApiMangaCommentModel {
@@ -177,12 +184,15 @@ extension NewMangaChapterPagesResult {
         }
 
         return slices.map { slice in
+            let path: String
+            
             if isStatic ?? true {
-                return ApiMangaChapterPageModel(size: CGSize(width: slice.value.size.width, height: slice.value.size.height), path: "\(rootPath)/\(origin)/\(id)/\(slice.value.path)")
+                path = "\(rootPath)/\(origin)/\(id)/\(slice.value.path)"
             } else {
-                return ApiMangaChapterPageModel(size: CGSize(width: slice.value.size.width, height: slice.value.size.height), path: "\(apiRoot)\(slice.index)/\(slice.value.path)")
+                path = "\(apiRoot)\(slice.index)/\(slice.value.path)"
             }
 
+            return ApiMangaChapterPageModel(size: CGSize(width: slice.value.size.width, height: slice.value.size.height), path: path, page: slice.index)
         }
     }
 }

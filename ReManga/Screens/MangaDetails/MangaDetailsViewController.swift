@@ -94,8 +94,11 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate { _ in } completion: { _ in
-            self.collectionView.reloadData()
+
+        let contentOffset = collectionView.contentOffset
+        coordinator.animate { [self] _ in
+            collectionView.setContentOffset(contentOffset, animated: false)
+            delegates.updateBackgorundImageSize(with: collectionView)
         }
     }
 }
@@ -135,7 +138,7 @@ private extension MangaDetailsViewController {
         scrollAppearance.configureWithTransparentBackground()
         scrollAppearance.buttonAppearance = scrollButtonsAppearance
         scrollAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
+        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal).with(size: .init(width: 30, height: 30)), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
         navigationItem.scrollEdgeAppearance = scrollAppearance
 
         let appearance = UINavigationBarAppearance()
@@ -163,6 +166,15 @@ private extension MangaDetailsViewController {
 private extension MangaDetailsViewController {
     class Delegates: DelegateObject<MangaDetailsViewController>, UICollectionViewDelegate {
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            updateBackgorundImageSize(with: scrollView)
+        }
+
+        func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+            let model = parent.dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
+            return parent.viewModel.shouldSelectModel(model)
+        }
+
+        func updateBackgorundImageSize(with scrollView: UIScrollView) {
             parent.imageViewHeightConstraint.constant = -scrollView.contentOffset.y + parent.contentOffset
 
             let offset = scrollView.contentOffset.y + scrollView.contentInset.top
@@ -173,11 +185,6 @@ private extension MangaDetailsViewController {
             if scrollView.contentOffset.y + scrollView.bounds.height > scrollView.contentSize.height - 400 {
                 parent.viewModel.bottomReached()
             }
-        }
-
-        func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-            let model = parent.dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
-            return parent.viewModel.shouldSelectModel(model)
         }
     }
 }

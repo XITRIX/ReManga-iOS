@@ -58,6 +58,7 @@ class SceneDelegate: MvvmSceneDelegate {
         router.register(MangaDetailsViewController<MangaDetailsViewModel>.self)
         router.register(MangaReaderViewController<MangaReaderViewModel>.self)
         router.register(MangaReaderViewController<OfflineMangaReaderViewModel>.self)
+        router.register(MangaReaderCommentsViewController<MangaReaderCommentsViewModel>.self)
         router.register(ProfileViewController<ProfileViewModel>.self)
         router.register(ProfileDetailsViewController<ProfileDetailsViewModel>.self)
         router.register(DownloadsViewController<DownloadsViewModel>.self)

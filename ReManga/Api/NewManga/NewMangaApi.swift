@@ -131,7 +131,11 @@ class NewMangaApi: ApiProtocol {
     }
 
     func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel] {
-        []
+        let url = "https://api.newmanga.org/v2/projects/\(id)/similar"
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let model = try JSONDecoder().decode(NewMangaApiSimilarResultModel.self, from: result)
+
+        return await MainActor.run { model.map { .init(from: $0) } }
     }
 
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel] {
@@ -163,11 +167,15 @@ class NewMangaApi: ApiProtocol {
     }
 
     func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
-        []
+        let url = "https://api.newmanga.org/v2/chapters/\(id)/comments?sort_by=new"
+        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let model = try JSONDecoder().decode(NewMangaTitleCommentsResult.self, from: result)
+
+        return await MainActor.run { model.compactMap { .init(from: $0) } }
     }
 
     func fetchChapterCommentsCount(id: String) async throws -> Int {
-        0
+        try await fetchChapterComments(id: id, count: -1, page: -1).count
     }
 
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {

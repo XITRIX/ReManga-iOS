@@ -29,7 +29,7 @@ class OfflineMangaReaderViewModel: BaseViewModelWith<OfflineMangaReaderModel>, M
     let mangaNextLoaderVM = MangaReaderLoadNextViewModel()
 
     var current: Observable<MangaDetailsChapterViewModel?> {
-        Observable.combineLatest(chapters, currentChapter).map { (chapters, currentChapter) in
+        Observable.combineLatest(chapters, currentChapter).map { chapters, currentChapter in
             guard !chapters.isEmpty, currentChapter >= 0
             else { return nil }
 
@@ -46,7 +46,7 @@ class OfflineMangaReaderViewModel: BaseViewModelWith<OfflineMangaReaderModel>, M
     }
 
     var chapterName: Observable<String?> {
-        Observable.combineLatest(chapters, currentChapter).map { (chapters, currentChapter) in
+        Observable.combineLatest(chapters, currentChapter).map { chapters, currentChapter in
             guard !chapters.isEmpty, currentChapter >= 0
             else { return "" }
 
@@ -64,7 +64,7 @@ class OfflineMangaReaderViewModel: BaseViewModelWith<OfflineMangaReaderModel>, M
         bind(in: disposeBag) {
             currentChapter.bind { [unowned self] current in
                 pages.accept([])
-                
+
                 var items: [MvvmViewModel] = rawChapters[current].pages.value.map { MangaReaderPageViewModel(with: .init(pageModel: $0)) }
                 items.append(mangaNextLoaderVM)
                 pages.accept(items)
@@ -93,15 +93,13 @@ class OfflineMangaReaderViewModel: BaseViewModelWith<OfflineMangaReaderModel>, M
         currentChapter.accept(currentChapter.value - 1)
     }
 
-    func toggleLike() { }
-    func selectBookmark(_ bookmark: ApiMangaBookmarkModel) { }
-
+    func showComments() {}
+    func toggleLike() {}
+    func selectBookmark(_ bookmark: ApiMangaBookmarkModel) {}
 
     private var isNextChapterAvailable: Bool {
         !chapters.value.isEmpty && currentChapter.value > 0
     }
 
-    private func reload() {
-
-    }
+    private func reload() {}
 }

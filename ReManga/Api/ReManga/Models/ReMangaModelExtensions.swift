@@ -116,6 +116,7 @@ extension ApiMangaChapterModel {
 extension ApiMangaChapterPageModel {
     init(from model: ReMangaChapterPagesResultPage) {
         size = CGSize(width: model.width, height: model.height)
+        page = model.page
         path = model.link
     }
 }
