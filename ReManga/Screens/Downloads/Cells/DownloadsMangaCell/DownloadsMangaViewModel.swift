@@ -7,11 +7,16 @@
 
 import MvvmFoundation
 import RxRelay
+import RxSwift
 
 protocol ListViewMangaViewModelProtocol: MvvmViewModelProtocol {
     var subtitle: BehaviorRelay<String?> { get }
     var image: BehaviorRelay<String?> { get }
     var backendImage: BehaviorRelay<Image?> { get }
+    var hasContinueButton: BehaviorRelay<Bool> { get }
+    var continueButtonLoading: BehaviorRelay<Bool> { get }
+
+    func continueReading()
 }
 
 class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel>, ListViewMangaViewModelProtocol {
@@ -19,7 +24,9 @@ class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel>, ListViewMa
     let image = BehaviorRelay<String?>(value: nil)
     let backendImage = BehaviorRelay<Image?>(value: nil)
     let subtitle = BehaviorRelay<String?>(value: nil)
-    var date = BehaviorRelay<Date?>(value: nil)
+    let date = BehaviorRelay<Date?>(value: nil)
+    let hasContinueButton = BehaviorRelay<Bool>(value: false)
+    let continueButtonLoading = BehaviorRelay<Bool>(value: false)
 
     override func prepare(with model: MangaDownloadModel) {
         id = model.id
@@ -31,6 +38,8 @@ class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel>, ListViewMa
             subtitle <- model.chapters.map { "Глав скачано: \($0.count)" }
         }
     }
+
+    func continueReading() {}
 
     override func hash(into hasher: inout Hasher) {
         hasher.combine(id)

@@ -16,18 +16,4 @@ extension UIView {
             alpha = newValue ? 0 : 1
         }
     }
-
-    var viewController: UIViewController? {
-        var nextResponder = next
-
-        while nextResponder != nil {
-            if let nextResponder = nextResponder as? UIViewController {
-                return nextResponder
-            }
-
-            nextResponder = nextResponder?.next
-        }
-
-        return nil
-    }
 }

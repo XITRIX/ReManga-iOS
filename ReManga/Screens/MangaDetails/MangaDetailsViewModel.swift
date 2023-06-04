@@ -166,8 +166,13 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
         return chapter.loadingProgress.value == nil && chapter.unlockedValue != false
     }
 
-    func continueReading() {
-        guard isChaptersFetchingDone else { return }
+    func continueReading(_ isChaptersFetchingDone: Bool?) {
+        var isChaptersFetchingDone = isChaptersFetchingDone
+        if isChaptersFetchingDone == nil {
+            isChaptersFetchingDone = self.isChaptersFetchingDone
+        }
+
+        guard isChaptersFetchingDone == true else { return }
 
         if let historyItem = historyManager.history.first(where: { $0.id == dir && $0.apiKey == api.key }) {
             let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: chapters.value.firstIndex(where: { $0.id.value == historyItem.chapterId }) ?? 0, api: api)
@@ -186,6 +191,8 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
         let model = MangaReaderModel(titleVM: self, chapters: chapters.value, current: 0, api: api)
         navigate(to: MangaReaderViewModel.self, with: model, by: .present(wrapInNavigation: false))
     }
+
+    func continueReading() { continueReading(nil) }
 }
 
 private extension MangaDetailsViewModel {
@@ -329,7 +336,6 @@ private extension MangaDetailsViewModel {
         if let branch {
             let count = 30
             let chaptersRes = try await api.fetchTitleChapters(branch: branch.id, count: count, page: chaptersPage)
-            isChaptersFetchingDone = chaptersRes.count != count
             chaptersPage += 1
 
             chapters.accept(chapters.value + chaptersRes.map { chapter in
@@ -338,6 +344,8 @@ private extension MangaDetailsViewModel {
                 downloadManager.bindChapterToDownloadManager(chapter: res, of: self, from: api)
                 return res
             })
+            
+            isChaptersFetchingDone = chaptersRes.count != count
         }
     }
 

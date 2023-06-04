@@ -55,6 +55,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
     let mangaNextLoaderVM = MangaReaderLoadNextViewModel()
     let commentsCount = BehaviorRelay<Int>(value: 0)
     let commentsVM = BehaviorRelay<[MangaDetailsCommentViewModel]>(value: [])
+    var chapterUnavailable = true
 
     var bookmarks: BehaviorRelay<[ApiMangaBookmarkModel]> {
         titleVM.bookmarks
@@ -138,6 +139,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
     }
 
     func showComments() {
+        guard !chapterUnavailable else { return }
         navigate(to: MangaReaderCommentsViewModel.self, with: commentsVM, by: .present(wrapInNavigation: true))
     }
 
@@ -205,9 +207,10 @@ private extension MangaReaderViewModel {
 
     func loadPages(for model: MangaDetailsChapterViewModel) {
         state.accept(.loading)
-        performTask { [self] in
+        let task = Task { [self] in
             pages.accept([])
 
+            chapterUnavailable = true
             guard model.isAvailable.value else {
                 state.accept(.error(ApiMangaError.needPayment(model, api)) { [unowned self] in
                     currentChapter.accept(currentChapter.value)
@@ -215,6 +218,7 @@ private extension MangaReaderViewModel {
                 return
             }
 
+            chapterUnavailable = false
             var items: [MvvmViewModel] = try await api.fetchChapter(id: model.id.value).map { MangaReaderPageViewModel(with: .init(pageModel: $0, api: api)) }
             items.append(mangaNextLoaderVM)
             pages.accept(items)
@@ -225,5 +229,8 @@ private extension MangaReaderViewModel {
             currentPreloadingTask?.cancel()
             currentPreloadingTask = Task { try await downloadManager.downloadChapter(api: api, manga: titleVM, chapter: model, saveFiles: false) }
         }
+        currentChapterTasks.append(task)
+
+        performTask { _ = await task.result }
     }
 }

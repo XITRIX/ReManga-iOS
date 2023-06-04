@@ -15,13 +15,15 @@ class ListViewMangaCell<VM: ListViewMangaViewModelProtocol>: MvvmCollectionViewL
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var backendLogo: UIImageView!
     @IBOutlet private var backendLogoHolder: UIVisualEffectView!
+    @IBOutlet private var continueReadingButton: UIButton!
+    @IBOutlet private var continueReadingButtonLoader: UIActivityIndicatorView!
+    @IBOutlet private var continueReadingButtonHolder: UIView!
 
     private var trailingSeparatorConstraint: NSLayoutConstraint!
 
     override func initSetup() {
         imageView.layer.cornerRadius = 8
         imageView.layer.cornerCurve = .continuous
-        accessories = [.disclosureIndicator()]
 
         backendLogoHolder.layer.cornerRadius = 4
         backendLogoHolder.layer.cornerCurve = .continuous
@@ -30,6 +32,7 @@ class ListViewMangaCell<VM: ListViewMangaViewModelProtocol>: MvvmCollectionViewL
         trailingSeparatorConstraint = separatorLayoutGuide.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
     }
 
+    @MainActor
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
             titleLabel.rx.text <- viewModel.title
@@ -37,6 +40,16 @@ class ListViewMangaCell<VM: ListViewMangaViewModelProtocol>: MvvmCollectionViewL
             imageView.rx.imageUrl() <- viewModel.image
             backendLogo.rx.setImage() <- viewModel.backendImage
             backendLogoHolder.rx.isHidden <- viewModel.backendImage.map { $0 == nil }
+            viewModel.continueReading <- continueReadingButton.rx.tap
+
+            viewModel.hasContinueButton.bind { [unowned self] hasContinueButton in
+                continueReadingButtonHolder.isHidden = !hasContinueButton
+                accessories = hasContinueButton ? [] : [.disclosureIndicator()]
+            }
+            viewModel.continueButtonLoading.bind { [unowned self] loading in
+                continueReadingButtonLoader.setAnimation(loading)
+                continueReadingButton.setImage(loading ? UIImage() : .init(systemName: "play.fill"), for: .normal)
+            }
         }
     }
 
