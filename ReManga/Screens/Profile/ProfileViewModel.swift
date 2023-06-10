@@ -54,17 +54,7 @@ private extension ProfileViewModel {
 
         let backendVM = ProfileActiveBackendViewModel()
         backendVM.detailsTitle.accept(Properties.shared.backendKey.title)
-
-        backendVM.selectAction = { [unowned self] in
-            if Properties.shared.backendKey == .newmanga {
-                Properties.shared.backendKey = .remanga
-            } else {
-                Properties.shared.backendKey = .newmanga
-            }
-            backendVM.detailsTitle.accept(Properties.shared.backendKey.title)
-            deselectItems.accept()
-        }
-        
+    
         sections.append(.init(id: "Backend", header: "", style: .insetGrouped, showsSeparators: true, items: [backendVM]))
 
         var remangaItems: [MvvmViewModel] = []

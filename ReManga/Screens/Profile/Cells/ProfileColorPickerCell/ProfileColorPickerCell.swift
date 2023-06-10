@@ -7,7 +7,6 @@
 
 import UIKit
 import MvvmFoundation
-import UIGradient
 
 class ProfileColorPickerCell<VM: ProfileColorPickerViewModel>: MvvmCollectionViewListCell<VM> {
     @IBOutlet private var colorsStack: UIStackView!
@@ -35,10 +34,6 @@ class ProfileColorPickerCell<VM: ProfileColorPickerViewModel>: MvvmCollectionVie
         vc.selectedColor = Properties.shared.tintColor
         vc.delegate = delegates
         viewController?.present(vc, animated: true)
-    }
-    
-    @IBAction func gradientPicker(_ sender: UIControl) {
-        Properties.shared.tintColor = .fromGradient(.berrySmoothie, frame: .init(x: 0, y: 0, width: 44, height: 44)) ?? .systemPink
     }
 
     @objc private func changeTintColor(_ sender: UIControl) {

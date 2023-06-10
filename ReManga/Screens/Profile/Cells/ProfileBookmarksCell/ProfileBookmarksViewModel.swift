@@ -7,6 +7,4 @@
 
 import MvvmFoundation
 
-class ProfileBookmarksViewModel: MvvmViewModel {
-    
-}
+class ProfileBookmarksViewModel: MvvmViewModel {}
