@@ -8,6 +8,7 @@
 import MvvmFoundation
 import RxRelay
 import RxSwift
+import RxBiBinding
 
 struct BookmarksModel {
     var apiKey: ContainerKey.Backend
@@ -18,6 +19,7 @@ class BookmarksViewModel: BaseViewModelWith<BookmarksModel> {
     private let allBookmarksTypes = BehaviorRelay<[ApiMangaBookmarkModel]>(value: [])
     private var api: ApiProtocol!
 
+    public var filterViewModel = BookmarksFilterHeaderViewModel()
     public let selectedBookmarkType = BehaviorRelay<ApiMangaBookmarkModel?>(value: nil)
 
     public var bookmarkTypes: Observable<[ApiMangaBookmarkModel]> {
@@ -46,6 +48,13 @@ class BookmarksViewModel: BaseViewModelWith<BookmarksModel> {
 
     override func willAppear() {
         Task { try await reload() }
+    }
+
+    override func binding() {
+        bind(in: disposeBag) {
+            filterViewModel.filtersList <- bookmarkTypes
+            filterViewModel.selectedFilter <-> selectedBookmarkType
+        }
     }
 
     func showDetails(for model: MangaCellViewModel) {

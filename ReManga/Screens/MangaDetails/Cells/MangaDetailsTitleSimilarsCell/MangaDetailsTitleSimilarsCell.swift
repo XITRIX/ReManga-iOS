@@ -20,6 +20,9 @@ class MangaDetailsTitleSimilarsCell<VM: MangaDetailsTitleSimilarsViewModel>: Mvv
     override func initSetup() {
         collectionView.delegate = delegates
         collectionView.dataSource = dataSource
+        
+        backgroundConfiguration = defaultBackgroundConfiguration()
+        backgroundConfiguration?.backgroundColor = .clear
     }
 
     override func setup(with viewModel: VM) {

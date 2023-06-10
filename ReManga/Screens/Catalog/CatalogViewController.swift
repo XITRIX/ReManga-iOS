@@ -41,6 +41,7 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
             collectionView.rx.itemSelected.bind { [unowned self] indexPath in
                 let item = dataSource.snapshot().itemIdentifiers(inSection: indexPath.section)[indexPath.item]
                 viewModel.showDetails(for: item.viewModel)
+                searchController.searchBar.endEditing(true)
             }
             viewModel.isSearchAvailable.bind { [unowned self] available in
                 navigationItem.searchController = available ? searchController : nil

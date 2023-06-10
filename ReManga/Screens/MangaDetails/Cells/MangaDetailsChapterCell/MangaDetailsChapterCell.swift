@@ -25,6 +25,11 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
         accessories = [.disclosureIndicator(displayed: .whenNotEditing), .multiselect(displayed: .whenEditing)]
         separatorLayoutGuide.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
         trailingSeparatorConstraint = separatorLayoutGuide.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+
+        backgroundConfiguration = defaultBackgroundConfiguration()
+        backgroundConfiguration?.backgroundColorTransformer = .init { [unowned self] color in
+            return configurationState.isSelected || configurationState.isHighlighted ? .separator : .clear
+        }
     }
 
     override func setup(with viewModel: VM) {

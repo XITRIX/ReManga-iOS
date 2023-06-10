@@ -53,8 +53,8 @@ class NewMangaApi: ApiProtocol {
         Task { await refreshUserInfo() }
     }
 
-    func makeRequest(_ url: String) -> URLRequest {
-        var request = URLRequest(url: URL(string: url)!)
+    func authRequestModifier(_ request: URLRequest) -> URLRequest {
+        var request = request
         if let authToken = authToken.value {
             request.addValue("user_session=\(authToken)", forHTTPHeaderField: "cookie")
         }
@@ -191,6 +191,9 @@ class NewMangaApi: ApiProtocol {
     }
 
     func setChapterLike(id: String, _ value: Bool) async throws {
+        guard authToken.value != nil
+        else { throw ApiMangaError.unauthorized }
+
         let url = "https://api.newmanga.org/v2/chapters/\(id)/heart"
 
         var request = makeRequest(url)
@@ -212,6 +215,9 @@ class NewMangaApi: ApiProtocol {
     }
 
     func markComment(id: String, _ value: Bool?, _ isLikeButton: Bool) async throws -> Int {
+        guard authToken.value != nil
+        else { throw ApiMangaError.unauthorized }
+        
         let url = "https://api.newmanga.org/v2/comments/\(id)/mark"
 
         var request = makeRequest(url)
@@ -273,10 +279,5 @@ class NewMangaApi: ApiProtocol {
         let model = try JSONDecoder().decode(NewMangaBookmarksResult.self, from: result)
 
         return model.map { .init(from: $0) }
-    }
-
-    func deauth() async throws {
-        authToken.accept(nil)
-        profile.accept(nil)
     }
 }

@@ -6,25 +6,33 @@
 //
 
 import MvvmFoundation
-import UIKit
 import RxSwift
+import UIKit
 
 class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
 
+    private var flowLayout: UICollectionViewFlowLayout { collectionView.collectionViewLayout as! UICollectionViewFlowLayout }
     private let filterButton = UIBarButtonItem(title: nil, image: nil, target: nil, action: nil)
     private var collectionViewFlowLayout: UICollectionViewFlowLayout { collectionView.collectionViewLayout as! UICollectionViewFlowLayout }
 
     private lazy var delegates = Delegates(parent: self)
-    private lazy var dataSource = UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MangaCellViewModel>>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+    private lazy var dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
         itemIdentifier.viewModel.resolveCell(from: collectionView, at: indexPath)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        collectionView.register(BookmarksFilterHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: BookmarksFilterHeaderCell.reusableId)
+
+        flowLayout.headerReferenceSize = .init(width: 400, height: 44)
+        flowLayout.sectionHeadersPinToVisibleBounds = true
+        dataSource.supplementaryViewProvider = supplementaryViewProvider
+        collectionView.verticalScrollIndicatorInsets.top = 44
         collectionView.dataSource = dataSource
         collectionView.delegate = delegates
+        collectionView.layoutMargins = .zero
 
         navigationItem.trailingItemGroups = [.fixedGroup(items: [filterButton])]
 
@@ -56,10 +64,15 @@ class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
 
 private extension BookmarksViewController {
     func applyModels(_ models: [MangaCellViewModel]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, MvvmCellViewModelWrapper<MangaCellViewModel>>()
+        var snapshot = DataSource.Snapshot()
         snapshot.appendSections([0])
         snapshot.appendItems(models.map { .init(viewModel: $0) })
         dataSource.apply(snapshot)
+    }
+
+    func supplementaryViewProvider(_ collectionView: UICollectionView, _ elementKind: String, _ indexPath: IndexPath) -> UICollectionReusableView? {
+        let cell = viewModel.filterViewModel.resolveCell(from: collectionView, at: indexPath, with: UICollectionView.elementKindSectionHeader)
+        return cell
     }
 }
 
@@ -85,5 +98,21 @@ private extension BookmarksViewController {
 
             parent.filterButton.menu = .init(children: actions)
         }
+
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            parent.viewModel.filterViewModel.blurAlpha.accept(getNavBarAlpha() ?? 1)
+        }
+
+        func getNavBarAlpha() -> CGFloat? {
+            // Try to get navbar backlayer
+            guard let navBar = parent.navigationController?.navigationBar.subviews.first?.subviews.first
+            else { return nil }
+
+            return navBar.alpha
+        }
     }
+}
+
+private extension BookmarksViewController {
+    class DataSource: UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MangaCellViewModel>> {}
 }

@@ -202,7 +202,7 @@ private extension MangaDetailsViewModel {
 
     func selectSegment(_ segment: Int) {
         let insetSection: MvvmCollectionSectionModel = .init(id: Id.inset.rawValue, style: .plain, showsSeparators: false, backgroundColor: .clear, items: [insetVM])
-        var headerSection: MvvmCollectionSectionModel = .init(id: Id.header.rawValue, style: .plain, showsSeparators: false, backgroundColor: .systemBackground, items: [statusVM])
+        var headerSection: MvvmCollectionSectionModel = .init(id: Id.header.rawValue, style: .plain, showsSeparators: false, backgroundColor: .clear, items: [statusVM])
 
         if !downloadingTableState.value {
             headerSection.items.append(selectorVM)

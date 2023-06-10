@@ -21,6 +21,8 @@ protocol ApiAuthProtocol: AnyObject {
 }
 
 protocol ApiProtocol: AnyObject, ApiAuthProtocol {
+    var urlSession: URLSession { get }
+
     var authToken: BehaviorRelay<String?> { get set }
     var kfAuthModifier: AnyModifier { get }
 
@@ -50,10 +52,17 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel]
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws
     func fetchBookmarks() async throws -> [ApiMangaModel]
-    func deauth() async throws
+    func deauth()
+
+    func authRequestModifier(_ request: URLRequest) -> URLRequest
 }
 
 extension ApiProtocol {
+    func makeRequest(_ url: String) -> URLRequest {
+        let request = URLRequest(url: URL(string: url)!)
+        return authRequestModifier(request)
+    }
+
     func fetchTitleChapters(branch: String, count: Int = 30, page: Int = 1) async throws -> [ApiMangaChapterModel] {
         try await fetchTitleChapters(branch: branch, count: count, page: page)
     }
@@ -61,9 +70,12 @@ extension ApiProtocol {
     func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
         try await fetchCatalog(page: page, filters: filters)
     }
-}
 
-extension ApiProtocol {
+    func deauth() {
+        authToken.accept(nil)
+        profile.accept(nil)
+    }
+
     func refreshUserInfo() async {
         guard !authToken.value.isNilOrEmpty
         else { return }
@@ -74,4 +86,27 @@ extension ApiProtocol {
             profile.accept(nil)
         }
     }
+}
+
+extension ApiProtocol {
+    func performRequest<T: Codable>(_ request: URLRequest) async throws -> T {
+        let (result, response) = try await urlSession.data(for: request)
+
+        if (response as? HTTPURLResponse)?.statusCode == 401 {
+            deauth()
+            throw ApiMangaError.unauthorized
+        }
+
+        return try JSONDecoder().decode(T.self, from: result)
+    }
+
+    func performRequest(_ request: URLRequest) async throws {
+        let (_, response) = try await urlSession.data(for: request)
+
+        if (response as? HTTPURLResponse)?.statusCode == 401 {
+            deauth()
+            throw ApiMangaError.unauthorized
+        }
+    }
+
 }

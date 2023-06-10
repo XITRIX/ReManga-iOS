@@ -10,5 +10,6 @@ target 'ReManga' do
   pod 'XTBottomSheet', :path => 'submodules/XTBottomSheet'
   pod 'Kingfisher', '~> 7.0'
   pod 'MarqueeLabel'
+  pod 'UIImageColors'
 
 end

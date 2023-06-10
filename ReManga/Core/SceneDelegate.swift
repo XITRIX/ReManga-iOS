@@ -97,6 +97,9 @@ class SceneDelegate: MvvmSceneDelegate {
         // Profile details cells
         router.register(ProfileDetailsButtonCell<ProfileDetailsButtonViewModel>.self)
 
+        // Bookmarks cells
+        router.register(BookmarksFilterHeaderCell<BookmarksFilterHeaderViewModel>.self)
+
         // Downloads cells
         router.register(ListViewMangaCell<DownloadsMangaViewModel>.self)
         router.register(DownloadDetailsChapterCell<DownloadDetailsChapterViewModel>.self)

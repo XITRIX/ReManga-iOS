@@ -22,7 +22,7 @@ class MangaDetailsTagsCell<VM: MangaDetailsTagsViewModel>: MvvmCollectionViewCel
         tagListView.paddingX = 16
         tagListView.paddingY = 8
         tagListView.textColor = .label
-        tagListView.tagBackgroundColor = .secondarySystemBackground
+        tagListView.tagBackgroundColor = .semitransparent
 
         tagListView.delegate = delegates
         tagListView.textFont = .systemFont(ofSize: 15)

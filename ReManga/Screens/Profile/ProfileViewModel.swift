@@ -35,6 +35,11 @@ class ProfileViewModel: BaseViewModel {
         }
     }
 
+    override func willAppear() {
+        Task { await remangaApi.refreshUserInfo() }
+        Task { await newmangaApi.refreshUserInfo() }
+    }
+
     func modelSelected(_ model: MvvmViewModel) {
         guard let selectable = model as? MvvmSelectableProtocol
         else { return }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22113.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksFilterHeaderCell" customModule="ReManga" customModuleProvider="target">
+            <connections>
+                <outlet property="blurView" destination="7HF-cE-yqs" id="tgk-nj-5i4"/>
+                <outlet property="scrollView" destination="Oq8-Wg-HeC" id="AIZ-bR-kxZ"/>
+                <outlet property="segmentView" destination="0rH-Gg-WtQ" id="Fzu-1a-Hhl"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="3IB-Hu-6Yx">
+            <rect key="frame" x="0.0" y="0.0" width="370" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7HF-cE-yqs">
+                    <rect key="frame" x="0.0" y="0.0" width="370" height="44"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" id="iCR-CS-rWL">
+                        <rect key="frame" x="0.0" y="0.0" width="370" height="44"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cB4-aV-Bf0">
+                                <rect key="frame" x="0.0" y="43.666666666666664" width="370" height="0.3333333333333357"/>
+                                <color key="backgroundColor" systemColor="separatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.29999999999999999" id="Zbz-WO-iTn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="cB4-aV-Bf0" secondAttribute="bottom" id="KtR-v4-LpC"/>
+                            <constraint firstItem="cB4-aV-Bf0" firstAttribute="leading" secondItem="iCR-CS-rWL" secondAttribute="leading" id="cGv-1n-nrm"/>
+                            <constraint firstAttribute="trailing" secondItem="cB4-aV-Bf0" secondAttribute="trailing" id="puZ-ZQ-EGO"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="systemChromeMaterial"/>
+                </visualEffectView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oq8-Wg-HeC">
+                    <rect key="frame" x="0.0" y="0.0" width="370" height="44"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4J5-gh-Ppb">
+                            <rect key="frame" x="0.0" y="0.0" width="131" height="44"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0rH-Gg-WtQ" customClass="BookmarksFilterSegmentedControl" customModule="ReManga" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="6.6666666666666679" width="131" height="32"/>
+                                    <segments>
+                                        <segment title="First"/>
+                                        <segment title="Second"/>
+                                    </segments>
+                                </segmentedControl>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="0rH-Gg-WtQ" firstAttribute="centerY" secondItem="4J5-gh-Ppb" secondAttribute="centerY" id="13n-ju-yr4"/>
+                                <constraint firstItem="0rH-Gg-WtQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4J5-gh-Ppb" secondAttribute="top" id="Cth-qw-7Bm"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0rH-Gg-WtQ" secondAttribute="bottom" id="VWz-dE-ech"/>
+                                <constraint firstItem="0rH-Gg-WtQ" firstAttribute="leading" secondItem="4J5-gh-Ppb" secondAttribute="leading" id="jsI-dv-xn6"/>
+                                <constraint firstAttribute="trailing" secondItem="0rH-Gg-WtQ" secondAttribute="trailing" id="rVZ-cN-Nnw"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="4J5-gh-Ppb" firstAttribute="leading" secondItem="Oq8-Wg-HeC" secondAttribute="leading" id="03a-RC-SHg"/>
+                        <constraint firstItem="4J5-gh-Ppb" firstAttribute="top" secondItem="Oq8-Wg-HeC" secondAttribute="top" id="7BA-zl-lTL"/>
+                        <constraint firstAttribute="trailing" secondItem="4J5-gh-Ppb" secondAttribute="trailing" id="A7W-ki-kaS"/>
+                        <constraint firstItem="4J5-gh-Ppb" firstAttribute="height" secondItem="Oq8-Wg-HeC" secondAttribute="height" id="BlD-yT-cl8"/>
+                        <constraint firstAttribute="bottom" secondItem="4J5-gh-Ppb" secondAttribute="bottom" id="M5q-dB-Btq"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="ORk-G6-xPG"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Oq8-Wg-HeC" firstAttribute="trailing" secondItem="3IB-Hu-6Yx" secondAttribute="trailing" id="2lH-cu-sko"/>
+                <constraint firstItem="Oq8-Wg-HeC" firstAttribute="top" secondItem="3IB-Hu-6Yx" secondAttribute="top" id="FS8-9I-rsi"/>
+                <constraint firstItem="Oq8-Wg-HeC" firstAttribute="leading" secondItem="3IB-Hu-6Yx" secondAttribute="leading" id="FpV-ko-sKS"/>
+                <constraint firstItem="7HF-cE-yqs" firstAttribute="leading" secondItem="3IB-Hu-6Yx" secondAttribute="leading" id="Idn-c2-T9H"/>
+                <constraint firstAttribute="bottom" secondItem="7HF-cE-yqs" secondAttribute="bottom" id="Zwv-9G-34a"/>
+                <constraint firstItem="7HF-cE-yqs" firstAttribute="top" secondItem="3IB-Hu-6Yx" secondAttribute="top" id="kv8-zs-vHj"/>
+                <constraint firstAttribute="trailing" secondItem="7HF-cE-yqs" secondAttribute="trailing" id="o09-jN-p18"/>
+                <constraint firstAttribute="bottom" secondItem="Oq8-Wg-HeC" secondAttribute="bottom" id="rXL-YT-lMa"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="258.01526717557249" y="28.52112676056338"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="separatorColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

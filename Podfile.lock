@@ -14,12 +14,14 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
+  - UIImageColors (2.1.0)
   - XTBottomSheet (0.1.0)
 
 DEPENDENCIES:
   - Kingfisher (~> 7.0)
   - MarqueeLabel
   - MvvmFoundation (from `submodules/MvvmFoundation`)
+  - UIImageColors
   - XTBottomSheet (from `submodules/XTBottomSheet`)
 
 SPEC REPOS:
@@ -30,6 +32,7 @@ SPEC REPOS:
     - RxCocoa
     - RxRelay
     - RxSwift
+    - UIImageColors
 
 EXTERNAL SOURCES:
   MvvmFoundation:
@@ -45,8 +48,9 @@ SPEC CHECKSUMS:
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
   XTBottomSheet: 6611fbef438af4c4243aeddbeaa2c7f21cbd1131
 
-PODFILE CHECKSUM: 4a837641784aa78bc886056b264cc800cce01281
+PODFILE CHECKSUM: 5606319ea3668f7306d220c4dea262ec0c31be0b
 
 COCOAPODS: 1.12.0

@@ -7,6 +7,7 @@
 
 import UIKit
 import MvvmFoundation
+import UIGradient
 
 class ProfileColorPickerCell<VM: ProfileColorPickerViewModel>: MvvmCollectionViewListCell<VM> {
     @IBOutlet private var colorsStack: UIStackView!
@@ -29,43 +30,48 @@ class ProfileColorPickerCell<VM: ProfileColorPickerViewModel>: MvvmCollectionVie
         scrollView.contentInset.right = layoutMargins.right
     }
 
-
-    @objc private func changeTintColor(_ sender: UIControl) {
-        guard sender.backgroundColor == .clear else {
-            Properties.shared.tintColor = sender.backgroundColor!
-            return
-        }
-
+    @IBAction func colorPicker(_ sender: UIControl) {
         let vc = UIColorPickerViewController()
         vc.selectedColor = Properties.shared.tintColor
         vc.delegate = delegates
         viewController?.present(vc, animated: true)
+    }
+    
+    @IBAction func gradientPicker(_ sender: UIControl) {
+        Properties.shared.tintColor = .fromGradient(.berrySmoothie, frame: .init(x: 0, y: 0, width: 44, height: 44)) ?? .systemPink
+    }
+
+    @objc private func changeTintColor(_ sender: UIControl) {
+        Properties.shared.tintColor = sender.backgroundColor!
     }
 }
 
 private extension ProfileColorPickerCell {
     func fillWithColors() {
         for color in colors {
-            colorsStack.addArrangedSubview(makeColorView(color))
+            let view = makeColorView(color)
+            view.addTarget(self, action: #selector(changeTintColor(_:)), for: .touchUpInside)
+            colorsStack.addArrangedSubview(view)
         }
 
         for view in colorsStack.arrangedSubviews {
             view.layer.cornerRadius = colorViewSize / 2
             view.layer.borderWidth = 1
             view.borderColor = .label
-
-            (view as? UIControl)?.addTarget(self, action: #selector(changeTintColor(_:)), for: .touchUpInside)
         }
     }
 
-    func makeColorView(_ color: UIColor) -> UIView {
+    func makeColorView(_ color: UIColor) -> UIControl {
         let view = UIControl()
+
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = color
+
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: colorViewSize),
             view.heightAnchor.constraint(equalToConstant: colorViewSize)
         ])
+
         return view
     }
 }

@@ -12,6 +12,10 @@
 		7C228C1629F80DEF00BCC872 /* ProfileUserAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */; };
 		7C228C1729F80DEF00BCC872 /* ProfileUserAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C228C1529F80DEF00BCC872 /* ProfileUserAccountCell.xib */; };
 		7C228C1929F80E3700BCC872 /* ProfileUserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C228C1829F80E3700BCC872 /* ProfileUserAccountViewModel.swift */; };
+		7C3459AA2A2FCEBC008416A3 /* BookmarksFilterHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3459A82A2FCEBC008416A3 /* BookmarksFilterHeaderCell.swift */; };
+		7C3459AB2A2FCEBC008416A3 /* BookmarksFilterHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3459A92A2FCEBC008416A3 /* BookmarksFilterHeaderCell.xib */; };
+		7C3459AD2A2FCEE7008416A3 /* BookmarksFilterHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3459AC2A2FCEE7008416A3 /* BookmarksFilterHeaderViewModel.swift */; };
+		7C3459AF2A2FEFE1008416A3 /* UIFluidGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3459AE2A2FEFE1008416A3 /* UIFluidGradientView.swift */; };
 		7C6B04732A290D94008530C1 /* ProfileColorPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6B04712A290D94008530C1 /* ProfileColorPickerCell.swift */; };
 		7C6B04742A290D94008530C1 /* ProfileColorPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6B04722A290D94008530C1 /* ProfileColorPickerCell.xib */; };
 		7C6B04762A290DAF008530C1 /* ProfileColorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6B04752A290DAF008530C1 /* ProfileColorPickerViewModel.swift */; };
@@ -113,6 +117,7 @@
 		7C934B2629F68AB200709295 /* ProfileAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C934B2429F68AB200709295 /* ProfileAccountCell.swift */; };
 		7C934B2729F68AB200709295 /* ProfileAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C934B2529F68AB200709295 /* ProfileAccountCell.xib */; };
 		7C934B2929F68AC200709295 /* ProfileAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C934B2829F68AC200709295 /* ProfileAccountViewModel.swift */; };
+		7C9BB4E82A34DB3800B8381D /* FluidGradient in Frameworks */ = {isa = PBXBuildFile; productRef = 7C9BB4E72A34DB3800B8381D /* FluidGradient */; };
 		7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */; };
 		7CBE84B22A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE84B12A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift */; };
 		7CC2A7DE2A057C4D00128EB0 /* NewMangaUserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC2A7DD2A057C4D00128EB0 /* NewMangaUserResult.swift */; };
@@ -216,6 +221,10 @@
 		7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserAccountCell.swift; sourceTree = "<group>"; };
 		7C228C1529F80DEF00BCC872 /* ProfileUserAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileUserAccountCell.xib; sourceTree = "<group>"; };
 		7C228C1829F80E3700BCC872 /* ProfileUserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserAccountViewModel.swift; sourceTree = "<group>"; };
+		7C3459A82A2FCEBC008416A3 /* BookmarksFilterHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksFilterHeaderCell.swift; sourceTree = "<group>"; };
+		7C3459A92A2FCEBC008416A3 /* BookmarksFilterHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksFilterHeaderCell.xib; sourceTree = "<group>"; };
+		7C3459AC2A2FCEE7008416A3 /* BookmarksFilterHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksFilterHeaderViewModel.swift; sourceTree = "<group>"; };
+		7C3459AE2A2FEFE1008416A3 /* UIFluidGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFluidGradientView.swift; sourceTree = "<group>"; };
 		7C6B04712A290D94008530C1 /* ProfileColorPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorPickerCell.swift; sourceTree = "<group>"; };
 		7C6B04722A290D94008530C1 /* ProfileColorPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileColorPickerCell.xib; sourceTree = "<group>"; };
 		7C6B04752A290DAF008530C1 /* ProfileColorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorPickerViewModel.swift; sourceTree = "<group>"; };
@@ -423,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B80B82CB90A4EA2B5CF32988 /* Pods_ReManga.framework in Frameworks */,
+				7C9BB4E82A34DB3800B8381D /* FluidGradient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +455,16 @@
 				7C228C1529F80DEF00BCC872 /* ProfileUserAccountCell.xib */,
 			);
 			path = ProfileUserAccountCell;
+			sourceTree = "<group>";
+		};
+		7C3459A72A2FCD66008416A3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7C3459AC2A2FCEE7008416A3 /* BookmarksFilterHeaderViewModel.swift */,
+				7C3459A82A2FCEBC008416A3 /* BookmarksFilterHeaderCell.swift */,
+				7C3459A92A2FCEBC008416A3 /* BookmarksFilterHeaderCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		7C6B04702A290D76008530C1 /* ProfileColorPickerCell */ = {
@@ -591,18 +611,18 @@
 		7C8B023129E8539E0022E724 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				7CE8B2FB2A2B688500BE8404 /* MangaDetailsTitleSimilarsCell */,
-				7C934AFD29F5C47F00709295 /* MangaDetailsInsetCell */,
+				7C8B023229E853A40022E724 /* DetailsHeaderCap */,
+				7C8B026F29E9CE810022E724 /* MangaDetailsChapterCell */,
 				7C934AF629F5A31D00709295 /* MangaDetailsChaptersMenuCell */,
 				7C8B02AD29EC21540022E724 /* MangaDetailsCommentCell */,
-				7C8B02A629EC08D60022E724 /* MangaDetailsLoadingPlaceholderCell */,
-				7C8B029B29EC02AF0022E724 /* MangaDetailsHeaderCell */,
-				7C8B029229EBFC940022E724 /* MangaDetailsTranslatorCell */,
-				7C8B026F29E9CE810022E724 /* MangaDetailsChapterCell */,
-				7C8B025529E9646E0022E724 /* MangaDetailsTagsCell */,
-				7C8B024E29E95B8E0022E724 /* MangaDetailsSelectorCell */,
 				7C8B024529E952200022E724 /* MangaDetailsDescriptionTextCell */,
-				7C8B023229E853A40022E724 /* DetailsHeaderCap */,
+				7C8B029B29EC02AF0022E724 /* MangaDetailsHeaderCell */,
+				7C934AFD29F5C47F00709295 /* MangaDetailsInsetCell */,
+				7C8B02A629EC08D60022E724 /* MangaDetailsLoadingPlaceholderCell */,
+				7C8B024E29E95B8E0022E724 /* MangaDetailsSelectorCell */,
+				7C8B025529E9646E0022E724 /* MangaDetailsTagsCell */,
+				7CE8B2FB2A2B688500BE8404 /* MangaDetailsTitleSimilarsCell */,
+				7C8B029229EBFC940022E724 /* MangaDetailsTranslatorCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -622,6 +642,7 @@
 			children = (
 				7CC888612A0804BD00B65564 /* RoundProgress */,
 				7C8B023F29E8B5280022E724 /* GradientView.swift */,
+				7C3459AE2A2FEFE1008416A3 /* UIFluidGradientView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1008,6 +1029,7 @@
 		7CD3541A2A114568006F1DFE /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				7C3459A72A2FCD66008416A3 /* Cells */,
 				7CD3541F2A114582006F1DFE /* BookmarksViewModel.swift */,
 				7CD3541B2A114578006F1DFE /* BookmarksViewController.swift */,
 				7CD3541C2A114578006F1DFE /* BookmarksViewController.xib */,
@@ -1249,6 +1271,9 @@
 			dependencies = (
 			);
 			name = ReManga;
+			packageProductDependencies = (
+				7C9BB4E72A34DB3800B8381D /* FluidGradient */,
+			);
 			productName = ReManga;
 			productReference = 7C83351729E064D200B0CD99 /* ReManga.app */;
 			productType = "com.apple.product-type.application";
@@ -1278,6 +1303,9 @@
 				ru,
 			);
 			mainGroup = 7C83350E29E064D200B0CD99;
+			packageReferences = (
+				7C9BB4E62A34DB3800B8381D /* XCRemoteSwiftPackageReference "FluidGradient" */,
+			);
 			productRefGroup = 7C83351829E064D200B0CD99 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1312,6 +1340,7 @@
 				7C934B0129F5C48E00709295 /* MangaDetailsInsetCell.xib in Resources */,
 				7C8B025229E95BA40022E724 /* MangaDetailsSelectorCell.xib in Resources */,
 				7C83352429E064D400B0CD99 /* Assets.xcassets in Resources */,
+				7C3459AB2A2FCEBC008416A3 /* BookmarksFilterHeaderCell.xib in Resources */,
 				7CFCF9BA29E6B327008E6150 /* ErrorViewController.xib in Resources */,
 				7CF49E702A0D896900565DFA /* ProfileBookmarksCell.xib in Resources */,
 				7C83354629E0728C00B0CD99 /* MangaCell.xib in Resources */,
@@ -1436,6 +1465,7 @@
 				7CC888572A07FA8F00B65564 /* DownloadsViewController.swift in Sources */,
 				7C83354A29E0747400B0CD99 /* MangaCellViewModel.swift in Sources */,
 				7CC888692A08059C00B65564 /* Math.swift in Sources */,
+				7C3459AA2A2FCEBC008416A3 /* BookmarksFilterHeaderCell.swift in Sources */,
 				7CC888632A0804C900B65564 /* AnimatedCircle.swift in Sources */,
 				7CF49E6B2A0D4E5700565DFA /* ReMangaChapterBuyResultModel.swift in Sources */,
 				7C228C1629F80DEF00BCC872 /* ProfileUserAccountCell.swift in Sources */,
@@ -1499,6 +1529,7 @@
 				7C934AED29F2947A00709295 /* UIActivityIndicatorView+Extensions.swift in Sources */,
 				7CFCF9BC29E6B34D008E6150 /* ErrorViewModel.swift in Sources */,
 				7CFCF9C629E6C862008E6150 /* NewMangaCatalogRequest.swift in Sources */,
+				7C3459AD2A2FCEE7008416A3 /* BookmarksFilterHeaderViewModel.swift in Sources */,
 				7CC888782A08579C00B65564 /* DownloadDetailsViewModel.swift in Sources */,
 				7C934AF129F51B6200709295 /* ReMangaBookmarkTypesResultModel.swift in Sources */,
 				7C8B025829E964800022E724 /* MangaDetailsTagsCell.swift in Sources */,
@@ -1540,6 +1571,7 @@
 				7CFCF9B429E6B2EC008E6150 /* LoadingViewController.swift in Sources */,
 				7CF6BA9229EEC4BC0042FE4E /* NewMangaApi+Auth.swift in Sources */,
 				7C8B027929EA982E0022E724 /* ApiMangaChapterPageModel.swift in Sources */,
+				7C3459AF2A2FEFE1008416A3 /* UIFluidGradientView.swift in Sources */,
 				7CE8B30F2A2CBCD700BE8404 /* MangaReaderCommentsViewController.swift in Sources */,
 				7C8B029129EBF8260022E724 /* ApiMangaTranslatorModel.swift in Sources */,
 				7CC888532A0694EF00B65564 /* ProfileDetailsButtonViewModel.swift in Sources */,
@@ -1682,6 +1714,7 @@
 			baseConfigurationReference = 62B817C4B42425409E8A0262 /* Pods-ReManga.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1718,6 +1751,7 @@
 			baseConfigurationReference = 8F91E22D60C7086324BD6047 /* Pods-ReManga.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1771,6 +1805,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7C9BB4E62A34DB3800B8381D /* XCRemoteSwiftPackageReference "FluidGradient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Cindori/FluidGradient";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7C9BB4E72A34DB3800B8381D /* FluidGradient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C9BB4E62A34DB3800B8381D /* XCRemoteSwiftPackageReference "FluidGradient" */;
+			productName = FluidGradient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7C83350F29E064D200B0CD99 /* Project object */;
 }

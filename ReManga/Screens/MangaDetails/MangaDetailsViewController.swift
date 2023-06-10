@@ -9,8 +9,12 @@ import MarqueeLabel
 import MvvmFoundation
 import RxSwift
 import UIKit
+import UIImageColors
+import FluidGradient
+import Kingfisher
 
 class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<VM> {
+    @IBOutlet private var fluidGradientViewHolder: UIView!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
@@ -27,6 +31,8 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
     @IBOutlet private var bookmarkButton: UIButton!
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var continueButtonLoadingIndicator: UIActivityIndicatorView!
+
+    private var gradientView: UIView!
 
     private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
     private lazy var delegates = Delegates(parent: self)
@@ -46,6 +52,16 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
             navTitleLabel.rx.text <- viewModel.title
             viewModel.itemSelected <- collectionView.rx.itemSelected
             viewModel.selectedItems <-> collectionView.rx.indexPathsForSelectedItems
+            viewModel.image.bind { [unowned self] (path: String?) -> Void in
+                guard let path,
+                      let url = URL(string: path)
+                else { return }
+
+                KingfisherManager.shared.retrieveImage(with: url) { [weak self] res in
+                    guard let self else { return }
+                    updateGradientBlobsView(with: try? res.get().image)
+                }
+            }
             imageView.rx.imageUrl(with: activityIndicator) <- viewModel.image
             viewModel.items.bind { [unowned self] models in
                 dataSource.applyModels(models) { [weak self] in
@@ -118,6 +134,7 @@ private extension MangaDetailsViewController {
     }
 
     func setupCap() {
+//        headerCapView.backgroundColor = .systemBackground.withAlphaComponent(1)
         headerCapView.layer.cornerRadius = 16
         headerCapView.layer.cornerCurve = .continuous
         headerCapView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -156,6 +173,31 @@ private extension MangaDetailsViewController {
 
         collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
         collectionView.dataSource = dataSource
+    }
+
+    func updateGradientBlobsView(with image: UIImage?) {
+        gradientView?.removeFromSuperview()
+        gradientView = nil
+
+        guard let img = image,
+              let colors = img.getColors()
+        else { return }
+
+        let gradientVC = UIFluidGradientView(blobs: [colors.background, colors.primary], highlights: [colors.secondary, colors.detail], speed: 0.3, blur: 1)
+        guard let gradient = gradientVC.view
+        else { return }
+
+        gradientView = gradient
+
+        gradient.translatesAutoresizingMaskIntoConstraints = false
+        fluidGradientViewHolder.addSubview(gradient)
+
+        NSLayoutConstraint.activate([
+            fluidGradientViewHolder.leadingAnchor.constraint(equalTo: gradient.leadingAnchor),
+            fluidGradientViewHolder.topAnchor.constraint(equalTo: gradient.topAnchor),
+            gradient.trailingAnchor.constraint(equalTo: fluidGradientViewHolder.trailingAnchor),
+            gradient.bottomAnchor.constraint(equalTo: fluidGradientViewHolder.bottomAnchor),
+        ])
     }
 
     var contentOffset: Double {
