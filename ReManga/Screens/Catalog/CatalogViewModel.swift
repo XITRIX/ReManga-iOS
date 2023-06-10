@@ -12,12 +12,13 @@ import RxRelay
 struct CatalogViewConfig {
     var title: String
     var isSearchAvailable: Bool
+    var isFiltersAvailable: Bool
     var isApiSwitchAvailable: Bool
     var filters: [ApiMangaTag]
     var apiKey: ContainerKey.Backend?
 
     static var `default`: CatalogViewConfig {
-        .init(title: "Каталог", isSearchAvailable: true, isApiSwitchAvailable: true, filters: [], apiKey: nil)
+        .init(title: "Каталог", isSearchAvailable: true, isFiltersAvailable: true, isApiSwitchAvailable: true, filters: [], apiKey: nil)
     }
 }
 
@@ -25,10 +26,12 @@ protocol CatalogViewModelProtocol: BaseViewModelProtocol {
     var items: Observable<[MangaCellViewModel]> { get }
     var searchQuery: BehaviorRelay<String?> { get }
     var isSearchAvailable: BehaviorRelay<Bool> { get }
+    var isFiltersAvailable: BehaviorRelay<Bool> { get }
     var filters: BehaviorRelay<[ApiMangaTag]> { get }
 
     func loadNext()
     func showDetails(for model: MangaCellViewModel)
+    func showFilters()
 }
 
 class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelProtocol {
@@ -36,6 +39,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     public let searchItems = BehaviorRelay<[MangaCellViewModel]>(value: [])
     public let searchQuery = BehaviorRelay<String?>(value: "")
     public let isSearchAvailable = BehaviorRelay<Bool>(value: true)
+    public let isFiltersAvailable = BehaviorRelay<Bool>(value: true)
     public let filters = BehaviorRelay<[ApiMangaTag]>(value: [])
 
     private var currentSearchTask: Task<Void, Never>?
@@ -75,6 +79,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
         apiKey = model.apiKey
         title.accept(model.title)
         isSearchAvailable.accept(model.isSearchAvailable)
+        isFiltersAvailable.accept(model.isFiltersAvailable)
         filters.accept(model.filters)
         state.accept(.loading)
     }
@@ -88,6 +93,10 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
 
     func showDetails(for model: MangaCellViewModel) {
         navigate(to: MangaDetailsViewModel.self, with: .init(id: model.id.value, apiKey: api.key), by: .show)
+    }
+
+    func showFilters() {
+        navigate(to: CatalogFiltersViewModel.self, with: .init(apiKey: api.key, filters: filters), by: .present(wrapInNavigation: true))
     }
 
     // MARK: - Private

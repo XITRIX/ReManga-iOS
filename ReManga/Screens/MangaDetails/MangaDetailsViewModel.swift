@@ -136,7 +136,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     }
 
     func tagSelected(_ tag: ApiMangaTag) {
-        navigate(to: CatalogViewModel.self, with: .init(title: tag.name.capitalizedSentence, isSearchAvailable: false, isApiSwitchAvailable: false, filters: [tag]), by: .show)
+        navigate(to: CatalogViewModel.self, with: .init(title: tag.name.capitalizedSentence, isSearchAvailable: false, isFiltersAvailable: false, isApiSwitchAvailable: false, filters: [tag]), by: .show)
     }
 
     func bottomReached() {

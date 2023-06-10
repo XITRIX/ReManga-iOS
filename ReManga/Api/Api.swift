@@ -52,6 +52,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel]
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws
     func fetchBookmarks() async throws -> [ApiMangaModel]
+    func fetchAllTags() async throws -> [ApiMangaTag]
     func deauth()
 
     func authRequestModifier(_ request: URLRequest) -> URLRequest

@@ -96,6 +96,10 @@ class NewMangaApi: ApiProtocol {
                 body.filter.type.allowed.append(filter.name)
             case .genre:
                 body.filter.genres.included.append(filter.name)
+            case .status:
+                body.filter.translationStatus.allowed.append(filter.name)
+            case .age:
+                body.filter.adult.allowed.append(filter.name)
             }
         }
 
@@ -279,5 +283,9 @@ class NewMangaApi: ApiProtocol {
         let model = try JSONDecoder().decode(NewMangaBookmarksResult.self, from: result)
 
         return model.map { .init(from: $0) }
+    }
+
+    func fetchAllTags() async throws -> [ApiMangaTag] {
+        []
     }
 }

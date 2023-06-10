@@ -75,6 +75,10 @@ class ReMangaApi: ApiProtocol {
                 tags.append("&types=\(filter.id)")
             case .genre:
                 tags.append("&genres=\(filter.id)")
+            case .status:
+                tags.append("&status=\(filter.id)")
+            case .age:
+                tags.append("&age_limit=\(filter.id)")
             }
         }
 
@@ -281,5 +285,11 @@ class ReMangaApi: ApiProtocol {
         }
 
         return res
+    }
+
+    func fetchAllTags() async throws -> [ApiMangaTag] {
+        let url = "https://api.remanga.org/api/forms/titles/?get=genres&get=categories&get=types&get=status&get=age_limit"
+        let model: ReMangaApiTagsResultModel = try await performRequest(makeRequest(url))
+        return model.tags
     }
 }

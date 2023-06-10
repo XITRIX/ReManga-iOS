@@ -6,12 +6,30 @@
 //
 
 import UIKit
+import MvvmFoundation
 
-class CatalogFilterItemCell: UICollectionViewListCell {
+class CatalogFilterItemCell<VM: CatalogFilterItemViewModel>: MvvmCollectionViewListCell<VM> {
+    @IBOutlet private var title: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var listContentConfiguration: UIListContentConfiguration {
+        get { contentConfiguration as? UIListContentConfiguration ?? defaultContentConfiguration() }
+        set { contentConfiguration = newValue }
     }
 
+    override func initSetup() {
+        accessories = [.multiselect(displayed: .always)]
+//        accessories = [.popUpMenu(<#T##menu: UIMenu##UIMenu#>)]
+//        var content = defaultContentConfiguration()
+//        content.text
+//        contentConfiguration =
+    }
+
+    override func setup(with viewModel: VM) {
+        bind(in: disposeBag) {
+//            title.rx.text <- viewModel.title
+            viewModel.title.bind { [unowned self] text in
+                listContentConfiguration.text = text
+            }
+        }
+    }
 }

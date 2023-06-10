@@ -6,24 +6,32 @@
 //
 
 import UIKit
+import MvvmFoundation
 
-class CatalogFiltersViewController: UIViewController {
+class CatalogFiltersViewController<VM: CatalogFiltersViewModel>: BaseViewController<VM> {
+    @IBOutlet private var collectionView: UICollectionView!
+    private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
+    private let dismissButtonItem = UIBarButtonItem(systemItem: .close)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        navigationItem.trailingItemGroups = [.fixedGroup(items: [dismissButtonItem])]
+
+        collectionView.dataSource = dataSource
+        collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
+//        collectionView.isEditing = true
+        collectionView.allowsMultipleSelection = true
+
+        bind(in: disposeBag) {
+            viewModel.dismiss <- dismissButtonItem.rx.tap
+            viewModel.selectedItems <-> collectionView.rx.indexPathsForSelectedItems
+
+            viewModel.sections.bind { [unowned self] sections in
+                dataSource.applyModels(sections) { [self] in
+                    viewModel.applySelection(with: collectionView.indexPathsForSelectedItems ?? [])
+                }
+            }
+        }
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

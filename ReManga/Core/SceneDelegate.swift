@@ -54,6 +54,7 @@ class SceneDelegate: MvvmSceneDelegate {
         // Screens
         router.register(MvvmTabBarController<MainTabBarViewModel>.self)
         router.register(CatalogViewController<CatalogViewModel>.self)
+        router.register(CatalogFiltersViewController<CatalogFiltersViewModel>.self)
         router.register(HistoryViewController<HistoryViewModel>.self)
         router.register(MangaDetailsViewController<MangaDetailsViewModel>.self)
         router.register(MangaReaderViewController<MangaReaderViewModel>.self)
@@ -71,6 +72,7 @@ class SceneDelegate: MvvmSceneDelegate {
 
         // Cells
         router.register(MangaCell<MangaCellViewModel>.self)
+        router.register(CatalogFilterItemCell<CatalogFilterItemViewModel>.self)
         router.register(DetailsHeaderCap<DetailsHeaderCapViewModel>.self)
         router.register(MangaDetailsDescriptionTextCell<MangaDetailsDescriptionTextViewModel>.self)
         router.register(MangaDetailsSelectorCell<MangaDetailsSelectorViewModel>.self)

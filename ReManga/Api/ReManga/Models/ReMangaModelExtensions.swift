@@ -141,7 +141,7 @@ extension ApiMangaCommentModel {
 
         guard let date = model.date
         else { return nil }
-        
+
         self.date = Date() - TimeInterval(Double(date) / 1000)
 
         let imageRoot = "https://remanga.org"
@@ -184,5 +184,33 @@ extension ApiMangaBookmarkModel {
     init(from model: ReMangaBookmarkTypesResultContent) {
         id = String(model.id)
         name = model.name
+    }
+}
+
+extension ReMangaApiTagsResultModel {
+    var tags: [ApiMangaTag] {
+        var res: [ApiMangaTag] = []
+
+        if let age = content.ageLimit?.map({ ApiMangaTag(id: String($0.id), name: $0.name, kind: .age) }) {
+            res.append(contentsOf: age)
+        }
+
+        if let genres = content.genres?.map({ ApiMangaTag(id: String($0.id), name: $0.name, kind: .genre) }) {
+            res.append(contentsOf: genres)
+        }
+
+        if let tags = content.categories?.map({ ApiMangaTag(id: String($0.id), name: $0.name, kind: .tag) }) {
+            res.append(contentsOf: tags)
+        }
+
+        if let types = content.types?.map({ ApiMangaTag(id: String($0.id), name: $0.name, kind: .type) }) {
+            res.append(contentsOf: types)
+        }
+
+        if let status = content.status?.map({ ApiMangaTag(id: String($0.id), name: $0.name, kind: .status) }) {
+            res.append(contentsOf: status)
+        }
+
+        return res
     }
 }

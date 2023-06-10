@@ -30,9 +30,15 @@ extension BaseViewModelProtocol {
 @MainActor
 class BaseViewModel: MvvmViewModel, BaseViewModelProtocol {
     let state = BehaviorRelay<ViewModelState>(value: .default)
+    var currentTask: Task<Void, Error>?
+
+    override func didDisappear() {
+        currentTask?.cancel()
+    }
 
     func performTask(_ task: @escaping () async throws -> Void) {
-        Task {
+        currentTask?.cancel()
+        currentTask = Task {
             do {
                 try await task()
             } catch {

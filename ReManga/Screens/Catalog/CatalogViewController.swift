@@ -13,6 +13,8 @@ import UIKit
 
 class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
+    private let filetButtonItem = UIBarButtonItem()
+
     private var keyboardToken: KeyboardHandler!
     private let searchController = UISearchController()
 
@@ -47,6 +49,12 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
                 navigationItem.searchController = available ? searchController : nil
                 collectionView.setContentOffset(.init(x: 0, y: -200), animated: false)
             }
+            viewModel.isFiltersAvailable.bind { [unowned self] available in
+                navigationItem.trailingItemGroups = available ? [.fixedGroup(items: [filetButtonItem])] : []
+            }
+
+            filetButtonItem.rx.image <- viewModel.filters.map { $0.isEmpty ? .init(systemName: "line.3.horizontal.decrease.circle") : .init(systemName: "line.3.horizontal.decrease.circle.fill") }
+            viewModel.showFilters <- filetButtonItem.rx.tap
         }
     }
 

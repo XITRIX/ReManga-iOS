@@ -13,8 +13,8 @@ enum ApiMangaNewChapterType {
 }
 
 struct ApiMangaTag: Codable, Hashable {
-    enum Kind: Codable {
-        case tag, type, genre
+    enum Kind: String, Codable, CaseIterable {
+        case tag, type, genre, status, age
     }
 
     var id: String
