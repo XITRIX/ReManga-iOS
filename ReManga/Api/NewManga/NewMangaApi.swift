@@ -93,14 +93,18 @@ class NewMangaApi: ApiProtocol {
             case .tag:
                 body.filter.tags.included.append(filter.name)
             case .type:
-                body.filter.type.allowed.append(filter.name)
+                body.filter.type.allowed.append(filter.id)
             case .genre:
                 body.filter.genres.included.append(filter.name)
             case .status:
-                body.filter.translationStatus.allowed.append(filter.name)
+                body.filter.translationStatus.allowed.append(filter.id)
             case .age:
-                body.filter.adult.allowed.append(filter.name)
+                body.filter.adult.allowed.append(filter.id)
             }
+        }
+
+        if body.filter.adult.allowed.isEmpty {
+            body.filter.adult.allowed = ["ADULT_13", "ADULT_16"]
         }
 
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -286,6 +290,32 @@ class NewMangaApi: ApiProtocol {
     }
 
     func fetchAllTags() async throws -> [ApiMangaTag] {
-        []
+        var res: [ApiMangaTag] = []
+
+        let urlGenres = "https://api.newmanga.org/v2/genres"
+        let genres: NewMangaApiTagsResultModel = try await performRequest(makeRequest(urlGenres))
+        res.append(contentsOf: genres.map { $0.toTag(with: .genre) })
+
+        let urlTags = "https://api.newmanga.org/v2/tags"
+        let tags: NewMangaApiTagsResultModel = try await performRequest(makeRequest(urlTags))
+        res.append(contentsOf: tags.map { $0.toTag(with: .tag) })
+
+        res.append(.init(id: "MANGA", name: "манга", kind: .type))
+        res.append(.init(id: "MANHWA", name: "манхва", kind: .type))
+        res.append(.init(id: "MANHYA", name: "маньхуа", kind: .type))
+        res.append(.init(id: "SINGLE", name: "сингл", kind: .type))
+        res.append(.init(id: "OEL", name: "OEL-манга", kind: .type))
+        res.append(.init(id: "COMICS", name: "комикс", kind: .type))
+        res.append(.init(id: "RUSSIAN", name: "руманга", kind: .type))
+
+        res.append(.init(id: "ON_GOING", name: "выпускается", kind: .status))
+        res.append(.init(id: "ABANDONED", name: "заброшен", kind: .status))
+        res.append(.init(id: "COMPLETED", name: "завершён", kind: .status))
+
+        res.append(.init(id: "ADULT_13", name: "13+", kind: .age))
+        res.append(.init(id: "ADULT_16", name: "16+", kind: .age))
+        res.append(.init(id: "ADULT_18", name: "18+", kind: .age))
+
+        return res
     }
 }

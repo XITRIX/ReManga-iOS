@@ -249,3 +249,9 @@ extension ApiMangaUserModel {
         }
     }
 }
+
+extension NewMangaApiTagsResultModelElement {
+    func toTag(with type: ApiMangaTag.Kind) -> ApiMangaTag {
+        .init(id: String(id), name: title.ru, kind: type)
+    }
+}

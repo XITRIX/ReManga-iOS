@@ -25,7 +25,8 @@ class ProfileActiveBackendCell<VM: ProfileActiveBackendViewModel>: MvvmCollectio
 private extension ProfileActiveBackendCell {
     func setupMenu(with backends: [ContainerKey.Backend]) {
         let items = backends.map({ backend in
-            UIAction(title: backend.title) { [unowned self] _ in
+            let isCurrent = Properties.shared.backendKey == backend
+            return UIAction(title: backend.title, state: isCurrent ? .on : .off) { [unowned self] _ in
                 viewModel.selectBackend(backend)
             }
         })

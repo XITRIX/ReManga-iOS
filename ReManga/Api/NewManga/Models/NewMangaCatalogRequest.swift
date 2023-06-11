@@ -35,7 +35,7 @@ struct NewMangaCatalogRequestFilter: Codable, Hashable {
     var releasedYear = NewMangaCatalogRequestReleasedYear()
     var requireChapters: Bool = true
     var originalStatus = NewMangaCatalogRequestAdult()
-    var adult = NewMangaCatalogRequestAdult(allowed: ["ADULT_13", "ADULT_16"])
+    var adult = NewMangaCatalogRequestAdult()
 
     enum CodingKeys: String, CodingKey {
         case hiddenProjects = "hidden_projects"

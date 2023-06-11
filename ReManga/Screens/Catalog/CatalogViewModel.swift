@@ -6,8 +6,9 @@
 //
 
 import MvvmFoundation
-import RxSwift
 import RxRelay
+import RxSwift
+import XTBottomSheet
 
 struct CatalogViewConfig {
     var title: String
@@ -45,7 +46,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     private var currentSearchTask: Task<Void, Never>?
 
     public var items: Observable<[MangaCellViewModel]> {
-        Observable.combineLatest(allItems, searchItems).map { [unowned self] (all, search) in
+        Observable.combineLatest(allItems, searchItems).map { [unowned self] all, search in
             if searchQuery.value.isNilOrEmpty {
                 return all
             }
@@ -70,6 +71,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
 
             $apiKey.bind { [unowned self] key in
                 api = Mvvm.shared.container.resolve(key: key?.key)
+                filters.accept([])
                 resetVM()
             }
 
@@ -109,13 +111,16 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     }
 
     func showFilters() {
-        navigate(to: CatalogFiltersViewModel.self, with: .init(apiKey: api.key, filters: filters), by: .present(wrapInNavigation: true))
+        navigate(to: CatalogFiltersViewModel.self, with: .init(apiKey: api.key, filters: filters), by: .custom(transaction: { from, to in
+            let vc = BottomSheetController(rootViewController: to, with: .init(withDragger: true))
+            from.present(vc, animated: true)
+        }))
     }
 
     // MARK: - Private
     private var isLoading = false
     private var page = startingPage
-    private var currentFetchTask: Task<(), Never>?
+    private var currentFetchTask: Task<Void, Never>?
     private var api: ApiProtocol = Mvvm.shared.container.resolve()
     @Binding private var apiKey: ContainerKey.Backend?
     private static let startingPage = 1
