@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CatalogFiltersViewController" customModule="ReManga" customModuleProvider="target">
             <connections>
+                <outlet property="clearButton" destination="pkm-Pd-XvM" id="ose-zD-Gy8"/>
                 <outlet property="collectionView" destination="mL5-Ub-N9f" id="9zY-ch-bGp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -30,12 +31,26 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkm-Pd-XvM">
+                    <rect key="frame" x="16" y="770" width="361" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="ute-5x-FVr"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Очистить" buttonSize="small">
+                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
+                    </buttonConfiguration>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="pkm-Pd-XvM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="4HA-HC-csW"/>
                 <constraint firstItem="mL5-Ub-N9f" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="7Y6-dL-76R"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pkm-Pd-XvM" secondAttribute="bottom" constant="16" id="Lak-81-QrZ"/>
                 <constraint firstAttribute="bottom" secondItem="mL5-Ub-N9f" secondAttribute="bottom" id="MXQ-Bc-eg0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="pkm-Pd-XvM" secondAttribute="bottom" priority="750" id="VaB-Bg-PVX"/>
+                <constraint firstAttribute="trailingMargin" secondItem="pkm-Pd-XvM" secondAttribute="trailing" id="dtR-Zz-fg4"/>
                 <constraint firstItem="mL5-Ub-N9f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="j0o-E5-Dco"/>
                 <constraint firstItem="mL5-Ub-N9f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qbg-La-hHT"/>
             </constraints>

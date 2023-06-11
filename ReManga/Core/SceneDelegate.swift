@@ -73,6 +73,7 @@ class SceneDelegate: MvvmSceneDelegate {
         // Cells
         router.register(MangaCell<MangaCellViewModel>.self)
         router.register(CatalogFilterItemCell<CatalogFilterItemViewModel>.self)
+        router.register(CatalogFilterHeaderCell<CatalogFilterHeaderViewModel>.self)
         router.register(DetailsHeaderCap<DetailsHeaderCapViewModel>.self)
         router.register(MangaDetailsDescriptionTextCell<MangaDetailsDescriptionTextViewModel>.self)
         router.register(MangaDetailsSelectorCell<MangaDetailsSelectorViewModel>.self)

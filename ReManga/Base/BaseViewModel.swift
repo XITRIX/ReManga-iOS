@@ -56,17 +56,21 @@ class BaseViewModel: MvvmViewModel, BaseViewModelProtocol {
         do {
             try await task()
         } catch {
-            await handleError(error) { [weak self] in
-                self?.performTask {
-                    self?.state.accept(.loading)
-                    try await task()
-                }
-            }
+            await catchError(error, task)
         }
     }
 
     open func handleError(_ error: Error, task: (() -> Void)? = nil) {
         state.accept(.error(error, task))
+    }
+
+    private func catchError(_ error: Error, _ task:  @escaping () async throws -> Void) async {
+        await handleError(error) { [weak self] in
+            self?.performTask {
+                self?.state.accept(.loading)
+                try await task()
+            }
+        }
     }
 }
 

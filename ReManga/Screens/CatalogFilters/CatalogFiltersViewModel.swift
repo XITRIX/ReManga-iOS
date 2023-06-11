@@ -16,7 +16,8 @@ struct CatalogFiltersModel {
 class CatalogFiltersViewModel: BaseViewModelWith<CatalogFiltersModel> {
     var filters: BehaviorRelay<[ApiMangaTag]>!
     let selectedItems = BehaviorRelay<[IndexPath]>(value: [])
-    var sections = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
+    let sections = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
+    let deselectAll = PublishRelay<Void>()
 
     private var api: ApiProtocol!
 
@@ -24,7 +25,10 @@ class CatalogFiltersViewModel: BaseViewModelWith<CatalogFiltersModel> {
         title.accept("Фильтры")
         api = model.apiKey.resolve()
         filters = model.filters
-        reload()
+        Task {
+            await reload()
+            findSelectedFilters()
+        }
     }
 
     override func binding() {
@@ -40,21 +44,26 @@ class CatalogFiltersViewModel: BaseViewModelWith<CatalogFiltersModel> {
 
         var filters: [ApiMangaTag] = []
         for indexPath in indexPaths {
-            guard let item = sections.value[indexPath.section].items[indexPath.item] as? CatalogFilterItemViewModel
+            // item - 1 in case header also counts as item
+            guard let item = sections.value[indexPath.section].items[indexPath.item - 1] as? CatalogFilterItemViewModel
             else { continue }
 
             filters.append(item.tag)
         }
         self.filters.accept(filters)
     }
+
+    func clearFilters() {
+        selectedItems.accept([])
+        deselectAll.accept(())
+    }
 }
 
 private extension CatalogFiltersViewModel {
-    func reload() {
+    func reload() async {
         state.accept(.loading)
-        performTask { [self] in
+        await performTask { [self] in
             var res: [MvvmCollectionSectionModel] = []
-            var selected: [IndexPath] = []
 
             let tags = try await api.fetchAllTags()
             let dict = Dictionary(grouping: tags, by: { $0.kind })
@@ -62,20 +71,34 @@ private extension CatalogFiltersViewModel {
             for kind in ApiMangaTag.Kind.allCases.enumerated() {
                 guard let arr = dict[kind.element] else { continue }
 
-                var items: [MvvmViewModel] = []
-                for item in arr.enumerated() {
-                    items.append(CatalogFilterItemViewModel(with: item.element))
-
-                    if filters.value.contains(item.element) {
-                        selected.append(.init(item: item.offset, section: kind.offset))
-                    }
-                }
+                let items: [MvvmViewModel] = arr.map { CatalogFilterItemViewModel(with: $0) }
                 res.append(.init(id: kind.element.rawValue, header: kind.element.title, style: .sidebar, showsSeparators: true, items: items))
             }
 
             sections.accept(res)
             state.accept(.default)
         }
+    }
+
+    func findSelectedFilters() {
+        var selected: [IndexPath] = []
+
+        for section in sections.value.enumerated() {
+            for filter in sections.value[section.offset].items.enumerated() {
+                guard let filterVM = filter.element as? CatalogFilterItemViewModel,
+                      let filterTag = filterVM.tag,
+                      let filters,
+                      filters.value.contains(filterTag)
+                else { continue }
+
+                // offset + 1 in case header also counts as item
+                selected.append(.init(item: filter.offset + 1, section: section.offset))
+            }
+        }
+
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+            selectedItems.accept(selected)
+//        }
     }
 }
 

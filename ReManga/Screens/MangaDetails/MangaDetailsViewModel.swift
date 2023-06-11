@@ -290,7 +290,7 @@ private extension MangaDetailsViewModel {
 
             Task {
                 do {
-                    commentsCount = try await api.fetchCommentsCount(id: self.id)
+                    commentsCount = (try? await api.fetchCommentsCount(id: self.id)) ?? 0
                     try await loadNextComments()
                 } catch {
                     print(error)

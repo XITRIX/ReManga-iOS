@@ -72,6 +72,10 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
                 api = Mvvm.shared.container.resolve(key: key?.key)
                 resetVM()
             }
+
+            filters.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [unowned self] _ in
+                resetVM()
+            }
         }
     }
 
@@ -84,10 +88,19 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
         state.accept(.loading)
     }
 
+    override func handleError(_ error: Error, task: (() -> Void)? = nil) {
+        if (error as NSError).code == NSURLErrorCancelled { return }
+        super.handleError(error, task: task)
+    }
+
     func loadNext() {
         guard searchQuery.value.isNilOrEmpty
         else { return }
 
+        if isLoading { return }
+        isLoading = true
+
+        currentFetchTask?.cancel()
         currentFetchTask = Task { await fetchItems() }
     }
 
@@ -101,31 +114,34 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
 
     // MARK: - Private
     private var isLoading = false
-    private var page = 0
+    private var page = startingPage
     private var currentFetchTask: Task<(), Never>?
     private var api: ApiProtocol = Mvvm.shared.container.resolve()
     @Binding private var apiKey: ContainerKey.Backend?
+    private static let startingPage = 1
 }
 
 // MARK: - Private functions
 extension CatalogViewModel {
     private func resetVM() {
-        isLoading = false
-        page = 0
-        allItems.accept([])
         currentFetchTask?.cancel()
+        currentFetchTask = nil
+
+        state.accept(.loading)
+        isLoading = false
+        page = Self.startingPage
+        allItems.accept([])
         loadNext()
     }
 
     private func fetchItems() async {
-        if isLoading { return }
-        isLoading = true
-        
-        page += 1
         await performTask { [self] in
             let res = try await api.fetchCatalog(page: page, filters: filters.value)
+            page += 1
+            try Task.checkCancellation()
             allItems.accept(allItems.value + res.map { $0.cellModel })
             isLoading = false
+            currentFetchTask = nil
             state.accept(.default)
         }
     }

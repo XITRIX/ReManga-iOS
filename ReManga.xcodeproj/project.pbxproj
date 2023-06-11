@@ -125,6 +125,8 @@
 		7C9BB4F82A351A3000B8381D /* CatalogFilterItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9BB4F62A351A3000B8381D /* CatalogFilterItemCell.swift */; };
 		7C9BB4F92A351A3000B8381D /* CatalogFilterItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C9BB4F72A351A3000B8381D /* CatalogFilterItemCell.xib */; };
 		7C9BB4FC2A351A4000B8381D /* CatalogFilterItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9BB4FB2A351A4000B8381D /* CatalogFilterItemViewModel.swift */; };
+		7C9F0C4E2A36330500988F82 /* CatalogFilterHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0C4C2A36330500988F82 /* CatalogFilterHeaderCell.swift */; };
+		7C9F0C512A36331000988F82 /* CatalogFilterHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0C502A36331000988F82 /* CatalogFilterHeaderViewModel.swift */; };
 		7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */; };
 		7CBE84B22A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE84B12A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift */; };
 		7CC2A7DE2A057C4D00128EB0 /* NewMangaUserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC2A7DD2A057C4D00128EB0 /* NewMangaUserResult.swift */; };
@@ -342,6 +344,8 @@
 		7C9BB4F62A351A3000B8381D /* CatalogFilterItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterItemCell.swift; sourceTree = "<group>"; };
 		7C9BB4F72A351A3000B8381D /* CatalogFilterItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogFilterItemCell.xib; sourceTree = "<group>"; };
 		7C9BB4FB2A351A4000B8381D /* CatalogFilterItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterItemViewModel.swift; sourceTree = "<group>"; };
+		7C9F0C4C2A36330500988F82 /* CatalogFilterHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterHeaderCell.swift; sourceTree = "<group>"; };
+		7C9F0C502A36331000988F82 /* CatalogFilterHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterHeaderViewModel.swift; sourceTree = "<group>"; };
 		7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		7CBE84B12A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReMangaGoogleAuthViewModel.swift; sourceTree = "<group>"; };
 		7CC2A7DD2A057C4D00128EB0 /* NewMangaUserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaUserResult.swift; sourceTree = "<group>"; };
@@ -889,6 +893,7 @@
 		7C9BB4F52A351A0E00B8381D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7C9F0C4B2A3632DA00988F82 /* CatalogFilterHeaderCell */,
 				7C9BB4FA2A351A3400B8381D /* CatalogFilterItemCell */,
 			);
 			path = Cells;
@@ -902,6 +907,15 @@
 				7C9BB4F72A351A3000B8381D /* CatalogFilterItemCell.xib */,
 			);
 			path = CatalogFilterItemCell;
+			sourceTree = "<group>";
+		};
+		7C9F0C4B2A3632DA00988F82 /* CatalogFilterHeaderCell */ = {
+			isa = PBXGroup;
+			children = (
+				7C9F0C502A36331000988F82 /* CatalogFilterHeaderViewModel.swift */,
+				7C9F0C4C2A36330500988F82 /* CatalogFilterHeaderCell.swift */,
+			);
+			path = CatalogFilterHeaderCell;
 			sourceTree = "<group>";
 		};
 		7CB3B87F29E6AE2A009280E4 /* Base */ = {
@@ -1468,6 +1482,7 @@
 				7C8B022929E832E20022E724 /* NewMangaDetailsResultModel.swift in Sources */,
 				7C8B029E29EC02C00022E724 /* MangaDetailsHeaderCell.swift in Sources */,
 				7C8B02B529EC96B10022E724 /* ReMangaApiDetailsResultModel.swift in Sources */,
+				7C9F0C4E2A36330500988F82 /* CatalogFilterHeaderCell.swift in Sources */,
 				7C6D267F2A0955560052A5F3 /* OfflineMangaReaderViewModel.swift in Sources */,
 				7CF49E672A0C257200565DFA /* ProfileActiveBackendViewModel.swift in Sources */,
 				7CF6BA8629EE8CBC0042FE4E /* ProfileViewController.swift in Sources */,
@@ -1603,6 +1618,7 @@
 				7C934AE929F19B5700709295 /* NSMutableAttributedString+Extensions.swift in Sources */,
 				7CF6BA8229EDF92E0042FE4E /* MangaPaymentViewModel.swift in Sources */,
 				7C934ADB29F08F9500709295 /* CGPoint+Extensions.swift in Sources */,
+				7C9F0C512A36331000988F82 /* CatalogFilterHeaderViewModel.swift in Sources */,
 				7C8B029529EBFCC90022E724 /* MangaDetailsTranslatorCell.swift in Sources */,
 				7C83351D29E064D200B0CD99 /* SceneDelegate.swift in Sources */,
 				7CFCF9BE29E6B4C5008E6150 /* LoadingViewModel.swift in Sources */,
