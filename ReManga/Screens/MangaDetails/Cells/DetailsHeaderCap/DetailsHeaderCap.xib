@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -132,7 +131,7 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" name="SemitransparentColor"/>
+                            <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailingMargin" secondItem="Jc5-l6-mSp" secondAttribute="trailing" id="MLJ-2J-w0h"/>
                                 <constraint firstItem="Jc5-l6-mSp" firstAttribute="leading" secondItem="k8D-pP-kSf" secondAttribute="leadingMargin" id="Phg-kI-ojh"/>
@@ -166,11 +165,11 @@
         <image name="eye.circle.fill" catalog="system" width="128" height="123"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="123"/>
         <image name="star.circle.fill" catalog="system" width="128" height="123"/>
-        <namedColor name="SemitransparentColor">
-            <color white="0.75477015972137451" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemFillColor">
+            <color red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

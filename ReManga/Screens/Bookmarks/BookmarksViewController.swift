@@ -26,7 +26,6 @@ class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
 
 //        collectionView.register(BookmarksFilterHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: BookmarksFilterHeaderCell.reusableId)
 
-        flowLayout.headerReferenceSize = .init(width: 400, height: 44)
         flowLayout.sectionHeadersPinToVisibleBounds = true
         dataSource.supplementaryViewProvider = supplementaryViewProvider
         collectionView.verticalScrollIndicatorInsets.top = 44
@@ -47,6 +46,9 @@ class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
             }
 
             filterButton.rx.isHidden <- viewModel.isFilterButtonAvailable.inverted
+            viewModel.isFilterButtonAvailable.bind { [unowned self] available in
+                flowLayout.headerReferenceSize = available ? .init(width: 400, height: 44) : .zero
+            }
 
             filterButton.rx.image <- viewModel.selectedBookmarkType.map { bookmarkType in
                 bookmarkType == nil ? .init(systemName: "line.3.horizontal.decrease.circle") : .init(systemName: "line.3.horizontal.decrease.circle.fill")

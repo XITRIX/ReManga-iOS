@@ -28,7 +28,7 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
 
         backgroundConfiguration = defaultBackgroundConfiguration()
         backgroundConfiguration?.backgroundColorTransformer = .init { [unowned self] color in
-            return configurationState.isSelected || configurationState.isHighlighted ? .separator : .clear
+            return configurationState.isSelected || configurationState.isHighlighted ? .tertiarySystemFill : .clear
         }
     }
 
