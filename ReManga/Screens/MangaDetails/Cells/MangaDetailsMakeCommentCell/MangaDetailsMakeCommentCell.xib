@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22113.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaDetailsMakeCommentCell" customModule="ReManga" customModuleProvider="target">
+            <connections>
+                <outlet property="commentContainer" destination="zPq-YX-M09" id="W22-nt-SGD"/>
+                <outlet property="placeholderLabel" destination="XN9-Fu-12b" id="tUO-1e-yxL"/>
+                <outlet property="sendButton" destination="oli-uT-nNC" id="XeY-Mk-KMx"/>
+                <outlet property="textView" destination="mJe-zN-jFj" id="PXO-F5-1RR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="7y6-UR-TgL">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="115"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zPq-YX-M09">
+                    <rect key="frame" x="20" y="0.0" width="374" height="99"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IEq-bE-H1y">
+                            <rect key="frame" x="0.0" y="0.0" width="314.66666666666669" height="99"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8A3-wA-PtM">
+                                    <rect key="frame" x="0.0" y="0.0" width="314.66666666666669" height="99"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mJe-zN-jFj">
+                                            <rect key="frame" x="8" y="0.0" width="298.66666666666669" height="99"/>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <color key="textColor" systemColor="labelColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Написать комментарий" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XN9-Fu-12b">
+                                            <rect key="frame" x="12" y="40.666666666666664" width="290.66666666666669" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="XN9-Fu-12b" firstAttribute="leading" secondItem="8A3-wA-PtM" secondAttribute="leading" constant="12" id="09D-E7-43Y"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="mJe-zN-jFj" secondAttribute="bottom" id="7US-8q-3dt"/>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XN9-Fu-12b" secondAttribute="bottom" id="8fN-fA-vwg"/>
+                                        <constraint firstItem="XN9-Fu-12b" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8A3-wA-PtM" secondAttribute="top" id="BXs-0p-48c"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="JSe-cf-Mvw"/>
+                                        <constraint firstItem="mJe-zN-jFj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8A3-wA-PtM" secondAttribute="top" id="KwG-CL-NRk"/>
+                                        <constraint firstAttribute="trailing" secondItem="mJe-zN-jFj" secondAttribute="trailing" constant="8" id="TUf-Ym-LSE"/>
+                                        <constraint firstItem="mJe-zN-jFj" firstAttribute="centerY" secondItem="8A3-wA-PtM" secondAttribute="centerY" id="kZ7-NL-d5k"/>
+                                        <constraint firstAttribute="trailing" secondItem="XN9-Fu-12b" secondAttribute="trailing" constant="12" id="pfk-aG-UdT"/>
+                                        <constraint firstItem="mJe-zN-jFj" firstAttribute="leading" secondItem="8A3-wA-PtM" secondAttribute="leading" constant="8" id="rUa-K2-KXj"/>
+                                        <constraint firstItem="XN9-Fu-12b" firstAttribute="centerY" secondItem="8A3-wA-PtM" secondAttribute="centerY" id="ygq-lQ-e6h"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="750" id="EW7-pO-Fhk"/>
+                            </constraints>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oli-uT-nNC">
+                            <rect key="frame" x="322.66666666666669" y="63" width="43.333333333333314" height="28"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" image="paperplane.fill" catalog="system" buttonSize="mini"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" priority="250" id="20i-aA-bAE"/>
+                        <constraint firstItem="IEq-bE-H1y" firstAttribute="leading" secondItem="zPq-YX-M09" secondAttribute="leading" id="2m9-u4-X9X"/>
+                        <constraint firstItem="IEq-bE-H1y" firstAttribute="top" secondItem="zPq-YX-M09" secondAttribute="top" id="ASa-Cj-N0d"/>
+                        <constraint firstAttribute="bottom" secondItem="oli-uT-nNC" secondAttribute="bottom" constant="8" id="BY5-Sl-Pb8"/>
+                        <constraint firstAttribute="trailing" secondItem="oli-uT-nNC" secondAttribute="trailing" constant="8" id="SaK-NA-QEB"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="cTV-xv-8N7"/>
+                        <constraint firstAttribute="bottom" secondItem="IEq-bE-H1y" secondAttribute="bottom" id="nzO-YX-okl"/>
+                        <constraint firstItem="oli-uT-nNC" firstAttribute="leading" secondItem="IEq-bE-H1y" secondAttribute="trailing" constant="8" id="yji-uO-xEB"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="8uo-R6-FBp"/>
+            <constraints>
+                <constraint firstItem="zPq-YX-M09" firstAttribute="top" secondItem="7y6-UR-TgL" secondAttribute="top" id="LSg-NT-5RN"/>
+                <constraint firstAttribute="trailingMargin" secondItem="zPq-YX-M09" secondAttribute="trailing" id="eze-ei-UXw"/>
+                <constraint firstAttribute="bottom" secondItem="zPq-YX-M09" secondAttribute="bottom" constant="16" id="mRh-yY-gxZ"/>
+                <constraint firstItem="zPq-YX-M09" firstAttribute="leading" secondItem="7y6-UR-TgL" secondAttribute="leadingMargin" id="t9A-h8-qkU"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="229.00763358778624" y="91.197183098591552"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="paperplane.fill" catalog="system" width="128" height="119"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemFillColor">
+            <color red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

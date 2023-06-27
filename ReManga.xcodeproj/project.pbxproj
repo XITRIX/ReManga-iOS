@@ -128,6 +128,9 @@
 		7C9F0C4E2A36330500988F82 /* CatalogFilterHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0C4C2A36330500988F82 /* CatalogFilterHeaderCell.swift */; };
 		7C9F0C512A36331000988F82 /* CatalogFilterHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0C502A36331000988F82 /* CatalogFilterHeaderViewModel.swift */; };
 		7C9F0C532A3645AA00988F82 /* NewMangaApiTagsResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0C522A3645AA00988F82 /* NewMangaApiTagsResultModel.swift */; };
+		7C9F0C572A37081300988F82 /* MangaDetailsMakeCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0C552A37081300988F82 /* MangaDetailsMakeCommentCell.swift */; };
+		7C9F0C582A37081300988F82 /* MangaDetailsMakeCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C9F0C562A37081300988F82 /* MangaDetailsMakeCommentCell.xib */; };
+		7C9F0C5A2A37081B00988F82 /* MangaDetailsMakeCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0C592A37081B00988F82 /* MangaDetailsMakeCommentViewModel.swift */; };
 		7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */; };
 		7CBE84B22A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE84B12A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift */; };
 		7CC2A7DE2A057C4D00128EB0 /* NewMangaUserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC2A7DD2A057C4D00128EB0 /* NewMangaUserResult.swift */; };
@@ -348,6 +351,9 @@
 		7C9F0C4C2A36330500988F82 /* CatalogFilterHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterHeaderCell.swift; sourceTree = "<group>"; };
 		7C9F0C502A36331000988F82 /* CatalogFilterHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilterHeaderViewModel.swift; sourceTree = "<group>"; };
 		7C9F0C522A3645AA00988F82 /* NewMangaApiTagsResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaApiTagsResultModel.swift; sourceTree = "<group>"; };
+		7C9F0C552A37081300988F82 /* MangaDetailsMakeCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsMakeCommentCell.swift; sourceTree = "<group>"; };
+		7C9F0C562A37081300988F82 /* MangaDetailsMakeCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaDetailsMakeCommentCell.xib; sourceTree = "<group>"; };
+		7C9F0C592A37081B00988F82 /* MangaDetailsMakeCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailsMakeCommentViewModel.swift; sourceTree = "<group>"; };
 		7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		7CBE84B12A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReMangaGoogleAuthViewModel.swift; sourceTree = "<group>"; };
 		7CC2A7DD2A057C4D00128EB0 /* NewMangaUserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaUserResult.swift; sourceTree = "<group>"; };
@@ -633,6 +639,7 @@
 		7C8B023129E8539E0022E724 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7C9F0C542A3707F400988F82 /* MangaDetailsMakeCommentCell */,
 				7C8B023229E853A40022E724 /* DetailsHeaderCap */,
 				7C8B026F29E9CE810022E724 /* MangaDetailsChapterCell */,
 				7C934AF629F5A31D00709295 /* MangaDetailsChaptersMenuCell */,
@@ -918,6 +925,16 @@
 				7C9F0C4C2A36330500988F82 /* CatalogFilterHeaderCell.swift */,
 			);
 			path = CatalogFilterHeaderCell;
+			sourceTree = "<group>";
+		};
+		7C9F0C542A3707F400988F82 /* MangaDetailsMakeCommentCell */ = {
+			isa = PBXGroup;
+			children = (
+				7C9F0C592A37081B00988F82 /* MangaDetailsMakeCommentViewModel.swift */,
+				7C9F0C552A37081300988F82 /* MangaDetailsMakeCommentCell.swift */,
+				7C9F0C562A37081300988F82 /* MangaDetailsMakeCommentCell.xib */,
+			);
+			path = MangaDetailsMakeCommentCell;
 			sourceTree = "<group>";
 		};
 		7CB3B87F29E6AE2A009280E4 /* Base */ = {
@@ -1403,6 +1420,7 @@
 				7C8B025229E95BA40022E724 /* MangaDetailsSelectorCell.xib in Resources */,
 				7C83352429E064D400B0CD99 /* Assets.xcassets in Resources */,
 				7C3459AB2A2FCEBC008416A3 /* BookmarksFilterHeaderCell.xib in Resources */,
+				7C9F0C582A37081300988F82 /* MangaDetailsMakeCommentCell.xib in Resources */,
 				7CFCF9BA29E6B327008E6150 /* ErrorViewController.xib in Resources */,
 				7CF49E702A0D896900565DFA /* ProfileBookmarksCell.xib in Resources */,
 				7C83354629E0728C00B0CD99 /* MangaCell.xib in Resources */,
@@ -1533,6 +1551,7 @@
 				7C83354A29E0747400B0CD99 /* MangaCellViewModel.swift in Sources */,
 				7CC888692A08059C00B65564 /* Math.swift in Sources */,
 				7C3459AA2A2FCEBC008416A3 /* BookmarksFilterHeaderCell.swift in Sources */,
+				7C9F0C572A37081300988F82 /* MangaDetailsMakeCommentCell.swift in Sources */,
 				7CC888632A0804C900B65564 /* AnimatedCircle.swift in Sources */,
 				7CF49E6B2A0D4E5700565DFA /* ReMangaChapterBuyResultModel.swift in Sources */,
 				7C228C1629F80DEF00BCC872 /* ProfileUserAccountCell.swift in Sources */,
@@ -1561,6 +1580,7 @@
 				7CE8B30B2A2BB3BA00BE8404 /* NewMangaApiSimilarResultModel.swift in Sources */,
 				7C8B02A129EC03050022E724 /* MangaDetailsHeaderViewModel.swift in Sources */,
 				7CC2A7DE2A057C4D00128EB0 /* NewMangaUserResult.swift in Sources */,
+				7C9F0C5A2A37081B00988F82 /* MangaDetailsMakeCommentViewModel.swift in Sources */,
 				7C934B0029F5C48E00709295 /* MangaDetailsInsetCell.swift in Sources */,
 				7CD354172A0FD935006F1DFE /* HistoryMangaItemViewModel.swift in Sources */,
 				7C934ADD29F08FDE00709295 /* CGRect+Extensions.swift in Sources */,
@@ -1798,6 +1818,7 @@
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Re:Manga";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1835,6 +1856,7 @@
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Re:Manga";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

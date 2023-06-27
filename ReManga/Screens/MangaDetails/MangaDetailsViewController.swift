@@ -32,6 +32,8 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var continueButtonLoadingIndicator: UIActivityIndicatorView!
 
+    private var keyboardHelperToken: KeyboardHandler?
+
     private var gradientView: UIView!
 
     private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
@@ -166,6 +168,8 @@ private extension MangaDetailsViewController {
     }
 
     func setupCollectionView() {
+        keyboardHelperToken = KeyboardHandler(collectionView)
+
         collectionView.backgroundView = imageViewHolder
         collectionView.delegate = delegates
 
@@ -212,6 +216,11 @@ private extension MangaDetailsViewController {
         }
 
         func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+            let model = parent.dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
+            return parent.viewModel.shouldSelectModel(model)
+        }
+
+        func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
             let model = parent.dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
             return parent.viewModel.shouldSelectModel(model)
         }

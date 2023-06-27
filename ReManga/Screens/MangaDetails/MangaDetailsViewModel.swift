@@ -35,6 +35,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     let tagsVM = MangaDetailsTagsViewModel()
     let chaptersMenuVM = MangaDetailsChaptersMenuViewModel()
     let similarsVM = MangaDetailsTitleSimilarsViewModel()
+    let makeCommentVM = MangaDetailsMakeCommentViewModel()
 
     let detail = BehaviorRelay<String?>(value: nil)
     let items = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
@@ -142,9 +143,9 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     func bottomReached() {
         switch selectorVM.selected.value {
         case 1:
-            performTask { try await self.loadNextChapters() }
+            Task { try await self.loadNextChapters() }
         case 2:
-            performTask { try await self.loadNextComments() }
+            Task { try await self.loadNextComments() }
         default:
             break
         }
@@ -245,6 +246,7 @@ private extension MangaDetailsViewModel {
         case 2:
             var commentsSection = MvvmCollectionSectionModel(id: Id.comments.rawValue, style: .plain, showsSeparators: false, items: [])
             if !comments.value.isEmpty || commentsIsLoading {
+                commentsSection.items.append(makeCommentVM)
                 commentsSection.items.append(contentsOf: comments.value.flatMap { $0.allExpandedChildren })
                 if !isCommentsFetchingDone {
                     let loader = MangaDetailsLoadingPlaceholderViewModel()

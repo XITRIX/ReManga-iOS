@@ -50,7 +50,10 @@ class CatalogFiltersViewModel: BaseViewModelWith<CatalogFiltersModel> {
 
             filters.append(item.tag)
         }
-        self.filters.accept(filters)
+
+        if self.filters.value != filters {
+            self.filters.accept(filters)
+        }
     }
 
     func clearFilters() {

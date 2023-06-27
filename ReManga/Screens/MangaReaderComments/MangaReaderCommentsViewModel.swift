@@ -9,7 +9,8 @@ import MvvmFoundation
 import RxRelay
 import RxSwift
 
-class MangaReaderCommentsViewModel: MvvmViewModelWith<BehaviorRelay<[MangaDetailsCommentViewModel]>> {
+class MangaReaderCommentsViewModel: BaseViewModelWith<BehaviorRelay<[MangaDetailsCommentViewModel]>> {
+    let commentText = BehaviorRelay<String?>(value: nil)
     let items = BehaviorRelay<[MvvmCollectionSectionModel]>(value: [])
     var commentVMs: BehaviorRelay<[MangaDetailsCommentViewModel]>!
     var commentsDisposalBag = DisposeBag()
@@ -17,6 +18,10 @@ class MangaReaderCommentsViewModel: MvvmViewModelWith<BehaviorRelay<[MangaDetail
     required init() {
         super.init()
         title.accept("Коментарии")
+    }
+
+    deinit {
+        print("\(Self.self) deinited")
     }
 
     override func prepare(with model: BehaviorRelay<[MangaDetailsCommentViewModel]>) {
