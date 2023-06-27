@@ -21,6 +21,10 @@ class MangaReaderPageViewModel: MvvmViewModelWith<MangaReaderPageModel> {
     override func prepare(with model: MangaReaderPageModel) {
         api = model.api
         imageSize.accept(model.pageModel.size)
-        imageUrl.accept(model.pageModel.path)
+        if api != nil {
+            imageUrl.accept(model.pageModel.path)
+        } else {
+            imageUrl.accept(MangaDownloadManager.imageLocalPath.appending(path: model.pageModel.path).absoluteString)
+        }
     }
 }

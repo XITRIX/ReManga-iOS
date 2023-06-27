@@ -16,7 +16,7 @@ class DownloadDetailsChapterViewModel: MvvmViewModelWith<MangaChapterDownloadMod
     override func prepare(with model: MangaChapterDownloadModel) {
         title.accept(model.title)
         tome.accept(model.tome)
-        chapter.accept(model.chapter)
+        chapter.accept("Глава \(model.chapter)")
         pages.accept(model.pages)
     }
 

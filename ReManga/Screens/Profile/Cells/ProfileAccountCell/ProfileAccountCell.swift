@@ -14,9 +14,6 @@ class ProfileAccountCell<VM: ProfileAccountViewModel>: MvvmCollectionViewListCel
     @IBOutlet private var subtitle: UILabel!
 
     override func initSetup() {
-        var conf = defaultBackgroundConfiguration()
-        conf.backgroundColor = .secondarySystemGroupedBackground
-        backgroundConfiguration = conf
     }
 
     override func setup(with viewModel: VM) {

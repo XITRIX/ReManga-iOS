@@ -37,7 +37,7 @@ class MangaDetailsChapterViewModel: MvvmViewModelWith<ApiMangaChapterModel> {
         dateFormatter.dateFormat = "dd/MM/yyyy"
 
         tome.accept("\(model.tome)")
-        chapter.accept("Глава \(model.chapter)")
+        chapter.accept("\(model.chapter)")
         date.accept(dateFormatter.string(from: model.date))
         id.accept(model.id)
         team.accept(model.team)

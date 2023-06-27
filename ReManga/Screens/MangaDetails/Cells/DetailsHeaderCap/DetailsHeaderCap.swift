@@ -16,7 +16,7 @@ class DetailsHeaderCap<VM: DetailsHeaderCapViewModel>: MvvmCollectionViewCell<VM
     @IBOutlet private var bookmarks: UILabel!
 
     override func initSetup() {
-        cardView.layer.cornerRadius = 12
+        cardView.layer.cornerRadius = 16
         cardView.layer.cornerCurve = .continuous
     }
 

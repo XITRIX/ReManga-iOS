@@ -34,9 +34,8 @@ class MangaDetailsChapterCell<VM: MangaDetailsChapterViewModel>: MvvmCollectionV
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
-            viewModel.chapter.bind(to: tomeLabel.rx.text)
             tomeLabel.rx.text <- viewModel.tome
-            nameLabel.rx.text <- viewModel.chapter
+            nameLabel.rx.text <- viewModel.chapter.map { "Глава \($0)" }
             dateLabel.rx.textWithVisibility <- viewModel.date
             teamLabel.rx.textWithVisibility <- viewModel.team
             nameLabel.rx.textColor <- viewModel.isReaded.map { $0 ? .secondaryLabel : .label }

@@ -11,14 +11,14 @@ import RxRelay
 import RxSwift
 
 class MangaDownloadManager {
-    private static var imageLocalPath: URL {
+    public static var imageLocalPath: URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0].appendingPathComponent("downloads")
     }
 
     @MainActor
-    private static func imagePathFor(manga: MangaDetailsViewModel, chapter: MangaDetailsChapterViewModel, page: Int, api: ApiProtocol) -> URL {
-        imageLocalPath.appendingPathComponent("\(api.name)-\(manga.id ?? "")/\(chapter.id.value)/\(page).png")
+    private static func imagePathFor(manga: MangaDetailsViewModel, chapter: MangaDetailsChapterViewModel, page: Int, api: ApiProtocol) -> String {
+        "\(api.name)-\(manga.id ?? "")/\(chapter.id.value)/\(page).png"
     }
 
     private static let userDefaultsKey = "MangaDownloadManager:Downloads"
@@ -103,9 +103,10 @@ class MangaDownloadManager {
 
             if saveFiles {
                 let path = await Self.imagePathFor(manga: manga, chapter: chapter, page: page.offset, api: api)
-                try FileManager.default.createDirectory(at: path.deletingLastPathComponent(), withIntermediateDirectories: true)
-                try image.image.pngData()?.write(to: path)
-                pages[page.offset].path = path.absoluteString
+                let realPath = MangaDownloadManager.imageLocalPath.appending(component: path)
+                try FileManager.default.createDirectory(at: realPath.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try image.image.pngData()?.write(to: realPath)
+                pages[page.offset].path = path
             }
         }
 

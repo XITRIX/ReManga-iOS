@@ -87,7 +87,7 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
             guard !chapters.isEmpty, currentChapter >= 0
             else { return "" }
 
-            return chapters[currentChapter].chapter.value
+            return "Глава " + chapters[currentChapter].chapter.value
         }
     }
 
@@ -224,7 +224,7 @@ private extension MangaReaderViewModel {
             pages.accept(items)
             state.accept(.default)
 
-            historyManager.addItem(.init(id: titleVM.dir, title: titleVM.title.value, image: titleVM.image.value, details: "Том \(model.tome.value) - \(model.chapter.value)", chapterId: model.id.value, apiKey: api.key))
+            historyManager.addItem(.init(id: titleVM.dir, title: titleVM.title.value, image: titleVM.image.value, details: "Том \(model.tome.value) - Глава \(model.chapter.value)", chapterId: model.id.value, apiKey: api.key))
 
             currentPreloadingTask?.cancel()
             currentPreloadingTask = Task { try await downloadManager.downloadChapter(api: api, manga: titleVM, chapter: model, saveFiles: false) }
