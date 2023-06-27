@@ -74,7 +74,6 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     override func binding() {
         super.binding()
         bind(in: disposeBag) {
-
             chaptersMenuVM.selectAll.bind { [unowned self] _ in
                 guard let id = items.value.firstIndex(where: { $0.id == Id.chapters.rawValue })
                 else { return }
@@ -87,7 +86,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
                 Task { try await downloadManager.downloadChapters(api: api, manga: self, chapters: chapters) }
             }
 
-            downloadingTableState.bind { [unowned self] state in
+            downloadingTableState.bind { [unowned self] _ in
                 refresh()
             }
             chaptersMenuVM.chaptersReverted.bind { [unowned self] _ in
@@ -99,7 +98,7 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
             tagsVM.tagSelected.bind { [unowned self] tag in
                 tagSelected(tag)
             }
-            chapters.bind { [unowned self] chapters in
+            chapters.bind { [unowned self] _ in
                 if selectorVM.selected.value == 1 {
                     refresh()
                 }
@@ -202,6 +201,10 @@ private extension MangaDetailsViewModel {
     }
 
     func selectSegment(_ segment: Int) {
+        if state.value == .loading {
+            return items.accept([])
+        }
+
         let insetSection: MvvmCollectionSectionModel = .init(id: Id.inset.rawValue, style: .plain, showsSeparators: false, backgroundColor: .clear, items: [insetVM])
         var headerSection: MvvmCollectionSectionModel = .init(id: Id.header.rawValue, style: .plain, showsSeparators: false, backgroundColor: .clear, items: [statusVM])
 
@@ -255,7 +258,7 @@ private extension MangaDetailsViewModel {
                 }
             } else {
                 commentsSection.items.append(MangaDetailsLoadingPlaceholderViewModel())
-                
+
                 /// WORKAROUND: -  Several empty items to workaround wierd animation bug
                 commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
                 commentsSection.items.append(MangaDetailsHeaderViewModel(with: ""))
@@ -319,8 +322,8 @@ private extension MangaDetailsViewModel {
 
             translators.accept(res.branches.flatMap { $0.translators }.map { .init(with: $0) })
 
-            refresh()
             state.accept(.default)
+            refresh()
         }
     }
 
@@ -346,7 +349,7 @@ private extension MangaDetailsViewModel {
                 downloadManager.bindChapterToDownloadManager(chapter: res, of: self, from: api)
                 return res
             })
-            
+
             isChaptersFetchingDone = chaptersRes.count != count
         }
     }

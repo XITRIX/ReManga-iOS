@@ -8,10 +8,23 @@
 import MvvmFoundation
 import RxRelay
 
-enum ViewModelState {
+enum ViewModelState: Equatable {
     case `default`
     case loading
     case error(Error, (() -> Void)? = nil)
+
+    static func == (lhs: ViewModelState, rhs: ViewModelState) -> Bool {
+        switch (lhs, rhs) {
+        case (.default, .default):
+            return true
+        case (.loading, .loading):
+            return true
+        case (.error, .error):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 protocol BaseViewModelProtocol: MvvmViewModelProtocol {
@@ -64,7 +77,7 @@ class BaseViewModel: MvvmViewModel, BaseViewModelProtocol {
         state.accept(.error(error, task))
     }
 
-    private func catchError(_ error: Error, _ task:  @escaping () async throws -> Void) async {
+    private func catchError(_ error: Error, _ task: @escaping () async throws -> Void) async {
         await handleError(error) { [weak self] in
             self?.performTask {
                 self?.state.accept(.loading)

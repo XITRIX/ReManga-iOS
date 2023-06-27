@@ -32,6 +32,13 @@ class MangaReaderCommentsViewController<VM: MangaReaderCommentsViewModel>: BaseV
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        #if !os(xrOS)
+        if let sheet = navigationController?.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+        }
+        #endif
+
         keyboardToken.onKeyboardWillChangeFrame = { [weak self] status in
             guard let self else { return }
 

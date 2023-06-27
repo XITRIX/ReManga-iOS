@@ -24,11 +24,6 @@ class CatalogFiltersViewController<VM: CatalogFiltersViewModel>: BaseViewControl
 
         #if !os(xrOS)
         if let sheet = navigationController?.sheetPresentationController {
-            let smallId = UISheetPresentationController.Detent.Identifier("small")
-            let smallDetent = UISheetPresentationController.Detent.custom(identifier: smallId) { context in
-                return 80
-            }
-
             sheet.detents = [.medium(), .large()]
             sheet.prefersGrabberVisible = true
         }

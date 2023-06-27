@@ -25,6 +25,13 @@ class MangaDetailsMakeCommentCell<VM: MangaDetailsMakeCommentViewModel>: MvvmCol
 
         backgroundConfiguration = defaultBackgroundConfiguration()
         backgroundConfiguration?.backgroundColor = .clear
+
+        // FIXME: Shitty workaround for strange UIStackView constraints behaviour
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation {
+                self.invalidateIntrinsicContentSize()
+            }
+        }
     }
 
     override func setup(with viewModel: VM) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22113.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22113.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,7 +40,7 @@
                     <subviews>
                         <visualEffectView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="geK-gd-NwM">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="94"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" id="hgf-ha-L8V">
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hgf-ha-L8V">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="94"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -52,19 +52,19 @@
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="OwG-fc-Usd">
-                                        <rect key="frame" x="16" y="8" width="361" height="44"/>
+                                        <rect key="frame" x="8" y="8" width="377" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jVD-3J-eb4">
-                                                <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="377" height="44"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qui-Tp-5e4" customClass="FlexibleTextView" customModule="ReManga" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="5" width="361" height="34"/>
+                                                        <rect key="frame" x="0.0" y="5" width="377" height="34"/>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Написать комментарий" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0i-eD-unM">
-                                                        <rect key="frame" x="12" y="13" width="337" height="18"/>
+                                                        <rect key="frame" x="12" y="13" width="353" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                                         <nil key="highlightedColor"/>
@@ -85,7 +85,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gi1-97-eoy">
-                                                <rect key="frame" x="309.66666666666669" y="8" width="43.333333333333314" height="28"/>
+                                                <rect key="frame" x="325.66666666666669" y="8" width="43.333333333333314" height="28"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" image="paperplane.fill" catalog="system" buttonSize="mini"/>
                                             </button>
@@ -94,9 +94,9 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="jVD-3J-eb4" secondAttribute="bottom" id="131-Yb-l5P"/>
                                             <constraint firstItem="jVD-3J-eb4" firstAttribute="top" secondItem="OwG-fc-Usd" secondAttribute="top" id="6E5-hA-X8P"/>
-                                            <constraint firstAttribute="trailing" secondItem="Gi1-97-eoy" secondAttribute="trailing" constant="8" id="7eS-yi-g8q"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="Gi1-97-eoy" secondAttribute="trailing" id="7eS-yi-g8q"/>
                                             <constraint firstAttribute="height" priority="250" id="GxN-Gs-SwJ"/>
-                                            <constraint firstAttribute="bottom" secondItem="Gi1-97-eoy" secondAttribute="bottom" constant="8" id="RD9-W2-Qyr"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="Gi1-97-eoy" secondAttribute="bottom" id="RD9-W2-Qyr"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="XNw-4r-4nO"/>
                                             <constraint firstAttribute="trailing" secondItem="jVD-3J-eb4" secondAttribute="trailing" id="hbO-Ox-SQB"/>
                                             <constraint firstItem="jVD-3J-eb4" firstAttribute="leading" secondItem="OwG-fc-Usd" secondAttribute="leading" id="p7j-d3-p2k"/>
@@ -147,16 +147,16 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tertiarySystemFillColor">
-            <color red="0.46274509803921571" green="0.46274509803921571" blue="0.50196078431372548" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

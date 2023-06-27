@@ -60,9 +60,6 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" priority="750" id="EW7-pO-Fhk"/>
-                            </constraints>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oli-uT-nNC">
                             <rect key="frame" x="322.66666666666669" y="63" width="43.333333333333314" height="28"/>
