@@ -151,7 +151,9 @@ private extension MangaReaderViewController {
             navigationBarHiddenConstraint.isActive = isHidden
             toolBarHiddenConstraint.isActive = isHidden || !viewModel.isActionsAvailable.value
             view.layoutIfNeeded()
+            #if !os(xrOS)
             setNeedsStatusBarAppearanceUpdate()
+            #endif
         }
     }
 
@@ -186,7 +188,7 @@ private extension MangaReaderViewController {
     func applyMenu() {
         let test: [UIAction] = viewModel.chapters.value.enumerated().map { chapter in
             let readed = chapter.element.isReaded.value ? "" : " •"
-            return UIAction(title: "Том \(chapter.element.tome.value) \(chapter.element.chapter.value)" + readed, state: chapter.offset == viewModel.currentChapter.value ? .on : .off) { [weak self] _ in
+            return UIAction(title: "Том \(chapter.element.tome.value) Глава \(chapter.element.chapter.value)" + readed, state: chapter.offset == viewModel.currentChapter.value ? .on : .off) { [weak self] _ in
                 self?.viewModel.currentChapter.accept(chapter.offset)
             }
         }

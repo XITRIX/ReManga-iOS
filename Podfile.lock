@@ -1,56 +1,64 @@
 PODS:
-  - Kingfisher (7.6.2)
+  - Kingfisher (7.8.1)
   - MarqueeLabel (4.3.0)
   - MvvmFoundation (0.1.0):
     - RxBiBinding
-    - RxCocoa (~> 6.5.0)
-    - RxSwift (~> 6.5.0)
+    - RxCocoa (~> 6.5)
+    - RxSwift (~> 6.5)
   - RxBiBinding (0.3.5):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
+  - RxCocoa (6.6.0):
+    - RxRelay (= 6.6.0)
+    - RxSwift (= 6.6.0)
+  - RxRelay (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxSwift (6.6.0)
   - UIImageColors (2.1.0)
   - XTBottomSheet (0.1.0)
 
 DEPENDENCIES:
-  - Kingfisher (~> 7.0)
-  - MarqueeLabel
+  - Kingfisher (from `submodules/Kingfisher`)
+  - MarqueeLabel (from `submodules/MarqueeLabel`)
   - MvvmFoundation (from `submodules/MvvmFoundation`)
+  - RxCocoa (from `submodules/RxSwift`)
+  - RxRelay (from `submodules/RxSwift`)
+  - RxSwift (from `submodules/RxSwift`)
   - UIImageColors
   - XTBottomSheet (from `submodules/XTBottomSheet`)
 
 SPEC REPOS:
   trunk:
-    - Kingfisher
-    - MarqueeLabel
     - RxBiBinding
-    - RxCocoa
-    - RxRelay
-    - RxSwift
     - UIImageColors
 
 EXTERNAL SOURCES:
+  Kingfisher:
+    :path: submodules/Kingfisher
+  MarqueeLabel:
+    :path: submodules/MarqueeLabel
   MvvmFoundation:
     :path: submodules/MvvmFoundation
+  RxCocoa:
+    :path: submodules/RxSwift
+  RxRelay:
+    :path: submodules/RxSwift
+  RxSwift:
+    :path: submodules/RxSwift
   XTBottomSheet:
     :path: submodules/XTBottomSheet
 
 SPEC CHECKSUMS:
-  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
   MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
-  MvvmFoundation: 44794136a81e1f993fa09da54831f9eefd506a01
+  MvvmFoundation: 0c3145e37252936d46f74d52ef1f27de2d95dc0d
   RxBiBinding: c4de0aad6ee668fa73ea6ba423bc0ab5d77b986b
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
+  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
+  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
   XTBottomSheet: 6611fbef438af4c4243aeddbeaa2c7f21cbd1131
 
-PODFILE CHECKSUM: 5606319ea3668f7306d220c4dea262ec0c31be0b
+PODFILE CHECKSUM: 918b50b8cba2fd44e4cc3a2cb04f43fd2364673d
 
 COCOAPODS: 1.12.0

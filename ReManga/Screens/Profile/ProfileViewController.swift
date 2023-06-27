@@ -12,7 +12,8 @@ import UIKit
 class ProfileViewController<VM: ProfileViewModel>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
     private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
-    let notificationButton: UIBarButtonItem = .init()
+    private lazy var delegates = Delegates(parent: self)
+    private let notificationButton: UIBarButtonItem = .init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,21 @@ class ProfileViewController<VM: ProfileViewModel>: BaseViewController<VM> {
 
     func setupCollectionView() {
         collectionView.dataSource = dataSource
+        collectionView.delegate = delegates
         collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         smoothlyDeselectItems(in: collectionView)
+    }
+}
+
+private extension ProfileViewController {
+    class Delegates: DelegateObject<ProfileViewController>, UICollectionViewDelegate {
+        func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+            parent.viewModel.items.value[indexPath.section].items[indexPath.item].canBeSelected
+        }
     }
 }
 

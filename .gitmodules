@@ -4,3 +4,12 @@
 [submodule "submodules/XTBottomSheet"]
 	path = submodules/XTBottomSheet
 	url = https://github.com/XITRIX/XTBottomSheet.git
+[submodule "submodules/Kingfisher"]
+	path = submodules/Kingfisher
+	url = https://github.com/onevcat/Kingfisher.git
+[submodule "submodules/RxSwift"]
+	path = submodules/RxSwift
+	url = https://github.com/ReactiveX/RxSwift.git
+[submodule "submodules/MarqueeLabel"]
+	path = submodules/MarqueeLabel
+	url = https://github.com/XITRIX/MarqueeLabel.git

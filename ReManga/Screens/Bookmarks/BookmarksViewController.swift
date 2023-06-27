@@ -46,9 +46,11 @@ class BookmarksViewController<VM: BookmarksViewModel>: BaseViewController<VM> {
             }
 
             filterButton.rx.isHidden <- viewModel.isFilterButtonAvailable.inverted
-            viewModel.isFilterButtonAvailable.bind { [unowned self] available in
-                flowLayout.headerReferenceSize = available ? .init(width: 400, height: 44) : .zero
-            }
+
+            // TODO: Not the best variant of status filter
+//            viewModel.isFilterButtonAvailable.bind { [unowned self] available in
+//                flowLayout.headerReferenceSize = available ? .init(width: 400, height: 44) : .zero
+//            }
 
             filterButton.rx.image <- viewModel.selectedBookmarkType.map { bookmarkType in
                 bookmarkType == nil ? .init(systemName: "line.3.horizontal.decrease.circle") : .init(systemName: "line.3.horizontal.decrease.circle.fill")

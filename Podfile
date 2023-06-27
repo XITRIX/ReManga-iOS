@@ -8,8 +8,11 @@ target 'ReManga' do
   # Pods for ReManga
   pod 'MvvmFoundation', :path => 'submodules/MvvmFoundation'
   pod 'XTBottomSheet', :path => 'submodules/XTBottomSheet'
-  pod 'Kingfisher', '~> 7.0'
-  pod 'MarqueeLabel'
+  pod 'Kingfisher', :path => 'submodules/Kingfisher'
+  pod 'RxSwift', :path => 'submodules/RxSwift'
+  pod 'RxCocoa', :path => 'submodules/RxSwift'
+  pod 'RxRelay', :path => 'submodules/RxSwift'
+  pod 'MarqueeLabel', :path => 'submodules/MarqueeLabel'
   pod 'UIImageColors'
 
 end

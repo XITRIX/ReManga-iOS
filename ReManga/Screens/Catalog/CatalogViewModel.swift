@@ -111,10 +111,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     }
 
     func showFilters() {
-        navigate(to: CatalogFiltersViewModel.self, with: .init(apiKey: api.key, filters: filters), by: .custom(transaction: { from, to in
-            let vc = BottomSheetController(rootViewController: to, with: .init(withDragger: true))
-            from.present(vc, animated: true)
-        }))
+        navigate(to: CatalogFiltersViewModel.self, with: .init(apiKey: api.key, filters: filters), by: .present(wrapInNavigation: true))
     }
 
     // MARK: - Private

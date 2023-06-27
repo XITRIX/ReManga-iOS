@@ -39,8 +39,11 @@ class MangaReaderLoadNextCell<VM: MangaReaderLoadNextViewModel>: MvvmCollectionV
             if res > 100, !clicked {
                 clicked = true
                 titleLabel.text = "Отпустите"
+                
+                #if !os(xrOS)
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
+                #endif
             } else if res <= 100 {
                 titleLabel.text = nextText
                 clicked = false

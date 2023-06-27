@@ -22,6 +22,18 @@ class CatalogFiltersViewController<VM: CatalogFiltersViewModel>: BaseViewControl
 
         navigationItem.trailingItemGroups = [.fixedGroup(items: [dismissButtonItem])]
 
+        #if !os(xrOS)
+        if let sheet = navigationController?.sheetPresentationController {
+            let smallId = UISheetPresentationController.Detent.Identifier("small")
+            let smallDetent = UISheetPresentationController.Detent.custom(identifier: smallId) { context in
+                return 80
+            }
+
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+        }
+        #endif
+
         collectionView.dataSource = dataSource
         let layout = MvvmCollectionViewLayout(dataSource, headerMode: .firstItemInSection)
         collectionView.collectionViewLayout = layout
