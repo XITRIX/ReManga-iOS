@@ -8,7 +8,6 @@
 import MvvmFoundation
 import RxRelay
 import RxSwift
-import XTBottomSheet
 
 struct CatalogViewConfig {
     var title: String
