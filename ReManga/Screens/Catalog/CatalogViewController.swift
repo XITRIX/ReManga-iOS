@@ -13,7 +13,8 @@ import UIKit
 
 class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM> {
     @IBOutlet private var collectionView: UICollectionView!
-    private let filetButtonItem = UIBarButtonItem()
+    private let filterButtonItem = UIBarButtonItem()
+    private let orderButtonItem = UIBarButtonItem()
 
     private var keyboardToken: KeyboardHandler!
     private let searchController = UISearchController()
@@ -35,6 +36,8 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
         searchController.searchBar.placeholder = "Поиск"
         searchController.delegate = delegates
 
+        orderButtonItem.image = .init(systemName: "arrow.up.arrow.down.circle")
+
         bind(in: disposeBag) {
             viewModel.searchQuery <- searchController.searchBar.rx.text.throttle(.seconds(1), scheduler: MainScheduler.instance)
             viewModel.items.bind { [unowned self] models in
@@ -50,11 +53,14 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
                 collectionView.setContentOffset(.init(x: 0, y: -200), animated: false)
             }
             viewModel.isFiltersAvailable.bind { [unowned self] available in
-                navigationItem.trailingItemGroups = available ? [.fixedGroup(items: [filetButtonItem])] : []
+                navigationItem.trailingItemGroups = available ? [.fixedGroup(items: [orderButtonItem, filterButtonItem])] : []
+            }
+            viewModel.sortTypes.bind { [unowned self] types in
+                applyOrderMenu(types, viewModel.sortType)
             }
 
-            filetButtonItem.rx.image <- viewModel.filters.map { $0.isEmpty ? .init(systemName: "line.3.horizontal.decrease.circle") : .init(systemName: "line.3.horizontal.decrease.circle.fill") }
-            viewModel.showFilters <- filetButtonItem.rx.tap
+            filterButtonItem.rx.image <- viewModel.filters.map { $0.isEmpty ? .init(systemName: "line.3.horizontal.decrease.circle") : .init(systemName: "line.3.horizontal.decrease.circle.fill") }
+            viewModel.showFilters <- filterButtonItem.rx.tap
         }
     }
 
@@ -68,6 +74,17 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
         snapshot.appendSections([0])
         snapshot.appendItems(models.map { .init(viewModel: $0) })
         dataSource.apply(snapshot)
+    }
+}
+
+private extension CatalogViewController {
+    func applyOrderMenu(_ sorts: [ApiMangaIdModel], _ current: ApiMangaIdModel?) {
+        let actions: [UIAction] = sorts.map { sort in
+            .init(title: sort.name, state: sort == current ? .on : .off) { [unowned self] _ in
+                viewModel.setSortType(sort)
+            }
+        }
+        orderButtonItem.menu = UIMenu(children: actions)
     }
 }
 

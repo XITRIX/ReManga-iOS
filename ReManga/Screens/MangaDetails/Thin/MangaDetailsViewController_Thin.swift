@@ -157,7 +157,9 @@ private extension MangaDetailsViewController_Thin {
         scrollAppearance.configureWithTransparentBackground()
         scrollAppearance.buttonAppearance = scrollButtonsAppearance
         scrollAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal).with(size: .init(width: 30, height: 30)), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
+
+//        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal).with(size: .init(width: 30, height: 30)), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
+        scrollAppearance.setBackIndicatorImage(scrollAppearance.backIndicatorImage.withTintColor(.clear, renderingMode: .alwaysOriginal), transitionMaskImage: scrollAppearance.backIndicatorTransitionMaskImage)
         navigationItem.scrollEdgeAppearance = scrollAppearance
 
         let appearance = UINavigationBarAppearance()

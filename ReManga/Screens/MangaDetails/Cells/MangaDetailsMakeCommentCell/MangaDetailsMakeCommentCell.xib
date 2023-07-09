@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22113.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22138.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22113"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,27 +19,26 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="7y6-UR-TgL">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="115"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zPq-YX-M09">
-                    <rect key="frame" x="20" y="0.0" width="374" height="99"/>
+                    <rect key="frame" x="20" y="0.0" width="374" height="53"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IEq-bE-H1y">
-                            <rect key="frame" x="0.0" y="0.0" width="314.66666666666669" height="99"/>
+                            <rect key="frame" x="0.0" y="0.0" width="314.66666666666669" height="53"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8A3-wA-PtM">
-                                    <rect key="frame" x="0.0" y="0.0" width="314.66666666666669" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="314.66666666666669" height="53"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mJe-zN-jFj">
-                                            <rect key="frame" x="8" y="0.0" width="298.66666666666669" height="99"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <rect key="frame" x="8" y="9.6666666666666643" width="298.66666666666669" height="34"/>
                                             <color key="textColor" systemColor="labelColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Написать комментарий" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XN9-Fu-12b">
-                                            <rect key="frame" x="12" y="40.666666666666664" width="290.66666666666669" height="18"/>
+                                            <rect key="frame" x="12" y="17.666666666666668" width="290.66666666666669" height="18.000000000000004"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
@@ -62,7 +61,7 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oli-uT-nNC">
-                            <rect key="frame" x="322.66666666666669" y="63" width="43.333333333333314" height="28"/>
+                            <rect key="frame" x="322.66666666666669" y="17" width="43.333333333333314" height="28"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" image="paperplane.fill" catalog="system" buttonSize="mini"/>
                         </button>
@@ -88,13 +87,13 @@
                 <constraint firstItem="zPq-YX-M09" firstAttribute="leading" secondItem="7y6-UR-TgL" secondAttribute="leadingMargin" id="t9A-h8-qkU"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="229.00763358778624" y="91.197183098591552"/>
+            <point key="canvasLocation" x="229.00763358778624" y="107.3943661971831"/>
         </view>
     </objects>
     <resources>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

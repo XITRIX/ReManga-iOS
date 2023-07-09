@@ -1,15 +1,17 @@
 //
-//  MangaDetailsTitleSimilarsCell.swift
+//  WidgetHCollectionCell.swift
 //  ReManga
 //
-//  Created by Даниил Виноградов on 03.06.2023.
+//  Created by Даниил Виноградов on 04.07.2023.
 //
 
-import MvvmFoundation
 import UIKit
+import MvvmFoundation
 
-class MangaDetailsTitleSimilarsCell<VM: MangaDetailsTitleSimilarsViewModel>: MvvmCollectionViewListCell<VM> {
+class WidgetHCollectionCell<VM: WidgetHCollectionViewModel>: MvvmCollectionViewListCell<VM> {
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+
     private lazy var delegates = Delegates(parent: self)
     private lazy var dataSource = UICollectionViewDiffableDataSource<Int, MvvmCellViewModelWrapper<MvvmViewModel>>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
         itemIdentifier.viewModel.resolveCell(from: collectionView, at: indexPath)
@@ -20,18 +22,16 @@ class MangaDetailsTitleSimilarsCell<VM: MangaDetailsTitleSimilarsViewModel>: Mvv
     override func initSetup() {
         collectionView.delegate = delegates
         collectionView.dataSource = dataSource
-        
-        backgroundConfiguration = defaultBackgroundConfiguration()
-        backgroundConfiguration?.backgroundColor = .clear
     }
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
-            delegates.updateSimilars <- viewModel.similars
+            delegates.updateSimilars <- viewModel.items
+            activityIndicator.rx.isAnimating <- viewModel.isLoading
 
             collectionView.rx.itemSelected.bind { [unowned viewModel] indexPath in
-                let items = viewModel.similars.value[indexPath.item]
-                viewModel.selected.accept(items.id)
+                let items = viewModel.items.value[indexPath.item]
+                viewModel.select(item: items.id)
             }
         }
     }
@@ -45,7 +45,6 @@ class MangaDetailsTitleSimilarsCell<VM: MangaDetailsTitleSimilarsViewModel>: Mvv
 
         collectionView.horizontalScrollIndicatorInsets.left = insets.left
         collectionView.horizontalScrollIndicatorInsets.right = insets.right
-
     }
 
     override func layoutSubviews() {
@@ -62,8 +61,8 @@ class MangaDetailsTitleSimilarsCell<VM: MangaDetailsTitleSimilarsViewModel>: Mvv
     }
 }
 
-extension MangaDetailsTitleSimilarsCell {
-    class Delegates: DelegateObject<MangaDetailsTitleSimilarsCell>, UICollectionViewDelegateFlowLayout {
+extension WidgetHCollectionCell {
+    class Delegates: DelegateObject<WidgetHCollectionCell>, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             let itemHeight: Double = 200
             let itemWidth = (itemHeight - 42) / 1.41

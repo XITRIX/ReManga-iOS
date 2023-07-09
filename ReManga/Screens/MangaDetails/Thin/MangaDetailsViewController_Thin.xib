@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089.1"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,13 +44,55 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f94-Mr-lk1">
+                    <rect key="frame" x="8" y="15" width="44" height="44"/>
+                    <subviews>
+                        <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9H-FA-L6h">
+                            <rect key="frame" x="7" y="7" width="30" height="30"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Y5o-VU-ZGF">
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rrZ-fQ-3Qk">
+                                        <rect key="frame" x="9" y="6.6666666666666679" width="12" height="16.333333333333332"/>
+                                        <color key="tintColor" white="1" alpha="0.70403370468277948" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <imageReference key="image" image="chevron.left" catalog="system" symbolScale="default" variableValue="0.80000000000000004"/>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15" scale="large" weight="bold"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="rrZ-fQ-3Qk" firstAttribute="centerY" secondItem="Y5o-VU-ZGF" secondAttribute="centerY" id="Kaz-tA-tq8"/>
+                                    <constraint firstItem="rrZ-fQ-3Qk" firstAttribute="centerX" secondItem="Y5o-VU-ZGF" secondAttribute="centerX" id="jiQ-CR-8XW"/>
+                                </constraints>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="T7y-DI-d41"/>
+                                <constraint firstAttribute="width" constant="30" id="gNg-ZW-B27"/>
+                            </constraints>
+                            <blurEffect style="regular"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </visualEffectView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="CJD-Io-bZF"/>
+                        <constraint firstAttribute="width" constant="44" id="dpx-r6-6nb"/>
+                        <constraint firstItem="S9H-FA-L6h" firstAttribute="centerY" secondItem="f94-Mr-lk1" secondAttribute="centerY" id="fJg-mI-niQ"/>
+                        <constraint firstItem="S9H-FA-L6h" firstAttribute="centerX" secondItem="f94-Mr-lk1" secondAttribute="centerX" id="rCB-9f-pHz"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="f94-Mr-lk1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="K4U-KY-QKZ"/>
                 <constraint firstAttribute="bottom" secondItem="FsN-FQ-f27" secondAttribute="bottom" id="L4f-CY-vin"/>
                 <constraint firstItem="FsN-FQ-f27" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yxw-na-jL1"/>
                 <constraint firstItem="FsN-FQ-f27" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jpP-72-RaT"/>
+                <constraint firstItem="f94-Mr-lk1" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="top" id="kjL-3h-4zc"/>
                 <constraint firstItem="FsN-FQ-f27" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="lDf-Lf-9CX"/>
             </constraints>
             <point key="canvasLocation" x="104.58015267175573" y="19.718309859154932"/>
@@ -243,6 +286,7 @@
     </designables>
     <resources>
         <image name="bookmark" catalog="system" width="110" height="128"/>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

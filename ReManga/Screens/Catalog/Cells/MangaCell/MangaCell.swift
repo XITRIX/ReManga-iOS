@@ -24,6 +24,8 @@ class MangaCell<VM: MangaCellViewModelProtocol>: MvvmCollectionViewCell<VM> {
 
         imageView.layer.cornerRadius = 12
         imageView.layer.cornerCurve = .continuous
+
+//        hoverStyle = .init(effect: .lift, shape: .roundedRect(cornerRadius: 8))
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

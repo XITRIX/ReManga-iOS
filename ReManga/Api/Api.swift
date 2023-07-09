@@ -32,8 +32,10 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
 
     var profile: BehaviorRelay<ApiMangaUserModel?> { get }
 
-    func fetchCatalog(page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel]
-    func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel]
+    var defaultSortingType: ApiMangaIdModel { get }
+    func fetchSortingTypes() async throws -> [ApiMangaIdModel]
+    func fetchCatalog(page: Int, filters: [ApiMangaTag], sorting: ApiMangaIdModel) async throws -> [ApiMangaModel]
+    func fetchSearch(query: String, page: Int, sorting: ApiMangaIdModel) async throws -> [ApiMangaModel]
     func fetchDetails(id: String) async throws -> ApiMangaModel
     func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel]
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel]
@@ -68,8 +70,12 @@ extension ApiProtocol {
         try await fetchTitleChapters(branch: branch, count: count, page: page)
     }
     
-    func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
-        try await fetchCatalog(page: page, filters: filters)
+    func fetchCatalog(page: Int, filters: [ApiMangaTag] = [], sorting: ApiMangaIdModel? = nil) async throws -> [ApiMangaModel] {
+        try await fetchCatalog(page: page, filters: filters, sorting: sorting ?? defaultSortingType)
+    }
+
+    func fetchSearch(query: String, page: Int, sorting: ApiMangaIdModel? = nil) async throws -> [ApiMangaModel] {
+        try await fetchSearch(query: query, page: page, sorting: sorting ?? defaultSortingType)
     }
 
     func deauth() {

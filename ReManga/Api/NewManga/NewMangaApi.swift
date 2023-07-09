@@ -71,15 +71,29 @@ class NewMangaApi: ApiProtocol {
         return session
     }
 
-    func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
-        try await fetchSearch(query: "", page: page, filters: filters)
+    var defaultSortingType: ApiMangaIdModel {
+        .init(id: "RATING", name: "По рейтингу")
     }
 
-    func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel] {
-        try await fetchSearch(query: query, page: page, filters: [])
+    func fetchSortingTypes() async throws -> [ApiMangaIdModel] {
+        [.init(id: "MATCH", name: "По совпадению"),
+         .init(id: "RATING", name: "По рейтингу"),
+         .init(id: "VIEWS", name: "По просмотрам"),
+         .init(id: "HEARTS", name: "По лайкам"),
+         .init(id: "CREATED_AT", name: "По дате создания"),
+         .init(id: "COUNT_CHAPTERS", name: "По кол-ву глав"),
+         .init(id: "UPDATED_AT", name: "По дате обновления")]
     }
 
-    func fetchSearch(query: String, page: Int, filters: [ApiMangaTag]) async throws -> [ApiMangaModel] {
+    func fetchCatalog(page: Int, filters: [ApiMangaTag] = [], sorting: ApiMangaIdModel) async throws -> [ApiMangaModel] {
+        try await fetchSearch(query: "", page: page, filters: filters, sorting: sorting)
+    }
+
+    func fetchSearch(query: String, page: Int, sorting: ApiMangaIdModel) async throws -> [ApiMangaModel] {
+        try await fetchSearch(query: query, page: page, filters: [], sorting: sorting)
+    }
+
+    func fetchSearch(query: String, page: Int, filters: [ApiMangaTag], sorting: ApiMangaIdModel) async throws -> [ApiMangaModel] {
         let url = "https://neo.newmanga.org/catalogue"
 
         var request = makeRequest(url)
@@ -87,6 +101,7 @@ class NewMangaApi: ApiProtocol {
         var body = NewMangaCatalogRequest()
         body.query = query
         body.pagination.page = page
+        body.sort = .init(kind: sorting.id, dir: "DESC")
 
         for filter in filters {
             switch filter.kind {

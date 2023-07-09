@@ -150,7 +150,7 @@ extension ApiMangaCommentModel {
         guard let text = model.text
         else { return nil }
 
-        self.text = .init(string: text)
+        self.text = text.htmlToAttributedString() ?? .init(string: text)
 
         applyHierarchy(0)
     }

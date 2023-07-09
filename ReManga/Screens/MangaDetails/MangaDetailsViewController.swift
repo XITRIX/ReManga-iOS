@@ -47,5 +47,6 @@ private extension UIViewController {
         navigationItem.largeTitleDisplayMode = viewController.navigationItem.largeTitleDisplayMode
         navigationItem.scrollEdgeAppearance = viewController.navigationItem.scrollEdgeAppearance
         navigationItem.standardAppearance = viewController.navigationItem.standardAppearance
+        navigationItem.titleView = viewController.navigationItem.titleView
     }
 }

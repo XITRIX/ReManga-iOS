@@ -28,8 +28,11 @@ protocol CatalogViewModelProtocol: BaseViewModelProtocol {
     var isSearchAvailable: BehaviorRelay<Bool> { get }
     var isFiltersAvailable: BehaviorRelay<Bool> { get }
     var filters: BehaviorRelay<[ApiMangaTag]> { get }
+    var sortTypes: BehaviorRelay<[ApiMangaIdModel]> { get }
+    var sortType: ApiMangaIdModel? { get }
 
     func loadNext()
+    func setSortType(_ sort: ApiMangaIdModel)
     func showDetails(for model: MangaCellViewModel)
     func showFilters()
 }
@@ -41,6 +44,8 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     public let isSearchAvailable = BehaviorRelay<Bool>(value: true)
     public let isFiltersAvailable = BehaviorRelay<Bool>(value: true)
     public let filters = BehaviorRelay<[ApiMangaTag]>(value: [])
+    public let sortTypes = BehaviorRelay<[ApiMangaIdModel]>(value: [])
+    public var sortType: ApiMangaIdModel?
 
     private var currentSearchTask: Task<Void, Never>?
 
@@ -70,6 +75,7 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
 
             $apiKey.bind { [unowned self] key in
                 api = Mvvm.shared.container.resolve(key: key?.key)
+                sortType = api.defaultSortingType
                 filters.accept([])
                 resetVM()
             }
@@ -110,7 +116,16 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
     }
 
     func showFilters() {
+//        navigate(to: CatalogFiltersViewModel.self, with: .init(apiKey: api.key, filters: filters), by: .custom(transaction: { from, to in
+//            let vc = BottomSheetController(rootViewController: to, with: .init(withDragger: true))
+//            from.present(vc, animated: true)
+//        }))
         navigate(to: CatalogFiltersViewModel.self, with: .init(apiKey: api.key, filters: filters), by: .present(wrapInNavigation: true))
+    }
+
+    func setSortType(_ sort: ApiMangaIdModel) {
+        sortType = sort
+        resetVM()
     }
 
     // MARK: - Private
@@ -132,12 +147,15 @@ extension CatalogViewModel {
         isLoading = false
         page = Self.startingPage
         allItems.accept([])
+        sortTypes.accept([])
+        
+        Task { try await sortTypes.accept(api.fetchSortingTypes()) }
         loadNext()
     }
 
     private func fetchItems() async {
         await performTask { [self] in
-            let res = try await api.fetchCatalog(page: page, filters: filters.value)
+            let res = try await api.fetchCatalog(page: page, filters: filters.value, sorting: sortType)
             page += 1
             try Task.checkCancellation()
             allItems.accept(allItems.value + res.map { $0.cellModel })
@@ -153,7 +171,7 @@ extension CatalogViewModel {
                   !query.isEmpty
             else { return searchItems.accept([]) }
 
-            let res = try await api.fetchSearch(query: query, page: 1)
+            let res = try await api.fetchSearch(query: query, page: 1, sorting: sortType)
             searchItems.accept(res.map { $0.cellModel })
             state.accept(.default)
         }

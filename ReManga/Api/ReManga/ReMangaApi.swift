@@ -65,7 +65,21 @@ class ReMangaApi: ApiProtocol {
         Task { await refreshUserInfo() }
     }
 
-    func fetchCatalog(page: Int, filters: [ApiMangaTag] = []) async throws -> [ApiMangaModel] {
+    var defaultSortingType: ApiMangaIdModel {
+        .init(id: "rating", name: "По популярности")
+    }
+
+    func fetchSortingTypes() async throws -> [ApiMangaIdModel] {
+        [.init(id: "id", name: "По новизне"),
+         .init(id: "chapter_date", name: "По последним обновлениям"),
+         .init(id: "rating", name: "По популярности"),
+         .init(id: "votes", name: "По лайкам"),
+         .init(id: "views", name: "По просмотрам"),
+         .init(id: "count_chapters", name: "По кол-ву глав"),
+         .init(id: "random", name: "Мне повезет")]
+    }
+
+    func fetchCatalog(page: Int, filters: [ApiMangaTag] = [], sorting: ApiMangaIdModel) async throws -> [ApiMangaModel] {
         var tags = ""
         for filter in filters {
             switch filter.kind {
@@ -82,7 +96,7 @@ class ReMangaApi: ApiProtocol {
             }
         }
 
-        let url = "https://api.remanga.org/api/search/catalog/?count=30&ordering=-rating&page=\(page)\(tags)"
+        let url = "https://api.remanga.org/api/search/catalog/?count=30&ordering=-\(sorting.id)&page=\(page)\(tags)"
         let model: ReMangaApiMangaCatalogResult = try await performRequest(makeRequest(url))
 
         var bookmarks: [ApiMangaBookmarkModel] = []
@@ -98,7 +112,7 @@ class ReMangaApi: ApiProtocol {
         return res
     }
 
-    func fetchSearch(query: String, page: Int) async throws -> [ApiMangaModel] {
+    func fetchSearch(query: String, page: Int, sorting: ApiMangaIdModel) async throws -> [ApiMangaModel] {
         let _query = query.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let url = "https://api.remanga.org/api/search/?query=\(_query)&count=30&field=titles&page=\(page)"
         let model: ReMangaApiMangaCatalogResult = try await performRequest(makeRequest(url))
