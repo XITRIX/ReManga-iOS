@@ -1311,13 +1311,13 @@
 				7C8B028B29EB41990022E724 /* String+Extensions.swift */,
 				7C934AEC29F2947A00709295 /* UIActivityIndicatorView+Extensions.swift */,
 				7CF6BA8B29EEAC980042FE4E /* UIButton+Extensions.swift */,
+				7CE8B3082A2B8CEF00BE8404 /* UIEdgeInsets+Extensions.swift */,
+				7CE8B3132A2CD5E000BE8404 /* UIImage+Extensions.swift */,
 				7CFCF9D129E6FC95008E6150 /* UIImageView+Extensions.swift */,
 				7C8B028E29EB539D0022E724 /* UILabel+Extensions.swift */,
 				7C934B0429F5CD2C00709295 /* UIView+Extensions.swift */,
 				7CE8B3062A2B77F300BE8404 /* UIView+LayerColors.swift */,
 				7CFCF9AE29E6B0EC008E6150 /* UIViewController+Extensions.swift */,
-				7CE8B3082A2B8CEF00BE8404 /* UIEdgeInsets+Extensions.swift */,
-				7CE8B3132A2CD5E000BE8404 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

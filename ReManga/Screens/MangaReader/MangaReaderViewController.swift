@@ -183,6 +183,10 @@ private extension MangaReaderViewController {
         snapshot.appendSections([0])
         snapshot.appendItems(models.map { .init(viewModel: $0) }, toSection: 0)
         dataSource.apply(snapshot, animatingDifferences: false)
+
+        var offset = collectionView.contentOffset
+        offset.y = -collectionView.adjustedContentInset.top
+        collectionView.setContentOffset(offset, animated: false)
     }
     
     func applyMenu() {

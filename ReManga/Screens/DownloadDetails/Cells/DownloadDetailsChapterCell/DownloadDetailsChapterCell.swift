@@ -13,11 +13,11 @@ class DownloadDetailsChapterCell<VM: DownloadDetailsChapterViewModel>: MvvmColle
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var teamLabel: UILabel!
     @IBOutlet private var dateLabel: UILabel!
+    @IBOutlet private var progress: RoundedProgress!
 
     var trailingSeparatorConstraint: NSLayoutConstraint!
 
     override func initSetup() {
-        accessories = [.disclosureIndicator()]
         separatorLayoutGuide.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
         trailingSeparatorConstraint = separatorLayoutGuide.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
     }
@@ -26,6 +26,14 @@ class DownloadDetailsChapterCell<VM: DownloadDetailsChapterViewModel>: MvvmColle
         bind(in: disposeBag) {
             titleLabel.rx.text <- viewModel.chapter
             tomeLabel.rx.text <- viewModel.tome
+
+            viewModel.progress.bind { [unowned self] value in
+                let inProgress = value != nil && value! < 1
+                progress.isHidden = !inProgress
+                progress.progress = value ?? 0
+                accessories = inProgress ? [] : [.disclosureIndicator()]
+                titleLabel.textColor = inProgress ? .secondaryLabel : .label
+            }
         }
     }
 

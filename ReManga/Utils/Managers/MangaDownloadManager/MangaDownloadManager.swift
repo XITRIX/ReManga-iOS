@@ -10,6 +10,28 @@ import MvvmFoundation
 import RxRelay
 import RxSwift
 
+struct MangaProgressKeyModel: Codable, Hashable {
+    var id: String
+    var tome: String
+    var chapter: String
+    var title: String?
+    var url: String
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(url)
+    }
+}
+
+extension MangaProgressKeyModel {
+    init(_ model: MangaDetailsChapterViewModel) {
+        id = model.id.value
+        tome = model.tome.value
+        chapter = model.chapter.value
+        title = model.title.value
+        url = ""
+    }
+}
+
 class MangaDownloadManager {
     public static var imageLocalPath: URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -24,7 +46,7 @@ class MangaDownloadManager {
     private static let userDefaultsKey = "MangaDownloadManager:Downloads"
 
     private var disposeBag = DisposeBag()
-    private var progressBindings = [String: BehaviorRelay<CGFloat>]()
+    private var progressBindings = [MangaProgressKeyModel: BehaviorRelay<CGFloat>]()
     let downloadedManga = BehaviorRelay<[String: MangaDownloadModel]>(value: [:])
 
     init() {
@@ -38,30 +60,51 @@ class MangaDownloadManager {
     }
 
     func downloadChapters(api: ApiProtocol, manga: MangaDetailsViewModel, chapters: [MangaDetailsChapterViewModel]) async throws {
+        // Get saved manga object
+        let key = await keyFrom(manga.id, api: api)
+        var current = downloadedManga.value[key]
+
+        // If not exists create one
+        if current == nil {
+            current = MangaDownloadModel(
+                id: key,
+                name: manga.title.value,
+                image: manga.image.value,
+                date: .now,
+                chapters: []
+            )
+
+            downloadedManga.mutableValue[key] = current
+        }
+
+        // Init downloading for each chapter
         for chapter in chapters {
-            progressBindings[chapter.id.value] = BehaviorRelay(value: 0)
-            await bindChapterModelToProgress(chapter, api: api)
+            progressBindings[.init(chapter)] = BehaviorRelay(value: 0)
+            await bindChapterModelToProgress(chapter)
+            current?.downloads.mutableValue.insert(.init(chapter))
         }
 
-        let sortedChapters = chapters.sorted { l, r in
-            if l.tome.value == r.tome.value {
-                return l.chapter.value < r.chapter.value
-            }
-            return l.tome.value < r.tome.value
-        }
+        // Sort chapters in downloading order
+        let sortedChapters = chapters
+            .sorted(using: KeyPathComparator(\.chapter.value, comparator: .localizedStandard))
+            .sorted(using: KeyPathComparator(\.tome.value, comparator: .localizedStandard))
 
+        // Start download each chapter
         for chapter in sortedChapters {
             let pages = try await downloadChapter(api: api, manga: manga, chapter: chapter, progressCallback: { [progressBindings] progress in
-                progressBindings[chapter.id.value]?.accept(progress)
+                    progressBindings[.init(chapter)]?.accept(progress)
             })
             await finalizeDownloading(of: manga, with: chapter, api: api, pages: pages)
-            progressBindings[chapter.id.value] = nil
+            await MainActor.run {
+                progressBindings[.init(chapter)]?.accept(1)
+                progressBindings[.init(chapter)] = nil
+            }
         }
     }
 
     @MainActor
     func bindChapterToDownloadManager(chapter: MangaDetailsChapterViewModel, of manga: MangaDetailsViewModel, from api: ApiProtocol) {
-        bindChapterModelToProgress(chapter, api: api)
+        bindChapterModelToProgress(chapter)
 
         bind(in: chapter.disposeBag) {
             downloadedManga.bind { [unowned self] downloads in
@@ -75,6 +118,10 @@ class MangaDownloadManager {
                 }
             }
         }
+    }
+
+    func progressBinder(for key: MangaProgressKeyModel) -> BehaviorRelay<CGFloat>? {
+        progressBindings[key]
     }
 
     func downloadChapter(api: ApiProtocol, manga: MangaDetailsViewModel, chapter: MangaDetailsChapterViewModel, saveFiles: Bool = true, progressCallback: ((Double) -> ())? = nil) async throws -> [ApiMangaChapterPageModel] {
@@ -93,10 +140,14 @@ class MangaDownloadManager {
             let image = try await withCheckedThrowingContinuation { continuation in
                 kingfisher.retrieveImage(with: url, options: options) { receivedSize, totalSize in
                     let localProgress: Double = .init(receivedSize) / Double(totalSize) / Double(pages.count)
-                    progressCallback?(progress + localProgress)
+                    DispatchQueue.main.async { [progress, localProgress] in
+                        progressCallback?(progress + localProgress)
+                    }
                 } completionHandler: { result in
                     progress += 1 / Double(pages.count)
-                    progressCallback?(progress)
+                    DispatchQueue.main.async { [progress] in
+                        progressCallback?(progress)
+                    }
                     continuation.resume(with: result)
                 }
             }
@@ -114,22 +165,39 @@ class MangaDownloadManager {
     }
 
     func deleteChapters(of mangaId: String) {
+        // Get manga model
         guard let mangaModel = downloadedManga.value[mangaId]
         else { return }
 
+        // Remove every chapter in model
         for chapter in mangaModel.chapters.value {
             for page in chapter.pages {
                 try? FileManager.default.removeItem(atPath: page.path)
             }
         }
 
-        var tmp = downloadedManga.value
-        tmp[mangaId] = nil
-        downloadedManga.accept(tmp)
+        // Remove manga model
+        downloadedManga.mutableValue[mangaId] = nil
     }
 
-    func deleteChapter(_ chapter: MangaDetailsChapterViewModel, of manga: DownloadsMangaViewModel) {
+    func deleteChapter(_ chapterId: String, of mangaId: String) {
+        // Get manga and chapter model
+        guard let mangaModel = downloadedManga.value[mangaId],
+              let chapter = mangaModel.chapters.value.first(where: { $0.id == chapterId })
+        else { return }
 
+        // Remove pages from disk
+        for page in chapter.pages {
+            try? FileManager.default.removeItem(atPath: page.path)
+        }
+
+        // Remove chapter by ID
+        mangaModel.chapters.mutableValue.removeAll(where: { $0.id == chapterId })
+
+        // If no chapters left, remove manga model
+        if mangaModel.chapters.value.isEmpty {
+            downloadedManga.mutableValue[mangaId] = nil
+        }
     }
 }
 
@@ -152,45 +220,37 @@ private extension MangaDownloadManager {
 }
 
 private extension MangaDownloadManager {
-    func finalizeDownloading(of manga: MangaDetailsViewModel, with chapter: MangaDetailsChapterViewModel, api: ApiProtocol, pages: [ApiMangaChapterPageModel]) async {
+    func finalizeDownloading(of manga: MangaDetailsViewModel, with remoteChapter: MangaDetailsChapterViewModel, api: ApiProtocol, pages: [ApiMangaChapterPageModel]) async {
+        // Get downloaded manga model (created earlier, should not be nil)
         let key = await keyFrom(manga.id, api: api)
-        var current = downloadedManga.value[key]
+        guard let current = downloadedManga.value[key]
+        else { return }
 
-        if current == nil {
-            current = MangaDownloadModel(
-                id: key,
-                name: manga.title.value,
-                image: manga.image.value,
-                date: .now,
-                chapters: []
-            )
-        }
-
-        current?.date.accept(.now)
+        // Init chapter local model
+        current.date.accept(.now)
         let chapter = MangaChapterDownloadModel(
-            id: chapter.id.value,
-            tome: chapter.tome.value,
-            chapter: chapter.chapter.value,
-            title: chapter.title.value,
+            id: remoteChapter.id.value,
+            tome: remoteChapter.tome.value,
+            chapter: remoteChapter.chapter.value,
+            title: remoteChapter.title.value,
             pages: pages
         )
 
-        if current != nil,
-           !current!.chapters.value.contains(where: { $0.id == chapter.id })
-        {
-            var chapters = current!.chapters.value
-            chapters.append(chapter)
-            current?.chapters.accept(chapters)
+        // Remove chapter from downloads list
+        current.downloads.mutableValue.remove(.init(remoteChapter))
+
+        // Remove duplicated if presented (should not)
+        if !current.chapters.value.contains(where: { $0.id == chapter.id }) {
+            current.chapters.mutableValue.append(chapter)
         }
 
-        var value = downloadedManga.value
-        value[key] = current
-        downloadedManga.accept(value)
+        // Apply downloaded manga model changes
+        downloadedManga.mutableValue[key] = current
     }
 
     @MainActor
-    func bindChapterModelToProgress(_ model: MangaDetailsChapterViewModel, api: ApiProtocol) {
-        guard let progressBinding = progressBindings[model.id.value]
+    func bindChapterModelToProgress(_ model: MangaDetailsChapterViewModel) {
+        guard let progressBinding = progressBindings[.init(model)]
         else { return }
 
         bind(in: model.disposeBag) {

@@ -16,12 +16,13 @@ struct MangaChapterDownloadModel: Codable {
     var pages: [ApiMangaChapterPageModel]
 }
 
-struct MangaDownloadModel: Codable {
+class MangaDownloadModel: Codable {
     var id: String
     var name = BehaviorRelay<String?>(value: nil)
     var image = BehaviorRelay<String?>(value: nil)
     var date = BehaviorRelay<Date>(value: .now)
     var chapters = BehaviorRelay<[MangaChapterDownloadModel]>(value: [])
+    var downloads = BehaviorRelay<Set<MangaProgressKeyModel>>(value: [])
 
     init(id: String, name: String? = nil, image: String? = nil, date: Date, chapters: [MangaChapterDownloadModel]) {
         self.id = id
