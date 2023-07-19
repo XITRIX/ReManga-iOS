@@ -50,13 +50,13 @@ class OfflineMangaReaderViewModel: BaseViewModelWith<OfflineMangaReaderModel>, M
             guard !chapters.isEmpty, currentChapter >= 0
             else { return "" }
 
-            return chapters[currentChapter].chapter.value
+            return "Глава " + chapters[currentChapter].chapter.value
         }
     }
 
     override func prepare(with model: OfflineMangaReaderModel) {
         rawChapters = model.chapters
-        chapters.accept(model.chapters.map { .init(with: .init(id: "", tome: $0.tome.value, chapter: $0.chapter.value, date: .now, isReaded: false, isLiked: false, likes: 0, isAvailable: true)) })
+        chapters.accept(model.chapters.map { .init(with: .init(id: "", tome: $0.tome.value, chapter: $0.chapter.value, date: .now, isReaded: true, isLiked: false, likes: 0, isAvailable: true)) })
         currentChapter.accept(model.current)
     }
 

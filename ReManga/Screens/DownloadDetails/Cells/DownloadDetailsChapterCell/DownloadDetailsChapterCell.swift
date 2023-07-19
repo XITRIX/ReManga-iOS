@@ -24,7 +24,7 @@ class DownloadDetailsChapterCell<VM: DownloadDetailsChapterViewModel>: MvvmColle
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
-            titleLabel.rx.text <- viewModel.chapter
+            titleLabel.rx.text <- viewModel.chapter.map { "Глава \($0)" }
             tomeLabel.rx.text <- viewModel.tome
 
             viewModel.progress.bind { [unowned self] value in

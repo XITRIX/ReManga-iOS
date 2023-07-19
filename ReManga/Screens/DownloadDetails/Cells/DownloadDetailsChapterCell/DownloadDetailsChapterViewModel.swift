@@ -40,7 +40,7 @@ class DownloadDetailsChapterViewModel: MvvmViewModelWith<DownloadDetailsChapterM
         id.accept(model.id)
         title.accept(model.title)
         tome.accept(model.tome)
-        chapter.accept("Глава \(model.chapter)")
+        chapter.accept(model.chapter)
         pages.accept(model.pages)
 
         guard let model = model as? MangaProgressKeyModel,
