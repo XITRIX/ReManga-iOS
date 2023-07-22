@@ -166,15 +166,16 @@ class MangaDownloadManager {
 
     func deleteChapters(of mangaId: String) {
         // Get manga model
-        guard let mangaModel = downloadedManga.value[mangaId]
+        guard let mangaModel = downloadedManga.value[mangaId],
+              let firstPage = mangaModel.chapters.value.first?.pages.first
         else { return }
 
         // Remove every chapter in model
-        for chapter in mangaModel.chapters.value {
-            for page in chapter.pages {
-                try? FileManager.default.removeItem(atPath: page.path)
-            }
-        }
+        let titlePath = MangaDownloadManager.imageLocalPath.appending(path: firstPage.path)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+
+        try? FileManager.default.removeItem(at: titlePath)
 
         // Remove manga model
         downloadedManga.mutableValue[mangaId] = nil
@@ -183,16 +184,34 @@ class MangaDownloadManager {
     func deleteChapter(_ chapterId: String, of mangaId: String) {
         // Get manga and chapter model
         guard let mangaModel = downloadedManga.value[mangaId],
-              let chapter = mangaModel.chapters.value.first(where: { $0.id == chapterId })
+              let chapter = mangaModel.chapters.value.first(where: { $0.id == chapterId }),
+              let firstPage = chapter.pages.first
         else { return }
 
         // Remove pages from disk
-        for page in chapter.pages {
-            try? FileManager.default.removeItem(atPath: page.path)
-        }
+        let chapterPath = MangaDownloadManager.imageLocalPath.appending(path: firstPage.path)
+            .deletingLastPathComponent()
+
+        try? FileManager.default.removeItem(at: chapterPath)
 
         // Remove chapter by ID
         mangaModel.chapters.mutableValue.removeAll(where: { $0.id == chapterId })
+
+        // If no chapters left, remove manga model
+        if mangaModel.chapters.value.isEmpty {
+            downloadedManga.mutableValue[mangaId] = nil
+        }
+    }
+
+    // TODO: Not sure how to handle downloading task cancelation
+    func stopDownload(_ chapterId: String, of mangaId: String) {
+        // Get manga and chapter model
+        guard let mangaModel = downloadedManga.value[mangaId],
+              let chapter = mangaModel.downloads.value.first(where: { $0.id == chapterId })
+        else { return }
+
+        // Remove chapter by ID
+        mangaModel.downloads.mutableValue.remove(chapter)
 
         // If no chapters left, remove manga model
         if mangaModel.chapters.value.isEmpty {

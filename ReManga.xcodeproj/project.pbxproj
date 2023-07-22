@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C0E28B32A66CF4100A14D60 /* XTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E28B22A66CF4100A14D60 /* XTRequest.swift */; };
 		7C124AD829EFEB6B0050873A /* MangaReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C124AD629EFEB6B0050873A /* MangaReaderViewController.swift */; };
 		7C124AD929EFEB6B0050873A /* MangaReaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C124AD729EFEB6B0050873A /* MangaReaderViewController.xib */; };
 		7C228C1629F80DEF00BCC872 /* ProfileUserAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */; };
@@ -146,7 +147,6 @@
 		7CB3B88129E6AE36009280E4 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */; };
 		7CBE84B22A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE84B12A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift */; };
 		7CC2A7DE2A057C4D00128EB0 /* NewMangaUserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC2A7DD2A057C4D00128EB0 /* NewMangaUserResult.swift */; };
-		7CC306E82A25D87800DE0C82 /* Array+Algorythms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC306E72A25D87700DE0C82 /* Array+Algorythms.swift */; };
 		7CC888482A0686BB00B65564 /* ProfileDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC888462A0686BB00B65564 /* ProfileDetailsViewController.swift */; };
 		7CC888492A0686BB00B65564 /* ProfileDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CC888472A0686BB00B65564 /* ProfileDetailsViewController.xib */; };
 		7CC8884B2A0686C500B65564 /* ProfileDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC8884A2A0686C500B65564 /* ProfileDetailsViewModel.swift */; };
@@ -242,6 +242,7 @@
 
 /* Begin PBXFileReference section */
 		62B817C4B42425409E8A0262 /* Pods-ReManga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReManga.debug.xcconfig"; path = "Target Support Files/Pods-ReManga/Pods-ReManga.debug.xcconfig"; sourceTree = "<group>"; };
+		7C0E28B22A66CF4100A14D60 /* XTRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTRequest.swift; sourceTree = "<group>"; };
 		7C124AD629EFEB6B0050873A /* MangaReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaReaderViewController.swift; sourceTree = "<group>"; };
 		7C124AD729EFEB6B0050873A /* MangaReaderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MangaReaderViewController.xib; sourceTree = "<group>"; };
 		7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserAccountCell.swift; sourceTree = "<group>"; };
@@ -382,7 +383,6 @@
 		7CB3B88029E6AE36009280E4 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		7CBE84B12A17F5AF0063AE53 /* ReMangaGoogleAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReMangaGoogleAuthViewModel.swift; sourceTree = "<group>"; };
 		7CC2A7DD2A057C4D00128EB0 /* NewMangaUserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaUserResult.swift; sourceTree = "<group>"; };
-		7CC306E72A25D87700DE0C82 /* Array+Algorythms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Algorythms.swift"; sourceTree = "<group>"; };
 		7CC888462A0686BB00B65564 /* ProfileDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailsViewController.swift; sourceTree = "<group>"; };
 		7CC888472A0686BB00B65564 /* ProfileDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileDetailsViewController.xib; sourceTree = "<group>"; };
 		7CC8884A2A0686C500B65564 /* ProfileDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -497,6 +497,14 @@
 				B73FB497FA1DF9E2AB0C00AB /* Pods_ReManga.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C0E28B12A66CF3A00A14D60 /* XTRequest */ = {
+			isa = PBXGroup;
+			children = (
+				7C0E28B22A66CF4100A14D60 /* XTRequest.swift */,
+			);
+			path = XTRequest;
 			sourceTree = "<group>";
 		};
 		7C228C1329F80DDA00BCC872 /* ProfileUserAccountCell */ = {
@@ -1283,6 +1291,7 @@
 		7CFCF9AC29E6B0DA008E6150 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7C0E28B12A66CF3A00A14D60 /* XTRequest */,
 				7CFCF9AD29E6B0E0008E6150 /* Extensions */,
 				7CD354102A0FCB8D006F1DFE /* Managers */,
 				7C8B026329E99BB10022E724 /* ThirdParty */,
@@ -1299,7 +1308,6 @@
 		7CFCF9AD29E6B0E0008E6150 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				7CC306E72A25D87700DE0C82 /* Array+Algorythms.swift */,
 				7CF6BA8D29EEAF690042FE4E /* Bool+Extensions.swift */,
 				7C934ADA29F08F9500709295 /* CGPoint+Extensions.swift */,
 				7C934ADC29F08FDE00709295 /* CGRect+Extensions.swift */,
@@ -1639,7 +1647,7 @@
 				7CFCF9AB29E6AFF5008E6150 /* BaseViewController.swift in Sources */,
 				7C8B027529E9CEA30022E724 /* MangaDetailsChapterViewModel.swift in Sources */,
 				7CE8B3012A2B68AC00BE8404 /* MangaDetailsTitleSimilarsViewModel.swift in Sources */,
-				7CC306E82A25D87800DE0C82 /* Array+Algorythms.swift in Sources */,
+				7C0E28B32A66CF4100A14D60 /* XTRequest.swift in Sources */,
 				7CD3540F2A0FCA0C006F1DFE /* HistoryViewModel.swift in Sources */,
 				7CF49E6F2A0D896900565DFA /* ProfileBookmarksCell.swift in Sources */,
 				7CC888572A07FA8F00B65564 /* DownloadsViewController.swift in Sources */,

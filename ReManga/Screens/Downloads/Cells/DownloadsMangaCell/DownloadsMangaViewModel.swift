@@ -35,7 +35,14 @@ class DownloadsMangaViewModel: MvvmViewModelWith<MangaDownloadModel>, ListViewMa
             title <- model.name
             image <- model.image
             date <- model.date
-            subtitle <- model.chapters.map { "Глав скачано: \($0.count)" }
+
+            Observable.combineLatest(model.chapters, model.downloads).bind { [unowned self] chapters, downloads in
+                var text = "Глав скачано: \(chapters.count)"
+                if downloads.count > 0 {
+                    text.append(" | в процессе: \(downloads.count)")
+                }
+                subtitle.accept(text)
+            }
         }
     }
 

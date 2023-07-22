@@ -73,7 +73,7 @@ extension MangaDetailsTitleSimilarsCell {
         func updateSimilars(_ similars: [ApiMangaModel]) {
             var snapshot = NSDiffableDataSourceSnapshot<Int, MvvmCellViewModelWrapper<MvvmViewModel>>()
             snapshot.appendSections([0])
-            snapshot.appendItems(similars.map { .init(viewModel: MangaCellViewModel(with: $0)) })
+            snapshot.appendItems(similars.unique.map { .init(viewModel: MangaCellViewModel(with: $0)) })
             parent.dataSource.apply(snapshot)
         }
     }

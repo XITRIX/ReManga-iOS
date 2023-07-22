@@ -181,7 +181,7 @@ private extension MangaReaderViewController {
     func applyModels(_ models: [MvvmViewModel]) {
         var snapshot = DataSource.Snapshot()
         snapshot.appendSections([0])
-        snapshot.appendItems(models.map { .init(viewModel: $0) }, toSection: 0)
+        snapshot.appendItems(models.unique.map { .init(viewModel: $0) }, toSection: 0)
         dataSource.apply(snapshot, animatingDifferences: false)
 
         var offset = collectionView.contentOffset

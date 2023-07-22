@@ -72,7 +72,7 @@ class CatalogViewController<VM: CatalogViewModelProtocol>: BaseViewController<VM
     private func applyModels(_ models: [MangaCellViewModel]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, MvvmCellViewModelWrapper<MangaCellViewModel>>()
         snapshot.appendSections([0])
-        snapshot.appendItems(models.map { .init(viewModel: $0) })
+        snapshot.appendItems(models.unique.map { .init(viewModel: $0) })
         dataSource.apply(snapshot)
     }
 }

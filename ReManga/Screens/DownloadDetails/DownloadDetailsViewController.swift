@@ -33,9 +33,11 @@ private extension DownloadDetailsViewController {
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = MvvmCollectionViewLayout(dataSource)
 
-        dataSource.trailingSwipeActionsConfigurationProvider = { indexPath in
-            .init(actions: [.init(style: .destructive, title: "Удалить", handler: { [unowned self] _, _, _ in
-                let model = dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
+        dataSource.trailingSwipeActionsConfigurationProvider = { [unowned self] indexPath in
+            let model = dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
+            guard viewModel.canSelectItem(model) else { return .init() }
+
+            return .init(actions: [.init(style: .destructive, title: "Удалить", handler: { [unowned self] _, _, _ in
                 viewModel.deleteModel(model)
             })])
         }
@@ -46,6 +48,11 @@ private extension DownloadDetailsViewController {
 private extension DownloadDetailsViewController {
     class Delegates: DelegateObject<DownloadDetailsViewController>, UICollectionViewDelegate {
         func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+            let item = parent.dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
+            return parent.viewModel.canSelectItem(item)
+        }
+
+        func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
             let item = parent.dataSource.snapshot().sectionIdentifiers[indexPath.section].items[indexPath.item]
             return parent.viewModel.canSelectItem(item)
         }
