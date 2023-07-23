@@ -7,6 +7,8 @@ PODS:
   - AppCenter/Core (5.0.3)
   - AppCenter/Crashes (5.0.3):
     - AppCenter/Core
+  - AppCenter/Distribute (5.0.3):
+    - AppCenter/Core
   - Kingfisher (7.8.1)
   - MarqueeLabel (4.3.0)
   - MvvmFoundation (0.1.0):
@@ -27,6 +29,7 @@ PODS:
 
 DEPENDENCIES:
   - AppCenter
+  - AppCenter/Distribute
   - Kingfisher (from `submodules/Kingfisher`)
   - MarqueeLabel (from `submodules/MarqueeLabel`)
   - MvvmFoundation (from `submodules/MvvmFoundation`)
@@ -70,6 +73,6 @@ SPEC CHECKSUMS:
   UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
   XTBottomSheet: 6611fbef438af4c4243aeddbeaa2c7f21cbd1131
 
-PODFILE CHECKSUM: f930c23b403e37f3ad49275e9c136516c75aa1a7
+PODFILE CHECKSUM: ebb3cfcc19ed5a2e47de26b426ba9398924cfea3
 
 COCOAPODS: 1.12.0

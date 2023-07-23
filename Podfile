@@ -16,6 +16,7 @@ target 'ReManga' do
   pod 'UIImageColors'
 
   pod 'AppCenter'
+  pod 'AppCenter/Distribute'
 
 end
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C0E28B32A66CF4100A14D60 /* XTRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E28B22A66CF4100A14D60 /* XTRequest.swift */; };
 		7C124AD829EFEB6B0050873A /* MangaReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C124AD629EFEB6B0050873A /* MangaReaderViewController.swift */; };
 		7C124AD929EFEB6B0050873A /* MangaReaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C124AD729EFEB6B0050873A /* MangaReaderViewController.xib */; };
 		7C228C1629F80DEF00BCC872 /* ProfileUserAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C228C1429F80DEF00BCC872 /* ProfileUserAccountCell.swift */; };
@@ -1439,6 +1438,7 @@
 				7C83351429E064D200B0CD99 /* Frameworks */,
 				7C83351529E064D200B0CD99 /* Resources */,
 				DDDC30BFA9E9B5E4BA325E8A /* [CP] Embed Pods Frameworks */,
+				54322604A6CCDA9D1FB8BD38 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1548,6 +1548,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		54322604A6CCDA9D1FB8BD38 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9866579AB1DF0B6D0C1D2DB4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1647,7 +1664,6 @@
 				7CFCF9AB29E6AFF5008E6150 /* BaseViewController.swift in Sources */,
 				7C8B027529E9CEA30022E724 /* MangaDetailsChapterViewModel.swift in Sources */,
 				7CE8B3012A2B68AC00BE8404 /* MangaDetailsTitleSimilarsViewModel.swift in Sources */,
-				7C0E28B32A66CF4100A14D60 /* XTRequest.swift in Sources */,
 				7CD3540F2A0FCA0C006F1DFE /* HistoryViewModel.swift in Sources */,
 				7CF49E6F2A0D896900565DFA /* ProfileBookmarksCell.swift in Sources */,
 				7CC888572A07FA8F00B65564 /* DownloadsViewController.swift in Sources */,
@@ -1941,7 +1957,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Wildcard;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1983,7 +1999,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Wildcard;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
