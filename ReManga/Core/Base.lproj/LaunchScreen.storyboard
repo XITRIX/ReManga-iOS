@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m2o-Gt-LMp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22138.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m2o-Gt-LMp">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22113"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -58,20 +58,63 @@
             <point key="canvasLocation" x="-410" y="1092"/>
         </scene>
         <!--Каталог-->
-        <scene sceneID="UME-SE-73M">
+        <scene sceneID="a3X-br-HTc">
             <objects>
-                <viewController id="Huv-MK-pzD" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gfU-Rp-gXu">
+                <navigationController id="M5T-KC-bt3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Каталог" image="rectangle.grid.3x2" catalog="system" selectedImage="rectangle.grid.3x2.fill" id="GGJ-KM-M8Y"/>
+                    <navigationItem key="navigationItem" id="NIE-Y9-IaJ"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="bnF-dV-9Pp">
+                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2fA-s4-l53" kind="relationship" relationship="rootViewController" id="VNs-5a-CO3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vCL-dO-8FE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-411" y="-976"/>
+        </scene>
+        <!--Каталог-->
+        <scene sceneID="Lvh-ni-u2w">
+            <objects>
+                <viewController id="2fA-s4-l53" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sZx-rw-9Ss">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="gJX-Nt-dZa"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="GgB-Cw-44y">
+                                <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <searchBar contentMode="redraw" preservesSuperviewLayoutMargins="YES" searchBarStyle="minimal" placeholder="Поиск" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADk-ho-Syu">
+                                <rect key="frame" x="0.0" y="147" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="2fA-s4-l53" id="RQ6-eC-CVm"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="H3G-zk-1X7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ADk-ho-Syu" firstAttribute="trailing" secondItem="sZx-rw-9Ss" secondAttribute="trailing" id="4hY-JK-QBi"/>
+                            <constraint firstItem="GgB-Cw-44y" firstAttribute="centerY" secondItem="sZx-rw-9Ss" secondAttribute="centerY" id="ABA-wP-Aog"/>
+                            <constraint firstItem="GgB-Cw-44y" firstAttribute="centerX" secondItem="sZx-rw-9Ss" secondAttribute="centerX" id="JRB-Pv-0P9"/>
+                            <constraint firstItem="ADk-ho-Syu" firstAttribute="leading" secondItem="sZx-rw-9Ss" secondAttribute="leading" id="Xtx-Ih-pnF"/>
+                            <constraint firstItem="ADk-ho-Syu" firstAttribute="top" secondItem="H3G-zk-1X7" secondAttribute="top" constant="-8" id="aff-mb-6k2"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Каталог" image="rectangle.grid.3x2" catalog="system" selectedImage="rectangle.grid.3x2.fill" id="EWb-CE-ros"/>
+                    <navigationItem key="navigationItem" title="Каталог" id="MkY-iZ-ig8">
+                        <rightBarButtonItems>
+                            <barButtonItem image="line.3.horizontal.decrease.circle" catalog="system" id="OqE-6t-pwM"/>
+                            <barButtonItem image="arrow.up.arrow.down.circle" catalog="system" id="MhA-kG-SDb"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="v6K-ob-wwM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Rq-K2-p1c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-410" y="-909"/>
+            <point key="canvasLocation" x="430" y="-976"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="GaA-eB-qLv">
@@ -83,10 +126,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Huv-MK-pzD" kind="relationship" relationship="viewControllers" id="1CZ-DO-NBH"/>
-                        <segue destination="qyM-Ja-mLD" kind="relationship" relationship="viewControllers" id="rAs-mn-k8x"/>
-                        <segue destination="dZg-hM-auk" kind="relationship" relationship="viewControllers" id="EIC-3Z-9ag"/>
-                        <segue destination="t9b-A6-dE2" kind="relationship" relationship="viewControllers" id="OS9-zy-VBu"/>
+                        <segue destination="M5T-KC-bt3" kind="relationship" relationship="viewControllers" id="DHL-5b-QEc"/>
+                        <segue destination="qyM-Ja-mLD" kind="relationship" relationship="viewControllers" id="2vE-aa-PM4"/>
+                        <segue destination="dZg-hM-auk" kind="relationship" relationship="viewControllers" id="JhT-R8-fYQ"/>
+                        <segue destination="t9b-A6-dE2" kind="relationship" relationship="viewControllers" id="g2a-Lp-mWp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GCR-ZU-fjL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -102,7 +145,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x1i-st-Pjz">
-                                <rect key="frame" x="0.0" y="735" width="393" height="83"/>
+                                <rect key="frame" x="0.0" y="769" width="393" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <tabBarItem title="Каталог" image="rectangle.grid.3x2" catalog="system" id="aFY-Yr-j0c"/>
@@ -127,11 +170,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.arrow.down.circle" catalog="system" width="128" height="123"/>
         <image name="clock" catalog="system" width="128" height="123"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="rectangle.grid.3x2" catalog="system" width="128" height="100"/>
         <image name="rectangle.grid.3x2.fill" catalog="system" width="128" height="100"/>
-        <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
+        <image name="square.and.arrow.down" catalog="system" width="112" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
