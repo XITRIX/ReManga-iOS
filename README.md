@@ -1,4 +1,4 @@
-# ReManga-iOS
+# ReManga-iOS [![Build status](https://build.appcenter.ms/v0.1/apps/5a1bc0e6-65a1-49d9-aaab-baa763d7a7b8/branches/main/badge)](https://appcenter.ms)
 Manga application for iOS
 
 Screenshots:
