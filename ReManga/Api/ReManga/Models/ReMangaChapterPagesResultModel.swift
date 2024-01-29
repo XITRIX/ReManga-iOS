@@ -68,11 +68,11 @@ struct ReMangaChapterPagesResultContent: Codable, Hashable {
 struct ReMangaChapterPagesResultPage: Codable, Hashable {
     let id: Int?
     let link: String
-    let page, height, width: Int
+    let height, width: Int
     let countComments: Int?
 
     enum CodingKeys: String, CodingKey {
-        case id, link, page, height, width
+        case id, link, height, width
         case countComments = "count_comments"
     }
 }

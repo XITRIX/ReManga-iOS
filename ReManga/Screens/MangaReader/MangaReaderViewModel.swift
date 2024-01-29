@@ -231,6 +231,6 @@ private extension MangaReaderViewModel {
         }
         currentChapterTasks.append(task)
 
-        performTask { _ = await task.result }
+        performTask { _ = try await task.value }
     }
 }

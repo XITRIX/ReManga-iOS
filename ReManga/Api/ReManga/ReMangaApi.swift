@@ -164,7 +164,9 @@ class ReMangaApi: ApiProtocol {
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
         let url = "https://api.remanga.org/api/titles/chapters/\(id)/"
         let model: ReMangaChapterPagesResult = try await performRequest(makeRequest(url))
-        return model.content.pages.flatMap { $0 }.map { .init(from: $0) }
+        return model.content.pages.enumerated().flatMap { page in
+            page.element.map { ($0, page.offset) }
+        }.map { .init(from: $0.0, page: $0.1) }
     }
 
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
