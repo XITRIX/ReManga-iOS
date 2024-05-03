@@ -40,7 +40,7 @@ class MangaDetailsCommentCell<VM: MangaDetailsCommentViewModel>: MvvmCollectionV
             nameLabel.rx.text <- viewModel.name
             dateLabel.rx.text <- viewModel.date
             scoreLabel.rx.text <- viewModel.score.map(String.init)
-            imageView.rx.imageUrl(with: activityView) <- viewModel.image
+            imageView.rx.imageUrl(with: activityView, placeholder: UIImage(resource: .noUserAvatar)) <- viewModel.image
 
             viewModel.toggleLike <- likeButton.rx.tap
             viewModel.toggleDislike <- dislikeButton.rx.tap

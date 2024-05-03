@@ -113,7 +113,7 @@ struct ReMangaApiDetailsResultAdaptation: Codable, Hashable {
 // MARK: - ReMangaApiDetailsResultBranch
 struct ReMangaApiDetailsResultBranch: Codable, Hashable {
     let id: Int?
-    let img: String?
+    let img: ReMangaApiDetailsResultImg?
     let subscribed: Bool?
     let totalVotes, countChapters: Int?
     let publishers: [ReMangaApiDetailsResultPublisher]?
@@ -136,6 +136,7 @@ struct ReMangaApiDetailsResultBranch: Codable, Hashable {
 struct ReMangaApiDetailsResultPublisher: Codable, Hashable {
     let id: Int?
     let name, img, dir, tagline: String?
+    let cover: ReMangaApiDetailsResultImg?
     let type: String?
 }
 

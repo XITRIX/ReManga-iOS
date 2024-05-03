@@ -13,6 +13,7 @@ import RxSwift
 class ReMangaApi: ApiProtocol {
     private let disposeBag = DisposeBag()
     static let imgPath: String = "https://remanga.org/"
+    static let mediaPath: String = "https://remanga.org/media/"
     var authToken = BehaviorRelay<String?>(value: nil)
 
     let profile = BehaviorRelay<ApiMangaUserModel?>(value: nil)

@@ -70,7 +70,7 @@ extension ApiMangaBranchModel {
 
 extension ApiMangaTranslatorModel {
     init(from model: ReMangaApiDetailsResultPublisher) {
-        imagePath = ReMangaApi.imgPath + (model.img ?? "")
+        imagePath = ReMangaApi.mediaPath + (model.cover?.high ?? "")
         title = model.name ?? ""
         type = model.type ?? ""
     }
@@ -145,7 +145,7 @@ extension ApiMangaCommentModel {
         self.date = Date() - TimeInterval(Double(date) / 1000)
 
         let imageRoot = "https://remanga.org"
-        imagePath = imageRoot + (model.user.avatar?.low ?? "")
+        imagePath = model.user.avatar?.low.map { imageRoot + $0 }
 
         guard let text = model.text
         else { return nil }

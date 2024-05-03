@@ -16,7 +16,7 @@ struct ApiMangaCommentModel: Hashable {
     var date: Date
     var likes: Int = 0
     var dislikes: Int = 0
-    var imagePath: String
+    var imagePath: String?
     var hierarchy: Int = 0
     var isPinned: Bool = false
     var isLiked: Bool?
