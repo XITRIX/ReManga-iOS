@@ -18,12 +18,12 @@ PODS:
   - RxBiBinding (0.3.5):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxCocoa (6.6.0):
-    - RxRelay (= 6.6.0)
-    - RxSwift (= 6.6.0)
-  - RxRelay (6.6.0):
-    - RxSwift (= 6.6.0)
-  - RxSwift (6.6.0)
+  - RxCocoa (6.7.0):
+    - RxRelay (= 6.7.0)
+    - RxSwift (= 6.7.0)
+  - RxRelay (6.7.0):
+    - RxSwift (= 6.7.0)
+  - RxSwift (6.7.0)
   - UIImageColors (2.1.0)
   - XTBottomSheet (0.1.0)
 
@@ -67,12 +67,12 @@ SPEC CHECKSUMS:
   MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
   MvvmFoundation: 0c3145e37252936d46f74d52ef1f27de2d95dc0d
   RxBiBinding: c4de0aad6ee668fa73ea6ba423bc0ab5d77b986b
-  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
-  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
-  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
+  RxCocoa: fb0aefb9e7229c8ab057acde714136d19117f102
+  RxRelay: 5d39f4d8da150ad47a71b9ce11915e3eae2a8f4d
+  RxSwift: 6ee35684dc3f7a63938758f4b7708199517dfa97
   UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
   XTBottomSheet: 6611fbef438af4c4243aeddbeaa2c7f21cbd1131
 
 PODFILE CHECKSUM: ebb3cfcc19ed5a2e47de26b426ba9398924cfea3
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.14.2

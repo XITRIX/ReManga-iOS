@@ -31,13 +31,9 @@ private extension ReMangaVKAuthViewModel {
     func fetchToken(code: String) {
         guard let api = api as? ReMangaApi else { return }
         Task {
-            setApiToken(try await api.fetchAuthToken(code: code, source: .vk))
+            api.setApiToken(try await api.fetchAuthToken(code: code, source: .vk))
             dismiss()
         }
-    }
-
-    func setApiToken(_ token: String) {
-        api.authToken.accept(token)
     }
 }
 
