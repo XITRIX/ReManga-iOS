@@ -183,7 +183,7 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
-        let url = "https://api.remanga.org/api/activity/comments/?chapter_id=\(id)&page=\(page)&ordering=-id&count=\(count)"
+        let url = "https://api.remanga.org/api/activity/comments/?chapter_id=\(id)&chapter_page=-1&page=\(page)&ordering=-id&count=\(count)"
         let model: ReMangaCommentsResult = try await performRequest(makeRequest(url))
         return model.content.compactMap { .init(from: $0) }
     }

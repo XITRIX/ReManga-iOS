@@ -5,6 +5,7 @@
 //  Created by Даниил Виноградов on 10.06.2023.
 //
 
+import Combine
 import MvvmFoundation
 import RxBiBinding
 import RxSwift
@@ -16,6 +17,7 @@ class CatalogFiltersViewController<VM: CatalogFiltersViewModel>: BaseViewControl
 
     private lazy var dataSource = MvvmCollectionViewDataSource(collectionView: collectionView)
     private let dismissButtonItem = UIBarButtonItem(systemItem: .close)
+    private var cancellable: [AnyCancellable] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,22 +25,20 @@ class CatalogFiltersViewController<VM: CatalogFiltersViewModel>: BaseViewControl
         navigationItem.trailingItemGroups = [.fixedGroup(items: [dismissButtonItem])]
 
         #if !os(xrOS)
-        if let sheet = navigationController?.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-            sheet.prefersGrabberVisible = true
-        }
+        weak var weakSelf = self
+        applyBottomSheetDetents(with: collectionView, extra: ((weakSelf?.clearButton.frame.height ?? 0) + 16))?.store(in: &cancellable)
         #endif
 
         collectionView.dataSource = dataSource
         let layout = MvvmCollectionViewLayout(dataSource, headerMode: .firstItemInSection)
         collectionView.collectionViewLayout = layout
         collectionView.allowsMultipleSelection = true
-        
+
         bind(in: disposeBag) {
             viewModel.dismiss <- dismissButtonItem.rx.tap
             viewModel.selectedItems <- collectionView.rx.indexPathsForSelectedItems
 
-            clearButton.rx.isHidden <- viewModel.filters.map { $0.isEmpty }
+            clearButton.rx.isEnabled <- viewModel.filters.map { !$0.isEmpty }
             viewModel.clearFilters <- clearButton.rx.tap
 
             viewModel.sections.bind { [unowned self] sections in
