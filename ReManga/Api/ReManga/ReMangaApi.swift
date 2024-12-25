@@ -98,19 +98,22 @@ class ReMangaApi: ApiProtocol {
         }
 
         let url = "https://api.remanga.org/api/search/catalog/?count=30&ordering=-\(sorting.id)&page=\(page)\(tags)"
-        let model: ReMangaApiMangaCatalogResult = try await performRequest(makeRequest(url))
+        do {
+            let model: ReMangaApiMangaCatalogResult = try await performRequest(makeRequest(url))
+            var bookmarks: [ApiMangaBookmarkModel] = []
+            bookmarks = try await fetchBookmarkTypes()
 
-        var bookmarks: [ApiMangaBookmarkModel] = []
-        do { bookmarks = try await fetchBookmarkTypes() }
-        catch { print(error) }
+            let res = model.content.map { model in
+                var item = ApiMangaModel(from: model)
+                item.bookmark = bookmarks.first(where: { model.bookmarkType == $0.name })
+                return item
+            }
 
-        let res = model.content.map { model in
-            var item = ApiMangaModel(from: model)
-            item.bookmark = bookmarks.first(where: { model.bookmarkType == $0.name })
-            return item
+            return res
+        } catch {
+            print(error)
         }
-
-        return res
+        return []
     }
 
     func fetchSearch(query: String, page: Int, sorting: ApiMangaIdModel) async throws -> [ApiMangaModel] {
