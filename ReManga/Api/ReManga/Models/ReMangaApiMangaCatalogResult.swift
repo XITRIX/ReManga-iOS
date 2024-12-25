@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - ApiMangaCatalog
 struct ReMangaApiMangaCatalogResult: Codable {
-    let msg: String
+    let msg: String?
     let content: [ReMangaApiMangaModel]
     let props: ReMangaApiMangaCatalogProps
 }
