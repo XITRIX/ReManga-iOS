@@ -288,7 +288,8 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchBookmarks() async throws -> [ApiMangaModel] {
-        let url = "https://api.remanga.org/api/users/11724/bookmarks/?ordering=-chapter_date&type=0&count=99999"
+        let user = try await fetchUserInfo()
+        let url = "https://api.remanga.org/api/users/\(user.id)/bookmarks/?ordering=-chapter_date&type=0&count=99999"
         let model: ReMangaBookmarksResult = try await performRequest(makeRequest(url))
 
         var bookmarks: [ApiMangaBookmarkModel] = []
