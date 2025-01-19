@@ -12,4 +12,5 @@ enum ApiMangaError: Error {
     case operationNotSupported(message: String)
     case wrongUrl
     case unauthorized
+    case notImplemented
 }

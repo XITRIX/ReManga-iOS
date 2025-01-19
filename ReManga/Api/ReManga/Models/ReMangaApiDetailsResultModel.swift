@@ -10,6 +10,7 @@
 // synthesized for types that have collections (such as arrays or dictionaries).
 
 import Foundation
+import MetaCodable
 
 // MARK: - ReMangaApiDetailsResultWelcome
 struct ReMangaApiDetailsResult: Codable, Hashable {
@@ -25,65 +26,79 @@ struct ReMangaApiDetailsResult: Codable, Hashable {
 // synthesized for types that have collections (such as arrays or dictionaries).
 
 // MARK: - ReMangaApiDetailsResultContent
-struct ReMangaApiDetailsResultContent: Codable, Hashable {
+@Codable
+struct ReMangaApiDetailsResultContent: Hashable {
     let id: Int?
     let img: ReMangaApiDetailsResultImg?
-    let enName, rusName, anotherName, dir: String?
+    @CodedAt("en_name") let enName: String?
+    @CodedAt("rus_name") let rusName: String?
+    @CodedAt("another_name") let anotherName: String?
+    let dir: String?
     let description: String?
-    let issueYear: Int?
-    let avgRating, adminRating: String?
-    let countRating, ageLimit: Int?
+    @CodedAt("issue_year") let issueYear: Int?
+
+    @CodedAt("avg_rating")
+    @Default("--")
+    let avgRating: String?
+    @CodedAt("admin_rating") let adminRating: String?
+    @CodedAt("count_rating") let countRating: Int?
+    @CodedAt("age_limit") let ageLimit: Int?
     let status: ReMangaApiDetailsResultStatus?
-    let countBookmarks, totalVotes, totalViews: Int?
+    @CodedAt("count_bookmarks") let countBookmarks: Int?
+    @CodedAt("total_votes") let totalVotes: Int?
+    @CodedAt("total_views") let totalViews: Int?
     let type: ReMangaApiDetailsResultStatus?
-    let genres, categories: [ReMangaApiDetailsResultStatus]?
-    let bookmarkType: Int?
+    let genres: [ReMangaApiDetailsResultStatus]?
+    let categories: [ReMangaApiDetailsResultStatus]?
+    @CodedAt("bookmark_type") let bookmarkType: Int?
 //    let rated: JSONNull?
     let branches: [ReMangaApiDetailsResultBranch]?
-    let activeBranch, countChapters: Int?
+    @CodedAt("active_branch") let activeBranch: Int?
+    @CodedAt("count_chapters") let countChapters: Int?
 //    let firstChapter: JSONNull?
-    let continueReading: ReMangaApiDetailsResultContinueReading?
-    let isLicensed: Bool?
+    @CodedAt("continue_reading") let continueReading: ReMangaApiDetailsResultContinueReading?
+    @CodedAt("is_licensed") let isLicensed: Bool?
 //    let newlateID, newlateTitle, related: JSONNull?
     let uploaded: Int?
-    let canPostComments: Bool?
+    @CodedAt("can_post_comments") let canPostComments: Bool?
     let adaptation: ReMangaApiDetailsResultAdaptation?
     let publishers: [ReMangaApiDetailsResultPublisher]?
-    let isYaoi, isErotic: Bool?
+    @CodedAt("is_yaoi") let isYaoi: Bool?
+    @CodedAt("is_erotic") let isErotic: Bool?
 
-    enum CodingKeys: String, CodingKey {
-        case id, img
-        case enName = "en_name"
-        case rusName = "rus_name"
-        case anotherName = "another_name"
-        case dir, description
-        case issueYear = "issue_year"
-        case avgRating = "avg_rating"
-        case adminRating = "admin_rating"
-        case countRating = "count_rating"
-        case ageLimit = "age_limit"
-        case status
-        case countBookmarks = "count_bookmarks"
-        case totalVotes = "total_votes"
-        case totalViews = "total_views"
-        case type, genres, categories
-        case bookmarkType = "bookmark_type"
-//        case rated
-        case branches
-        case activeBranch = "active_branch"
-        case countChapters = "count_chapters"
-//        case firstChapter = "first_chapter"
-        case continueReading = "continue_reading"
-        case isLicensed = "is_licensed"
-//        case newlateID = "newlate_id"
-//        case newlateTitle = "newlate_title"
-//        case related
-        case uploaded
-        case canPostComments = "can_post_comments"
-        case adaptation, publishers
-        case isYaoi = "is_yaoi"
-        case isErotic = "is_erotic"
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case id, img
+//        case enName = "en_name"
+//        case rusName = "rus_name"
+//        case anotherName = "another_name"
+//        case dir, description
+//        case issueYear = "issue_year"
+//        case avgRating = "avg_rating"
+//        case adminRating = "admin_rating"
+//        case countRating = "count_rating"
+//        case ageLimit = "age_limit"
+//        case status
+//        case countBookmarks = "count_bookmarks"
+//        case totalVotes = "total_votes"
+//        case totalViews = "total_views"
+//        case type, genres, categories
+//        case bookmarkType = "bookmark_type"
+////        case rated
+//        case branches
+//        case activeBranch = "active_branch"
+//        case countChapters = "count_chapters"
+////        case firstChapter = "first_chapter"
+//        case continueReading = "continue_reading"
+//        case isLicensed = "is_licensed"
+////        case newlateID = "newlate_id"
+////        case newlateTitle = "newlate_title"
+////        case related
+//        case uploaded
+//        case canPostComments = "can_post_comments"
+//        case adaptation, publishers
+//        case isYaoi = "is_yaoi"
+//        case isErotic = "is_erotic"
+//    }
 }
 
 //

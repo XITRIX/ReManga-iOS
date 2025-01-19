@@ -15,6 +15,7 @@ protocol OAuthViewModel: BaseViewModelProtocol {
 class ReMangaVKAuthViewModel: BaseViewModel, OAuthViewModel {
     @Injected(key: .Backend.remanga.key) private var api: ApiProtocol
     let authUrl = "https://oauth.vk.com/authorize?client_id=6758074&display=popup&redirect_uri=https://remanga.org/social&scope=email&response_type=code&v=5.101&state=dmssLyxhdXRo"
+    let newAuthUrl = "https://id.vk.com/auth?app_id=51784295&response_type=silent_token&v=1.61.1&redirect_uri=https%3A%2F%2Fremanga.org%2Fvk&uuid=8_wgEdO8Oqg2VYWWO4ECF&redirect_state=SuNZF"
 
     func performWebViewNavigation(from response: URLResponse) -> Bool {
         guard let url = response.url?.absoluteString,

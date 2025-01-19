@@ -55,6 +55,7 @@ class BaseViewModel: MvvmViewModel, BaseViewModelProtocol {
             do {
                 try await task()
             } catch {
+                print(error)
                 await handleError(error) { [weak self] in
                     self?.performTask {
                         self?.state.accept(.loading)

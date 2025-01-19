@@ -12,7 +12,7 @@ class ProfileActiveBackendViewModel: MvvmViewModel, MvvmSelectableProtocol {
     var selectAction: (() -> Void)?
 
     let detailsTitle = BehaviorRelay<String?>(value: nil)
-    let backends: [ContainerKey.Backend] = [.remanga, .newmanga]
+    let backends: [ContainerKey.Backend] = [.remanga, .newmanga, .mangadex]
 
     required init() {
         super.init()

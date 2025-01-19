@@ -24,7 +24,7 @@ extension ApiMangaModel {
 
         description = model.description?.htmlToAttributedString()
         subtitle = "\([model.enName, model.anotherName].compactMap { $0 }.joined(separator: " / "))\n\([model.issueYear?.text, model.type?.name, model.status?.name].compactMap { $0 }.joined(separator: " ⸱ "))"
-        rating = model.avgRating
+        rating = model.avgRating ?? "--"
         likes = model.totalVotes?.kmbFormatted ?? "--"
         bookmarks = model.countBookmarks?.kmbFormatted ?? "--"
         sees = model.totalViews?.kmbFormatted ?? "--"
@@ -96,7 +96,7 @@ extension ApiMangaChapterModel {
             date = d
         } else {
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            date = dateFormatter.date(from: model.uploadDate)!
+            date = dateFormatter.date(from: model.uploadDate) ?? .distantPast
         }
     }
 

@@ -76,7 +76,9 @@ class CatalogViewModel: BaseViewModelWith<CatalogViewConfig>, CatalogViewModelPr
             $apiKey.bind { [unowned self] key in
                 api = Mvvm.shared.container.resolve(key: key?.key)
                 sortType = api.defaultSortingType
-                filters.accept([])
+
+                // Conflicts with tags from Prepare()
+//                filters.accept([])
                 resetVM()
             }
 

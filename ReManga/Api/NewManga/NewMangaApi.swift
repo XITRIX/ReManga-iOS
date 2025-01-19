@@ -161,12 +161,12 @@ class NewMangaApi: ApiProtocol {
         return await MainActor.run { model.map { .init(from: $0) } }
     }
 
-    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel] {
+    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> (models: [ApiMangaChapterModel], complete: Bool?) {
         let url = "https://api.newmanga.org/v3/branches/\(branch)/chapters/all"
         let (result, _) = try await urlSession.data(for: makeRequest(url))
         let model = try JSONDecoder().decode([NewMangaTitleChapterResultItem].self, from: result)
 
-        return await MainActor.run { model.map { .init(from: $0) }.reversed() }
+        return (model.map { .init(from: $0) }.reversed(), nil)
     }
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {

@@ -12,11 +12,13 @@ public extension ContainerKey {
     enum Backend: Codable {
         case remanga
         case newmanga
+        case mangadex
 
         var key: ContainerKey {
             switch self {
             case .remanga: return .init(key: "remanga", isDefault: true)
             case .newmanga: return .init(key: "newmanga")
+            case .mangadex: return .init(key: "mangadex")
             }
         }
 
@@ -24,6 +26,7 @@ public extension ContainerKey {
             switch self {
             case .remanga: return "Re:Manga"
             case .newmanga: return "NewManga"
+            case .mangadex: return "MangaDex"
             }
         }
 
@@ -41,6 +44,7 @@ class SceneDelegate: MvvmSceneDelegate {
     override func register(in container: Container) {
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.newmanga.key, factory: NewMangaApi.init)
         container.registerSingleton(type: ApiProtocol.self, key: .Backend.remanga.key, factory: ReMangaApi.init)
+        container.registerSingleton(type: ApiProtocol.self, key: .Backend.mangadex.key, factory: MangaDexApi.init)
         container.registerSingleton(factory: MangaDownloadManager.init)
         container.registerSingleton(factory: MangaHistoryManager.init)
     }

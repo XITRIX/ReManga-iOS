@@ -38,7 +38,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchSearch(query: String, page: Int, sorting: ApiMangaIdModel) async throws -> [ApiMangaModel]
     func fetchDetails(id: String) async throws -> ApiMangaModel
     func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel]
-    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel]
+    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> (models: [ApiMangaChapterModel], complete: Bool?)
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel]
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
     func fetchCommentsCount(id: String) async throws -> Int
@@ -66,7 +66,7 @@ extension ApiProtocol {
         return authRequestModifier(request)
     }
 
-    func fetchTitleChapters(branch: String, count: Int = 30, page: Int = 1) async throws -> [ApiMangaChapterModel] {
+    func fetchTitleChapters(branch: String, count: Int = 30, page: Int = 1) async throws -> (models: [ApiMangaChapterModel], complete: Bool?) {
         try await fetchTitleChapters(branch: branch, count: count, page: page)
     }
     

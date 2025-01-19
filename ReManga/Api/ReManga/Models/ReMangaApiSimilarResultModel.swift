@@ -43,7 +43,8 @@ struct ReMangaApiSimilarResultModelTitle: Codable, Hashable {
     let id: Int?
     let enName, rusName, dir: String
     let issueYear: Int?
-    let avgRating, adminRating: String?
+    let avgRating: String?
+    let adminRating: String?
     let totalVotes, totalViews: Int?
     let isLicensed: Bool?
     let coverHigh, coverMid, coverLow: String?

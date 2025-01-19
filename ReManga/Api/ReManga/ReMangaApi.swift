@@ -156,10 +156,10 @@ class ReMangaApi: ApiProtocol {
         return model.content.map { ApiMangaModel(from: $0) }
     }
 
-    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> [ApiMangaChapterModel] {
+    func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> (models: [ApiMangaChapterModel], complete: Bool?) {
         let url = "https://api.remanga.org/api/titles/chapters/?branch_id=\(branch)&ordering=-index&user_data=1&count=\(count)&page=\(page)"
         let model: ReMangaTitleChaptersResult = try await performRequest(makeRequest(url))
-        return model.content.map { .init(from: $0) }
+        return (model.content.map { .init(from: $0) }, nil)
     }
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
@@ -183,6 +183,8 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
+//        let url = "https://api.remanga.org/api/v2/activity/comments/?chapter_id=\(id)&chapter_page=-1&count=\(count)&ordering=-id&page=\(page)"
+//        let url = "https://api.remanga.org/api/v2/activity/comments/?chapter_id=\(id)&chapter_page=-1&count=\(count)&ordering=-id&page=\(page)"
         let url = "https://api.remanga.org/api/activity/comments/?chapter_id=\(id)&chapter_page=-1&page=\(page)&ordering=-id&count=\(count)"
         let model: ReMangaCommentsResult = try await performRequest(makeRequest(url))
         return model.content.compactMap { .init(from: $0) }

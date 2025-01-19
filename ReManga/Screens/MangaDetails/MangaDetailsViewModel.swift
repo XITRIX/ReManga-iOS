@@ -333,7 +333,7 @@ private extension MangaDetailsViewModel {
             chaptersIsLoading = false
             Task {
                 guard !isChaptersFetchingDone else { return }
-                try await loadNextChapters()
+//                try await loadNextChapters()
             }
         }
         chaptersIsLoading = true
@@ -343,14 +343,18 @@ private extension MangaDetailsViewModel {
             let chaptersRes = try await api.fetchTitleChapters(branch: branch.id, count: count, page: chaptersPage)
             chaptersPage += 1
 
-            chapters.accept(chapters.value + chaptersRes.map { chapter in
+            chapters.accept(chapters.value + chaptersRes.models.map { chapter in
                 let res = MangaDetailsChapterViewModel()
                 res.prepare(with: chapter)
                 downloadManager.bindChapterToDownloadManager(chapter: res, of: self, from: api)
                 return res
             })
 
-            isChaptersFetchingDone = chaptersRes.count != count
+            if let complete = chaptersRes.complete {
+                isChaptersFetchingDone = complete
+            } else {
+                isChaptersFetchingDone = chaptersRes.models.count != count
+            }
         }
     }
 
