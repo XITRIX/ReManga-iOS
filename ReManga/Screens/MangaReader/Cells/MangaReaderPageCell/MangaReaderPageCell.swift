@@ -21,15 +21,23 @@ class MangaReaderPageCell<VM: MangaReaderPageViewModel>: MvvmCollectionViewCell<
 
     override func setup(with viewModel: VM) {
         bind(in: disposeBag) {
-            imageView.rx.imageUrl(with: activityView, auth: viewModel.api?.kfAuthModifier) <- viewModel.imageUrl
+            imageView.rx.imageUrl(with: activityView, auth: viewModel.api?.kfAuthModifier) { [weak self] image in
+                guard let self, let size = image?.size else { return }
+                DispatchQueue.main.async {
+                    UIView.performWithoutAnimation {
+                        self.collectionView?.performBatchUpdates({
+                            viewModel.imageSize.accept(size)
+                        })
+                    }
+                }
+            } <- viewModel.imageUrl
+
             viewModel.imageSize.bind { [unowned self] size in
                 if aspectRatioConstraint != nil {
                     aspectRatioConstraint.isActive = false
                 }
 
-                aspectRatioConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: size.height / size.width)
-                aspectRatioConstraint.isActive = true
-                invalidateIntrinsicContentSize()
+                updateSize(size)
             }
         }
     }
@@ -62,10 +70,28 @@ class MangaReaderPageCell<VM: MangaReaderPageViewModel>: MvvmCollectionViewCell<
         }
     }
 
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//        guard let imageSize else { return }
-//        widthConstraint.constant = frame.height / imageSize.height * imageSize.width
-//    }
+    //    override func layoutSubviews() {
+    //        super.layoutSubviews()
+    //
+    //        guard let imageSize else { return }
+    //        widthConstraint.constant = frame.height / imageSize.height * imageSize.width
+    //    }
+
+    private func updateSize(_ size: CGSize) {
+        aspectRatioConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: size.height / size.width)
+        aspectRatioConstraint.isActive = true
+        invalidateIntrinsicContentSize()
+    }
+
+    private var collectionView: UICollectionView? {
+        var parent = superview
+        while parent != nil {
+            if let collectionView = parent as? UICollectionView {
+                return collectionView
+            }
+            parent = parent?.superview
+        }
+        return nil
+    }
 }
+

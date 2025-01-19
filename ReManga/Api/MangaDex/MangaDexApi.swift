@@ -34,7 +34,7 @@ class MangaDexApi: ApiProtocol {
     var name: String { "MangaDex" }
 
     var logo: MvvmFoundation.Image{
-        .local(name: "ReManga").with(tint: .label)
+        .local(name: "Mangadex")
     }
 
     var key: ContainerKey.Backend { .mangadex }
@@ -84,10 +84,9 @@ class MangaDexApi: ApiProtocol {
     }
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
-//        let url = "https://api.mangadex.org/manga/\(id)/feed?limit=96&includes[]=scanlation_group&includes[]=user&order[volume]=desc&order[chapter]=desc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic"
-//        let model: MangaDexChaptersModel = try await performRequest(makeRequest(url))
-//        return model.data.map { .init(from: $0) }
-        return []
+        let url = "https://api.mangadex.org/at-home/server/\(id)?forcePort443=false"
+        let model: MangaDexChapterResult = try await performRequest(makeRequest(url))
+        return model.toModels()
     }
 
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {

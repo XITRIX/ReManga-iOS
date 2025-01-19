@@ -26,7 +26,7 @@ extension UIImageView {
 }
 
 extension Reactive where Base: UIImageView {
-    public func imageUrl(with activityIndicator: UIActivityIndicatorView? = nil, auth modifier: AnyModifier? = nil, placeholder: UIImage? = nil) -> Binder<String?> {
+    public func imageUrl(with activityIndicator: UIActivityIndicatorView? = nil, auth modifier: AnyModifier? = nil, placeholder: UIImage? = nil, completion: ((UIImage?) -> Void)? = nil) -> Binder<String?> {
         Binder(self.base) { imageView, image in
             guard let image else { return imageView.image = placeholder }
             activityIndicator?.startAnimating()
@@ -41,7 +41,10 @@ extension Reactive where Base: UIImageView {
                 switch result {
                 case .failure(_):
                     imageView.image = placeholder
-                default: break
+                    completion?(nil)
+                case .success(let image):
+                    completion?(image.image)
+                    break
                 }
             }
         }

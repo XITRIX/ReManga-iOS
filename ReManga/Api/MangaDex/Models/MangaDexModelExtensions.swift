@@ -62,3 +62,13 @@ extension ApiMangaChapterModel {
         date = model.attributes.createdAt.map { dateFormatter.date(from: $0) ?? .now } ?? Date()
     }
 }
+
+extension MangaDexChapterResult {
+    func toModels() -> [ApiMangaChapterPageModel] {
+
+        chapter.data.enumerated().map {
+            let url = baseURL + "/data/" + chapter.hash + "/" + $0.element
+            return .init(size: .init(width: 100, height: 100), path: url, page: $0.offset)
+        }
+    }
+}
