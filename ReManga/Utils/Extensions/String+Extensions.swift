@@ -17,7 +17,24 @@ extension String {
         // 3
         return firstLetter + remainingLetters
     }
-    
+
+    func removeUTF8Encodings() -> String? {
+        guard let data = self.data(using: .utf8) else {
+            return nil
+        }
+
+        guard let attributedString = try? NSMutableAttributedString(
+            data: data,
+            options: [.documentType: NSAttributedString.DocumentType.html,
+                      .characterEncoding: String.Encoding.utf8.rawValue],
+            documentAttributes: nil
+        ) else {
+            return nil
+        }
+
+        return attributedString.trimedCharactersInSet(charSet: .whitespacesAndNewlines).string
+    }
+
     func htmlToAttributedString(of size: Int = 17, with textColor: UIColor = .label) -> NSMutableAttributedString? {
         let htmlTemplate = """
         <!doctype html>

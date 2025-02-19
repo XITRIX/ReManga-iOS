@@ -147,7 +147,7 @@ extension ApiMangaCommentModel {
         let imageRoot = "https://remanga.org"
         imagePath = model.user.avatar?.low.map { imageRoot + $0 }
 
-        guard let text = model.text
+        guard let text = model.text?.removeUTF8Encodings()
         else { return nil }
 
         self.text = text.htmlToAttributedString() ?? .init(string: text)

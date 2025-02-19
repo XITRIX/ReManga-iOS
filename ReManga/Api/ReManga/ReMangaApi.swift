@@ -292,14 +292,24 @@ class ReMangaApi: ApiProtocol {
 
     func fetchBookmarks() async throws -> [ApiMangaModel] {
         let user = try await fetchUserInfo()
-        let url = "https://api.remanga.org/api/users/\(user.id)/bookmarks/?ordering=-chapter_date&type=0&count=99999"
-        let model: ReMangaBookmarksResult = try await performRequest(makeRequest(url))
+        let count = 20
+        var page = 1
 
         var bookmarks: [ApiMangaBookmarkModel] = []
         do { bookmarks = try await fetchBookmarkTypes() }
         catch { print(error) }
 
-        let res = model.content.map { model in
+        var content: [ReMangaBookmarksResultContent] = []
+        repeat {
+            let url = "https://api.remanga.org/api/users/\(user.id)/bookmarks/?ordering=-chapter_date&type=0&count=\(count)&page=\(page)"
+            let model: ReMangaBookmarksResult = try await performRequest(makeRequest(url))
+
+            content += model.content
+            if model.content.count < count { break }
+            page += 1
+        } while(true)
+
+        let res = content.map { model in
             var item = ApiMangaModel(from: model)
             item.bookmark = bookmarks.first(where: { String(model.type) == $0.id })
             return item
