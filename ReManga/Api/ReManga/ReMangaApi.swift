@@ -24,6 +24,7 @@ class ReMangaApi: ApiProtocol {
             if let authToken = self?.authToken.value {
                 r.addValue("bearer \(authToken)", forHTTPHeaderField: "Authorization")
             }
+            r.addValue("ReComics/1.4.1 CFNetwork/3826.400.120 Darwin/24.3.0", forHTTPHeaderField: "User-Agent")
             r.addValue("https://remanga.org/", forHTTPHeaderField: "referer")
             return r
         }
