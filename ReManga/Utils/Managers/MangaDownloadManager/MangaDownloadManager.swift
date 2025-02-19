@@ -107,8 +107,10 @@ class MangaDownloadManager {
         bindChapterModelToProgress(chapter)
 
         bind(in: chapter.disposeBag) {
-            downloadedManga.bind { [unowned self] downloads in
+            downloadedManga.bind { [unowned self, weak manga] downloads in
                 _ = Task {
+                    guard let manga else { return }
+
                     let key = keyFrom(manga.id, api: api)
                     guard let manga = downloads[key],
                           manga.chapters.value.contains(where: { $0.id == chapter.id.value })

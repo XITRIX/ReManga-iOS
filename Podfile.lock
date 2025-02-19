@@ -1,14 +1,4 @@
 PODS:
-  - AppCenter (5.0.3):
-    - AppCenter/Analytics (= 5.0.3)
-    - AppCenter/Crashes (= 5.0.3)
-  - AppCenter/Analytics (5.0.3):
-    - AppCenter/Core
-  - AppCenter/Core (5.0.3)
-  - AppCenter/Crashes (5.0.3):
-    - AppCenter/Core
-  - AppCenter/Distribute (5.0.3):
-    - AppCenter/Core
   - Kingfisher (7.8.1)
   - MarqueeLabel (4.3.0)
   - MvvmFoundation (0.1.0):
@@ -28,8 +18,6 @@ PODS:
   - XTBottomSheet (0.1.0)
 
 DEPENDENCIES:
-  - AppCenter
-  - AppCenter/Distribute
   - Kingfisher (from `submodules/Kingfisher`)
   - MarqueeLabel (from `submodules/MarqueeLabel`)
   - MvvmFoundation (from `submodules/MvvmFoundation`)
@@ -41,7 +29,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AppCenter
     - RxBiBinding
     - UIImageColors
 
@@ -62,7 +49,6 @@ EXTERNAL SOURCES:
     :path: submodules/XTBottomSheet
 
 SPEC CHECKSUMS:
-  AppCenter: a4070ec3d4418b5539067a51f57155012e486ebd
   Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
   MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
   MvvmFoundation: 0c3145e37252936d46f74d52ef1f27de2d95dc0d
@@ -73,6 +59,6 @@ SPEC CHECKSUMS:
   UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
   XTBottomSheet: 6611fbef438af4c4243aeddbeaa2c7f21cbd1131
 
-PODFILE CHECKSUM: ebb3cfcc19ed5a2e47de26b426ba9398924cfea3
+PODFILE CHECKSUM: 931dcf4b8d3139e66b77defac70d37e08a42d2f5
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.15.2

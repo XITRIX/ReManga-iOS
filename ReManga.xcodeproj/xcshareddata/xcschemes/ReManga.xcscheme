@@ -49,13 +49,18 @@
             ReferencedContainer = "container:ReManga.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "APP_CENTER_SECRET"
-            value = "$(APP_CENTER_SECRET)"
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocStackLogging"
+            value = ""
             isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+         </AdditionalOption>
+         <AdditionalOption
+            key = "PrefersMallocStackLoggingLite"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

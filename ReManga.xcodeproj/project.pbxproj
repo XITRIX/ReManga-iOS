@@ -1476,7 +1476,6 @@
 				7C83351429E064D200B0CD99 /* Frameworks */,
 				7C83351529E064D200B0CD99 /* Resources */,
 				DDDC30BFA9E9B5E4BA325E8A /* [CP] Embed Pods Frameworks */,
-				54322604A6CCDA9D1FB8BD38 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1589,23 +1588,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		54322604A6CCDA9D1FB8BD38 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9866579AB1DF0B6D0C1D2DB4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

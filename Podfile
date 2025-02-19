@@ -15,9 +15,6 @@ target 'ReManga' do
   pod 'MarqueeLabel', :path => 'submodules/MarqueeLabel'
   pod 'UIImageColors'
 
-  pod 'AppCenter'
-  pod 'AppCenter/Distribute'
-
 end
 
 post_install do |installer|
