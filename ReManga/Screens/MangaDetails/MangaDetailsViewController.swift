@@ -7,8 +7,8 @@
 
 import UIKit
 
-class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<VM> {
-    private lazy var thinVC = MangaDetailsViewController_Thin(viewModel: viewModel)
+class MangaDetailsViewController_<VM: MangaDetailsViewModel>: BaseViewController<VM> {
+    private lazy var thinVC = MangaDetailsViewController(viewModel: viewModel)
     private lazy var wideVC = MangaDetailsViewController_Wide(viewModel: viewModel)
 
     private var currentVC: UIViewController {

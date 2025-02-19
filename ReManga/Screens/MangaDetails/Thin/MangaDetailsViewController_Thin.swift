@@ -13,7 +13,7 @@ import UIImageColors
 import FluidGradient
 import Kingfisher
 
-class MangaDetailsViewController_Thin<VM: MangaDetailsViewModel>: BaseViewController<VM> {
+class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<VM> {
     @IBOutlet private var fluidGradientViewHolder: UIView!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var titleLabel: UILabel!
@@ -121,7 +121,7 @@ class MangaDetailsViewController_Thin<VM: MangaDetailsViewModel>: BaseViewContro
     }
 }
 
-private extension MangaDetailsViewController_Thin {
+private extension MangaDetailsViewController {
     func applyBookmarksMenu(_ bookmarks: [ApiMangaBookmarkModel], _ current: ApiMangaBookmarkModel?) {
         let actions: [UIAction] = bookmarks.map { bookmark in
             .init(title: bookmark.name, state: bookmark == current ? .on : .off) { [unowned self] _ in
@@ -214,8 +214,8 @@ private extension MangaDetailsViewController_Thin {
     }
 }
 
-private extension MangaDetailsViewController_Thin {
-    class Delegates: DelegateObject<MangaDetailsViewController_Thin>, UICollectionViewDelegate {
+private extension MangaDetailsViewController {
+    class Delegates: DelegateObject<MangaDetailsViewController>, UICollectionViewDelegate {
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             updateBackgorundImageSize(with: scrollView)
         }

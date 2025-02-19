@@ -272,7 +272,9 @@ private extension MangaDetailsViewModel {
 
     func loadDetails(for id: String) {
         state.accept(.loading)
-        performTask { [self] in
+        performTask { [weak self] in
+            guard let self else { return }
+
             let res = try await api.fetchDetails(id: id)
             title.accept(res.rusTitle ?? res.title)
             image.accept(res.img)
@@ -293,8 +295,9 @@ private extension MangaDetailsViewModel {
 
             currentBookmark.accept(res.bookmark)
 
-            Task {
+            Task { [weak self] in
                 do {
+                    guard let self else { return }
                     commentsCount = (try? await api.fetchCommentsCount(id: self.id)) ?? 0
                     try await loadNextComments()
                 } catch {
