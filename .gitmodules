@@ -13,3 +13,9 @@
 [submodule "submodules/MarqueeLabel"]
 	path = submodules/MarqueeLabel
 	url = https://github.com/XITRIX/MarqueeLabel.git
+[submodule "submodules/UIImageColors"]
+	path = submodules/UIImageColors
+	url = https://github.com/XITRIX/UIImageColors.git
+[submodule "submodules/RxBiBinding"]
+	path = submodules/RxBiBinding
+	url = https://github.com/XITRIX/RxBiBinding.git

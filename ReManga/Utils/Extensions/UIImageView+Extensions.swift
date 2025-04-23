@@ -26,6 +26,7 @@ extension UIImageView {
 }
 
 extension Reactive where Base: UIImageView {
+    @MainActor
     public func imageUrl(with activityIndicator: UIActivityIndicatorView? = nil, auth modifier: AnyModifier? = nil, placeholder: UIImage? = nil, completion: ((UIImage?) -> Void)? = nil) -> Binder<String?> {
         Binder(self.base) { imageView, image in
             guard let image else { return imageView.image = placeholder }

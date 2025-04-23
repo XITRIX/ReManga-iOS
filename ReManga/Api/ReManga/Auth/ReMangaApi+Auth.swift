@@ -6,6 +6,7 @@
 //
 
 import MvvmFoundation
+import UIKit
 
 extension ApiAuthSource {
     var remangaProviderKey: String {

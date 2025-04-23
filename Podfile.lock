@@ -1,5 +1,5 @@
 PODS:
-  - Kingfisher (7.8.1)
+  - Kingfisher (8.3.2)
   - MarqueeLabel (4.3.0)
   - MvvmFoundation (0.1.0):
     - RxBiBinding
@@ -8,29 +8,25 @@ PODS:
   - RxBiBinding (0.3.5):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxCocoa (6.7.0):
-    - RxRelay (= 6.7.0)
-    - RxSwift (= 6.7.0)
-  - RxRelay (6.7.0):
-    - RxSwift (= 6.7.0)
-  - RxSwift (6.7.0)
-  - UIImageColors (2.1.0)
+  - RxCocoa (6.9.0):
+    - RxRelay (= 6.9.0)
+    - RxSwift (= 6.9.0)
+  - RxRelay (6.9.0):
+    - RxSwift (= 6.9.0)
+  - RxSwift (6.9.0)
+  - UIImageColors (2.3.0)
   - XTBottomSheet (0.1.0)
 
 DEPENDENCIES:
   - Kingfisher (from `submodules/Kingfisher`)
   - MarqueeLabel (from `submodules/MarqueeLabel`)
   - MvvmFoundation (from `submodules/MvvmFoundation`)
+  - RxBiBinding (from `submodules/RxBiBinding`)
   - RxCocoa (from `submodules/RxSwift`)
   - RxRelay (from `submodules/RxSwift`)
   - RxSwift (from `submodules/RxSwift`)
-  - UIImageColors
+  - UIImageColors (from `submodules/UIImageColors`)
   - XTBottomSheet (from `submodules/XTBottomSheet`)
-
-SPEC REPOS:
-  trunk:
-    - RxBiBinding
-    - UIImageColors
 
 EXTERNAL SOURCES:
   Kingfisher:
@@ -39,26 +35,30 @@ EXTERNAL SOURCES:
     :path: submodules/MarqueeLabel
   MvvmFoundation:
     :path: submodules/MvvmFoundation
+  RxBiBinding:
+    :path: submodules/RxBiBinding
   RxCocoa:
     :path: submodules/RxSwift
   RxRelay:
     :path: submodules/RxSwift
   RxSwift:
     :path: submodules/RxSwift
+  UIImageColors:
+    :path: submodules/UIImageColors
   XTBottomSheet:
     :path: submodules/XTBottomSheet
 
 SPEC CHECKSUMS:
-  Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
-  MarqueeLabel: 02f5ac8fd6877c94564556cb93fa86c70c08baeb
-  MvvmFoundation: 0c3145e37252936d46f74d52ef1f27de2d95dc0d
-  RxBiBinding: c4de0aad6ee668fa73ea6ba423bc0ab5d77b986b
-  RxCocoa: fb0aefb9e7229c8ab057acde714136d19117f102
-  RxRelay: 5d39f4d8da150ad47a71b9ce11915e3eae2a8f4d
-  RxSwift: 6ee35684dc3f7a63938758f4b7708199517dfa97
-  UIImageColors: d2ef3b0877d203cbb06489eeb78ea8b7788caabe
-  XTBottomSheet: 6611fbef438af4c4243aeddbeaa2c7f21cbd1131
+  Kingfisher: 0621d0ac0c78fecb19f6dc5303bde2b52abaf2f5
+  MarqueeLabel: f5dd3b1760ea2ba89cf1ea790b543f9ec25e7fef
+  MvvmFoundation: 631c96f60e8e10bdad4891db6cf65ffe969635dd
+  RxBiBinding: b8676ebd749184847f4cb06985401ce7842ff55e
+  RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
+  RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
+  RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
+  UIImageColors: 163bd01f0ac366fa8e4e5a4c8380c223086d68c9
+  XTBottomSheet: 4d16b21aeb98061517940744a13950ddc5dc6da8
 
-PODFILE CHECKSUM: 931dcf4b8d3139e66b77defac70d37e08a42d2f5
+PODFILE CHECKSUM: 7d291f680c608485f0627e7b15347c5d971cf3db
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

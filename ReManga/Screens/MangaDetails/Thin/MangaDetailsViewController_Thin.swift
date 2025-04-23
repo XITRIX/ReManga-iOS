@@ -61,7 +61,9 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
 
                 KingfisherManager.shared.retrieveImage(with: url) { [weak self] res in
                     guard let self else { return }
-                    updateGradientBlobsView(with: try? res.get().image)
+                    Task { @MainActor in
+                        self.updateGradientBlobsView(with: try? res.get().image)
+                    }
                 }
             }
             imageView.rx.imageUrl(with: activityIndicator) <- viewModel.image
