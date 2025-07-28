@@ -18,9 +18,14 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
     @IBOutlet private var commentsButton: UIButton!
     @IBOutlet private var bookmarkButton: UIButton!
 
+    @IBOutlet private var likeButtonItem: UIBarButtonItem!
+    @IBOutlet private var commentsButtonItem: UIBarButtonItem!
+    @IBOutlet private var bookmarkButtonItem: UIBarButtonItem!
+
     @IBOutlet private var previousButton: UIButton!
     @IBOutlet private var nextButton: UIButton!
     @IBOutlet private var headerTitleButton: UIButton!
+    @IBOutlet private var navBarViewBackground: UIVisualEffectView!
 
     private lazy var delegates = Delegates(parent: self)
 
@@ -62,6 +67,7 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
 
         viewRespectsSystemMinimumLayoutMargins = false
         navigationItem.titleView = navHeaderView
+        dismissItem.style = .done
         navigationItem.trailingItemGroups.append(.fixedGroup(items: [dismissItem]))
 
         toolBar.delegate = delegates
@@ -71,6 +77,17 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
         setupCollectionView()
 
         collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleBarsHidden)))
+
+        if #available(iOS 26, *) {
+            commentsButton.configuration = .plain()
+            likeButton.configuration = .plain()
+            bookmarkButton.configuration = .plain()
+
+            navBarViewBackground.isHidden = false
+            let effect = UIGlassEffect(style: .regular)
+            effect.isInteractive = true
+            navBarViewBackground.effect = effect
+        }
 
         bind(in: disposeBag) {
             viewModel.dismiss <- dismissItem.rx.tap
@@ -95,7 +112,12 @@ class MangaReaderViewController<VM: MangaReaderViewModelProtocol>: BaseViewContr
             viewModel.toggleLike <- likeButton.rx.tap
 
             viewModel.currentBookmark.bind { [unowned self] bookmark in
-                bookmarkButton.configuration = bookmark == nil ? bookmarkButton.configuration?.toTinted() : bookmarkButton.configuration?.toFilled()
+                if #unavailable(iOS 26) {
+                    bookmarkButton.configuration = bookmark == nil ? bookmarkButton.configuration?.toTinted() : bookmarkButton.configuration?.toFilled()
+//                    bookmarkButtonItem.style = bookmark == nil ? .plain : .done
+                } else {
+                    bookmarkButtonItem.tintColor = bookmark == nil ? nil : .tintColor
+                }
                 bookmarkButton.setImage( bookmark == nil ? .init(systemName: "bookmark") : .init(systemName: "bookmark.fill"), for: .normal)
             }
 
@@ -171,9 +193,15 @@ private extension MangaReaderViewController {
         bind(in: currentDisposeBag) {
             Observable.combineLatest(current.isLiked, current.likes).bind { [unowned self] isLiked, likes in
                 let like = isLiked == true
-                likeButton.configuration = like ? likeButton.configuration?.toFilled() : likeButton.configuration?.toTinted()
+                if #unavailable(iOS 26) {
+                    likeButton.configuration = like ? likeButton.configuration?.toFilled() : likeButton.configuration?.toTinted()
+                } else {
+                    likeButtonItem.tintColor = like ? .systemPink.withAlphaComponent(0.3) : nil
+                    likeButtonItem.style = like ? .done : .plain
+                }
                 likeButton.configuration?.image = like ? .init(systemName: "heart.fill") : .init(systemName: "heart")
                 likeButton.configuration?.title = " \(likes)"
+                likeButton.sizeToFit()
             }
         }
     }

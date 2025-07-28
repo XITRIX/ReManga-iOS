@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24112" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24057"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,10 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MangaReaderViewController" customModule="ReManga" customModuleProvider="target">
             <connections>
                 <outlet property="bookmarkButton" destination="WXt-bl-ueV" id="LEs-6C-OHd"/>
+                <outlet property="bookmarkButtonItem" destination="OEm-QZ-cHR" id="tZi-ts-XzY"/>
                 <outlet property="collectionView" destination="ZHe-xM-qC6" id="jkL-Gl-S7z"/>
                 <outlet property="commentsButton" destination="A0j-v4-kn6" id="9Jk-QG-Ak7"/>
+                <outlet property="commentsButtonItem" destination="FI3-9P-RW3" id="2tQ-vc-84J"/>
                 <outlet property="headerTitleButton" destination="IdO-MF-kDR" id="GXt-YR-fgy"/>
                 <outlet property="likeButton" destination="Chh-Ow-pVc" id="npO-GT-h72"/>
+                <outlet property="likeButtonItem" destination="bca-aq-mVb" id="IRo-IP-Dff"/>
+                <outlet property="navBarViewBackground" destination="Nzc-yj-s2Q" id="jlX-hj-DeZ"/>
                 <outlet property="navHeaderView" destination="3qp-3q-ipM" id="B67-p0-2aO"/>
                 <outlet property="navigationBar" destination="heD-2z-tii" id="bSn-Je-XGR"/>
                 <outlet property="nextButton" destination="pGZ-te-9oN" id="qOo-ee-f24"/>
@@ -41,21 +45,21 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <navigationBar contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="heD-2z-tii">
-                    <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                    <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                     <items>
                         <navigationItem title="Title" id="yQM-RX-6rj"/>
                     </items>
                 </navigationBar>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="6FB-Rc-vLN">
-                    <rect key="frame" x="0.0" y="769" width="393" height="49"/>
+                    <rect key="frame" x="0.0" y="736" width="393" height="48"/>
                     <items>
                         <barButtonItem style="plain" id="bca-aq-mVb">
                             <view key="customView" contentMode="scaleToFill" id="Lig-Wo-pz2">
-                                <rect key="frame" x="16" y="9" width="25" height="36"/>
+                                <rect key="frame" x="20.999999999999996" y="6.0000000000000036" width="60" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Chh-Ow-pVc">
-                                        <rect key="frame" x="0.0" y="4" width="25" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title=" 177" buttonSize="mini">
                                             <imageReference key="image" image="heart" catalog="system" renderingMode="hierarchical-single">
@@ -80,7 +84,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="moF-3T-yvW"/>
                         <barButtonItem width="44" style="plain" id="FI3-9P-RW3">
                             <view key="customView" contentMode="scaleToFill" id="N17-Yu-1i3">
-                                <rect key="frame" x="311" y="9" width="25" height="36"/>
+                                <rect key="frame" x="264.66666666666663" y="6.0000000000000036" width="25" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0j-v4-kn6">
@@ -101,7 +105,7 @@
                         <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="t1P-Ey-gL3"/>
                         <barButtonItem style="plain" id="OEm-QZ-cHR">
                             <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="yys-yA-y9s">
-                                <rect key="frame" x="352" y="9" width="25" height="36"/>
+                                <rect key="frame" x="340.66666666666669" y="6.0000000000000036" width="25" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-bl-ueV">
@@ -145,43 +149,65 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="62"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="X4z-BE-tJq">
-                    <rect key="frame" x="118.33333333333333" y="14.666666666666664" width="156.66666666666669" height="33"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g3x-sK-Vcf">
+                    <rect key="frame" x="110.33333333333333" y="6.6666666666666679" width="172.66666666666669" height="49"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsT-8X-4CP">
-                            <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="33"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system" buttonSize="mini">
-                                <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="semibold"/>
-                            </buttonConfiguration>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdO-MF-kDR">
-                            <rect key="frame" x="42.333333333333329" y="0.0" width="72" height="33"/>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                            <color key="tintColor" systemColor="labelColor"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Глава 50">
-                                <color key="titleColor" systemColor="labelColor"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGZ-te-9oN">
-                            <rect key="frame" x="122.33333333333333" y="0.0" width="34.333333333333329" height="33"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" buttonSize="mini">
-                                <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="semibold"/>
-                            </buttonConfiguration>
-                        </button>
+                        <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzc-yj-s2Q">
+                            <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="49"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ext-bW-hPz">
+                                <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <blurEffect style="regular"/>
+                        </visualEffectView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="X4z-BE-tJq">
+                            <rect key="frame" x="8" y="8" width="156.66666666666666" height="33"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsT-8X-4CP">
+                                    <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="33"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system" buttonSize="mini">
+                                        <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="semibold"/>
+                                    </buttonConfiguration>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdO-MF-kDR">
+                                    <rect key="frame" x="42.333333333333329" y="0.0" width="72" height="33"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                    <color key="tintColor" systemColor="labelColor"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Глава 50">
+                                        <color key="titleColor" systemColor="labelColor"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGZ-te-9oN">
+                                    <rect key="frame" x="122.33333333333333" y="0.0" width="34.333333333333329" height="33"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" buttonSize="mini">
+                                        <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="semibold"/>
+                                    </buttonConfiguration>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
-                </stackView>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="X4z-BE-tJq" secondAttribute="bottom" constant="8" id="1Ye-sI-itL"/>
+                        <constraint firstAttribute="bottom" secondItem="Nzc-yj-s2Q" secondAttribute="bottom" id="EEr-RC-dCe"/>
+                        <constraint firstAttribute="trailing" secondItem="Nzc-yj-s2Q" secondAttribute="trailing" id="Ebe-rg-tlu"/>
+                        <constraint firstItem="Nzc-yj-s2Q" firstAttribute="top" secondItem="g3x-sK-Vcf" secondAttribute="top" id="KL9-3l-7Ja"/>
+                        <constraint firstItem="X4z-BE-tJq" firstAttribute="centerY" secondItem="g3x-sK-Vcf" secondAttribute="centerY" id="S9u-Ib-taa"/>
+                        <constraint firstItem="X4z-BE-tJq" firstAttribute="top" secondItem="g3x-sK-Vcf" secondAttribute="top" constant="8" id="Z0d-X3-fHn"/>
+                        <constraint firstItem="Nzc-yj-s2Q" firstAttribute="leading" secondItem="g3x-sK-Vcf" secondAttribute="leading" id="rdk-0H-QfD"/>
+                        <constraint firstAttribute="trailing" secondItem="X4z-BE-tJq" secondAttribute="trailing" constant="8" id="s64-Xg-heo"/>
+                        <constraint firstItem="X4z-BE-tJq" firstAttribute="leading" secondItem="g3x-sK-Vcf" secondAttribute="leading" constant="8" id="uu8-wU-20J"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="ak2-6A-634"/>
             <constraints>
-                <constraint firstItem="X4z-BE-tJq" firstAttribute="centerX" secondItem="ak2-6A-634" secondAttribute="centerX" id="BnW-he-ecW"/>
-                <constraint firstItem="X4z-BE-tJq" firstAttribute="centerY" secondItem="3qp-3q-ipM" secondAttribute="centerY" id="Dgu-H2-et9"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="X4z-BE-tJq" secondAttribute="bottom" id="QFH-uh-Our"/>
-                <constraint firstItem="X4z-BE-tJq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3qp-3q-ipM" secondAttribute="leading" constant="8" id="RnL-Qy-Qyn"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="X4z-BE-tJq" secondAttribute="trailing" constant="8" id="eYB-xa-Bj9"/>
-                <constraint firstItem="X4z-BE-tJq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3qp-3q-ipM" secondAttribute="top" id="x6r-Lr-Je6"/>
+                <constraint firstItem="g3x-sK-Vcf" firstAttribute="centerX" secondItem="3qp-3q-ipM" secondAttribute="centerX" id="0ec-uM-iY7"/>
+                <constraint firstItem="g3x-sK-Vcf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ak2-6A-634" secondAttribute="leading" constant="8" id="AcC-fa-nde"/>
+                <constraint firstItem="ak2-6A-634" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="g3x-sK-Vcf" secondAttribute="trailing" constant="8" id="rPa-cW-Mkn"/>
+                <constraint firstItem="g3x-sK-Vcf" firstAttribute="centerY" secondItem="3qp-3q-ipM" secondAttribute="centerY" id="vjY-mE-kl5"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="24" y="-403"/>
@@ -196,7 +222,7 @@
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

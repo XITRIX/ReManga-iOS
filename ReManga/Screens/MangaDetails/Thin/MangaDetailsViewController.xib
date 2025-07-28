@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24093.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24053.1"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,6 +17,7 @@
                 <outlet property="collectionView" destination="FsN-FQ-f27" id="iyB-rk-LCr"/>
                 <outlet property="continueButton" destination="Y1E-CK-qP5" id="Hzy-qw-NaA"/>
                 <outlet property="continueButtonLoadingIndicator" destination="ZEO-Xk-cTX" id="EVh-x5-3lD"/>
+                <outlet property="fakeBackButton" destination="f94-Mr-lk1" id="nR9-dp-UgV"/>
                 <outlet property="fluidGradientViewHolder" destination="f1L-CK-diT" id="zkF-aa-Gxe"/>
                 <outlet property="headerCapView" destination="Hkl-zh-E9S" id="csM-iQ-cFg"/>
                 <outlet property="imageView" destination="KGD-Pz-SNx" id="O2h-TJ-zaI"/>
@@ -45,7 +46,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f94-Mr-lk1">
-                    <rect key="frame" x="8" y="15" width="44" height="44"/>
+                    <rect key="frame" x="8" y="74" width="44" height="44"/>
                     <subviews>
                         <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9H-FA-L6h">
                             <rect key="frame" x="7" y="7" width="30" height="30"/>

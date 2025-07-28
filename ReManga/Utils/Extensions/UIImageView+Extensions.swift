@@ -40,7 +40,8 @@ extension Reactive where Base: UIImageView {
             imageView.kf.setImage(with: URL(string: image), options: options) { result in
                 activityIndicator?.stopAnimating()
                 switch result {
-                case .failure(_):
+                case .failure(let error):
+                    print(error)
                     imageView.image = placeholder
                     completion?(nil)
                 case .success(let image):

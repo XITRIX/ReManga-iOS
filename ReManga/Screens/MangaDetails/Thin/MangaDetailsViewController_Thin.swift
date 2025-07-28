@@ -32,6 +32,8 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
     @IBOutlet private var continueButton: UIButton!
     @IBOutlet private var continueButtonLoadingIndicator: UIActivityIndicatorView!
 
+    @IBOutlet private var fakeBackButton: UIView!
+
     private var keyboardHelperToken: KeyboardHandler?
 
     private var gradientView: UIView!
@@ -48,6 +50,11 @@ class MangaDetailsViewController<VM: MangaDetailsViewModel>: BaseViewController<
         setupCap()
         setupNavigationAppearance()
         setupCollectionView()
+
+        if #available(iOS 26, *) {
+            bookmarkButton.configuration = .prominentGlass()
+            continueButton.configuration = .prominentGlass()
+        }
 
         bind(in: disposeBag) {
             collectionView.rx.isEditing <- viewModel.downloadingTableState
@@ -152,23 +159,29 @@ private extension MangaDetailsViewController {
         setupElevationContext()
         navigationItem.titleView = navTitleView
 
-        let scrollButtonsAppearance = UIBarButtonItemAppearance()
-        scrollButtonsAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
+        if #unavailable(iOS 26) {
+            let scrollButtonsAppearance = UIBarButtonItemAppearance()
+            scrollButtonsAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
 
-        let scrollAppearance = UINavigationBarAppearance()
-        scrollAppearance.configureWithTransparentBackground()
-        scrollAppearance.buttonAppearance = scrollButtonsAppearance
-        scrollAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
+            let scrollAppearance = UINavigationBarAppearance()
+            scrollAppearance.configureWithTransparentBackground()
+            scrollAppearance.buttonAppearance = scrollButtonsAppearance
+            scrollAppearance.titleTextAttributes = [.foregroundColor: UIColor.clear]
 
-//        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal).with(size: .init(width: 30, height: 30)), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
-        scrollAppearance.setBackIndicatorImage(scrollAppearance.backIndicatorImage.withTintColor(.clear, renderingMode: .alwaysOriginal), transitionMaskImage: scrollAppearance.backIndicatorTransitionMaskImage)
-        navigationItem.scrollEdgeAppearance = scrollAppearance
+            //        scrollAppearance.setBackIndicatorImage(.init(systemName: "chevron.backward.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal).with(size: .init(width: 30, height: 30)), transitionMaskImage: .init(systemName: "chevron.backward.circle.fill"))
+            scrollAppearance.setBackIndicatorImage(scrollAppearance.backIndicatorImage.withTintColor(.clear, renderingMode: .alwaysOriginal), transitionMaskImage: scrollAppearance.backIndicatorTransitionMaskImage)
+            navigationItem.scrollEdgeAppearance = scrollAppearance
 
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        navigationItem.standardAppearance = appearance
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithDefaultBackground()
+            navigationItem.standardAppearance = appearance
+        }
 
         navigationItem.largeTitleDisplayMode = .never
+
+        if #available(iOS 26, *) {
+            fakeBackButton.isHidden = true
+        }
     }
 
     func setupCollectionView() {
@@ -235,10 +248,12 @@ private extension MangaDetailsViewController {
         func updateBackgorundImageSize(with scrollView: UIScrollView) {
             parent.imageViewHeightConstraint.constant = -scrollView.contentOffset.y + parent.contentOffset
 
-            let offset = scrollView.contentOffset.y + scrollView.contentInset.top
-            let alpha = max(0, min(offset / 8, 1))
-            parent.navTitleLabel.isHidden = alpha <= 0
-            parent.navTitleLabel.alpha = alpha
+//            if #unavailable(iOS 26) {
+                let offset = scrollView.contentOffset.y + scrollView.contentInset.top
+                let alpha = max(0, min(offset / 8, 1))
+                parent.navTitleLabel.isHidden = alpha <= 0
+                parent.navTitleLabel.alpha = alpha
+//            }
 
             if scrollView.contentOffset.y + scrollView.bounds.height > scrollView.contentSize.height - 400 {
                 parent.viewModel.bottomReached()

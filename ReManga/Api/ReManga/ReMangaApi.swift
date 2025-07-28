@@ -158,9 +158,16 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> (models: [ApiMangaChapterModel], complete: Bool?) {
-        let url = "https://api.remanga.org/api/titles/chapters/?branch_id=\(branch)&ordering=-index&user_data=1&count=\(count)&page=\(page)"
-        let model: ReMangaTitleChaptersResult = try await performRequest(makeRequest(url))
-        return (model.content.map { .init(from: $0) }, nil)
+        var page = page
+        var res: [ApiMangaChapterModel] = []
+        while true {
+            let url = "https://api.remanga.org/api/titles/chapters/?branch_id=\(branch)&ordering=-index&user_data=1&count=\(count)&page=\(page)"
+            let model: ReMangaTitleChaptersResult = try await performRequest(makeRequest(url))
+            res.append(contentsOf: model.content.map { .init(from: $0) })
+            if model.content.count < 30 { break }
+            page += 1
+        }
+        return (res, true)
     }
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
