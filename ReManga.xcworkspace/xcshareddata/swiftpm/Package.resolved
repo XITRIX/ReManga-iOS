@@ -1,5 +1,5 @@
 {
-  "originHash" : "f09596c3ef2f5484a46aa1f4eecd6332e11b814ef269b90c92906db881762c33",
+  "originHash" : "955acc4edc912fd864e03000a0f9781ba31c112af36f6315c8692e564e4f4445",
   "pins" : [
     {
       "identity" : "fluidgradient",
@@ -8,6 +8,24 @@
       "state" : {
         "revision" : "9ddda4cf23671ef0228e88681ec6210cb3e0d7f7",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "7deda23bbdca612076c5c315003d8638a08ed0f1",
+        "version" : "8.3.2"
+      }
+    },
+    {
+      "identity" : "marqueelabel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cbpowell/MarqueeLabel.git",
+      "state" : {
+        "revision" : "c6b4da400c00dfd5db7a4f6e4915ca531d95fc49",
+        "version" : "4.5.3"
       }
     },
     {
@@ -44,6 +62,14 @@
       "state" : {
         "revision" : "303e5c5c36d6a558407d364878df131c3546fad8",
         "version" : "510.0.2"
+      }
+    },
+    {
+      "identity" : "uiimagecolors",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jathu/UIImageColors.git",
+      "state" : {
+        "revision" : "f064be8ee0b03158e61135e6c384aee18d7a5414"
       }
     }
   ],

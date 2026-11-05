@@ -245,6 +245,9 @@
 		7CFCF9DC29E73869008E6150 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCF9DB29E73869008E6150 /* KeyboardHandler.swift */; };
 		7CFEBDEF2A4F56260059589F /* MangaDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFEBDEE2A4F56260059589F /* MangaDetailsViewController.swift */; };
 		B80B82CB90A4EA2B5CF32988 /* Pods_ReManga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B73FB497FA1DF9E2AB0C00AB /* Pods_ReManga.framework */; };
+		CD51C0000000000000000001 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CD51B0000000000000000001 /* Kingfisher */; };
+		CD51C0000000000000000002 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = CD51B0000000000000000002 /* MarqueeLabel */; };
+		CD51C0000000000000000003 /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = CD51B0000000000000000003 /* UIImageColors */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -500,6 +503,9 @@
 				7CB1AC8C2C55609C0038CD3C /* HelperCoders in Frameworks */,
 				B80B82CB90A4EA2B5CF32988 /* Pods_ReManga.framework in Frameworks */,
 				7C9BB4E82A34DB3800B8381D /* FluidGradient in Frameworks */,
+				CD51C0000000000000000003 /* UIImageColors in Frameworks */,
+				CD51C0000000000000000002 /* MarqueeLabel in Frameworks */,
+				CD51C0000000000000000001 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,6 +1489,9 @@
 			);
 			name = ReManga;
 			packageProductDependencies = (
+				CD51B0000000000000000003 /* UIImageColors */,
+				CD51B0000000000000000002 /* MarqueeLabel */,
+				CD51B0000000000000000001 /* Kingfisher */,
 				7C9BB4E72A34DB3800B8381D /* FluidGradient */,
 				7CB1AC8B2C55609C0038CD3C /* HelperCoders */,
 				7CB1AC8D2C55609C0038CD3C /* MetaCodable */,
@@ -1517,6 +1526,9 @@
 			);
 			mainGroup = 7C83350E29E064D200B0CD99;
 			packageReferences = (
+				CD51A0000000000000000003 /* XCRemoteSwiftPackageReference "UIImageColors" */,
+				CD51A0000000000000000002 /* XCRemoteSwiftPackageReference "MarqueeLabel" */,
+				CD51A0000000000000000001 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				7C9BB4E62A34DB3800B8381D /* XCRemoteSwiftPackageReference "FluidGradient" */,
 				7CB1AC8A2C55609C0038CD3C /* XCRemoteSwiftPackageReference "MetaCodable" */,
 			);
@@ -1618,9 +1630,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ReManga/Pods-ReManga-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1968,6 +1984,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Re:Manga";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2007,6 +2024,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReManga/Core/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Re:Manga";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2072,6 +2090,30 @@
 				kind = branch;
 			};
 		};
+		CD51A0000000000000000001 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.3.2;
+			};
+		};
+		CD51A0000000000000000002 /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cbpowell/MarqueeLabel.git";
+			requirement = {
+				kind = exactVersion;
+				version = 4.5.3;
+			};
+		};
+		CD51A0000000000000000003 /* XCRemoteSwiftPackageReference "UIImageColors" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jathu/UIImageColors.git";
+			requirement = {
+				kind = revision;
+				revision = f064be8ee0b03158e61135e6c384aee18d7a5414;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2089,6 +2131,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7CB1AC8A2C55609C0038CD3C /* XCRemoteSwiftPackageReference "MetaCodable" */;
 			productName = MetaCodable;
+		};
+		CD51B0000000000000000001 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD51A0000000000000000001 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		CD51B0000000000000000002 /* MarqueeLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD51A0000000000000000002 /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
+			productName = MarqueeLabel;
+		};
+		CD51B0000000000000000003 /* UIImageColors */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD51A0000000000000000003 /* XCRemoteSwiftPackageReference "UIImageColors" */;
+			productName = UIImageColors;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
