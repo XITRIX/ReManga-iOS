@@ -70,14 +70,15 @@ class MangaDetailsCommentViewModel: BaseViewModelWith<ApiMangaCommentModel> {
             {
                 var page = 1
                 repliesLoading.accept(true)
+                defer { repliesLoading.accept(false) }
                 // TODO: Rework to support pagination
-                while children.value.count < childrenCount.value {
+                while true {
                     let newComments: [MangaDetailsCommentViewModel] = try await api.fetchCommentsReplies(id: id, count: 20, page: page).map { .init(with: $0) }
                     newComments.forEach { $0.hierarchy.accept(hierarchy.value + 1) }
                     children.accept(children.value + newComments)
+                    if newComments.count < 20 { break }
                     page += 1
                 }
-                repliesLoading.accept(false)
             }
 
             isExpanded.accept(!isExpanded.value)

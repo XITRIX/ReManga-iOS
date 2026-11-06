@@ -84,7 +84,7 @@ extension ReMangaApi: ApiAuthProtocol {
 
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
-        let (result, _) = try await URLSession.shared.data(for: request)
+        let (result, _) = try await URLSession.shared.apiData(for: request)
         let model = try JSONDecoder().decode(ReMangaAuthResult.self, from: result)
 
         return await MainActor.run { model.content.accessToken }
@@ -109,7 +109,7 @@ extension ReMangaApi: ApiAuthProtocol {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
         do {
-            let (result, _) = try await URLSession.shared.data(for: request)
+            let (result, _) = try await URLSession.shared.apiData(for: request)
             let model = try JSONDecoder().decode(ReMangaAuthResult.self, from: result)
 
             setApiToken(model.content.accessToken)

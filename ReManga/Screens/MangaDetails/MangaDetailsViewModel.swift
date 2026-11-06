@@ -57,7 +57,6 @@ class MangaDetailsViewModel: BaseViewModelWith<MangaDetailsModel> {
     var isCommentsFetchingDone = false
     var commentsPage = 1
     var commentsIsLoading = false
-    var commentsCount: Int = 0
 
     var dir: String!
     var id: String!
@@ -298,7 +297,6 @@ private extension MangaDetailsViewModel {
             Task { [weak self] in
                 do {
                     guard let self else { return }
-                    commentsCount = (try? await api.fetchCommentsCount(id: self.id)) ?? 0
                     try await loadNextComments()
                 } catch {
                     print(error)
@@ -371,7 +369,7 @@ private extension MangaDetailsViewModel {
         commentsPage += 1
 
         let newValue = comments.value + commentsRes.map { .init(with: $0) }
-        isCommentsFetchingDone = newValue.count >= commentsCount
+        isCommentsFetchingDone = commentsRes.count < count
         comments.accept(newValue)
     }
 }

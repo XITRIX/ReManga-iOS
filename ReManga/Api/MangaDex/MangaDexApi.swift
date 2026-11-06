@@ -93,16 +93,8 @@ class MangaDexApi: ApiProtocol {
         []
     }
 
-    func fetchCommentsCount(id: String) async throws -> Int {
-        0
-    }
-
     func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
         []
-    }
-
-    func fetchChapterCommentsCount(id: String) async throws -> Int {
-        0
     }
 
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {

@@ -12,13 +12,13 @@
 import Foundation
 
 // MARK: - ReMangaCommentsResult
-struct ReMangaCommentsCountResult: Codable, Hashable {
+struct ReMangaCommentsCountResult: Decodable, Hashable {
     let msg: String?
     let content: Int
 }
 
 // MARK: - ReMangaCommentsResult
-struct ReMangaCommentsResult: Codable, Hashable {
+struct ReMangaCommentsResult: Decodable, Hashable {
     let msg: String?
     let content: [ReMangaCommentsResultContent]
     let props: ReMangaCommentsResultProps?
@@ -31,10 +31,11 @@ struct ReMangaCommentsResult: Codable, Hashable {
 // synthesized for types that have collections (such as arrays or dictionaries).
 
 // MARK: - ReMangaCommentsResultContent
-struct ReMangaCommentsResultContent: Codable, Hashable {
+struct ReMangaCommentsResultContent: Decodable, Hashable {
     let id: Int
     let text: String?
-    let countReplies, date, score: Int?
+    let countReplies, score: Int?
+    let date: ReMangaCommentDate?
     let isSpoiler, isPinned: Bool?
     let rated: Int?
     let rank: String? //ReMangaCommentsResultRank?
@@ -51,6 +52,29 @@ struct ReMangaCommentsResultContent: Codable, Hashable {
     }
 }
 
+enum ReMangaCommentDate: Decodable, Hashable {
+    case elapsedMilliseconds(Double)
+    case timestamp(String)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let milliseconds = try? container.decode(Double.self) {
+            self = .elapsedMilliseconds(milliseconds)
+        } else {
+            self = .timestamp(try container.decode(String.self))
+        }
+    }
+
+    var value: Date? {
+        switch self {
+        case .elapsedMilliseconds(let milliseconds):
+            return Date().addingTimeInterval(-milliseconds / 1000)
+        case .timestamp(let string):
+            return ReMangaDateParser.date(from: string)
+        }
+    }
+}
+
 enum ReMangaCommentsResultRank: String, Codable, Hashable {
     case ruby = "ruby"
     case transparent = "transparent"
@@ -63,7 +87,7 @@ enum ReMangaCommentsResultRank: String, Codable, Hashable {
 // synthesized for types that have collections (such as arrays or dictionaries).
 
 // MARK: - ReMangaCommentsResultUser
-struct ReMangaCommentsResultUser: Codable, Hashable {
+struct ReMangaCommentsResultUser: Decodable, Hashable {
     let id: Int
     let username: String
     let avatar: ReMangaCommentsResultAvatar?
@@ -77,7 +101,7 @@ struct ReMangaCommentsResultUser: Codable, Hashable {
 // synthesized for types that have collections (such as arrays or dictionaries).
 
 // MARK: - ReMangaCommentsResultAvatar
-struct ReMangaCommentsResultAvatar: Codable, Hashable {
+struct ReMangaCommentsResultAvatar: Decodable, Hashable {
     let high, mid, low: String?
 }
 
@@ -88,6 +112,6 @@ struct ReMangaCommentsResultAvatar: Codable, Hashable {
 // synthesized for types that have collections (such as arrays or dictionaries).
 
 // MARK: - ReMangaCommentsResultProps
-struct ReMangaCommentsResultProps: Codable, Hashable {
+struct ReMangaCommentsResultProps: Decodable, Hashable {
     let page: Int?
 }

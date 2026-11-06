@@ -14,6 +14,12 @@ class ReMangaApi: ApiProtocol {
     private let disposeBag = DisposeBag()
     static let imgPath: String = "https://remanga.org/"
     static let mediaPath: String = "https://remanga.org/media/"
+
+    static func imageURL(_ path: String?, base: String = imgPath) -> String {
+        guard let path, !path.isEmpty else { return "" }
+        return URL(string: path, relativeTo: URL(string: base))?.absoluteURL.absoluteString ?? ""
+    }
+
     var authToken = BehaviorRelay<String?>(value: nil)
 
     let profile = BehaviorRelay<ApiMangaUserModel?>(value: nil)
@@ -68,13 +74,14 @@ class ReMangaApi: ApiProtocol {
     }
 
     var defaultSortingType: ApiMangaIdModel {
-        .init(id: "rating", name: "По популярности")
+        .init(id: "score", name: "По популярности")
     }
 
     func fetchSortingTypes() async throws -> [ApiMangaIdModel] {
         [.init(id: "id", name: "По новизне"),
          .init(id: "chapter_date", name: "По последним обновлениям"),
-         .init(id: "rating", name: "По популярности"),
+         .init(id: "score", name: "По популярности"),
+         .init(id: "rating", name: "По рейтингу"),
          .init(id: "votes", name: "По лайкам"),
          .init(id: "views", name: "По просмотрам"),
          .init(id: "count_chapters", name: "По кол-ву глав"),
@@ -98,16 +105,16 @@ class ReMangaApi: ApiProtocol {
             }
         }
 
-        let url = "https://api.remanga.org/api/search/catalog/?count=30&ordering=-\(sorting.id)&page=\(page)\(tags)"
-        let model: ReMangaApiMangaCatalogResult = try await performRequest(makeRequest(url))
+        let url = "https://api.remanga.org/api/v2/search/catalog/?count=30&ordering=-\(sorting.id)&page=\(page)\(tags)"
+        let model: ReMangaPage<ReMangaApiMangaModel> = try await performRequest(makeRequest(url))
 
         var bookmarks: [ApiMangaBookmarkModel] = []
         do { bookmarks = try await fetchBookmarkTypes() }
         catch { print(error) }
 
-        let res = model.content.map { model in
+        let res = model.results.map { model in
             var item = ApiMangaModel(from: model)
-            item.bookmark = bookmarks.first(where: { model.bookmarkType == $0.name })
+            item.bookmark = bookmarks.first(where: { model.bookmarkType == $0.id || model.bookmarkType == $0.name })
             return item
         }
 
@@ -115,17 +122,18 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchSearch(query: String, page: Int, sorting: ApiMangaIdModel) async throws -> [ApiMangaModel] {
-        let _query = query.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        let url = "https://api.remanga.org/api/search/?query=\(_query)&count=30&field=titles&page=\(page)"
-        let model: ReMangaApiMangaCatalogResult = try await performRequest(makeRequest(url))
+        var url = URLComponents(string: "https://api.remanga.org/api/v2/search/")!
+        url.queryItems = [.init(name: "query", value: query), .init(name: "count", value: "30"),
+                          .init(name: "field", value: "titles"), .init(name: "page", value: String(page))]
+        let model: ReMangaPage<ReMangaApiMangaModel> = try await performRequest(makeRequest(url.string!))
 
         var bookmarks: [ApiMangaBookmarkModel] = []
         do { bookmarks = try await fetchBookmarkTypes() }
         catch { print(error) }
 
-        let res = model.content.map { model in
+        let res = model.results.map { model in
             var item = ApiMangaModel(from: model)
-            item.bookmark = bookmarks.first(where: { model.bookmarkType == $0.name })
+            item.bookmark = bookmarks.first(where: { model.bookmarkType == $0.id || model.bookmarkType == $0.name })
             return item
         }
 
@@ -133,14 +141,14 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchDetails(id: String) async throws -> ApiMangaModel {
-        let url = "https://api.remanga.org/api/titles/\(id)/"
-        let model: ReMangaApiDetailsResult = try await performRequest(makeRequest(url))
+        let url = "https://api.remanga.org/api/v2/titles/\(id)/"
+        let model: ReMangaApiDetailsResultContent = try await performRequest(makeRequest(url))
 
-        var res = ApiMangaModel(from: model.content)
+        var res = ApiMangaModel(from: model)
 
         do {
             let bookmarks = try await fetchBookmarkTypes()
-            if let bookmark = model.content.bookmarkType {
+            if let bookmark = model.bookmarkType {
                 let bookmark = String(bookmark)
                 res.bookmark = bookmarks.first(where: { $0.id == bookmark })
             }
@@ -152,62 +160,51 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel] {
-        let url = "https://api.remanga.org/api/titles/\(id)/similar/?count=10"
-        let model: ReMangaApiSimilarResultModel = try await performRequest(makeRequest(url))
-        return model.content.map { ApiMangaModel(from: $0) }
+        let url = "https://api.remanga.org/api/v2/titles/\(id)/similar/?count=10"
+        let data = try await performDataRequest(makeRequest(url))
+        // The site returns 204 when a title has no recommendations.
+        guard !data.isEmpty else { return [] }
+        let model = try JSONDecoder().decode(ReMangaPage<ReMangaApiSimilarResultModelContent>.self, from: data)
+        return model.results.map { ApiMangaModel(from: $0) }
     }
 
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> (models: [ApiMangaChapterModel], complete: Bool?) {
         var page = page
         var res: [ApiMangaChapterModel] = []
         while true {
-            let url = "https://api.remanga.org/api/titles/chapters/?branch_id=\(branch)&ordering=-index&user_data=1&count=\(count)&page=\(page)"
-            let model: ReMangaTitleChaptersResult = try await performRequest(makeRequest(url))
-            res.append(contentsOf: model.content.map { .init(from: $0) })
-            if model.content.count < 30 { break }
+            let url = "https://api.remanga.org/api/v2/titles/chapters/?branch_id=\(branch)&ordering=-index&user_data=1&count=\(count)&page=\(page)"
+            let model: ReMangaPage<ReMangaTitleChaptersResultContent> = try await performRequest(makeRequest(url))
+            res.append(contentsOf: model.results.map { .init(from: $0) })
+            if !model.hasNextPage { break }
             page += 1
         }
         return (res, true)
     }
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
-        let url = "https://api.remanga.org/api/titles/chapters/\(id)/"
-        let model: ReMangaChapterPagesResult = try await performRequest(makeRequest(url))
-        return model.content.pages.enumerated().flatMap { page in
+        let url = "https://api.remanga.org/api/v2/titles/chapters/\(id)/"
+        let model: ReMangaChapterPagesResultContent = try await performRequest(makeRequest(url))
+        return model.pages.enumerated().flatMap { page in
             page.element.map { ($0, page.offset) }
-        }.map { .init(from: $0.0, page: $0.1) }
+        }.map { .init(from: $0.0, page: $0.1, base: model.server?.link ?? Self.imgPath) }
     }
 
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
-        let url = "https://api.remanga.org/api/activity/comments/?title_id=\(id)&page=\(page)&ordering=-id&count=\(count)"
-        let model: ReMangaCommentsResult = try await performRequest(makeRequest(url))
-        return model.content.compactMap { .init(from: $0) }
-    }
-
-    func fetchCommentsCount(id: String) async throws -> Int {
-        let url = "https://api.remanga.org/api/activity/comments/count/?title_id=\(id)"
-        let model: ReMangaCommentsCountResult = try await performRequest(makeRequest(url))
-        return model.content
+        let url = "https://api.remanga.org/api/v2/activity/comments/?title_id=\(id)&page=\(page)&ordering=-id&count=\(count)"
+        let model: [ReMangaCommentsResultContent] = try await performRequest(makeRequest(url))
+        return model.compactMap { .init(from: $0) }
     }
 
     func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
-//        let url = "https://api.remanga.org/api/v2/activity/comments/?chapter_id=\(id)&chapter_page=-1&count=\(count)&ordering=-id&page=\(page)"
-//        let url = "https://api.remanga.org/api/v2/activity/comments/?chapter_id=\(id)&chapter_page=-1&count=\(count)&ordering=-id&page=\(page)"
-        let url = "https://api.remanga.org/api/activity/comments/?chapter_id=\(id)&chapter_page=-1&page=\(page)&ordering=-id&count=\(count)"
-        let model: ReMangaCommentsResult = try await performRequest(makeRequest(url))
-        return model.content.compactMap { .init(from: $0) }
-    }
-
-    func fetchChapterCommentsCount(id: String) async throws -> Int {
-        let url = "https://api.remanga.org/api/activity/comments/count/?chapter_id=\(id)"
-        let model: ReMangaCommentsCountResult = try await performRequest(makeRequest(url))
-        return model.content
+        let url = "https://api.remanga.org/api/v2/activity/comments/?chapter_id=\(id)&chapter_page=-1&page=\(page)&ordering=-id&count=\(count)"
+        let model: [ReMangaCommentsResultContent] = try await performRequest(makeRequest(url))
+        return model.compactMap { .init(from: $0) }
     }
 
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
-        let url = "https://api.remanga.org/api/activity/comments/?reply_to=\(id)&page=\(page)&ordering=-id&count=\(count)"
-        let model: ReMangaCommentsResult = try await performRequest(makeRequest(url))
-        return model.content.compactMap { .init(from: $0) }
+        let url = "https://api.remanga.org/api/v2/activity/comments/?reply_to=\(id)&page=\(page)&ordering=-id&count=\(count)"
+        let model: [ReMangaCommentsResultContent] = try await performRequest(makeRequest(url))
+        return model.compactMap { .init(from: $0) }
     }
 
     func markChapterRead(id: String) async throws {
@@ -225,12 +222,11 @@ class ReMangaApi: ApiProtocol {
         guard authToken.value != nil
         else { throw ApiMangaError.unauthorized }
 
-        guard value else { throw ApiMangaError.operationNotSupported(message: "Remove like is not supported by ReManga") }
-        let url = "https://api.remanga.org/api/activity/votes/"
+        let url = "https://api.remanga.org/api/v2/activity/vote/"
 
         var request = makeRequest(url)
         request.httpMethod = "POST"
-        request.httpBody = "{ \"type\": 0, \"chapter\": \(id) }".data(using: .utf8)
+        request.httpBody = "{ \"type\": \"chapters\", \"data\": { \"vote_type\": 0, \"chapter\": \(id) } }".data(using: .utf8)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
         try await performRequest(request)
@@ -241,7 +237,7 @@ class ReMangaApi: ApiProtocol {
 
         var request = makeRequest(url)
         request.httpMethod = "POST"
-        request.httpBody = "{ \"chapter\": \(id) }".data(using: .utf8)
+        request.httpBody = "{ \"chapter\": \(id), \"currency\": \"money\" }".data(using: .utf8)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
         let model: ReMangaChapterBuyResultModel = try await performRequest(request)
@@ -268,16 +264,17 @@ class ReMangaApi: ApiProtocol {
     }
 
     func fetchUserInfo() async throws -> ApiMangaUserModel {
-        let url = "https://api.remanga.org/api/users/current/"
-        let model: ReMangaUserResult = try await performRequest(makeRequest(url))
-        return .init(from: model.content)
+        let url = "https://api.remanga.org/api/v2/users/current/"
+        let model: ReMangaUserResultContent = try await performRequest(makeRequest(url))
+        return .init(from: model)
     }
 
     func fetchBookmarkTypes() async throws -> [ApiMangaBookmarkModel] {
+        guard authToken.value != nil else { return [] }
         let user = try await fetchUserInfo()
-        let url = "https://api.remanga.org/api/users/\(user.id)/user_bookmarks/"
-        let model: ReMangaBookmarkTypesResult = try await performRequest(makeRequest(url))
-        return model.content.compactMap { .init(from: $0) }
+        let url = "https://api.remanga.org/api/v2/users/\(user.id)/user_bookmarks/"
+        let model: ReMangaPage<ReMangaBookmarkTypesResultContent> = try await performRequest(makeRequest(url))
+        return model.results.map { .init(from: $0) }
     }
 
     func setBookmark(title: String, bookmark: ApiMangaBookmarkModel?) async throws {
@@ -290,7 +287,7 @@ class ReMangaApi: ApiProtocol {
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         } else {
             request.httpMethod = "DELETE"
-            request.httpBody = "{ \"title\": \(title) }".data(using: .utf8)
+            request.httpBody = try JSONEncoder().encode(["title": title])
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
 
@@ -308,11 +305,11 @@ class ReMangaApi: ApiProtocol {
 
         var content: [ReMangaBookmarksResultContent] = []
         repeat {
-            let url = "https://api.remanga.org/api/users/\(user.id)/bookmarks/?ordering=-chapter_date&type=0&count=\(count)&page=\(page)"
-            let model: ReMangaBookmarksResult = try await performRequest(makeRequest(url))
+            let url = "https://api.remanga.org/api/v2/users/\(user.id)/bookmarks/?ordering=-chapter_date&count=\(count)&page=\(page)"
+            let model: ReMangaPage<ReMangaBookmarksResultContent> = try await performRequest(makeRequest(url))
 
-            content += model.content
-            if model.content.count < count { break }
+            content += model.results
+            if !model.hasNextPage { break }
             page += 1
         } while(true)
 

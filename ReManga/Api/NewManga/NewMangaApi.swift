@@ -126,7 +126,7 @@ class NewMangaApi: ApiProtocol {
         request.httpMethod = "POST"
         request.httpBody = try JSONEncoder().encode(body)
 
-        let (result, _) = try await urlSession.data(for: request)
+        let (result, _) = try await urlSession.apiData(for: request)
         let resModel = try decoder.decode(NewMangaCatalogResult.self, from: result)
 
         let mangas = resModel.result.hits?.compactMap { $0.document } ?? []
@@ -136,7 +136,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchDetails(id: String) async throws -> ApiMangaModel {
         let url = "https://api.newmanga.org/v2/projects/\(id)"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaDetailsResult.self, from: result)
 
         var res = await MainActor.run { ApiMangaModel(from: model) }
@@ -155,7 +155,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchSimilarTitles(id: String) async throws -> [ApiMangaModel] {
         let url = "https://api.newmanga.org/v2/projects/\(id)/similar"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaApiSimilarResultModel.self, from: result)
 
         return await MainActor.run { model.map { .init(from: $0) } }
@@ -163,7 +163,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> (models: [ApiMangaChapterModel], complete: Bool?) {
         let url = "https://api.newmanga.org/v3/branches/\(branch)/chapters/all"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode([NewMangaTitleChapterResultItem].self, from: result)
 
         return (model.map { .init(from: $0) }.reversed(), nil)
@@ -171,7 +171,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel] {
         let url = "https://api.newmanga.org/v3/chapters/\(id)/pages"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaChapterPagesResult.self, from: result)
 
         return await MainActor.run { model.getPages(chapter: id) }
@@ -179,26 +179,18 @@ class NewMangaApi: ApiProtocol {
 
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
         let url = "https://api.newmanga.org/v2/projects/\(id)/comments?sort_by=new"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaTitleCommentsResult.self, from: result)
 
         return await MainActor.run { model.compactMap { .init(from: $0) } }
-    }
-
-    func fetchCommentsCount(id: String) async throws -> Int {
-        throw ApiMangaError.operationNotSupported(message: "No need to fetch comments count on NewManga backend")
     }
 
     func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
         let url = "https://api.newmanga.org/v2/chapters/\(id)/comments?sort_by=new"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaTitleCommentsResult.self, from: result)
 
         return await MainActor.run { model.compactMap { .init(from: $0) } }
-    }
-
-    func fetchChapterCommentsCount(id: String) async throws -> Int {
-        try await fetchChapterComments(id: id, count: -1, page: -1).count
     }
 
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel] {
@@ -210,7 +202,7 @@ class NewMangaApi: ApiProtocol {
         var request = makeRequest(url)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        _ = try await urlSession.data(for: request)
+        _ = try await urlSession.apiData(for: request)
     }
 
     func setChapterLike(id: String, _ value: Bool) async throws {
@@ -224,7 +216,7 @@ class NewMangaApi: ApiProtocol {
         request.httpBody = "{ \"value\": \(value) }".data(using: .utf8)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
-        let (result, _) = try await urlSession.data(for: request)
+        let (result, _) = try await urlSession.apiData(for: request)
         _ = try JSONDecoder().decode(NewMangaLikeResultModel.self, from: result)
     }
 
@@ -233,7 +225,7 @@ class NewMangaApi: ApiProtocol {
         var request = makeRequest(url)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        _ = try await urlSession.data(for: request)
+        _ = try await urlSession.apiData(for: request)
         return true
     }
 
@@ -248,7 +240,7 @@ class NewMangaApi: ApiProtocol {
         request.httpBody = "{ \"value\": \(String(describing: value?.toString ?? "null")) }".data(using: .utf8)
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 
-        let (result, _) = try await urlSession.data(for: request)
+        let (result, _) = try await urlSession.apiData(for: request)
         let model = try JSONDecoder().decode(NewMangaMarkCommentResultModel.self, from: result)
 
         return await MainActor.run { model.likes - model.dislikes }
@@ -256,7 +248,7 @@ class NewMangaApi: ApiProtocol {
 
     func fetchUserInfo() async throws -> ApiMangaUserModel {
         let url = "https://api.newmanga.org/v2/user"
-        let (result, response) = try await urlSession.data(for: makeRequest(url))
+        let (result, response) = try await urlSession.apiData(for: makeRequest(url))
         if (response as? HTTPURLResponse)?.statusCode == 401 {
             authToken.accept(nil)
             throw ApiMangaError.unauthorized
@@ -270,7 +262,7 @@ class NewMangaApi: ApiProtocol {
         let user = try await fetchUserInfo()
 
         let url = "https://api.newmanga.org/v2/users/\(user.id)/bookmarks/types"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaBookmarkTypesResult.self, from: result)
 
         let apiResults: [ApiMangaBookmarkModel] = model.compactMap { .init(id: $0.type, name: $0.type) }
@@ -293,12 +285,12 @@ class NewMangaApi: ApiProtocol {
             request.httpMethod = "DELETE"
         }
 
-        _ = try await urlSession.data(for: request)
+        _ = try await urlSession.apiData(for: request)
     }
 
     func fetchBookmarks() async throws -> [ApiMangaModel] {
         let url = "https://api.newmanga.org/v2/user/bookmarks"
-        let (result, _) = try await urlSession.data(for: makeRequest(url))
+        let (result, _) = try await urlSession.apiData(for: makeRequest(url))
         let model = try JSONDecoder().decode(NewMangaBookmarksResult.self, from: result)
 
         return model.map { .init(from: $0) }

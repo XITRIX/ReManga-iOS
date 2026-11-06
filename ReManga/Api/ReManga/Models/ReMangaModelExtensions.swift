@@ -13,14 +13,14 @@ extension ApiMangaModel {
         id = model.dir
         title = model.enName
         rusTitle = model.rusName
-        img = ReMangaApi.imgPath + model.img.mid
+        img = ReMangaApi.imageURL(model.img.mid ?? model.img.high ?? model.img.low)
     }
 
     init(from model: ReMangaApiDetailsResultContent) {
-        self.id = model.id?.text ?? ""
+        self.id = model.id.text
         title = model.enName ?? ""
         rusTitle = model.rusName ?? ""
-        img = ReMangaApi.imgPath + (model.img?.high ?? "")
+        img = ReMangaApi.imageURL(model.img?.high ?? model.img?.mid ?? model.img?.low)
 
         description = model.description?.htmlToAttributedString()
         subtitle = "\([model.enName, model.anotherName].compactMap { $0 }.joined(separator: " / "))\n\([model.issueYear?.text, model.type?.name, model.status?.name].compactMap { $0 }.joined(separator: " ⸱ "))"
@@ -43,7 +43,7 @@ extension ApiMangaModel {
         id = model.title.dir
         title = model.title.enName ?? ""
         rusTitle = model.title.rusName
-        img = ReMangaApi.imgPath + model.title.img.mid
+        img = ReMangaApi.imageURL(model.title.img.mid ?? model.title.img.high ?? model.title.img.low)
 
         if model.viewState == 2 {
             newChapterType = .free
@@ -56,13 +56,13 @@ extension ApiMangaModel {
         id = model.title.dir
         title = model.title.enName
         rusTitle = model.title.rusName
-        img = ReMangaApi.imgPath + model.title.img.mid
+        img = ReMangaApi.imageURL(model.title.img.mid ?? model.title.img.high ?? model.title.img.low)
     }
 }
 
 extension ApiMangaBranchModel {
     init(from model: ReMangaApiDetailsResultBranch) {
-        id = String(model.id ?? 0)
+        id = String(model.id)
         count = model.countChapters ?? 0
         translators = model.publishers?.map { .init(from: $0) } ?? [] //: [ApiMangaTranslatorModel]
     }
@@ -70,9 +70,9 @@ extension ApiMangaBranchModel {
 
 extension ApiMangaTranslatorModel {
     init(from model: ReMangaApiDetailsResultPublisher) {
-        imagePath = ReMangaApi.mediaPath + (model.cover?.high ?? "")
+        imagePath = ReMangaApi.imageURL(model.cover?.high ?? model.cover?.mid, base: ReMangaApi.mediaPath)
         title = model.name ?? ""
-        type = model.type ?? ""
+        type = model.type?.name ?? ""
     }
 }
 
@@ -90,14 +90,7 @@ extension ApiMangaChapterModel {
         isAvailable = !(model.isPaid ?? false) || (model.isBought ?? false)
         price = model.isPaid == false ? nil : model.price
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-        if let d = dateFormatter.date(from: model.uploadDate) {
-            date = d
-        } else {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            date = dateFormatter.date(from: model.uploadDate) ?? .distantPast
-        }
+        date = ReMangaDateParser.date(from: model.uploadDate) ?? .distantPast
     }
 
     init(from model: ReMangaApiDetailsResultContinueReading) {
@@ -114,10 +107,10 @@ extension ApiMangaChapterModel {
 }
 
 extension ApiMangaChapterPageModel {
-    init(from model: ReMangaChapterPagesResultPage, page: Int) {
+    init(from model: ReMangaChapterPagesResultPage, page: Int, base: String = ReMangaApi.imgPath) {
         size = CGSize(width: model.width, height: model.height)
         self.page = page
-        path = model.link
+        path = ReMangaApi.imageURL(model.link, base: base)
     }
 }
 
@@ -139,13 +132,12 @@ extension ApiMangaCommentModel {
             isLiked = nil
         }
 
-        guard let date = model.date
+        guard let date = model.date?.value
         else { return nil }
 
-        self.date = Date() - TimeInterval(Double(date) / 1000)
+        self.date = date
 
-        let imageRoot = "https://remanga.org"
-        imagePath = model.user.avatar?.low.map { imageRoot + $0 }
+        imagePath = ReMangaApi.imageURL(model.user.avatar?.mid ?? model.user.avatar?.high ?? model.user.avatar?.low)
 
         guard let text = model.text?.removeUTF8Encodings()
         else { return nil }
@@ -169,7 +161,7 @@ extension ApiMangaUserModel {
         username = model.username
 
         if let avatar = model.avatar {
-            image = ReMangaApi.imgPath + avatar
+            image = ReMangaApi.imageURL(avatar.mid ?? avatar.high ?? avatar.low)
         }
 
         if let sbalance = model.balance,

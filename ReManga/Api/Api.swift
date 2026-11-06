@@ -41,9 +41,7 @@ protocol ApiProtocol: AnyObject, ApiAuthProtocol {
     func fetchTitleChapters(branch: String, count: Int, page: Int) async throws -> (models: [ApiMangaChapterModel], complete: Bool?)
     func fetchChapter(id: String) async throws -> [ApiMangaChapterPageModel]
     func fetchComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
-    func fetchCommentsCount(id: String) async throws -> Int
     func fetchChapterComments(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
-    func fetchChapterCommentsCount(id: String) async throws -> Int
     func fetchCommentsReplies(id: String, count: Int, page: Int) async throws -> [ApiMangaCommentModel]
     func markChapterRead(id: String) async throws
     func setChapterLike(id: String, _ value: Bool) async throws
@@ -96,24 +94,57 @@ extension ApiProtocol {
 }
 
 extension ApiProtocol {
-    func performRequest<T: Codable>(_ request: URLRequest) async throws -> T {
-        let (result, response) = try await urlSession.data(for: request)
+    func performDataRequest(_ request: URLRequest) async throws -> Data {
+        let (result, response) = try await urlSession.apiData(for: request)
 
         if (response as? HTTPURLResponse)?.statusCode == 401 {
             deauth()
             throw ApiMangaError.unauthorized
         }
 
-        return try JSONDecoder().decode(T.self, from: result)
+        guard let response = response as? HTTPURLResponse,
+              (200..<300).contains(response.statusCode)
+        else { throw URLError(.badServerResponse) }
+
+        return result
+    }
+
+    func performRequest<T: Decodable>(_ request: URLRequest) async throws -> T {
+        let result = try await performDataRequest(request)
+        do {
+            return try JSONDecoder().decode(T.self, from: result)
+        } catch {
+            #if DEBUG
+            print("[API] Decoding failed: \(request.httpMethod ?? "GET") \(request.url?.absoluteString ?? "unknown URL") — \(error)")
+            #endif
+            throw error
+        }
     }
 
     func performRequest(_ request: URLRequest) async throws {
-        let (_, response) = try await urlSession.data(for: request)
-
-        if (response as? HTTPURLResponse)?.statusCode == 401 {
-            deauth()
-            throw ApiMangaError.unauthorized
-        }
+        _ = try await performDataRequest(request)
     }
 
+}
+
+extension URLSession {
+    func apiData(for request: URLRequest) async throws -> (Data, URLResponse) {
+        #if DEBUG
+        let endpoint = "\(request.httpMethod ?? "GET") \(request.url?.absoluteString ?? "unknown URL")"
+        print("[API] Request: \(endpoint)")
+        #endif
+
+        do {
+            let (data, response) = try await data(for: request)
+            #if DEBUG
+            print("[API] Response: \((response as? HTTPURLResponse)?.statusCode ?? 0) \(endpoint) (\(data.count) bytes)")
+            #endif
+            return (data, response)
+        } catch {
+            #if DEBUG
+            print("[API] Failed: \(endpoint) — \(error)")
+            #endif
+            throw error
+        }
+    }
 }

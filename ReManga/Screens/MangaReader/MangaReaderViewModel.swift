@@ -107,7 +107,6 @@ class MangaReaderViewModel: BaseViewModelWith<MangaReaderModel>, MangaReaderView
                 currentChapterTasks.removeAll()
 
                 loadPages(for: current)
-                loadCommentsCount(for: current)
                 loadComments(for: current)
             }
             mangaNextLoaderVM.nextAvailable <- nextActionAvailable
@@ -183,22 +182,19 @@ private extension MangaReaderViewModel {
         !chapters.value.isEmpty && currentChapter.value > 0
     }
 
-    func loadCommentsCount(for model: MangaDetailsChapterViewModel) {
-        commentsCount.accept(0)
-        let task = Task { try await commentsCount.accept(api.fetchChapterCommentsCount(id: model.id.value)) }
-        currentChapterTasks.append(task)
-    }
-
     func loadComments(for model: MangaDetailsChapterViewModel) {
+        commentsCount.accept(0)
         commentsVM.accept([])
         let task = Task {
             var i = 1
             while true {
-                let items = try await api.fetchChapterComments(id: model.id.value, count: 20, page: i)
-                    .map { MangaDetailsCommentViewModel(with: $0) }
+                let models = try await api.fetchChapterComments(id: model.id.value, count: 20, page: i)
+                try Task.checkCancellation()
+                let items = models.map { MangaDetailsCommentViewModel(with: $0) }
 
                 commentsVM.accept(commentsVM.value + items)
-                if items.count != 20 { break }
+                commentsCount.accept(commentsCount.value + models.reduce(0) { $0 + 1 + $1.childrenCount })
+                if items.count < 20 { break }
                 i += 1
             }
         }

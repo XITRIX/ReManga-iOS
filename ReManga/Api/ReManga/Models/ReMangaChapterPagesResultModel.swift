@@ -40,6 +40,7 @@ struct ReMangaChapterPagesResultContent: Codable, Hashable {
     let publishers: [ReMangaChapterPagesResultPublisher]?
 //    let delayPubDate: JSONNull?
     let isPublished: Bool?
+    let server: ReMangaChapterServer?
     let pages: [[ReMangaChapterPagesResultPage]]
 
     enum CodingKeys: String, CodingKey {
@@ -54,8 +55,12 @@ struct ReMangaChapterPagesResultContent: Codable, Hashable {
         case index, publishers
 //        case delayPubDate = "delay_pub_date"
         case isPublished = "is_published"
-        case pages
+        case server, pages
     }
+}
+
+struct ReMangaChapterServer: Codable, Hashable {
+    let link: String?
 }
 
 //
